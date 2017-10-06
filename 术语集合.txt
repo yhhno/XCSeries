@@ -4,3 +4,7 @@
 4.standalone   mode  独立模式
 5.verbose    冗余的e
 6.snapshotting  快照
+
+
+
+工具 wireshark 网络捕获器.

@@ -1,0 +1,96 @@
+﻿一：驱动 
+
+
+通过具体的语言来链接redis。。。 【才能真正的使用到项目中】
+
+
+JAVA， C#
+
+
+1. C# 
+
+《1》 ServiceStack.Redis   【收费】
+
+《2》 StackExchange.Redis  stackoverflow提供，也一直在用。。。
+
+
+2. 下载
+ 《1》PM> Install-Package StackExchange.Redis  nuget。。。 包管理软件。。。 maven。。。
+
+
+Documentation
+
+Basic Usage - getting started and basic usage
+Configuration - options available when connecting to redis
+Pipelines and Multiplexers - what is a multiplexer?
+Keys, Values and Channels - discusses the data-types used on the API
+Transactions - how atomic transactions work in redis
+Events - the events available for logging / information purposes
+Pub/Sub Message Order - advice on sequential and concurrent processing
+Where are KEYS / SCAN / FLUSH*? - how to use server-based commands
+Profiling - profiling interfaces, as well as how to profile in an async world
+Scripting - running Lua scripts with convenient named parameter replacement
+
+
+1. ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost"); 创建链接
+
+// ^^^ store and re-use this!!!   【长连接】 tcp  tcp有三次握手,频繁开关,会影响性能?,so所以长连接.
+
+2. IDatabase db = redis.GetDatabase();   获取一个db。。。 config => 16  默认是0
+
+        static void Main(string[] args)
+        {
+            //创建链接
+            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("192.168.23.151:6379");
+
+            //获取db
+            var database = redis.GetDatabase();
+
+            database.StringSet("username", "jack");
+
+            var str = database.StringGet("username");
+        }
+
+真正的落地。。。 StringGet，StringGet 做一个类似memcache的一个操作。。。
+
+
+JAVA：   maven工具包  => nuget  一个性质。。。
+
+
+Jedis	Java一般使用这个工具包。。。
+
+
+下载目录：http://search.maven.org/#search%7Cga%7C1%7Cjedis
+
+https://repo1.maven.org/maven2/redis/clients/jedis/2.9.0/jedis-2.9.0.jar
+
+Jedis jedis = new Jedis("localhost");
+jedis.set("foo", "bar");
+String value = jedis.get("foo");
+
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Jedis jedis = new Jedis("192.168.23.151",6379);
+		
+		jedis.set("foo", "bar");
+		String value = jedis.get("foo");
+	
+		System.out.println(value);
+	}
+				
+
+
+
+
+
+
+
+1.了解常见的驱动.
+2.驱动:通过具体的语言来连接redis
+3.什么是tcp的长连接? redis驱动连接 有什么性能隐患呢?
+4.sortedset: 跳跃表?
+5.要能结合官方文档来进行基本的操作? 不能懵逼?
+
+
+
