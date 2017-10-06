@@ -1,0 +1,4 @@
+1.in-memory 基于内存
+2.build-in  内建
+3.specified  被指定。
+4.standalone   mode  独立模式

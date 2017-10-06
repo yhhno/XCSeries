@@ -1,0 +1,53 @@
+一：安装
+
+centos7  redis cluster 的模式。。。 【千人千面】  lua脚本 很重要，要掌握
+
+1. 步骤
+
+$ wget http://download.redis.io/releases/redis-3.2.6.tar.gz
+$ tar xzf redis-3.2.6.tar.gz
+$ cd redis-3.2.6
+$ make           =》 （编译）
+
+
+$ src/redis-server =》服务端
+
+redis-cli  => 交互的客户端
+
+
+[root@localhost sbin]# ./redis-server
+3255:C 21 Dec 05:27:13.470 # Warning: no config file specified, using the default config. In order to specify a config file use ./redis-server /path/to/redis.conf
+
+
+在实际环境中，我们喜欢做一个环境变量的配置。。。
+
+使用环境变量 来 简化输入。。。
+
+
+$ src/redis-cli
+redis> set foo bar
+OK
+redis> get foo
+"bar"
+
+二：windows平台上安装  【不是官方建议的】
+
+目前github上是3.2.1 所以肯定是滞后的。。。  https://github.com/MSOpenTech/redis/releases
+
+
+
+
+
+
+1.了解了redis的特性后,就要使用了,redis是个大字典
+2.实际如何运用？那些场景？那些特定的需求可以使用对应的特性来解决？
+3.文档要看官网？ 安装也要看官网的？
+4.对比阿黄，卧槽， 自己以前的做法烂透了，毫无技巧， 
+      1.学习随便找个文章，照着干，
+	  2。只要运行起来就好了，根本没有仔细，有逻辑的去使用。
+	  3.处于蒙蔽的状态，没目的，没头脑，没逻辑。
+5.官方推荐启动使用配置文件？ 为何之前没有注意到？
+6.啥是独立模式? standalone mode?
+7.目录中的dump文件,就是redis持久化的一个文件.
+8.环境变量的配置?
+9.官方不推荐windows环境使用,但微软官方维护了一个版本.? 如何维护一个平台的版本呢? 需要什么水平?

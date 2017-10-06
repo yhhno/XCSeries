@@ -7,6 +7,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02Redis系列", "02Redis系
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01.redis整体概况介绍以及在出现之前所面临的一些生产场景的问题困惑", "02Redis系列\01.redis整体概况介绍以及在出现之前所面临的一些生产场景的问题困惑\01.redis整体概况介绍以及在出现之前所面临的一些生产场景的问题困惑.csproj", "{E03F2A00-3E17-401E-87CD-F352BD4D418D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.快速搭建之如何使用redis在centos和windows环境下配置和初步使用", "02Redis系列\02.快速搭建之如何使用redis在centos和windows环境下配置和初步使用\02.快速搭建之如何使用redis在centos和windows环境下配置和初步使用.csproj", "{74EE4430-268F-46B7-9FD0-185774CBE255}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1627FBDB-D8C2-4D07-8187-824F47A88A5A}"
+	ProjectSection(SolutionItems) = preProject
+		术语集合.txt = 术语集合.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,12 +24,17 @@ Global
 		{E03F2A00-3E17-401E-87CD-F352BD4D418D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E03F2A00-3E17-401E-87CD-F352BD4D418D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E03F2A00-3E17-401E-87CD-F352BD4D418D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74EE4430-268F-46B7-9FD0-185774CBE255}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74EE4430-268F-46B7-9FD0-185774CBE255}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74EE4430-268F-46B7-9FD0-185774CBE255}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74EE4430-268F-46B7-9FD0-185774CBE255}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E03F2A00-3E17-401E-87CD-F352BD4D418D} = {813495A3-956D-46E1-B3F0-27B061B5527A}
+		{74EE4430-268F-46B7-9FD0-185774CBE255} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
