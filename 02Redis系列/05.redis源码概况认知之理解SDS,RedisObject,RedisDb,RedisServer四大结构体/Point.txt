@@ -1,0 +1,161 @@
+Redis源代码的一个整体概况
+
+
+String，Set，Hash，List，SortSet。。。。
+
+
+
+1. RedisServer  struct
+
+2. RedisDb   struct   标识一个db，，， config 16db  有16个 RedisDb。
+
+3. RedisObject 也就是对象化的数据结构表示。。。   struct
+
+4. SDS： char[]一个包装类，，， 【存放我们的字符】 struct
+
+
+RedisServer
+
+  redisdb[]  -> redis[0] -> dict -> key:   redisObject   就看是不是没有思考,就接受了.  逻辑思考.
+				                     value: redisObject  -> ptr -> sds -> char[] -> store content
+
+
+set name jack
+
+name => char[]
+
+jack => char[]
+
+
+Redis本身就是一个大字典。
+
+
+首先从main函数入手：  一路逻辑链串起来
+
+int main(int argc, char **argv) {}
+
+
+    initServer();  
+
+    listenToPort(server.port,server.ipfd,&server.ipfd_count) == C_ERR) [监控tcp端口 6379]
+
+
+    /* Create the Redis databases, and initialize other internal state. */
+    for (j = 0; j < server.dbnum; j++) {
+        server.db[j].dict = dictCreate(&dbDictType,NULL);
+        server.db[j].expires = dictCreate(&keyptrDictType,NULL);
+        server.db[j].blocking_keys = dictCreate(&keylistDictType,NULL);
+        server.db[j].ready_keys = dictCreate(&setDictType,NULL);
+        server.db[j].watched_keys = dictCreate(&keylistDictType,NULL);
+        server.db[j].eviction_pool = evictionPoolAlloc();
+        server.db[j].id = j;
+        server.db[j].avg_ttl = 0;
+    }
+
+
+
+/* Redis database representation. There are multiple databases identified
+ * by integers from 0 (the default database) up to the max configured
+ * database. The database number is the 'id' field in the structure. */
+typedef struct redisDb {
+    dict *dict;                 /* The keyspace for this DB */
+    dict *expires;              /* Timeout of keys with a timeout set */
+    dict *blocking_keys;        /* Keys with clients waiting for data (BLPOP) */
+    dict *ready_keys;           /* Blocked keys that received a PUSH */
+    dict *watched_keys;         /* WATCHED keys for MULTI/EXEC CAS */
+    struct evictionPoolEntry *eviction_pool;    /* Eviction pool of keys */
+    int id;                     /* Database ID */
+    long long avg_ttl;          /* Average TTL, just for stats */
+} redisDb;
+
+
+/* A redis object, that is a type able to hold a string / list / set */
+
+/* The actual Redis Object */
+#define LRU_BITS 24
+#define LRU_CLOCK_MAX ((1<<LRU_BITS)-1) /* Max value of obj->lru */
+#define LRU_CLOCK_RESOLUTION 1000 /* LRU clock resolution in ms */
+typedef struct redisObject {
+    unsigned type:4;           => 数据类型   [hash,set,string]
+    unsigned encoding:4;       => 底层的表示结构【比如 hash结构 就有 压缩式和 非压缩式】
+    unsigned lru:LRU_BITS; /* lru time (relative to server.lruclock) */
+    int refcount;
+    void *ptr;
+} robj;
+如何用char[] 来表示各种类型的的数据(int,string,数组)
+/* Object types */
+#define OBJ_STRING 0
+#define OBJ_LIST 1
+#define OBJ_SET 2
+#define OBJ_ZSET 3
+#define OBJ_HASH 4
+
+/* Objects encoding. Some kind of objects like Strings and Hashes can be
+ * internally represented in multiple ways. The 'encoding' field of the object
+ * is set to one of this fields for this object. */
+#define OBJ_ENCODING_RAW 0     /* Raw representation */
+#define OBJ_ENCODING_INT 1     /* Encoded as integer */
+#define OBJ_ENCODING_HT 2      /* Encoded as hash table */
+#define OBJ_ENCODING_ZIPMAP 3  /* Encoded as zipmap */
+#define OBJ_ENCODING_LINKEDLIST 4 /* Encoded as regular linked list */
+#define OBJ_ENCODING_ZIPLIST 5 /* Encoded as ziplist */
+#define OBJ_ENCODING_INTSET 6  /* Encoded as intset */
+#define OBJ_ENCODING_SKIPLIST 7  /* Encoded as skiplist */
+#define OBJ_ENCODING_EMBSTR 8  /* Embedded sds string encoding */
+#define OBJ_ENCODING_QUICKLIST 9 /* Encoded as linked list of ziplists */
+
+
+typedef char *sds;
+
+/* Note: sdshdr5 is never used, we just access the flags byte directly.
+ * However is here to document the layout of type 5 SDS strings. */
+struct __attribute__ ((__packed__)) sdshdr5 {
+    unsigned char flags; /* 3 lsb of type, and 5 msb of string length */
+    char buf[];
+};
+struct __attribute__ ((__packed__)) sdshdr8 {
+    uint8_t len; /* used */
+    uint8_t alloc; /* excluding the header and null terminator */
+    unsigned char flags; /* 3 lsb of type, 5 unused bits */
+    char buf[];
+};
+struct __attribute__ ((__packed__)) sdshdr16 {
+    uint16_t len; /* used */
+    uint16_t alloc; /* excluding the header and null terminator */
+    unsigned char flags; /* 3 lsb of type, 5 unused bits */
+    char buf[];
+};
+struct __attribute__ ((__packed__)) sdshdr32 {
+    uint32_t len; /* used */
+    uint32_t alloc; /* excluding the header and null terminator */
+    unsigned char flags; /* 3 lsb of type, 5 unused bits */
+    char buf[];
+};
+struct __attribute__ ((__packed__)) sdshdr64 {
+    uint64_t len; /* used */
+    uint64_t alloc; /* excluding the header and null terminator */
+    unsigned char flags; /* 3 lsb of type, 5 unused bits */
+    char buf[];
+};
+
+因为在C语言中都是用char[]来存放数据，，在Redis中为了性能，封装了一下char[]  
+
+高级语言中用到的String。。。
+
+
+
+
+
+
+
+
+1.既然已经了解基本的使用. 现在我们结合源码来深入地学习redis的特性?各种数据结构?
+2.借着学习redis的数据结构, 来复习数据结构? 了解下高手是如何理解数据结构的?
+3.首先对redis源代码 来个整体的,大局的认识?
+4.画个图,好理解? 技巧哦 ,  画图加文字推导,逻辑链串起来了. 
+5.为什么源码中,有那么多的struct.
+6.别人学习是怎样学习的? 对比自己是如何学习的? 赶快改正哦
+7.别人知道,底层语言的 大概代码 都表示含义?  他是怎么做到的呢?  如何无缝融入自己呢?
+8.他怎么能看着一行行代码,都能大概知道什么用途?  要有基础的C语言知识? 加上一定的设计能力? 有个模板,就好理解,其他类似的东西?
+
+
