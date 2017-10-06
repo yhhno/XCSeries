@@ -2,3 +2,5 @@
 2.build-in  内建
 3.specified  被指定。
 4.standalone   mode  独立模式
+5.verbose    冗余的e
+6.snapshotting  快照

@@ -1,0 +1,78 @@
+一：protect-mode  redis 3.2 加入的。。。加强网络管理,解决端口暴露隐患,  flushall 【清空所有数据】   没有一点安全保证。。。
+
+    protect-mode： yes 【只能回路地址 127.0.0.1 本地访问】 默认开启的。
+
+    生产情况下，我们一般都是吧redis放到可信环境中，有两个好处。
+
+1. 安全性没有问题。
+
+2. 访问速度加快。
+
+   telnet访问一下。。。。 protect-mode: yes,no
+
+
+# When protected mode is on and if:
+#
+# 1) The server is not binding explicitly to a set of addresses using the
+#    "bind" directive.
+# 2) No password is configured.
+
+
+我们生产环境下的配置
+
+#bind
+protected-mode: no
+
+
+二：port 6379  redis端口
+
+
+三：dir ./   
+
+根目录配置： 配置rdb和logfile的存放位置。
+
+logfile "mylog.txt"
+
+loglevel notice
+
+
+# Specify the server verbosity level.
+# This can be one of:
+# debug (a lot of information, useful for development/testing)
+# verbose (many rarely useful info, but not a mess like the debug level)
+# notice (moderately verbose, what you want in production probably)
+# warning (only very important / critical messages are logged)
+loglevel notice
+
+快照的触发模式：   如何实现的呢?
+
+save 900 1
+save 300 10
+save 60 10000
+
+
+四：有的时候，我们的redis instance 必须要放到能够被外网所访问。。。
+
+    这时候，我们可以通过修改一些系统的命令，简单来说【就是改名字】。。。
+
+    为了保护我们。
+    
+# It is possible to change the name of dangerous commands in a shared
+# environment. For instance the CONFIG command may be renamed into something
+# hard to guess so that it will still be available for internal-use tools
+# but not available for general clients.
+
+
+
+
+
+
+讲课前,先列个目录.
+1.深刻理解redis新版本新增特性, 解决了什么样的问题?
+2.每个配置型都代表了什么? 默认情况是怎样? 如何修改?
+3.什么是可信环境? redis 一般是内网访问的,外网是访问不了的,在可信环境中,外网的实例是不可能访问到redis的
+4.出现了问题? 能够根据错误信息,分析到大概的原因?
+5.bgsave
+6.常见的错误,要总结出常见的应对对策? 归纳处理,总结.  不能每次都临时去分析,,增加无谓的劳动.
+7.什么是工作目录?
+8.一定要放在外网中,有些命令很危险,需要注释,不能被外网的实例使用,此时就用到rename命令,
