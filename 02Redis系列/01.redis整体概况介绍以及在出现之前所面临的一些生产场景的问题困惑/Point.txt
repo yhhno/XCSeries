@@ -1,0 +1,76 @@
+﻿一：redis  v3.2.6
+
+Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperloglogs and geospatial indexes with radius queries. Redis has built-in replication, Lua scripting, LRU eviction, transactions and different levels of on-disk persistence, and provides high availability via Redis Sentinel and automatic partitioning with Redis Cluster. Learn more →
+
+
+1. 是什么。  in-memory data structure store
+
+2. 用途：     used as a database, cache and message broker    80% 都是用作这三个场景。。。
+
+3. 支持哪些数据结构： strings, hashes, lists, sets, sorted sets  【java，C#】
+
+4. Lua：【游戏插件上】
+
+5. master-slave , sentinel [mysql，sqlserver的双机热备] HA，   cluster 【集群】  16384个槽位  【将一个非常大的data进行切分】  如何理解?
+
+
+二：redis出现之前，我们实际场景中会遇到哪些痛点。
+
+   database: 不能完全的和mysql相比。。。  【存储简单化的一些数据，提高性能】
+
+                                         案例: 【BI + CRM】 百雀林，联合利华，隆力奇，  
+                                
+                                              【一个商家一个db】 	
+      痛点:
+      shopid => connectionstring   mysql ,
+
+      如果在mysql中，一个请求来了，就要请求一次db。。。  shopid => connectionstring.根据shopid查找connectionString ,  查找的时间复杂度LogN + IO读取。。。
+
+	  解决:
+      redis  hash来存储这个   时间复杂度 O(1)  也就是定值查找。
+
+
+   cache：memcache【数据不能持久化】，
+
+          1. 重启之后数据丢失。。。        【redis有序列化机制 （AOF【来一个请求，写一次io】，RDB 【快照模式,也就是定期保存】）】
+   
+          2. 很多系统对缓存有非常大的依赖，以致于没了缓存，系统就崩溃。。。为什么会崩溃? 没了cache所有的请求都压到db上,db受不了, 引发   雪崩。
+
+          3.  hash一致性。 在client端做成复杂均衡[也就是平摊,不集中]。   【redis cluster】  + 【各种语言驱动版本的client，（java，C#）】
+
+
+    Message borker：如何将同步系统异步化。   1.  request就可以了，不需要等待response。。。
+                                             2.  request  =>  ...中转页 ...  => response  
+
+                    client ->  borker  <- server   【消息队列】   rabbitmq。activemq。   
+
+    10w的读取。。。
+
+	
+
+
+
+	
+	1.redis 是什么?  能解决什么问题? 不然也不会盲目地去学习? 首先查看下官网呀? 
+	2.基于内存 数据结构存储?  既然是数据结构存储?所以支持哪些类型? 直接存储对象?而非序列化数据? 和关系型数据库有什么异同?
+	2.database cache  and message broker 三个用途?
+	3.什么是脚本? 支持lua脚本,游戏插件,进行升级 功能扩展?
+	4.支持master-slave,主从? 
+	   支持sentinel[类似于mysel和 sql server的双机热备,一个挂了,另一个顶上,达到高可用,即HA]? 
+	   支持cluster,,集群,如何体现?,[将16384个槽位,分摊到集群的机器中,指定的key,到指定的槽位去获取数据,这样将一个非常的data进行切分.]?
+	5.集群的概念,在不同的场景是如何体现的? redis中的集群,和web集群? 
+	6.redis解决了那些痛点? 一个东西的流行,肯定是解决了某些痛点? 实际问题?
+	   1.作为database, 简单的数据存储,提高性能? 不能和关系型数据库相比?
+	   2.作为缓存解决了那些问题?
+	   3.message broker, 关键在于理解 如何将同步系统异步化?
+
+
+	学习一个东西的前期准备工作?  对比以前,以前好差劲哦.太差了.
+		要达到什么样目的?
+		融会贯通的,举一反三的使用?  
+		有技巧的学习? 
+		有逻辑地,前因后果地,举一反三地,融会贯通地,深入本质的,有标准的,有大局观的,有优缺点的,结合实际需求的,去学习?
+	1.是什么?有什么用途? 解决那些痛点?
+	2.理解相关专业名词? 
+	3.对比出现的前因后果?
+	4.知道用途,特性,以及不足?
