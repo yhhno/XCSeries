@@ -11,7 +11,7 @@ String，Set，Hash，List，SortSet。。。。
 
 3. RedisObject 也就是对象化的数据结构表示。。。   struct
 
-4. SDS： char[]一个包装类，，， 【存放我们的字符】 struct
+4. SDS： char[]一个包装类，，， 【存放我们的字符】 struct  共五种类型
 
 
 RedisServer

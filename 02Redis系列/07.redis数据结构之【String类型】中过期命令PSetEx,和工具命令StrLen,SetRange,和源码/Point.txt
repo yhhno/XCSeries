@@ -1,0 +1,128 @@
+一：String 过期操作  一些 工具函数
+
+Redis  单线程的内存字典服务器。。。加上 过期时间  =》 [mamcache]  kv结构。
+
+SET key value [EX seconds] [PX milliseconds] [NX|XX]
+
+作为缓存，和memcache做一样的功能。。。
+
+ttl username 用于查看key当前过期时间还剩多少秒。。。 NativeCache
+
+
+PSETEX key milliseconds value  《=》 Set key value [PX milliseconds]  
+
+SETEX key seconds value   《=》   Set key value [EX seconds]
+
+
+二：String    别人的一个命令  是如何学习的? 榜样?
+
+1. len => StrLen   时间复杂度：O(1)    直接从源码角度来看 函数是如何工作的? 强
+
+   RedisObject 
+
+				ptr =》 SDS 
+
+							 len    => used    StrLen就是判断sds中的 len
+							 alloc  => 去掉header 和 null
+							 char[] => content
+
+
+void strlenCommand(client *c) {
+    robj *o;
+    //类型检查
+    if ((o = lookupKeyReadOrReply(c,c->argv[1],shared.czero)) == NULL ||
+        checkType(c,o,OBJ_STRING)) return;     源码中如何实现,只针对string类型
+
+    addReplyLongLong(c,stringObjectLen(o));
+}
+
+
+size_t stringObjectLen(robj *o) {
+    serverAssertWithInfo(NULL,o,o->type == OBJ_STRING);
+    if (sdsEncodedObject(o)) {
+        return sdslen(o->ptr);
+    } else {
+        return sdigits10((long)o->ptr);
+    }
+}
+
+static inline size_t sdslen(const sds s) {
+    unsigned char flags = s[-1];
+    switch(flags&SDS_TYPE_MASK) {
+        case SDS_TYPE_5:
+            return SDS_TYPE_5_LEN(flags);
+        case SDS_TYPE_8:
+            return SDS_HDR(8,s)->len;  直接取len属性,所以时间复杂度是O(1)
+        case SDS_TYPE_16:
+            return SDS_HDR(16,s)->len;
+        case SDS_TYPE_32:
+            return SDS_HDR(32,s)->len;
+        case SDS_TYPE_64:
+            return SDS_HDR(64,s)->len;
+    }
+    return 0;
+}
+
+
+2. substring => GetRange   =＞　getRange username 0 2
+
+
+
+3. replace => SetRange　
+
+
+SETRANGE key offset value  => 
+
+
+127.0.0.1:6379> get username
+"jack"
+127.0.0.1:6379> setRange username 4 "12345"
+(integer) 9
+127.0.0.1:6379> get username
+"jack12345"
+
+Append
+
+void appendCommand(client *c) {
+    size_t totlen;
+    robj *o, *append;
+
+    o = lookupKeyWrite(c->db,c->argv[1]);
+    if (o == NULL) {
+        /* Create the key */
+        c->argv[2] = tryObjectEncoding(c->argv[2]);
+        dbAdd(c->db,c->argv[1],c->argv[2]);
+        incrRefCount(c->argv[2]);
+        totlen = stringObjectLen(c->argv[2]);
+    } else {
+        /* Key exists, check type */
+        if (checkType(c,o,OBJ_STRING))
+            return;
+
+        /* "append" is an argument, so always an sds */
+        append = c->argv[2];
+        totlen = stringObjectLen(o)+sdslen(append->ptr);
+        if (checkStringLength(c,totlen) != C_OK)
+            return;
+
+        /* Append the value */
+        o = dbUnshareStringValue(c->db,c->argv[1],o);
+        o->ptr = sdscatlen(o->ptr,append->ptr,sdslen(append->ptr));
+        totlen = sdslen(o->ptr);
+    }
+    signalModifiedKey(c->db,c->argv[1]);
+    notifyKeyspaceEvent(NOTIFY_STRING,"append",c->argv[1],c->db->id);
+    server.dirty++;
+    addReplyLongLong(c,totlen);
+}
+
+
+7.redis数据结构之【String类型】中过期命令PSetEx,SetEx,Set和工具命令StrLen,SetRange,GetRange和源码简析
+以后可能过期函数会 统一为 set来处理   =>老司机未来趋势,够关注
+
+1.过期命令和工具命令    => 归纳
+2. redis是单线程内存字典服务器  如何理解单线程?
+3. 我在学习的时候,和他在学习的时候有什么不一样呢?  仅仅是照搬? 根本没有深入去逻辑分析用法 ,代表什么,可以做什么,可以如何组合? 更别提深入源码? 是不是算法和数据结构不给力?  更别提组合使用? 
+4.高性能和 时间复杂度的关系. 与存储结构的关系.
+5.int 用二进制表示,起到压缩空间的作用.
+6.
