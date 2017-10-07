@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6A9C6F1D-290B-4D21-9D05-4879016B6448}</ProjectGuid>
+    <ProjectGuid>{8E77386A-5585-438D-8603-EB475ED572FF}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_08.redis数据结构之_String类型_中二进制_BitCount_命令在我们生产环境中空间压缩实战</RootNamespace>
-    <AssemblyName>08.redis数据结构之【String类型】中二进制【BitCount】命令在我们生产环境中空间压缩实战</AssemblyName>
+    <RootNamespace>_09.redis数据结构之_List双向链表_源码实现中的listNode实现以及常见的LPUSH_LPOP等命令实战</RootNamespace>
+    <AssemblyName>09.redis数据结构之【List双向链表】源码实现中的listNode实现以及常见的LPUSH,LPOP等命令实战</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -49,7 +49,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="char的位表示.png" />
+    <Content Include="双向链表.png" />
     <Content Include="Point.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,6 +6,8 @@
 6.snapshotting  快照
 7.alloc  空余
 8.ptr   指针
+9.dup   复制
+10.macros
 
 
 工具 wireshark 网络捕获器.

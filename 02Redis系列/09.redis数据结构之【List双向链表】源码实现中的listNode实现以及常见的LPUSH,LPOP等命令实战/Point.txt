@@ -1,0 +1,109 @@
+一：List  JAVA,C# 【Array】形式来实现的。。。 来实现的.=>说明此处有封装
+
+   redis中是由 双向链表(此处的双向链表是redis作者用C语言实现的)来实现的   [引申想到单链表，单向循环链表，双向。。。十字链表]  
+
+   对双向链表的不同操作,也就是不同的封装, 可以实现队列和栈,,因为.队列和栈可以用链表来实现.
+    [队列 和 栈]  queue,  stack
+
+	先画图来了解双向链表,做下准备工作,在从源码层次上来了解list
+二：从源代码中了解List是如何构造的。。。
+
+
+typedef struct listNode {
+    struct listNode *prev;
+    struct listNode *next;
+    void *value;
+} listNode;
+
+
+//迭代一个中间变量
+typedef struct listIter {
+    listNode *next;
+    int direction;
+} listIter;
+
+typedef struct list {   包装类
+    listNode *head;
+    listNode *tail;
+    void *(*dup)(void *ptr);
+    void (*free)(void *ptr);
+    int (*match)(void *ptr, void *key);
+    unsigned long len;
+} list;
+
+为了方便对listNode进行管理，redis中使用list进行包装。。。 
+
+len：统计当前双向链表中的listnode的个数。。。 O(1)
+
+
+
+list在redis中存放的形式：
+
+
+redisObject
+     
+      type:    (0,1,2,3,4)  1
+      encoding:
+      ptr      type不同,ptr指向的类型不同,共五种
+
+ptr => string   sds
+
+ptr =>list      list -> listNode 
+
+
+RedisDb => Dict => key: redisObject    value:redisObject
+
+
+ptr =>  list[双向链表]
+
+
+/* Object types */
+#define OBJ_STRING 0
+#define OBJ_LIST 1
+#define OBJ_SET 2
+#define OBJ_ZSET 3
+#define OBJ_HASH 4
+
+
+
+LPUSH key value [value ...]  【redis做催付订单，卖家发货，签收提醒】
+LPOP key
+RPUSH key value [value ...]
+RPOP key
+LLEN key
+
+
+client     redis:list      server
+
+
+orderid:  1001
+orderid:  1002
+orderid:  1003
+
+
+unsigned long listTypeLength(robj *subject) {
+    if (subject->encoding == OBJ_ENCODING_QUICKLIST) {
+        return quicklistCount(subject->ptr);
+    } else {
+        serverPanic("Unknown list encoding");
+    }
+}
+
+/* Return cached quicklist count */
+unsigned int quicklistCount(quicklist *ql) { return ql->count; }
+
+
+
+
+
+
+
+
+
+ 
+
+
+ 9.redis数据结构之【List双向链表】源码实现中的listNode实现以及常见的LPUSH,LPOP,RPUSH,RPOP,LLEN命令实战
+ 0.我跟着学了一遍,他讲的知识和技巧,我能吸收多少呢? 如何才能吸收更多呢? 如何才能靠近他的水平呢?
+ 1.高级语言中封装了很多数据结构,什么意思,也就是提供了很多现成的结构给我们使用? redis中相对少些
+ 2.redis是用c实现的, 我们知道C中根本没有数据结构. =>so我们可以从redis的源代码中,学习到如何封装数据结构? =>小小的逻辑推理下
