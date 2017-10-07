@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06.redis数据结构之【S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07.redis数据结构之【String类型】中过期命令PSetEx,和工具命令StrLen,SetRange,和源码", "02Redis系列\07.redis数据结构之【String类型】中过期命令PSetEx,和工具命令StrLen,SetRange,和源码\07.redis数据结构之【String类型】中过期命令PSetEx,和工具命令StrLen,SetRange,和源码.csproj", "{E125AE52-EEBF-4E0A-815B-E394C624F03A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08.redis数据结构之【String类型】中二进制【BitCount】命令在我们生产环境中空间压缩实战", "02Redis系列\08.redis数据结构之【String类型】中二进制【BitCount】命令在我们生产环境中空间压缩实战\08.redis数据结构之【String类型】中二进制【BitCount】命令在我们生产环境中空间压缩实战.csproj", "{6A9C6F1D-290B-4D21-9D05-4879016B6448}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,10 @@ Global
 		{E125AE52-EEBF-4E0A-815B-E394C624F03A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E125AE52-EEBF-4E0A-815B-E394C624F03A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E125AE52-EEBF-4E0A-815B-E394C624F03A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A9C6F1D-290B-4D21-9D05-4879016B6448}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A9C6F1D-290B-4D21-9D05-4879016B6448}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A9C6F1D-290B-4D21-9D05-4879016B6448}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A9C6F1D-290B-4D21-9D05-4879016B6448}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +76,7 @@ Global
 		{0513653F-CC90-4D48-B4C6-207F380B0C34} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{2E5E637B-CB4C-45DC-8A2E-10C944BB641F} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{E125AE52-EEBF-4E0A-815B-E394C624F03A} = {813495A3-956D-46E1-B3F0-27B061B5527A}
+		{6A9C6F1D-290B-4D21-9D05-4879016B6448} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}

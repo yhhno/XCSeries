@@ -1,0 +1,108 @@
+一：位运算  有啥用? 是什么?  位  字节 kb 
+
+SDS => char[]   xxxx xxxx    char  一个char8个位
+                xxxx xxxx    char
+                xxxx xxxx    char
+
+应用场景
+1. 百雀林：500w左右的用户  => customerid  
+
+  描述: 比如给某一批用户发送短信【营销】。。。 下午10点发送。。。  任务上午创建
+
+ 筛选条件:  【交易金额大于50的，上海地区的，购买过某一个商品】
+
+符合条件:customerid,customerid,cutomerid,customerid。
+
+存放位置:table表(什么样的表)： customerid,customerid,cutomerid,customerid。  筛选出【300w】   总量Max：500w
+
+ customerid放在表中的形式: 10，20，30，31，32，33，999，1222,......   【表共几百M】 如何处理呢?
+
+
+ 结合情况,运用redis特性来解决  位运算
+
+     特点:   【customerid不重复】 我们customerid上限(id最大值)。
+
+
+SDS => char[]   0000 0000    char
+                0100 0000    char
+                0001 0000    char
+
+      char[375000]        第几个位来表示id   特性来解决问题             => 几M就搞定了。。。
+
+
+
+C#： BitArray   [位数组]    
+
+
+Redis位运算：
+
+SETBIT key offset value  =>   String的value大小是512M   【数据传输太慢了】 【多而小的数据】
+
+
+static int checkStringLength(client *c, long long size) {
+    if (size > 512*1024*1024) {
+        addReplyError(c,"string exceeds maximum allowed size (512MB)");
+        return C_ERR;
+    }
+    return C_OK;
+}
+
+
+char  => 从左到右   0000 0000   => offset = 7, set=1   => 0000 0001   => offset = 6, set=1   => 0000 0011
+
+SDS => char[]   0000 0000    char
+                0100 0000    char
+                0001 0000    char
+                。。。
+通过遍历char[] 计算出customerid    巧妙的用char[] 来表示string[],来达到优化的目的. 解决由于占用空间大,导致的网络传输和存储问题
+customerid：10，20,
+   
+
+GETBIT key offset
+
+
+BITCOUNT key [start end]  => 获取1的个数
+
+BITOP operation destkey key [key ...]  => AND OR XOR NOT  [JAVA,C#]
+
+对一个或多个保存二进制位的字符串 key 进行位元操作，并将结果保存到 destkey 上。
+
+  0000  0001   => 1
+
+& 0000  0010   => 2
+--------------
+  0000  0000   => 0
+
+1 & 2 = 0
+
+
+BITOP AND destkey srckey1 srckey2 srckey3 ... srckeyN ，对一个或多个 key 求逻辑并，并将结果保存到 destkey 。
+BITOP OR destkey srckey1 srckey2 srckey3 ... srckeyN，对一个或多个 key 求逻辑或，并将结果保存到 destkey 。
+BITOP XOR destkey srckey1 srckey2 srckey3 ... srckeyN，对一个或多个 key 求逻辑异或，并将结果保存到 destkey 。
+BITOP NOT destkey srckey，对给定 key 求逻辑非，并将结果保存到 destkey 
+
+
+127.0.0.1:6379> setbit num1 7 1
+(integer) 0
+127.0.0.1:6379> setbit num2 6 1
+(integer) 0
+127.0.0.1:6379> get num1
+"\x01"
+127.0.0.1:6379> get num2
+"\x02"
+127.0.0.1:6379> bitop and num3 num1 num2
+(integer) 1
+127.0.0.1:6379> get num3
+"\x00"
+127.0.0.1:6379> 
+
+
+JS： BufferArray数组
+
+
+8.redis数据结构之【String类型】中二进制【BitCount,GetOp,GetBit,SetBit】命令在我们生产环境中空间压缩实战
+
+1.缺点,不知道位运算和二进制的用途?和特点? 位运算在不同的语言中都有实现?
+2.对于bitarray,bit运算的表示和用途,没有概念?  这个问题要引申思考?
+3.通过遍历char[] 计算出customerid    巧妙的用char[] 来表示string[],来达到优化的目的. 解决由于占用空间大,导致的网络传输和存储问题
+4.优化的方式?有哪些呢?
