@@ -138,7 +138,7 @@ struct __attribute__ ((__packed__)) sdshdr64 {
     char buf[];
 };
 
-因为在C语言中都是用char[]来存放数据，，在Redis中为了性能，封装了一下char[]  
+因为在C语言中都是用char[]来存放数据，，在Redis中为了性能，封装了一下char[]   为什么能提高性能? 如何做能提高性能呢?
 
 高级语言中用到的String。。。
 

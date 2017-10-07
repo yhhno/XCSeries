@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04.驱动尝试之下载Jav
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05.redis源码概况认知之理解SDS,RedisObject,RedisDb,RedisServer四大结构体", "02Redis系列\05.redis源码概况认知之理解SDS,RedisObject,RedisDb,RedisServer四大结构体\05.redis源码概况认知之理解SDS,RedisObject,RedisDb,RedisServer四大结构体.csproj", "{0513653F-CC90-4D48-B4C6-207F380B0C34}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06.redis数据结构之【String类型】中基本操作命令之[M]Set[NX],[M]Get[NX],Decr,Incr和源码简析", "02Redis系列\06.redis数据结构之【String类型】中基本操作命令之[M]Set[NX],[M]Get[NX],Decr,Incr和源码简析\06.redis数据结构之【String类型】中基本操作命令之[M]Set[NX],[M]Get[NX],Decr,Incr和源码简析.csproj", "{2E5E637B-CB4C-45DC-8A2E-10C944BB641F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{0513653F-CC90-4D48-B4C6-207F380B0C34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0513653F-CC90-4D48-B4C6-207F380B0C34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0513653F-CC90-4D48-B4C6-207F380B0C34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E5E637B-CB4C-45DC-8A2E-10C944BB641F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E5E637B-CB4C-45DC-8A2E-10C944BB641F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E5E637B-CB4C-45DC-8A2E-10C944BB641F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E5E637B-CB4C-45DC-8A2E-10C944BB641F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +62,7 @@ Global
 		{EFEF4C1D-790A-4CAE-A868-F512C38182B5} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{D44FF089-C5E8-4F63-826B-0AEB17E8F7DB} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{0513653F-CC90-4D48-B4C6-207F380B0C34} = {813495A3-956D-46E1-B3F0-27B061B5527A}
+		{2E5E637B-CB4C-45DC-8A2E-10C944BB641F} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}

@@ -1,0 +1,349 @@
+一：String 结构
+
+Java String
+
+C#   String   => 	char[]的封装。。。
+
+
+Redis C语言实现  char[] 进行了封装。。。   append,length,substring，set，get。。。。setrange => replace...
+
+
+
+二： 最常用命令。。。
+作者老江湖,行情门清? 榜样?
+1. http://www.redis.cn/documentation.html  翻译比较全，比较新
+
+2. http://www.redis.net.cn/
+
+3.redis手册   http://doc.redisfans.com/    比较老。。
+
+
+《1》 set/get 命令    [对string进行赋值]  时间复杂度：O(1)
+
+SET key value [EX seconds] [PX milliseconds] [NX|XX] 深刻理解特性,是如何对应需求的?
+
+GET key   【nil】 =>lua 
+
+
+
+应用场景分布式锁。。。。【zookeeper】 相对来说重量级。
+
+通过对username的赋值的返回值来判断是否获取到了一个分布式锁。。。
+
+set username jack NX =》 如果返回ok，说明获得到了锁。。。
+
+set username mary NX =》 如果返回nil，说明没有获取到锁。。。
+
+
+《2》 Incr,Decr,    =>自增或者自减1     【类似于 i++, i-- 】  自增+过期时间=> 吻合某项需求
+
+     IncrBy，DecrBy =>自增或者自减去指定的值 【 i=i + xx,  i=i - xx 】
+
+     Redis中的String不是string类型。。。   如果存放到string中的value是int，那么其实在内部还是用int的。。。
+					   从encoding可以看出。。。       
+
+     RedisObject中有一个type属性，
+		  有一个encoding属性。。。
+		  有一个ptr属性。 => SDS
+
+     OBJECT ENCODING
+
+
+     从一个简单的String类型中，我们发现有int，embstr.... 【性能优化,相当于底层做了优化,】 
+
+
+简要看一下源码： t_string.c  专门讲述string的源码。。。
+
+set命令：
+
+struct redisCommand redisCommandTable[] = {
+    {"get",getCommand,2,"rF",0,NULL,1,1,1,0,0},
+    {"set",setCommand,-3,"wm",0,NULL,1,1,1,0,0},
+    {"setnx",setnxCommand,3,"wmF",0,NULL,1,1,1,0,0},
+    {"setex",setexCommand,4,"wm",0,NULL,1,1,1,0,0},
+    {"psetex",psetexCommand,4,"wm",0,NULL,1,1,1,0,0},
+    {"append",appendCommand,3,"wm",0,NULL,1,1,1,0,0},
+    {"strlen",strlenCommand,2,"rF",0,NULL,1,1,1,0,0},
+    {"del",delCommand,-2,"w",0,NULL,1,-1,1,0,0},
+    {"exists",existsCommand,-2,"rF",0,NULL,1,-1,1,0,0},
+    {"setbit",setbitCommand,4,"wm",0,NULL,1,1,1,0,0},
+    {"getbit",getbitCommand,3,"rF",0,NULL,1,1,1,0,0},
+    {"bitfield",bitfieldCommand,-2,"wm",0,NULL,1,1,1,0,0},
+    {"setrange",setrangeCommand,4,"wm",0,NULL,1,1,1,0,0},
+    {"getrange",getrangeCommand,4,"r",0,NULL,1,1,1,0,0},
+    {"substr",getrangeCommand,4,"r",0,NULL,1,1,1,0,0},
+    {"incr",incrCommand,2,"wmF",0,NULL,1,1,1,0,0},
+    {"decr",decrCommand,2,"wmF",0,NULL,1,1,1,0,0},
+    {"mget",mgetCommand,-2,"r",0,NULL,1,-1,1,0,0},
+    {"rpush",rpushCommand,-3,"wmF",0,NULL,1,1,1,0,0},
+    {"lpush",lpushCommand,-3,"wmF",0,NULL,1,1,1,0,0},
+    {"rpushx",rpushxCommand,3,"wmF",0,NULL,1,1,1,0,0},
+    {"lpushx",lpushxCommand,3,"wmF",0,NULL,1,1,1,0,0},
+    {"linsert",linsertCommand,5,"wm",0,NULL,1,1,1,0,0},
+    {"rpop",rpopCommand,2,"wF",0,NULL,1,1,1,0,0},
+    {"lpop",lpopCommand,2,"wF",0,NULL,1,1,1,0,0},
+    {"brpop",brpopCommand,-3,"ws",0,NULL,1,1,1,0,0},
+    {"brpoplpush",brpoplpushCommand,4,"wms",0,NULL,1,2,1,0,0},
+    {"blpop",blpopCommand,-3,"ws",0,NULL,1,-2,1,0,0},
+    {"llen",llenCommand,2,"rF",0,NULL,1,1,1,0,0},
+    {"lindex",lindexCommand,3,"r",0,NULL,1,1,1,0,0},
+    {"lset",lsetCommand,4,"wm",0,NULL,1,1,1,0,0},
+    {"lrange",lrangeCommand,4,"r",0,NULL,1,1,1,0,0},
+    {"ltrim",ltrimCommand,4,"w",0,NULL,1,1,1,0,0},
+    {"lrem",lremCommand,4,"w",0,NULL,1,1,1,0,0},
+    {"rpoplpush",rpoplpushCommand,3,"wm",0,NULL,1,2,1,0,0},
+    {"sadd",saddCommand,-3,"wmF",0,NULL,1,1,1,0,0},
+    {"srem",sremCommand,-3,"wF",0,NULL,1,1,1,0,0},
+    {"smove",smoveCommand,4,"wF",0,NULL,1,2,1,0,0},
+    {"sismember",sismemberCommand,3,"rF",0,NULL,1,1,1,0,0},
+    {"scard",scardCommand,2,"rF",0,NULL,1,1,1,0,0},
+    {"spop",spopCommand,-2,"wRF",0,NULL,1,1,1,0,0},
+    {"srandmember",srandmemberCommand,-2,"rR",0,NULL,1,1,1,0,0},
+    {"sinter",sinterCommand,-2,"rS",0,NULL,1,-1,1,0,0},
+    {"sinterstore",sinterstoreCommand,-3,"wm",0,NULL,1,-1,1,0,0},
+    {"sunion",sunionCommand,-2,"rS",0,NULL,1,-1,1,0,0},
+    {"sunionstore",sunionstoreCommand,-3,"wm",0,NULL,1,-1,1,0,0},
+    {"sdiff",sdiffCommand,-2,"rS",0,NULL,1,-1,1,0,0},
+    {"sdiffstore",sdiffstoreCommand,-3,"wm",0,NULL,1,-1,1,0,0},
+    {"smembers",sinterCommand,2,"rS",0,NULL,1,1,1,0,0},
+    {"sscan",sscanCommand,-3,"rR",0,NULL,1,1,1,0,0},
+    {"zadd",zaddCommand,-4,"wmF",0,NULL,1,1,1,0,0},
+    {"zincrby",zincrbyCommand,4,"wmF",0,NULL,1,1,1,0,0},
+    {"zrem",zremCommand,-3,"wF",0,NULL,1,1,1,0,0},
+    {"zremrangebyscore",zremrangebyscoreCommand,4,"w",0,NULL,1,1,1,0,0},
+    {"zremrangebyrank",zremrangebyrankCommand,4,"w",0,NULL,1,1,1,0,0},
+    {"zremrangebylex",zremrangebylexCommand,4,"w",0,NULL,1,1,1,0,0},
+    {"zunionstore",zunionstoreCommand,-4,"wm",0,zunionInterGetKeys,0,0,0,0,0},
+    {"zinterstore",zinterstoreCommand,-4,"wm",0,zunionInterGetKeys,0,0,0,0,0},
+    {"zrange",zrangeCommand,-4,"r",0,NULL,1,1,1,0,0},
+    {"zrangebyscore",zrangebyscoreCommand,-4,"r",0,NULL,1,1,1,0,0},
+    {"zrevrangebyscore",zrevrangebyscoreCommand,-4,"r",0,NULL,1,1,1,0,0},
+    {"zrangebylex",zrangebylexCommand,-4,"r",0,NULL,1,1,1,0,0},
+    {"zrevrangebylex",zrevrangebylexCommand,-4,"r",0,NULL,1,1,1,0,0},
+    {"zcount",zcountCommand,4,"rF",0,NULL,1,1,1,0,0},
+    {"zlexcount",zlexcountCommand,4,"rF",0,NULL,1,1,1,0,0},
+    {"zrevrange",zrevrangeCommand,-4,"r",0,NULL,1,1,1,0,0},
+    {"zcard",zcardCommand,2,"rF",0,NULL,1,1,1,0,0},
+    {"zscore",zscoreCommand,3,"rF",0,NULL,1,1,1,0,0},
+    {"zrank",zrankCommand,3,"rF",0,NULL,1,1,1,0,0},
+    {"zrevrank",zrevrankCommand,3,"rF",0,NULL,1,1,1,0,0},
+    {"zscan",zscanCommand,-3,"rR",0,NULL,1,1,1,0,0},
+    {"hset",hsetCommand,4,"wmF",0,NULL,1,1,1,0,0},
+    {"hsetnx",hsetnxCommand,4,"wmF",0,NULL,1,1,1,0,0},
+    {"hget",hgetCommand,3,"rF",0,NULL,1,1,1,0,0},
+    {"hmset",hmsetCommand,-4,"wm",0,NULL,1,1,1,0,0},
+    {"hmget",hmgetCommand,-3,"r",0,NULL,1,1,1,0,0},
+    {"hincrby",hincrbyCommand,4,"wmF",0,NULL,1,1,1,0,0},
+    {"hincrbyfloat",hincrbyfloatCommand,4,"wmF",0,NULL,1,1,1,0,0},
+    {"hdel",hdelCommand,-3,"wF",0,NULL,1,1,1,0,0},
+    {"hlen",hlenCommand,2,"rF",0,NULL,1,1,1,0,0},
+    {"hstrlen",hstrlenCommand,3,"rF",0,NULL,1,1,1,0,0},
+    {"hkeys",hkeysCommand,2,"rS",0,NULL,1,1,1,0,0},
+    {"hvals",hvalsCommand,2,"rS",0,NULL,1,1,1,0,0},
+    {"hgetall",hgetallCommand,2,"r",0,NULL,1,1,1,0,0},
+    {"hexists",hexistsCommand,3,"rF",0,NULL,1,1,1,0,0},
+    {"hscan",hscanCommand,-3,"rR",0,NULL,1,1,1,0,0},
+    {"incrby",incrbyCommand,3,"wmF",0,NULL,1,1,1,0,0},
+    {"decrby",decrbyCommand,3,"wmF",0,NULL,1,1,1,0,0},
+    {"incrbyfloat",incrbyfloatCommand,3,"wmF",0,NULL,1,1,1,0,0},
+    {"getset",getsetCommand,3,"wm",0,NULL,1,1,1,0,0},
+    {"mset",msetCommand,-3,"wm",0,NULL,1,-1,2,0,0},
+    {"msetnx",msetnxCommand,-3,"wm",0,NULL,1,-1,2,0,0},
+    {"randomkey",randomkeyCommand,1,"rR",0,NULL,0,0,0,0,0},
+    {"select",selectCommand,2,"lF",0,NULL,0,0,0,0,0},
+    {"move",moveCommand,3,"wF",0,NULL,1,1,1,0,0},
+    {"rename",renameCommand,3,"w",0,NULL,1,2,1,0,0},
+    {"renamenx",renamenxCommand,3,"wF",0,NULL,1,2,1,0,0},
+    {"expire",expireCommand,3,"wF",0,NULL,1,1,1,0,0},
+    {"expireat",expireatCommand,3,"wF",0,NULL,1,1,1,0,0},
+    {"pexpire",pexpireCommand,3,"wF",0,NULL,1,1,1,0,0},
+    {"pexpireat",pexpireatCommand,3,"wF",0,NULL,1,1,1,0,0},
+    {"keys",keysCommand,2,"rS",0,NULL,0,0,0,0,0},
+    {"scan",scanCommand,-2,"rR",0,NULL,0,0,0,0,0},
+    {"dbsize",dbsizeCommand,1,"rF",0,NULL,0,0,0,0,0},
+    {"auth",authCommand,2,"sltF",0,NULL,0,0,0,0,0},
+    {"ping",pingCommand,-1,"tF",0,NULL,0,0,0,0,0},
+    {"echo",echoCommand,2,"F",0,NULL,0,0,0,0,0},
+    {"save",saveCommand,1,"as",0,NULL,0,0,0,0,0},
+    {"bgsave",bgsaveCommand,-1,"a",0,NULL,0,0,0,0,0},
+    {"bgrewriteaof",bgrewriteaofCommand,1,"a",0,NULL,0,0,0,0,0},
+    {"shutdown",shutdownCommand,-1,"alt",0,NULL,0,0,0,0,0},
+    {"lastsave",lastsaveCommand,1,"RF",0,NULL,0,0,0,0,0},
+    {"type",typeCommand,2,"rF",0,NULL,1,1,1,0,0},
+    {"multi",multiCommand,1,"sF",0,NULL,0,0,0,0,0},
+    {"exec",execCommand,1,"sM",0,NULL,0,0,0,0,0},
+    {"discard",discardCommand,1,"sF",0,NULL,0,0,0,0,0},
+    {"sync",syncCommand,1,"ars",0,NULL,0,0,0,0,0},
+    {"psync",syncCommand,3,"ars",0,NULL,0,0,0,0,0},
+    {"replconf",replconfCommand,-1,"aslt",0,NULL,0,0,0,0,0},
+    {"flushdb",flushdbCommand,1,"w",0,NULL,0,0,0,0,0},
+    {"flushall",flushallCommand,1,"w",0,NULL,0,0,0,0,0},
+    {"sort",sortCommand,-2,"wm",0,sortGetKeys,1,1,1,0,0},
+    {"info",infoCommand,-1,"lt",0,NULL,0,0,0,0,0},
+    {"monitor",monitorCommand,1,"as",0,NULL,0,0,0,0,0},
+    {"ttl",ttlCommand,2,"rF",0,NULL,1,1,1,0,0},
+    {"touch",touchCommand,-2,"rF",0,NULL,1,1,1,0,0},
+    {"pttl",pttlCommand,2,"rF",0,NULL,1,1,1,0,0},
+    {"persist",persistCommand,2,"wF",0,NULL,1,1,1,0,0},
+    {"slaveof",slaveofCommand,3,"ast",0,NULL,0,0,0,0,0},
+    {"role",roleCommand,1,"lst",0,NULL,0,0,0,0,0},
+    {"debug",debugCommand,-1,"as",0,NULL,0,0,0,0,0},
+    {"config",configCommand,-2,"lat",0,NULL,0,0,0,0,0},
+    {"subscribe",subscribeCommand,-2,"pslt",0,NULL,0,0,0,0,0},
+    {"unsubscribe",unsubscribeCommand,-1,"pslt",0,NULL,0,0,0,0,0},
+    {"psubscribe",psubscribeCommand,-2,"pslt",0,NULL,0,0,0,0,0},
+    {"punsubscribe",punsubscribeCommand,-1,"pslt",0,NULL,0,0,0,0,0},
+    {"publish",publishCommand,3,"pltF",0,NULL,0,0,0,0,0},
+    {"pubsub",pubsubCommand,-2,"pltR",0,NULL,0,0,0,0,0},
+    {"watch",watchCommand,-2,"sF",0,NULL,1,-1,1,0,0},
+    {"unwatch",unwatchCommand,1,"sF",0,NULL,0,0,0,0,0},
+    {"cluster",clusterCommand,-2,"a",0,NULL,0,0,0,0,0},
+    {"restore",restoreCommand,-4,"wm",0,NULL,1,1,1,0,0},
+    {"restore-asking",restoreCommand,-4,"wmk",0,NULL,1,1,1,0,0},
+    {"migrate",migrateCommand,-6,"w",0,migrateGetKeys,0,0,0,0,0},
+    {"asking",askingCommand,1,"F",0,NULL,0,0,0,0,0},
+    {"readonly",readonlyCommand,1,"F",0,NULL,0,0,0,0,0},
+    {"readwrite",readwriteCommand,1,"F",0,NULL,0,0,0,0,0},
+    {"dump",dumpCommand,2,"r",0,NULL,1,1,1,0,0},
+    {"object",objectCommand,3,"r",0,NULL,2,2,2,0,0},
+    {"client",clientCommand,-2,"as",0,NULL,0,0,0,0,0},
+    {"eval",evalCommand,-3,"s",0,evalGetKeys,0,0,0,0,0},
+    {"evalsha",evalShaCommand,-3,"s",0,evalGetKeys,0,0,0,0,0},
+    {"slowlog",slowlogCommand,-2,"a",0,NULL,0,0,0,0,0},
+    {"script",scriptCommand,-2,"s",0,NULL,0,0,0,0,0},
+    {"time",timeCommand,1,"RF",0,NULL,0,0,0,0,0},
+    {"bitop",bitopCommand,-4,"wm",0,NULL,2,-1,1,0,0},
+    {"bitcount",bitcountCommand,-2,"r",0,NULL,1,1,1,0,0},
+    {"bitpos",bitposCommand,-3,"r",0,NULL,1,1,1,0,0},
+    {"wait",waitCommand,3,"s",0,NULL,0,0,0,0,0},
+    {"command",commandCommand,0,"lt",0,NULL,0,0,0,0,0},
+    {"geoadd",geoaddCommand,-5,"wm",0,NULL,1,1,1,0,0},
+    {"georadius",georadiusCommand,-6,"w",0,NULL,1,1,1,0,0},
+    {"georadiusbymember",georadiusByMemberCommand,-5,"w",0,NULL,1,1,1,0,0},
+    {"geohash",geohashCommand,-2,"r",0,NULL,1,1,1,0,0},
+    {"geopos",geoposCommand,-2,"r",0,NULL,1,1,1,0,0},
+    {"geodist",geodistCommand,-4,"r",0,NULL,1,1,1,0,0},
+    {"pfselftest",pfselftestCommand,1,"a",0,NULL,0,0,0,0,0},
+    {"pfadd",pfaddCommand,-2,"wmF",0,NULL,1,1,1,0,0},
+    {"pfcount",pfcountCommand,-2,"r",0,NULL,1,-1,1,0,0},
+    {"pfmerge",pfmergeCommand,-2,"wm",0,NULL,1,-1,1,0,0},
+    {"pfdebug",pfdebugCommand,-3,"w",0,NULL,0,0,0,0,0},
+    {"latency",latencyCommand,-2,"aslt",0,NULL,0,0,0,0,0}
+};
+
+
+
+
+所有的数据，都会塞到RedisDB中的dict中。。。。
+
+
+client => 每一个请求都有一个client，client中有 selected db属性
+
+
+/* With multiplexing we need to take per-client state.
+ * Clients are taken in a linked list. */
+typedef struct client {
+    uint64_t id;            /* Client incremental unique ID. */
+    int fd;                 /* Client socket. */
+    redisDb *db;            /* Pointer to currently SELECTed DB. */
+    int dictid;             /* ID of the currently SELECTed DB. */
+    robj *name;             /* As set by CLIENT SETNAME. */
+    sds querybuf;           /* Buffer we use to accumulate client queries. */
+    size_t querybuf_peak;   /* Recent (100ms or more) peak of querybuf size. */
+    int argc;               /* Num of arguments of current command. */
+    robj **argv;            /* Arguments of current command. */
+    struct redisCommand *cmd, *lastcmd;  /* Last command executed. */
+    int reqtype;            /* Request protocol type: PROTO_REQ_* */
+    int multibulklen;       /* Number of multi bulk arguments left to read. */
+    long bulklen;           /* Length of bulk argument in multi bulk request. */
+    list *reply;            /* List of reply objects to send to the client. */
+    unsigned long long reply_bytes; /* Tot bytes of objects in reply list. */
+    size_t sentlen;         /* Amount of bytes already sent in the current
+                               buffer or object being sent. */
+    time_t ctime;           /* Client creation time. */
+    time_t lastinteraction; /* Time of the last interaction, used for timeout */
+    time_t obuf_soft_limit_reached_time;
+    int flags;              /* Client flags: CLIENT_* macros. */
+    int authenticated;      /* When requirepass is non-NULL. */
+    int replstate;          /* Replication state if this is a slave. */
+    int repl_put_online_on_ack; /* Install slave write handler on ACK. */
+    int repldbfd;           /* Replication DB file descriptor. */
+    off_t repldboff;        /* Replication DB file offset. */
+    off_t repldbsize;       /* Replication DB file size. */
+    sds replpreamble;       /* Replication DB preamble. */
+    long long reploff;      /* Replication offset if this is our master. */
+    long long repl_ack_off; /* Replication ack offset, if this is a slave. */
+    long long repl_ack_time;/* Replication ack time, if this is a slave. */
+    long long psync_initial_offset; /* FULLRESYNC reply offset other slaves
+                                       copying this slave output buffer
+                                       should use. */
+    char replrunid[CONFIG_RUN_ID_SIZE+1]; /* Master run id if is a master. */
+    int slave_listening_port; /* As configured with: REPLCONF listening-port */
+    char slave_ip[NET_IP_STR_LEN]; /* Optionally given by REPLCONF ip-address */
+    int slave_capa;         /* Slave capabilities: SLAVE_CAPA_* bitwise OR. */
+    multiState mstate;      /* MULTI/EXEC state */
+    int btype;              /* Type of blocking op if CLIENT_BLOCKED. */
+    blockingState bpop;     /* blocking state */
+    long long woff;         /* Last write global replication offset. */
+    list *watched_keys;     /* Keys WATCHED for MULTI/EXEC CAS */
+    dict *pubsub_channels;  /* channels a client is interested in (SUBSCRIBE) */
+    list *pubsub_patterns;  /* patterns a client is interested in (SUBSCRIBE) */
+    sds peerid;             /* Cached peer ID. */
+
+    /* Response buffer */
+    int bufpos;
+    char buf[PROTO_REPLY_CHUNK_BYTES];
+} client;
+
+
+
+
+
+setGenericCommand  =>     setKey(c->db,key,val);
+
+
+void setKey(redisDb *db, robj *key, robj *val) {
+    if (lookupKeyWrite(db,key) == NULL) {
+        dbAdd(db,key,val);
+    } else {
+        dbOverwrite(db,key,val);
+    }
+    incrRefCount(val);
+    removeExpire(db,key);
+    signalModifiedKey(db,key);
+}
+
+
+
+/* Add the key to the DB. It's up to the caller to increment the reference
+ * counter of the value if needed.
+ *
+ * The program is aborted if the key already exists. */
+void dbAdd(redisDb *db, robj *key, robj *val) {
+    sds copy = sdsdup(key->ptr);
+    int retval = dictAdd(db->dict, copy, val);
+
+    serverAssertWithInfo(NULL,key,retval == DICT_OK);
+    if (val->type == OBJ_LIST) signalListAsReady(db, key);
+    if (server.cluster_enabled) slotToKeyAdd(key);
+ }
+
+
+
+
+
+
+
+
+
+ 1.老江湖,门清
+ 2.set NX 在分布式锁上的应用.,?深刻理解特性,与现实需求的映射? 毕竟语言是解决现实需求的
+ 3.分布式牵扯多少问题呢?
+ 4.zookeeper是啥? 有啥用呢?
+ 5.看了源码,一路逻辑链串下来, 本质又清晰.  不过还是要有 发现代码的优雅 能力,借鉴别人是如何优雅的使用代码,解决问题?
+ 6.特性不是平白无故出来的,既然这样设计肯定是有用途的.
+ 7.灵活的使用单个或多个,来解决实际的需求.
+ 8.要有发现优雅的能力
+
+
+
