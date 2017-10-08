@@ -1,0 +1,157 @@
+一：list 阻塞版本 有什么好处? 如何实现? 怎样的一个工作模式?
+生产环境中,非常有用? 有哪些场景呢? 如何运用呢?
+
+client  ->   list    -> server  此种工作模式,有没概念?
+
+
+while(true){  轮询
+try{
+   var info= list.Rpop();  根本没深入去理解.  阻塞在什么时候发生?  =>思维或者习惯性错误,,,不劳而获
+   
+   ....process.... 
+}
+catch{
+
+}
+finally{
+ Thread.Sleep(1000);  如何理解一秒钟轮询一次. ? 定时器?
+} 
+
+}
+
+没有数据的情况下，我们还是一直的轮询redis。。。 有很多网络连接的浪费.
+
+
+while(true){
+try{
+   var info= list.BRpop();   => 阻塞 ,代码中如何实现阻塞?,此时阻塞的是什么?
+   
+   ....process.... 
+}
+catch{
+
+}
+finally{
+ Thread.Sleep(1000);
+} 
+
+}
+
+演示一下,也就明白了基本工作机理?  每次演示,就要当做自己去完成?  为什么你去请教别人的时候,得到的东西最深刻? 去浏览的时候,最没印象
+
+BRpop，BLpop  阻塞的两种方式   此处根本没有认真去理解?  不要浏览? 是囫囵吞枣的看了下? 仅仅是完成, 丝毫没有欲望去深入?
+
+BRPOP key [key ...] timeout 【s为单位】   
+
+
+timeout： 0 表示永远等待 【connection被阻塞】   概念?
+
+timeout：10 表示10s过期                        概念?
+
+MSMQ,RabbitMQ 都有这种等待。。。
+
+
+
+void brpopCommand(client *c) {
+    blockingPopGenericCommand(c,LIST_TAIL);
+}
+
+
+    /* If the list is empty or the key does not exists we must block */
+    blockForKeys(c, c->argv + 1, c->argc - 2, timeout, NULL);
+
+
+        blockClient(c,BLOCKED_LIST);
+
+
+/* Block a client for the specific operation type. Once the CLIENT_BLOCKED
+ * flag is set client query buffer is not longer processed, but accumulated,
+ * and will be processed when the client is unblocked. */
+void blockClient(client *c, int btype) {
+    c->flags |= CLIENT_BLOCKED;			=> 告诉当前的c是阻塞的。。。
+    c->btype = btype;
+    server.bpop_blocked_clients++;
+}
+
+将当前的key和 timeout给了client struct。。。
+    c->bpop.timeout = timeout;
+    c->bpop.target = target;
+
+在生产环境中使用的比较多的。。。
+
+
+二：工具函数
+
+LINDEX key index  获取index位置的数组。。。O(N)    此命令用的少?  因为list的长度不固定,,所以对应的index 有误
+
+  if (quicklistIndex(o->ptr, index, &entry)) 
+
+
+head -> tail 进行遍历
+
+
+127.0.0.1:6379> lindex orders 2
+"10001"
+127.0.0.1:6379> lrange orders 0 5
+1) "10007"
+2) "10008"
+3) "10001"
+4) "10002"
+5) "10003"
+127.0.0.1:6379> 
+
+LRANGE key start stop   O(N+M)  list 时间复杂度相对是蛮高的.
+
+start: 可以是+，-    可以实现正序倒序输出.
+
+stop :结束
+
+js: substr 
+
+LRANGE key start stop  O（N）
+
+
+
+LINSERT key BEFORE|AFTER pivot value
+
+value插入到pivot之前还是之后。。。
+
+
+LSET key index value   => 找index需要时间的。。。
+
+        int replaced = quicklistReplaceAtIndex(ql, index,
+                                               value->ptr, sdslen(value->ptr));
+
+
+void lindexCommand(client *c) {
+    robj *o = lookupKeyReadOrReply(c,c->argv[1],shared.nullbulk);
+    if (o == NULL || checkType(c,o,OBJ_LIST)) return;
+    long index;
+    robj *value = NULL;
+
+    if ((getLongFromObjectOrReply(c, c->argv[2], &index, NULL) != C_OK))
+        return;
+
+    if (o->encoding == OBJ_ENCODING_QUICKLIST) {
+        quicklistEntry entry;
+        if (quicklistIndex(o->ptr, index, &entry)) {
+            if (entry.value) {
+                value = createStringObject((char*)entry.value,entry.sz);
+            } else {
+                value = createStringObjectFromLongLong(entry.longval);
+            }
+            addReplyBulk(c,value);
+            decrRefCount(value);
+        } else {
+            addReply(c,shared.nullbulk);
+        }
+    } else {
+        serverPanic("Unknown list encoding");
+    }
+}
+
+
+
+0.拒绝浏览? what? why? how?
+1.阻塞, 轮询是啥? =>没有概念? 没有概念的东西?马上去理解,而不是懵逼
+2.理解了概念?了解了概况? 继续好奇? 深挖? 如何实现? 然后自己也学会如何阻塞? what?why? how?

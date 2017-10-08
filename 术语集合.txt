@@ -7,7 +7,8 @@
 7.alloc  空余
 8.ptr   指针
 9.dup   复制
-10.macros
+10.macros  宏指令
+11.pivot   中心点, 轴
 
 
 工具 wireshark 网络捕获器.

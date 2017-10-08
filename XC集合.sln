@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08.redis数据结构之【S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "09.redis数据结构之【List双向链表】源码实现中的listNode实现以及常见的LPUSH,LPOP等命令实战", "02Redis系列\09.redis数据结构之【List双向链表】源码实现中的listNode实现以及常见的LPUSH,LPOP等命令实战\09.redis数据结构之【List双向链表】源码实现中的listNode实现以及常见的LPUSH,LPOP等命令实战.csproj", "{8E77386A-5585-438D-8603-EB475ED572FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "10.redis数据结构之【List双向链表】中阻塞版本之BLPOP,BRPOP和工具类LIndex,LINSERT,LRange命令介绍", "02Redis系列\10.redis数据结构之【List双向链表】中阻塞版本之BLPOP,BRPOP和工具类LIndex,LINSERT,LRange命令介绍\10.redis数据结构之【List双向链表】中阻塞版本之BLPOP,BRPOP和工具类LIndex,LINSERT,LRange命令介绍.csproj", "{FC30B261-B9F1-4B03-8D9D-223108A5F1BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,10 @@ Global
 		{8E77386A-5585-438D-8603-EB475ED572FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E77386A-5585-438D-8603-EB475ED572FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E77386A-5585-438D-8603-EB475ED572FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC30B261-B9F1-4B03-8D9D-223108A5F1BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC30B261-B9F1-4B03-8D9D-223108A5F1BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC30B261-B9F1-4B03-8D9D-223108A5F1BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC30B261-B9F1-4B03-8D9D-223108A5F1BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +90,7 @@ Global
 		{E125AE52-EEBF-4E0A-815B-E394C624F03A} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{6A9C6F1D-290B-4D21-9D05-4879016B6448} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{8E77386A-5585-438D-8603-EB475ED572FF} = {813495A3-956D-46E1-B3F0-27B061B5527A}
+		{FC30B261-B9F1-4B03-8D9D-223108A5F1BE} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
