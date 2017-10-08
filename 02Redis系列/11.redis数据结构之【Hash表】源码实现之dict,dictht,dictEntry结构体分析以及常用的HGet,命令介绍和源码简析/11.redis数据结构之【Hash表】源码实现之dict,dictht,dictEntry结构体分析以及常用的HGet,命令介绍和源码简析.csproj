@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8E77386A-5585-438D-8603-EB475ED572FF}</ProjectGuid>
+    <ProjectGuid>{8BF80798-90AB-4C40-A666-27B4478E08E1}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_09.redis数据结构之_List双向链表_源码实现中的listNode实现以及常见的LPUSH_LPOP等命令实战</RootNamespace>
-    <AssemblyName>09.redis数据结构之【List双向链表】源码实现中的listNode实现以及常见的LPUSH,LPOP等命令实战</AssemblyName>
+    <RootNamespace>_11.redis数据结构之_Hash表_源码实现之dict_dictht_dictEntry结构体分析以及常用的HGet_命令介绍和源码简析</RootNamespace>
+    <AssemblyName>11.redis数据结构之【Hash表】源码实现之dict,dictht,dictEntry结构体分析以及常用的HGet,命令介绍和源码简析</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -49,7 +49,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="list的底层（双向链表）和操作.png" />
+    <Content Include="hash的基本原理.png" />
+    <Content Include="hash的具体实现.png" />
     <Content Include="Point.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

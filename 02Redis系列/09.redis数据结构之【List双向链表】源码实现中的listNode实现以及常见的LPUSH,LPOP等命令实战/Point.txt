@@ -43,7 +43,7 @@ list在redis中存放的形式：
 redisObject
      
       type:    (0,1,2,3,4)  1
-      encoding:
+      encoding:                encoding是什么意思?
       ptr      type不同,ptr指向的类型不同,共五种
 
 ptr => string   sds

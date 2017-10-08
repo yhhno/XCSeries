@@ -1,0 +1,123 @@
+一：Hash   java中 Map, C#中Dictionry     有没概念？ what？  通过其他已知的实现的联系,更好的切入.如果未知,就是在抽象层面总结.
+
+都是键值对   php中Array 关联数组
+
+redis ，c语言中没有这种结构，，，redis自己实现了一个。。。  如何实现的字典,  需要什么样基础结构体,怎样的组合？ how？
+
+来实现一个结构体:
+hash之how 基本原理？
+最重要的是hash函数： 
+
+k,v   => 映射到数组中 Array
+
+index = gethashcode( k) % array.length       gethashcode如何实现呢?
+
+array[index]=[k,v];   数组中放的键值对，不是理解的value。。   想当然的思维错误？ 不劳而获的惯性
+
+
+
+hash中字典的详细实现？  实现字典的基础结构体
+typedef struct dictEntry {实现字典的基础结构体
+    void *key;
+    union {
+        void *val;
+        uint64_t u64;
+        int64_t s64;
+        double d;
+    } v;
+    struct dictEntry *next;  挂链
+} dictEntry;
+
+typedef struct dictType { 实现字典的基础结构体   dicttype是什么用呢
+    unsigned int (*hashFunction)(const void *key);
+    void *(*keyDup)(void *privdata, const void *key);
+    void *(*valDup)(void *privdata, const void *obj);
+    int (*keyCompare)(void *privdata, const void *key1, const void *key2);
+    void (*keyDestructor)(void *privdata, void *key);
+    void (*valDestructor)(void *privdata, void *obj);
+} dictType;
+
+/* This is our hash table structure. Every dictionary has two of this as we
+ * implement incremental rehashing, for the old to the new table. */
+typedef struct dictht {  此结构是一个数组，存放kv值   实现字典的基础结构体
+    dictEntry **table;
+    unsigned long size;
+    unsigned long sizemask;   求模
+    unsigned long used;
+} dictht;
+
+typedef struct dict {  实现字典的基础结构体
+    dictType *type;
+    void *privdata;
+    dictht ht[2];    两个dictht，当数据越来越多时，扩展容量使用。
+    long rehashidx; /* rehashing not in progress if rehashidx == -1 */
+    int iterators; /* number of iterators currently running */
+} dict;
+
+
+--------------------------------------
+typedef struct dict {
+    dictType *type;
+    void *privdata;
+    dictht ht[2];
+    long rehashidx; /* rehashing not in progress if rehashidx == -1 */
+    int iterators; /* number of iterators currently running */
+} dict;
+
+
+typedef struct dictEntry {
+    void *key;
+    union {
+        void *val;
+        uint64_t u64;
+        int64_t s64;
+        double d;
+    } v;
+    struct dictEntry *next;    => 挂链  什么是挂链？
+} dictEntry;
+
+
+
+学习了How?
+就运用起来!
+
+HSET key field value
+
+命令参数,对应的源码中的对象
+key: reidsObject  ptr->sds
+
+value:redisObject ptr->dict =[key=field,vaue=value]
+
+Dic => Dic [key:redisObject ptr=>SDS  value：redisObject ptr=>SDS]   redis本身就是一个大字典, 大字典嵌套小字典.也就是说大字典的value是一个字典
+
+
+应用场景是什么? 不知道,那学这些干嘛呢?
+127.0.0.1:6379> hset persons password 12345
+(integer) 1
+127.0.0.1:6379> hget persons username
+"jack"
+127.0.0.1:6379> hget person password
+(nil)
+127.0.0.1:6379> hget persons password
+"12345"
+127.0.0.1:6379> 
+
+
+hash的源码  基础结构体如何组合在一起.实现功能?
+int hashTypeSet(robj *o, robj *field, robj *value) {}
+
+Map，HashTable  原理都是一样的。。。
+
+
+
+
+11.redis数据结构之【Hash表】源码实现之dict,dictht,dictEntry结构体分析以及常用的HGet,HSet命令介绍和源码简析
+1.hash？ what？ how？ why？  先有个基本原理？ 也就是概念，或者大体上的介绍，或者整体上的认识，简要的介绍？ 也可以说先有个流程上，抽象上的认识，再去具体实现的了解。 此时画个图，好理解？  对哦，先有基本常识，大体上认识。不知道是什么？干什么用？如何用？   一下子，就去面对， 绝对懵逼？
+2.原来去看，看看概念，看看实例。 然后毫无概念，一脸懵逼，，仅仅是浏览了字母和汉字。。。。为什么会这样呢？
+3.现在必须，what？how？ why？  基本常识+脉络+前因后果+不足+改进  =》不仅仅是完成，持续改进。
+
+4.自己去学习redis的话，肯定仅仅是浏览，懵逼。 
+5.对比他呢。  他会对比其他语言，共同的地方。之前的知识串起来。 以前的经验和锻炼的能力，来学习？  他其实和我们用的某种程度上是一致的，只是redis的功能更优越，   会学习的很本质，很深入， 也基本融汇贯通的，举一反三的 基本认识 ，如果在加上思维和技巧=就可以解决问题了。
+6. 他有什么优点,我有什么不足呢?
+7.慢慢补充,自己在什么时候,该做什么,如何做?  要逐渐清楚有什么阶段,所处阶段,所处阶段的选择,选择如何抉择, 抉择后如何执行,如何反馈,如何检验,如何反思,如何借鉴.
+8.最后不仅仅是浏览,不仅仅是反思,不仅仅是总结,  最后落脚于实践.

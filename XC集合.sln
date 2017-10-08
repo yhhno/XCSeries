@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "09.redis数据结构之【L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "10.redis数据结构之【List双向链表】中阻塞版本之BLPOP,BRPOP和工具类LIndex,LINSERT,LRange命令介绍", "02Redis系列\10.redis数据结构之【List双向链表】中阻塞版本之BLPOP,BRPOP和工具类LIndex,LINSERT,LRange命令介绍\10.redis数据结构之【List双向链表】中阻塞版本之BLPOP,BRPOP和工具类LIndex,LINSERT,LRange命令介绍.csproj", "{FC30B261-B9F1-4B03-8D9D-223108A5F1BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "11.redis数据结构之【Hash表】源码实现之dict,dictht,dictEntry结构体分析以及常用的HGet,命令介绍和源码简析", "02Redis系列\11.redis数据结构之【Hash表】源码实现之dict,dictht,dictEntry结构体分析以及常用的HGet,命令介绍和源码简析\11.redis数据结构之【Hash表】源码实现之dict,dictht,dictEntry结构体分析以及常用的HGet,命令介绍和源码简析.csproj", "{8BF80798-90AB-4C40-A666-27B4478E08E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +78,10 @@ Global
 		{FC30B261-B9F1-4B03-8D9D-223108A5F1BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC30B261-B9F1-4B03-8D9D-223108A5F1BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC30B261-B9F1-4B03-8D9D-223108A5F1BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BF80798-90AB-4C40-A666-27B4478E08E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BF80798-90AB-4C40-A666-27B4478E08E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BF80798-90AB-4C40-A666-27B4478E08E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BF80798-90AB-4C40-A666-27B4478E08E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,6 +97,7 @@ Global
 		{6A9C6F1D-290B-4D21-9D05-4879016B6448} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{8E77386A-5585-438D-8603-EB475ED572FF} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{FC30B261-B9F1-4B03-8D9D-223108A5F1BE} = {813495A3-956D-46E1-B3F0-27B061B5527A}
+		{8BF80798-90AB-4C40-A666-27B4478E08E1} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
