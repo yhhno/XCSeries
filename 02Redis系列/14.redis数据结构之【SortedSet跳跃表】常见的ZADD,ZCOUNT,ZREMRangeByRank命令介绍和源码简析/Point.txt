@@ -1,0 +1,131 @@
+set  无value的字典
+一：SortedSet   对应的高级语言Java，C# 【SortDictinory 有序字典=> 由红黑树实现（很复杂一种树结构，减少旋转）】
+
+redis:skiplist 【跳跃表】 90年   【链表 来达到树的一个效果】  AVL，RedBlackTree  
+
+
+严格的Log2N复杂度。。。  
+
+准备工作,先理解跳跃表
+
+1. 如何更快的时间，经过更少的城市达到目标城市
+
+
+《1》到达北京： 直接飞机 一站达到  O(1)
+
+《2》天津：     四个节点到天津。
+
+sortedSet的最终效果
+【层次链表】 达到均摊的log2N 的时间复杂度。。。
+
+
+2. 添加数据到sortedset中。。。。 
+
+《1》 优先级队列   什么是优先级队列?
+
+《2》 top10的操作 【top N 大根堆，小根堆】  什么是大根堆,小根堆?
+
+ZADD key [NX|XX] [CH] [INCR] score member [score member ...]
+
+k:score      【权重，优先级】  什么是权重,什么是优先级?
+v：member
+
+
+127.0.0.1:6379> zadd trades 10 trade_10
+(integer) 1
+127.0.0.1:6379> zadd trades 20 trade_20
+(integer) 1
+127.0.0.1:6379> zadd trades 30 trade_30
+(integer) 1
+127.0.0.1:6379> zadd trades 40 trade_40
+(integer) 1
+127.0.0.1:6379> zadd trades 50 trade_50
+(integer) 1
+127.0.0.1:6379> 
+
+
+1.如果获取所有的数据
+
+127.0.0.1:6379> zrange trades 0 -1    【从小到大的排序】 也可以从大到小
+1) "trade_10"
+2) "trade_20"
+3) "trade_30"
+4) "trade_40"
+5) "trade_50"
+127.0.0.1:6379> 
+
+127.0.0.1:6379> zrevrange trades 0 -1
+1) "trade_50"
+2) "trade_40"
+3) "trade_30"
+4) "trade_20"
+5) "trade_10"
+
+
+127.0.0.1:6379> zrange trades 0 -1 withscores
+ 1) "trade_10"
+ 2) "10"
+ 3) "trade_20"
+ 4) "20"
+ 5) "trade_30"
+ 6) "30"
+ 7) "trade_40"
+ 8) "40"
+ 9) "trade_50"
+10) "50"
+127.0.0.1:6379> 
+
+
+ZREVRANGE key start stop [WITHSCORES] 根据
+
+
+如何实现优先级队列?
+优先级队列：
+
+1. 先获取最大值：
+
+127.0.0.1:6379> zrevrange trades 0 0
+1) "trade_50"
+
+
+2. 删除最大值
+ 
+127.0.0.1:6379> zremrangebyrank trades -1 -1
+(integer) 1
+
+
+127.0.0.1:6379> zrevrange trades 0 -1
+1) "trade_50"
+2) "trade_40"
+3) "trade_30"
+4) "trade_20"
+5) "trade_10"
+127.0.0.1:6379> zrevrange trades 0 0
+1) "trade_50"
+127.0.0.1:6379> zremrangebyrank trades -1 -1
+(integer) 1
+127.0.0.1:6379> zrevrange trades 0 -1
+1) "trade_40"
+2) "trade_30"
+3) "trade_20"
+4) "trade_10"
+127.0.0.1:6379> 
+
+
+一般来说做两次操作。。。 【redis】 做优先级队列面临的一些问题。。。
+
+
+Rabbitmq 专业级别的MQ产品。
+
+
+
+
+1.sortdictionry  红黑树  跳跃表  没有概念?
+2.听到优先级队列, 懵逼? 该怎么做?
+3.欠缺一些数据结构知识?
+4.欠缺一些常见术语,常见名词?
+5.redis的数据结构及其命令不是很熟悉,了然于胸? 不劳而获?唾手而得? 要清楚意识到自己的不足?
+5.1老黄是怎么做到的呢?
+6.面对新知识的时候,如何做?
+7.此时就有点浏览的状态了? 
+8.要延伸,不能仅仅学到别人教的,一定要延伸, 不然就是个静止的学习? 知识学知识,不是学能力?
