@@ -1,0 +1,168 @@
+一：hash其他的命令  特性映射需求?   特性如何认识, 需求如何提炼,两者如何映射?  为什么之前搞不出? 为什么他可以?
+
+命令都有哪些应用场景呢? 1.简单的数据存储 2.
+这个应用场景也就是符合hash对象的特性,hash就是为了处理这种情况,不过redis版本提供的功能更高性能,新特性.
+
+
+1.简单的数据存储
+1. 催付规则    [商品价格>30 ，上海地区的，不是黑名单用户，购买过某个商品]
+
+   符合就发催付。。。
+
+   联合利华：
+   施华蔻：
+   
+   都市大药房旗舰店： 【商品维度】  如何理解商品维度?
+
+
+  hash： 
+
+      shopid    regularID  regularEntity   ID=1
+                regularID  regularEntity   ID=2
+
+
+trade:  hgetall  获取所有的hash表内容 【共享内存,不要仅仅是浏览,好奇此处什么作用?】  ,避免每次来trade都要读取mysql
+
+根据每个trade,获去hash表的所有内容,然后做一个比较,也就是一些逻辑运算,筛选出目标哦.  
+避免每次来trade都要读取mysql,达到提高性能.和共享的目的(非共享也可以放在cache中)
+
+2. 分库分表：【shopid 都有一个DB】
+
+
+hash:
+       shopalloc 
+                   shopid   dbconnection
+                   shopid   dbconnection
+
+sentinel [mysql，sqlserver的双机热备] HA，   来达到redis的高可用,,让redis服务不挂.
+前面的学习,有点忘了.
+
+3. 策略使用 【复杂均衡】   hget,hkeys,hvals
+做服务器负载,有很多的业务逻辑服务器,客户端在添加数据的时候, 路由服务器根据路由表自由的分发到不同的业务逻辑服务器.
+达到负载均衡的目的.
+
+                                                                                logicserver
+           
+          client  ->  sellernick    ->   router (路由服务器维护一个hash表)        logicserver
+
+						                                                        logicserver
+使用hash是为了提高性能?
+hash:  routeralloc   
+                     sellernick logicserverIP
+		             sellernick logicserverIP
+
+
+Monitor => 用于给指定的sellernick分配logicserver   
+
+
+db中的sellernickList 和 redis中的sellernickList进行比较。。。。 
+
+从redis中一次性把所有的sellernick捞出来，，， hkeys
+
+
+HGETALL key  获取hash中的所有数据
+
+127.0.0.1:6379> hset shopid_1 regularID_1 entity
+(integer) 1
+127.0.0.1:6379> hset shopid_1 regularID_2 entity2
+(integer) 1
+127.0.0.1:6379> hset shopid_1 regularID_3 entity3
+(integer) 1
+127.0.0.1:6379> hgetAll shopid_1
+1) "regularID_1"
+2) "entity"
+3) "regularID_2"
+4) "entity2"
+5) "regularID_3"
+6) "entity3"
+127.0.0.1:6379> 
+
+
+
+
+4. 短信通道
+
+		          sellernick  channel1
+                  sellernick  channel2
+              
+			  
+
+
+
+HDEL key field [field ...]    用于删除hash表。。。
+
+HEXISTS key field             O(1)        时间复杂度的概念,应该是永恒的追求.
+
+hash：用于定值查找，时间复杂度永远都是O(1)   => hashfunction 重点在哈希函数
+
+
+127.0.0.1:6379> hset shopalloc 1 www.baidu.com
+(integer) 1
+127.0.0.1:6379> hset shopalloc 2 www.google.com
+(integer) 1
+127.0.0.1:6379> hlen shopalloc
+(integer) 2
+127.0.0.1:6379> hexists shopalloc 1
+(integer) 1
+127.0.0.1:6379> hexists shopalloc 1
+(integer) 1
+127.0.0.1:6379> hexists shopalloc 2
+(integer) 1
+127.0.0.1:6379> hexists shopalloc 3
+(integer) 0
+127.0.0.1:6379> hexists shopalloc 3
+
+
+HINCRBY key field increment  
+
+对field中的value进行递增，递增的值就是increment。。。。    String： incr
+
+
+HKEYS key 所有hashtable中的所有keys。。。
+
+127.0.0.1:6379> hkeys shopalloc
+1) "1"
+2) "2"
+
+127.0.0.1:6379> hvals shopalloc
+1) "www.baidu.com"
+2) "www.google.com"
+
+
+HLEN key
+
+
+HMSET key field value [field value ...]  批量的执行mset。。。 通过一次tcp操作全部塞入到key中。。。减少网络延迟,提高性能
+
+
+HSETNX key field value 【NX】 =>  【Not Exists】   做分布式锁【轻量级】
+
+HSTRLEN key field 获取field中的value的长度
+
+127.0.0.1:6379> hstrlen shopalloc 1
+(integer) 13
+127.0.0.1:6379> hstrlen shopalloc 2
+(integer) 14
+
+
+
+
+
+
+
+
+1.特性映射需求?   特性如何认识, 需求如何提炼,两者如何映射?  为什么之前搞不出? 为什么他可以?
+2.东西的出现,必然是为了解决问题的需要?  学东西不是浏览,不是学习,,而是要去理解他能解决什么问题?
+3.更好的了解知识,才能更好的用知识,去解决问题? 
+4.当学一个东西,他就能举出几个应用场景呢? 而我却不知道呢?  数据结构,基础类型,类型特性,统统都会为了解决问题的, 问题和方案如何契合?
+还是看到方案,不知道是利剑,不知道是手段,仅仅是欣赏了. 要耍起利剑. 转变下思维?
+
+
+4.如果仅仅是浏览, 在其他场景中出现这个名字,,就只知道文字的意思,不知道这个知识在这个场景的具体含义,当这种情况越来越多时,学东西也就越来越有障碍,,不懂的越来越多嘛,最后造成学学不进去,,看到了体会不了它的优点,变成浊眼了.
+4.不懂得东西多了,组合起来学,学不了,,组合起来使用,体会不了.
+5.很多时候不缺乏技术,缺乏眼界,知道的越多,解决方案也多?
+
+
+
+
+

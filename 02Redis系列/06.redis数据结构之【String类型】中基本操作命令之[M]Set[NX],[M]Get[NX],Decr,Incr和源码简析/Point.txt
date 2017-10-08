@@ -28,7 +28,7 @@ GET key   【nil】 =>lua
 
 应用场景分布式锁。。。。【zookeeper】 相对来说重量级。
 
-通过对username的赋值的返回值来判断是否获取到了一个分布式锁。。。
+通过对username的赋值的返回值来判断是否获取到了一个分布式锁。。。   起到一个共享的目的
 
 set username jack NX =》 如果返回ok，说明获得到了锁。。。
 

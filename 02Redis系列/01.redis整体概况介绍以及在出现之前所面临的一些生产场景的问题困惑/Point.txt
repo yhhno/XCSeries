@@ -2,8 +2,8 @@
 
 Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperloglogs and geospatial indexes with radius queries. Redis has built-in replication, Lua scripting, LRU eviction, transactions and different levels of on-disk persistence, and provides high availability via Redis Sentinel and automatic partitioning with Redis Cluster. Learn more →
 
-
-1. 是什么。  in-memory data structure store
+********* 既然使用redis,就是因为redis提供的功能更高性能,新特性,共享......不然其他语言也可以实现的,为什么不用呢******************
+1. 是什么。  in-memory data structure store  共享的目的
 
 2. 用途：     used as a database, cache and message broker    80% 都是用作这三个场景。。。
 
@@ -14,6 +14,7 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
 5. master-slave , sentinel [mysql，sqlserver的双机热备] HA，   cluster 【集群】  16384个槽位  【将一个非常大的data进行切分】  如何理解?
 
 
+********* 既然使用redis,就是因为redis提供的功能更高性能,新特性,共享......不然其他语言也可以实现的,为什么不用呢******************
 二：redis出现之前，我们实际场景中会遇到哪些痛点。
 
    database: 不能完全的和mysql相比。。。  【存储简单化的一些数据，提高性能】
