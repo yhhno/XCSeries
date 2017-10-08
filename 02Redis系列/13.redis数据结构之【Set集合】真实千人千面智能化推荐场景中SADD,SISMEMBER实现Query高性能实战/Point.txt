@@ -1,0 +1,105 @@
+一：Set  what?  鉴赏的眼光来看
+
+Set =>本质上: 没有value的Hash
+
+
+hash 
+
+     k, v
+
+
+Set  		【空间要节省的多】 为什么节省呢?  各种数据结构的构造和优点,要对比,要清楚.
+     k
+
+
+应用场景:  更多的是组合使用. 不仅仅单个。  需要更好的分析需求。
+
+二： 用户画像 什么是用户画像?
+给别人做推荐的时候,会维护用户的画像，心中要有概念。整个过程的概念。这样才不懵逼。
+
+ShopID: 旗舰店下面
+
+淘宝上下一个订单就是一个trade
+Trade  
+
+一个trade有不同的维度: 商品的维度,交易的维度,地区的维度
+为了能做智能化推荐,我们需要对某一家店铺,几百万信息,做一下用户画像,,推荐什么呢?
+
+商品维度：
+
+productid_1: customerid,customerid ...........    Set
+
+productid_2: customerid,customerid .......         Set
+
+
+交易维度
+
+customerid_1: 总交易金额，平均交易金额
+
+
+地区维度:
+
+shanghai: customerid,customerid.....	         Set
+beijing:  customerid,customerid....		          Set
+
+
+某一个用户购买 “洗发水” ,用户在上海地区的。。。  我们来判断是否符合设定的条件   来进行决定是否发送推荐,达到智能化推荐    【关联推荐】
+
+“洗发水”的productid:   看一下集合中是否有命中该customerid  O(1)
+
+ “上海” areaid:     看一下集合中是否包含。。。  0(1)  是否命中
+
+
+如果两项都命中，那么我们直接发送“推荐”的彩信和邮件。。。。h5。
+
+
+1. query，我们基本上做到了O(1)  因为数据特别多,所以做了cluster集群
+
+2. maintain 及时维护 set集合，  维护也就是及时添加到集合中。，既然要维护用户画像，就要选择一个适合的数据结构，刚好redis给我们提供了set
+
+
+二：常见命令
+
+1. SADD      
+
+   SADD key member [member ...]     单个或者批量添加，节省的是我们tcp的传输量。。。
+   
+
+2. SISMEMBER  
+
+   SISMEMBER key member   用于判断制定的member是否是set中的成员。。。
+
+
+旗舰店基本上商品数都在1w之内。。。。 遍历1w次redis耗费的时候也就在5s内。。。。 【局域网】
+
+
+
+3.交集，差集，并集
+
+交集： SINTER key [key ...]   后面都是要比较的key
+
+并集： SUNION key [key ...]
+
+差集： SDIFF key [key ...]
+
+ 
+4. SCARD key  获取Set的元素个数
+
+
+5. SPOP key [count] 随机弹出一个元素并且移除。。
+
+   Removes and returns one or more random elements from the set value store at key.
+
+6. SMEMBERS key  【查看所有的成员数据】
+
+
+redis能实现共享内存，当然redis中每个数据结构都是共享的，包括强大的redis set集合。。。
+
+
+
+简单场景 复杂场景
+
+1.为什么要看经典大作呢? 作者思路脉络清晰,表述非常清晰,易懂? 高深的陌生的文章,术语,词汇,通俗易懂,深入浅出.
+2.对应不经典的,内容只能作者自己知道了.  那就坑了读者呢?  才不要入坑呢? 不然一路懵逼，看下来，顺下来，还是懵逼
+3.redis一般都部署在  和使用机器 同一个局域网中
+4.既然要维护用户画像，就要选择一个适合的数据结构，刚好redis给我们提供了set， 可以引申一个什么样的问题呢？待定

@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "11.redis数据结构之【H
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "12.redis数据结构之【Hash表】常用的HDEL,HGET,HGETALL,HKEYS,HLEN等10几个命令介绍", "02Redis系列\12.redis数据结构之【Hash表】常用的HDEL,HGET,HGETALL,HKEYS,HLEN等10几个命令介绍\12.redis数据结构之【Hash表】常用的HDEL,HGET,HGETALL,HKEYS,HLEN等10几个命令介绍.csproj", "{33701449-593D-424E-809D-39B4312824CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "13.redis数据结构之【Set集合】真实千人千面智能化推荐场景中SADD,SISMEMBER实现Query高性能实战", "02Redis系列\13.redis数据结构之【Set集合】真实千人千面智能化推荐场景中SADD,SISMEMBER实现Query高性能实战\13.redis数据结构之【Set集合】真实千人千面智能化推荐场景中SADD,SISMEMBER实现Query高性能实战.csproj", "{B031DD0A-8BF4-4A00-B2A4-D6352C8DF3B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -88,6 +90,10 @@ Global
 		{33701449-593D-424E-809D-39B4312824CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33701449-593D-424E-809D-39B4312824CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33701449-593D-424E-809D-39B4312824CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B031DD0A-8BF4-4A00-B2A4-D6352C8DF3B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B031DD0A-8BF4-4A00-B2A4-D6352C8DF3B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B031DD0A-8BF4-4A00-B2A4-D6352C8DF3B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B031DD0A-8BF4-4A00-B2A4-D6352C8DF3B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,6 +111,7 @@ Global
 		{FC30B261-B9F1-4B03-8D9D-223108A5F1BE} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{8BF80798-90AB-4C40-A666-27B4478E08E1} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{33701449-593D-424E-809D-39B4312824CA} = {813495A3-956D-46E1-B3F0-27B061B5527A}
+		{B031DD0A-8BF4-4A00-B2A4-D6352C8DF3B3} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
