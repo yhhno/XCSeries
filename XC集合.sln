@@ -38,6 +38,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "13.redis数据结构之【S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "14.redis数据结构之【SortedSet跳跃表】常见的ZADD,ZCOUNT,ZREMRangeByRank命令介绍和源码简析", "02Redis系列\14.redis数据结构之【SortedSet跳跃表】常见的ZADD,ZCOUNT,ZREMRangeByRank命令介绍和源码简析\14.redis数据结构之【SortedSet跳跃表】常见的ZADD,ZCOUNT,ZREMRangeByRank命令介绍和源码简析.csproj", "{B23D1F55-ACDA-4687-9F47-9FAD612E6635}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "15.redis数据结构之【HyperLogLog估算基数】和key空间的Sort函数在Redis中的实战", "02Redis系列\15.redis数据结构之【HyperLogLog估算基数】和key空间的Sort函数在Redis中的实战\15.redis数据结构之【HyperLogLog估算基数】和key空间的Sort函数在Redis中的实战.csproj", "{6ED7390B-E67E-4048-963F-77B9572EB703}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -100,6 +102,10 @@ Global
 		{B23D1F55-ACDA-4687-9F47-9FAD612E6635}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B23D1F55-ACDA-4687-9F47-9FAD612E6635}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B23D1F55-ACDA-4687-9F47-9FAD612E6635}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6ED7390B-E67E-4048-963F-77B9572EB703}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ED7390B-E67E-4048-963F-77B9572EB703}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ED7390B-E67E-4048-963F-77B9572EB703}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ED7390B-E67E-4048-963F-77B9572EB703}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,6 +125,7 @@ Global
 		{33701449-593D-424E-809D-39B4312824CA} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{B031DD0A-8BF4-4A00-B2A4-D6352C8DF3B3} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{B23D1F55-ACDA-4687-9F47-9FAD612E6635} = {813495A3-956D-46E1-B3F0-27B061B5527A}
+		{6ED7390B-E67E-4048-963F-77B9572EB703} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}

@@ -9,6 +9,6 @@
 9.dup   复制
 10.macros  宏指令
 11.pivot   中心点, 轴
-
+12 xx换xx
 
 工具 wireshark 网络捕获器.

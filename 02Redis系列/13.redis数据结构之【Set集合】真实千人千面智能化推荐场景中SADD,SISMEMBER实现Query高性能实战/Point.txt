@@ -1,4 +1,4 @@
-一：Set  what?  鉴赏的眼光来看
+一：Set  what?  鉴赏的眼光来看  存放的key过多,占用的内存会很大
 
 Set =>本质上: 没有value的Hash
 
