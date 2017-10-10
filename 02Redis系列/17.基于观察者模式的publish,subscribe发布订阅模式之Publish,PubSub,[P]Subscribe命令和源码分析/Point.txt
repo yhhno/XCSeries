@@ -1,0 +1,142 @@
+一：发布订阅模式   what? 了然于胸?  如何了然于胸?  了然于胸=元素+元素关系+流程
+
+对比一下其他语言或作品.
+1. 本质上观察者模式 【设计模式中的一种】  .net  WPF 中就有一种MVVM模式。。
+
+                                        js    knockoutjs mvvm模式。。。
+
+										都是基于观察者模式.
+
+也就是说.类似数据结构, 各个语言,redis等,都有自己的观察者模式的实现,和运用?
+可能redis中,更高性能些.
+
+
+原理是什么呢? 了然于胸?   之前也学习了,为什么印象不深刻呢?  
+                          哪里做的不好?  
+						  目前有什么印象呢? 
+						  好像没什么印象,如何实现的?
+						  仅仅是记住代码?
+						  好像对这样的实现有什么好处? 没关注?  人都是关注对自己有利的东西. 仅仅是记住? 没好处? 那还记得清楚? 
+						  如果一步步走下来,好处一次次大,那还能记不住? 兴趣也许就不过如此?
+
+有很多的subscribe,订阅了Subject. 如何subject有内容更新,  subscribe 都能够接受的到.
+订阅是双向绑定的,
+                 subject
+
+subscribe  subcribe  subcribe  subcribe
+
+
+redis中的发布订阅命令:
+基本使用: 
+SUBSCRIBE channel [channel ...]
+
+
+channel：就是subject 【redis中称为频道】   生活中称为 收音机  抽象层次上是一致的,具体实现不一样,
+
+
+PUBLISH channel message   用于更新。。。
+
+
+
+更高层级,更复杂的应用: 
+直接订阅特定的频道，一对一的关系。。。                                                 直接定位
+
+如果订阅一个类别。。。 【也就是模式匹配】  new.*   => new.it  or  new.sport            模式匹配
+
+*：正则字符
+如果以前我会可能直接思考,如何模式匹配, 正则不会, 算了,不看了.  
+					这是一个问题?
+					1.思考方式有问题,一开始就到了最内部的地方,跳跃太大,
+					2.应该认识从最高级开始,依次中级,然后最基本..
+					3.有时只进行到中级就可以基本理解了.
+					4.有时系统,或者产品,封装了很多的东西,作为它的最基本, 给我们使用.
+
+
+
+
+
+PSUBSCRIBE pattern [pattern ...]  => p[pattern] 模式。。。
+
+
+MQ： Rabbitmq   【发布订阅模式】
+
+client ->  mq  ->  server     【长连接】 如何理解长连接?
+
+
+[root@localhost Desktop]# redis-cli
+127.0.0.1:6379> subscribe 188.12
+Reading messages... (press Ctrl-C to quit)  【长连接】 如何理解长连接?
+
+127.0.0.1:6379> psubscribe news.*
+Reading messages... (press Ctrl-C to quit)  【长连接】 如何理解长连接?
+
+
+【长连接】 如何理解长连接弊端的出现?
+使用中,发现问题?
+如果client端推送大量的消息，，， 1s  100
+
+这时候server并不能快速的处理,,,,(具体: logic process..... 而且读取db，soa webapi...   等耗费了很多时间)
+
+这时候server不能及时处理，导致大量积压。。。    【1：memory挂掉。。。 推送的消息挤压的内存上
+                                               2：cpu 100%          持续的处理消息
+                                               3：容易丢失消息[server挂掉]】
+
+
+此种学习,很深入? 如果是我,调试通了,就万事大吉了. 我不会如此深入,  无好处,不深入.
+这是一个很好的学习方式.  很有好处?
+
+如何实现? 订阅关联关系?  如何发送呢 ,
+有时分析到中级就可以理解了, 例如此处就没有分析发送消息.
+二：源码 [RedisClient] 监控,订阅关系等,放在client结构体中, client是怎样的一个存在.
+订阅关系每一种表示,都是有不同的结构,因此有不同的操作.
+1. 非模式       dict *pubsub_channels;  /* channels a client is interested in (SUBSCRIBE) */   字典
+	
+	          key            value  value为链表,表示链表中的client订阅了 key中的subject.,对链表的使用,有了新的认识.
+
+             subject1        client1 -> client2  -> client3  -> client4
+
+		     subject2        client1 -> client9  
+
+
+publish subject1 helloworld   所以查找key的复杂度是O（1）  实时谨记复杂度
+
+
+链表的value 是什么类型呢?  本仅仅局限于学习的例子.
+2. 模式         list *pubsub_patterns;  /* patterns a client is interested in (SUBSCRIBE) */   链表
+
+
+                pubsubPattern   ->  pubsubPattern(也就是list中结点的value的值)
+           
+	             c1                  c3
+                pattern= news.*    pattern= trip.*
+
+
+使用redis，定义的模式匹配的频道不会特别多。。。肯定不会超过100个。。。  遍历的复杂度O（N）  实时谨记复杂度
+
+publish trip.* hellworld   这个时候只能遍历list。。。。复杂度O（N） 
+
+
+typedef struct pubsubPattern {
+    client *client;
+    robj *pattern;
+} pubsubPattern;
+
+
+1.了然于胸=元素+元素关系+流程  eg:链表的value 是什么类型呢?
+5.0,很抽象的的概念,可以应用到很多层级,维度,粒度  例如生活,数据结构,系统
+5.首先一些最基本的个体, 
+             然后组合一些中级的个体,
+			 然后组合一些中级和基本的个体.
+			 最后可能我是使用的就是高级个体.
+			 我们不能局限于高级个体,其他的个体也要知道,还要知道如何演绎的.演绎是流程
+5.1.人都是关注对自己有利的东西. 仅仅是记住? 没好处? 那还记得清楚? 
+5.2.如果一步步走下来,好处一次次大,那还能记不住? 兴趣也许就不过如此? 也许此过程就发现了优雅?
+5.4.之前好像仅仅是停留在高级个体,浏览高级个体?   填鸭式个体不过如此吧. 之前的状态好像也是这个原因吧
+
+
+
+0.概念,原理,运用.对比,局限,有什么借鉴,了然于心?
+1.了然于胸=元素+元素关系+流程  eg:链表的value 是什么类型呢?
+2.抽象层次上是一致的,具体实现不一样,
+3.链表的vlue的值,可以存放什么? 这是一个问题? 要引申. 在数据结构的使用上即数据的存储, 交互上,流程上,
+4.无好处,不深入.
