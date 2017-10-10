@@ -1,0 +1,197 @@
+一：trans action  what?  为什么需要事务呢? 学东西肯定是用的,哪有什么用呢?
+
+对比关系型数据库,两者到底有什么异同?
+mysql，sqlserver。。。【复杂的机制】
+
+nosql：为了保持简洁性，或多或少的砍掉了一些transaction的一些特性。。。弱化。。。
+事务在不同的产品的实现,不一样.就像数据结构在不同的语言中实现,也不一样.
+
+
+事务的操作? 
+<1> create
+
+<2> commit 
+
+<3> rollback
+
+
+redis中的trans action的命令  既然要用,肯定要知道怎么用吧.
+
+multi 事务的开始
+
+xxxxxxx
+
+exec 【提交】
+
+discard 【取消】
+
+
+watch，unwatch 【监测或者取消】
+
+
+事务命令操作
+127.0.0.1:6379> flushall
+OK
+127.0.0.1:6379> multi
+OK
+127.0.0.1:6379> set useranme jack
+QUEUED  开启事务后, 命令入队列,,不是返回命令执行结果
+127.0.0.1:6379> set password 12345
+QUEUED
+127.0.0.1:6379> exec   执行内部的结尾,肯定有释放事务
+1) OK  返回两个ok,即命令执行结果
+2) OK
+127.0.0.1:6379> keys *
+1) "password"
+2) "useranme"
+127.0.0.1:6379> 
+
+重新开启一个事务
+127.0.0.1:6379> multi
+OK
+127.0.0.1:6379> set username jack
+QUEUED
+127.0.0.1:6379> set password 123456
+QUEUED
+127.0.0.1:6379> discard  取消事务
+OK
+127.0.0.1:6379> keys *
+(empty list or set)
+127.0.0.1:6379> 
+
+
+
+使用了以后, how?      
+multi.c  源码实现类  要有个过程的概念? 什么意思? 一步步如何走下来.
+
+   c->mstate.commands = NULL;
+
+好像我们的操作和commands属性有关。。。。也就是client.mstate。。。
+
+
+    c->flags |= CLIENT_MULTI; 标记事务状态    事务的状态起到什么作用?
+
+
+    for (j = 0; j < c->mstate.count; j++) {
+        c->argc = c->mstate.commands[j].argc;
+        c->argv = c->mstate.commands[j].argv;
+        c->cmd = c->mstate.commands[j].cmd;
+
+        /* Propagate a MULTI request once we encounter the first write op.
+         * This way we'll deliver the MULTI/..../EXEC block as a whole and
+         * both the AOF and the replication link will have the same consistency
+         * and atomicity guarantees. */
+        if (!must_propagate && !(c->cmd->flags & CMD_READONLY)) {
+            execCommandPropagateMulti(c);
+            must_propagate = 1;
+        }
+
+        call(c,CMD_CALL_FULL);
+
+        /* Commands may alter argc/argv, restore mstate. */
+        c->mstate.commands[j].argc = c->argc;
+        c->mstate.commands[j].argv = c->argv;
+        c->mstate.commands[j].cmd = c->cmd;
+    }
+
+
+
+
+1.    multiState mstate;      /* MULTI/EXEC state */
+
+
+
+
+二：watch  概念?了然于胸
+
+mysql，sqlserver。。  事务具有隔离性
+
+watch num
+
+multi  【在事务执行的过程中，我不希望被别人修改,别人修改会破坏一致性.,如果被别的客户端修改了,本次操作取消】  此时的一致性如何理解?
+
+incr num   【0，1  ，2】  本来你想从0 -> 1  结果，看到的效果就是 0 -> 2 了。。。
+
+exec [discard]
+
+
+举例说明:
+multi
+
+incr num
+
+exec  【取消】
+
+
+client incr num  
+
+
+
+
+《1》不用watch
+
+
+incr ：生成订单号。。。。   discard。。。
+
+
+watch的本意就是要保证在mutli的过程中，数据必须是干净的。。。。  如何理解脏数据?
+
+
+
+watch的源码分析:  工作机制? 了然于心?
+redisDb中有一个watched_keys
+
+
+/* Redis database representation. There are multiple databases identified
+ * by integers from 0 (the default database) up to the max configured
+ * database. The database number is the 'id' field in the structure. */
+typedef struct redisDb {
+    dict *dict;                 /* The keyspace for this DB */
+    dict *expires;              /* Timeout of keys with a timeout set */
+    dict *blocking_keys;        /* Keys with clients waiting for data (BLPOP) */
+    dict *ready_keys;           /* Blocked keys that received a PUSH */
+    dict *watched_keys;         /* WATCHED keys for MULTI/EXEC CAS */  用于监控的, 如何理解此时的监控
+    struct evictionPoolEntry *eviction_pool;    /* Eviction pool of keys */
+    int id;                     /* Database ID */
+    long long avg_ttl;          /* Average TTL, just for stats */
+} redisDb;
+
+
+RedisDb:
+
+
+watched_keys  此处保存着,监控key的client,  如果其他客户端修改了key 的值,  此处监控key的所有client的状态的,会开启cas模式
+                                            监控key的所有client,如果执行的时候,不会执行,直接回滚.  
+
+   num:   c1-> c2 -> c3 -> c4
+
+   username: c1-> c2 -> c3
+
+
+如果其他的client段修改了num，
+
+那么num中的value的链表【c1，c2,c3,c4]的client端的状态会开启一个CAS模式【脏数据】
+
+exec的时候，本client会发现这个num是脏数据，直接剔除。。。rollback。。。
+
+listAddNodeTail(clients,c);
+
+
+
+
+
+最可怕的是思维的错误,不能老是陷在错误的思维中? 错误的思维在于老是陷于错误的思维.
+1.What? how? why?  还有评价本身的局限, 其实也是个逻辑推理过程. 此过程只是 使用前的学习准备工作.? 学习下别人是如何推进这个过程的, 替代掉自己的错误模式.  之前思维局限于此为止.eg.知道了缓存? 但是自动过期,过期时间等,是使用过程的总结>
+2.紧接着,还有使用过程,What? how? why? 1+1=2?, 但如何运用1+1=2呢?   
+3.之前的知识有点忘了? 当时如何更深刻,事后如何更深刻?
+
+3.思维扩张:   What? how? why? +使用过程的技巧,经验,手段(例如:缓存的分级)
+3.redis的源码非常清晰,简单.一个评价.
+4.底层很多结构集合, 都有一个单独的count属性?  为什么?
+5.首先一些最基本的个体, 
+             然后组合一些中级的个体,
+			 然后组合一些中级和基本的个体.
+			 最后可能我是使用的就是高级个体.
+			 我们不能局限于高级个体,其他的个体也要知道,还要知道如何演绎的.
+6.cas是啥?
+7.有什么借鉴?是否自己可以实现一个?

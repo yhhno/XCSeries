@@ -269,7 +269,7 @@
     <None Include="redis-3.2.6\utils\whatisdoing.sh" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="1.png" />
+    <Content Include="Redis四大结构.png" />
     <Content Include="redis-3.2.6\deps\geohash-int\geohash.c" />
     <Content Include="redis-3.2.6\deps\geohash-int\geohash.h" />
     <Content Include="redis-3.2.6\deps\geohash-int\geohash_helper.c" />
