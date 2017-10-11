@@ -48,6 +48,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "18.redis过期键淘汰策�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "19.batchcommit性能优化之Pipeline管道模式介绍之如何使用使用CSharp和JAVA实现及通过Wireshark监视", "02Redis系列\19.batchcommit性能优化之Pipeline管道模式介绍之如何使用使用CSharp和JAVA实现及通过Wireshark监视\19.batchcommit性能优化之Pipeline管道模式介绍之如何使用使用CSharp和JAVA实现及通过Wireshark监视.csproj", "{DE9D4203-CB95-40F1-A962-83399B17C21C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20.使用Lua脚本实现对redis操作的高度自定义化及”集合去重”，“删除hash中小于某个阈值”等使用场景分析和代码展示", "02Redis系列\20.使用Lua脚本实现对redis操作的高度自定义化及”集合去重”，“删除hash中小于某个阈值”等使用场景分析和代码展示\20.使用Lua脚本实现对redis操作的高度自定义化及”集合去重”，“删除hash中小于某个阈值”等使用场景分析和代码展示.csproj", "{EF1E8D26-5FB8-477B-98F4-87E7AC6B6888}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -130,6 +132,10 @@ Global
 		{DE9D4203-CB95-40F1-A962-83399B17C21C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE9D4203-CB95-40F1-A962-83399B17C21C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE9D4203-CB95-40F1-A962-83399B17C21C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF1E8D26-5FB8-477B-98F4-87E7AC6B6888}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF1E8D26-5FB8-477B-98F4-87E7AC6B6888}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF1E8D26-5FB8-477B-98F4-87E7AC6B6888}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF1E8D26-5FB8-477B-98F4-87E7AC6B6888}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -154,6 +160,7 @@ Global
 		{211AD425-A1A7-4B0C-B3FA-4633903286B4} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{CA9AB454-0E21-403F-84D0-4B3F1B05AE7E} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{DE9D4203-CB95-40F1-A962-83399B17C21C} = {813495A3-956D-46E1-B3F0-27B061B5527A}
+		{EF1E8D26-5FB8-477B-98F4-87E7AC6B6888} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}

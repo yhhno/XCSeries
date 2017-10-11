@@ -1,0 +1,293 @@
+一：lua脚本  脚本是什么? 完全不知道是什么?干什么用?看了别人的文章也不理解?  为什么会这样呢?
+             为啥要用脚本呢?
+理解理解概念   如何理解一个新概念呢? 类比
+相当于mysql，sqlserver 存储过程。。。
+
+也就是说:自定义一些业务逻辑放到server端。。。。
+通过比较其他产品类似的功能,心中有没有 对lua脚本 发挥什么作用? 能干什么事? 有个猜想, 有个预期呢?
+
+redis也就提供以下几种数据类型
+
+string
+
+list
+
+set
+
+hash
+
+hyperloglog....
+
+越简单,灵活性越高?
+官网提供的大概200个命令，本质上来说都是很简单。。。 为啥没想到,本质上很简单? 为啥很简单? 越简单,灵活性越高?
+
+也就是简单的功能。。。  为啥很简单? 为啥没想到是简单的功能?   有可能觉得redis很牛逼,他说啥就是啥? 
+                                                          也可能是自己格局不大,看到基本就觉得是天
+
+比如说sort。。。 get。。。set。。。。
+以上也就是说提供了简单的基础类型和基础功能.
+
+
+不能整合+自定义逻辑,也就是说,redis提供的命令都不能实现这些需要? 满足不了复杂的欲望?  流程的演绎? 不然咋有需求?
+如何整合?如何自定义逻辑?  为什么要整合+自定义逻辑?  =>不能满足欲望?
+我们很难将这些操作整合起来。。。同时灌入一些自定义逻辑。。。。  为啥没想到要整合,要自定义逻辑 ?   业务太简单了? 格局不大,扣扣索索的 
+                                 此时的灌入如何理解?
+
+自定义逻辑比如: 迭代 for。。。foreach。。。。  说什么就是什么了? 有逻辑的接受嘛?  接受了,要有猜想? 有想象运用场景? 学了肯定是要用的?
+
+
+为什么说lua脚本很重要,游戏中升级,都是用lua脚本,,,  为什么很强大呢?  如何体现? 有什么借鉴? 启发,或者启蒙?
+使用lua脚本会发挥redis很强大的功能? 呐,有哪些强大的功能呢?
+
+
+
+使用lua脚本就好像我们直接操作 内存中的一些数据结构。。。  如何理解一个新概念呢?
+
+
+            List<string>;
+
+            SortedDictionary<int, int>;
+
+            SortedSet<int>;
+
+            HashSet<string>
+
+
+如果想学好lua的话，超越了redis的范畴。。。  为什么redis学的深的话,必须学会lua脚本? 怎样的配合?达到怎样的效果?
+
+lua：编程语言。。。
+
+看看官网
+http://www.lua.org/download.html
+
+为啥没对比?没猜想呢? 有个预期? 然后比较预期与现实  还没形成习惯?
+通过以下的代码,心中有没有 对lua脚本 发挥什么作用? 能干什么事? 有个猜想, 有个预期呢?
+local username="jack";
+
+if(username=="jack") then
+  print("yes");
+else
+  print("no");
+end
+
+
+http://luabinaries.sourceforge.net/download.html  lua下载
+
+http://www.runoob.com/lua/lua-tutorial.html lua教程
+
+
+redis中脚本的命令
+redis中的scripting命令   如何学习新命令?
+EVAL script numkeys key [key ...] arg [arg ...]
+
+script： 就是lua脚本 【lua代码】  此处也就是文件地址
+
+key:   就是我们需要获取的各个集合的key。。。。  【键空间】 陌生的术语? 每个陌生的术语,都要有概念,有使用案例?
+
+arg:   我们的一些附加参数。。。  附加参数有什么认识错误? 其实原来也没什么概念? 没什么应用场景?
+
+numkeys：制定当前有多少个key。。。
+
+KEYS[1],KEYS[2] 代表啥?  观察仔细?  有逻辑的捋过程?
+eval "return {KEYS[1],KEYS[2],ARGV[1],ARGV[2]}" 2 key1 key2 first second
+
+return {"key1","key2","first","second"}
+
+KEYS[1]： 相当于key的占位符
+
+
+我们自己定义一个lua文件，如果直接执行这个lua就可以了。。。。
+
+redis-cli --eval xxxx.lua  [key....keyn] , [argv....argvn]
+
+符合预期
+[root@localhost Desktop]# redis-cli --eval /usr/redis/sbin/2.lua
+"jack"
+[root@localhost Desktop]# 
+
+
+lua脚本的使用场景?  学了肯定是要用的?
+1. 通过lua脚本把list中的所有内容都获取出来。。。。。  为啥没觉得简单的感觉呢?
+
+ redis.call("lrange",key,0,-1);  调用redis中的某一个数据类型。。list
+
+
+local key=KEYS[1]; -- 你要获取那个key的所有value
+
+local values= redis.call("lrange",key,0,-1);    redis.call()代表啥? 也就是说脚本是如何工作呢? 是不是redis有lua解释器的原因?
+
+return values;
+很简单的例子?  为啥会说很简单的例子?
+
+
+
+2. 现成的两个复杂一点的例子
+
+   set: shopid,shopid  vip级别的。。。
+
+
+   这时候，我来了一批shopid，请问这些shopid中哪些是 vip级别？？？？
+    其实也就是求集合的交集。。。  如何理清需求,然后抽象出需求流程,然后用程序来实现具体的流程? 特性与现实的映射,过时了.
+
+
+   该怎么做呢? 首先翻一下命令?
+   
+  我们可以一次一次的去比较。。。 每次都调用sismember方法去比较。。
+
+ set: 1 2 3 4     
+
+
+  shopID： 4 10
+
+  调用sismember。。  : set.sismember(4) 和  set.sismember(10)   可能就有多次的tcp轮转。。。 不推荐  
+                                                                网络连接本事是耗时的
+
+  
+
+  lua脚本也可以处理,也就是求一下交集,一次性操作?
+  流程如何顺下来呢? 此处为啥没对比呢?没猜想? 没预期呢?
+local key=KEYS[1];
+local args=ARGV
+
+local i=0;
+
+local result={};
+
+
+-- 第一步： 
+local r_Set=redis.call("smembers",key);
+for i,v in ipairs(r_Set) do
+
+  for m,n in ipairs(args) do  两层循环,复杂度高
+
+     if(v==n) then
+       table.insert(result,1,v);
+       break;
+     end
+
+  end
+
+end
+
+return  result;
+以上代码,就说明了整合和自定义逻辑?
+
+O(N2)
+
+优化过程中:
+  for m,n in ipairs(args) do
+
+    local ishit=reis.call("ismembers",key,n);
+
+    if(ishit) then 出错了, 和预期不相符,,一旦出现非预期结果,怎么办?
+       table.insert(result,1,v);
+    end
+
+  end
+
+return  result;
+ 
+
+-- 优化后的一个版本。。。
+local key=KEYS[1];
+local args=ARGV
+
+local i=0;
+
+local result={};
+
+  for m,n in ipairs(args) do
+
+    local ishit=redis.call("sismember",key,n);  如何理解是否命中?
+    print(ishit);
+    if(ishit==1) then
+       table.insert(result,1,n);
+    end
+
+  end
+
+return  result;
+以上代码,就说明了整合和自定义逻辑?
+redis-cli --eval /usr/redis/sbin/2.lua person , shop4 shop6
+
+结果符合预期..
+
+
+三：删除hash中年龄<指定值 (20)
+
+
+hset  person  mary 20
+
+
+name age
+
+mary 20
+
+jack 22
+
+peter 30
+
+找到age<25 的name。。。。  lua脚本实现。。。
+如何理清需求,然后抽象出需求流程,然后用程序来实现具体的流程? 特性与现实的映射,过时了.
+
+local result={};
+local myperson=KEYS[1];
+local nums=ARGV[1];
+
+local myresult =redis.call("hkeys",myperson);
+
+for i,v in ipairs(myresult) do
+   local hval= redis.call("hget",myperson,v);
+   redis.log(redis.LOG_WARNING,hval);             log日志的使用?
+   if(tonumber(hval)<tonumber(nums)) then
+      table.insert(result,1,v);
+   end
+end
+
+return  result;
+以上代码,就说明了整合和自定义逻辑?
+
+结果符合预期.
+[root@localhost Desktop]# redis-cli --eval /usr/redis/sbin/2.lua person , 25
+1) "mary"
+2) "jack"
+[root@localhost Desktop]# 
+
+
+
+学东西肯定是要用的?
+对比什么呢? 这是个问题?
+0.要对比自己知识点,流程,运用,关系的认识, 有对比才有进步.  =>加深认识和设计能力+发现自己的不足和认识不准确
+0. 对比过程要有猜想,要有预期?  预期与现状的比较?
+1.了然于胸=元素+元素关系+流程  eg:链表的value 是什么类型呢?
+5.0,很抽象的的概念,可以应用到很多层级,维度,粒度  例如生活,数据结构(算是知识点吧),系统(系统算是运用吧)
+5.首先一些最基本的个体, 
+             然后组合一些中级的个体,
+			 然后组合一些中级和基本的个体.
+			 最后可能我是使用的就是高级个体.
+			 我们不能局限于高级个体,其他的个体也要知道,还要知道如何演绎的.演绎是流程
+  演绎是流程.流程怎么走的?
+             流程是个过程,
+			 最开始准备工作,元素材料准备好,
+			 整体上流程是怎样的?
+			 理想情况下:一步接着一步是怎样走完整个流程?
+			 出现意外,如何处理,然后在接下来走下去?
+			 每一步骤中,是如何组合元素?如何交互?完成这一步?
+                
+5.1.人都是关注对自己有利的东西. 仅仅是记住? 没好处? 那还记得清楚? 
+5.2.如果一步步走下来,好处一次次大,那还能记不住? 兴趣也许就不过如此? 也许此过程就发现了优雅?
+5.4.之前好像仅仅是停留在高级个体,浏览高级个体?   填鸭式个体不过如此吧. 之前的状态好像也是这个原因吧
+5.5 咋牛逼,也要形成习惯? 持续的产生效果? 也就是牛逼的结果,变常见的结果.
+
+
+0.概念,原理,运用.对比,局限,有什么借鉴,了然于心?
+1.知识点
+2.概念
+3.流程:不仅是系统流程,功能流程,还有命令流程
+4.技巧:对比+猜想+模型+预期+预期与现状比较+有逻辑的捋流程
+5.思维:填鸭式介绍,也填鸭式思考,思考是还浅尝辄止,还没形成习惯,把牛逼的变普通,越简单就灵活性越高
+6.不能忘: 学东西肯定是要用的.
+
+
+1.他认为的简单是什么?很容易理解是什么? 为什么他这么认为
+2.基本的常识: 耗时操作: 网络连接,时间复杂度高,非批处理
