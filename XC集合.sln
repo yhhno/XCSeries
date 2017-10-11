@@ -50,6 +50,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "19.batchcommit性能优化�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20.使用Lua脚本实现对redis操作的高度自定义化及”集合去重”，“删除hash中小于某个阈值”等使用场景分析和代码展示", "02Redis系列\20.使用Lua脚本实现对redis操作的高度自定义化及”集合去重”，“删除hash中小于某个阈值”等使用场景分析和代码展示\20.使用Lua脚本实现对redis操作的高度自定义化及”集合去重”，“删除hash中小于某个阈值”等使用场景分析和代码展示.csproj", "{EF1E8D26-5FB8-477B-98F4-87E7AC6B6888}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "21.理解redis中的数据持久化原理之两大常用手段【AOF模式和RDB模式】介绍和分析", "02Redis系列\21.理解redis中的数据持久化原理之两大常用手段【AOF模式和RDB模式】介绍和分析\21.理解redis中的数据持久化原理之两大常用手段【AOF模式和RDB模式】介绍和分析.csproj", "{E56F09D5-61AA-4FC9-8969-D67CEF94DD3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -136,6 +138,10 @@ Global
 		{EF1E8D26-5FB8-477B-98F4-87E7AC6B6888}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF1E8D26-5FB8-477B-98F4-87E7AC6B6888}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF1E8D26-5FB8-477B-98F4-87E7AC6B6888}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E56F09D5-61AA-4FC9-8969-D67CEF94DD3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E56F09D5-61AA-4FC9-8969-D67CEF94DD3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E56F09D5-61AA-4FC9-8969-D67CEF94DD3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E56F09D5-61AA-4FC9-8969-D67CEF94DD3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -161,6 +167,7 @@ Global
 		{CA9AB454-0E21-403F-84D0-4B3F1B05AE7E} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{DE9D4203-CB95-40F1-A962-83399B17C21C} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{EF1E8D26-5FB8-477B-98F4-87E7AC6B6888} = {813495A3-956D-46E1-B3F0-27B061B5527A}
+		{E56F09D5-61AA-4FC9-8969-D67CEF94DD3E} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}

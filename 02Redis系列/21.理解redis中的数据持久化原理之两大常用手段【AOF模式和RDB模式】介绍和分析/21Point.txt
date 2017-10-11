@@ -1,0 +1,291 @@
+一：redis序列化。序列化?是什么?有什么用? 之前一直懵逼?
+大家选择redis.一个很重要的原因是支持序列化.,机器重启,数据不丢失?  那选择有啥标准呢?
+
+memcached 没有序列化。。。 机器重启,数据丢失? 再重启，可能面临雪崩？ 没对比没伤害
+
+
+如何理解redis是一个内存数据库? 1.redis中的数据,都保存在内存中,机器重启了,数据肯定没有了.
+							 2. 有了持久化支持,redis中会把内存中的数据,刷盘到硬盘中.
+							 3.这样就不怕数据库重启了,那重启后,如何恢复数据,自动,还是手工.
+							 4.序列化文件为xx.rdb 和xx.aof
+
+持久化的流程是什么? 
+
+支持序列化机制有哪些？
+1. rdb  快照模式？ 如何理解？猜一下？  以前学过? 咋又忘了? 为什么会忘?
+
+    快照的模式。 其他nosql如mongodb都支持快照模式。。。  【定点保存】 坏处:如果重启会丢掉一些数据。。
+	                                                                    毕竟不是时间间隔?
+																		为啥我没想到呢?
+																		可能是这个知识是新的,我只顾接收, 没能从更高层次去思考.
+
+    flush data to disk。。。 刷盘如何理解？ 陌生的术语? 每个陌生的术语,都要有概念,有使用案例?
+  
+    redis默认就是rdb模式。。。 默认情况门清
+
+
+  快照模式工作原理： 猜一下？ 有逻辑捋顺流程？
+  如何理解触发持久化机制?
+  
+   触发策略配置：  
+    save time changes  这算是个配置，但具体如何读取这个配置呢？
+	 触发策略配置  
+	save 900 【15min】 1    满足900秒内有一个更新时触发？,但是如何触发呢? 定时器定时检查是否满足配置的策略.
+	save 300 【3min】 10
+	save 60 【1min】 10000
+
+1.系统检测自动实现序列化. (数据从内存到硬盘）
+具体检测:
+系统定时检测，在Redis中使用serverCron来实现这个检测。。。
+
+serverCron函数定期检测 三个save是否满足，如果满足，调用bgsave。。。 实现自动化保存,如何理解自动化保存?
+																					
+
+		触发策略的基本结构
+		struct saveparam *saveparams;   /* Save points array for RDB */
+		int saveparamslen;              /* Number of saving points */
+
+
+		 struct saveparam {
+			time_t seconds;
+			int changes;
+		};
+
+		serverCron函数中,检测是否满足策略
+        /* If there is not a background saving/rewrite in progress check if
+         * we have to save/rewrite now */
+         for (j = 0; j < server.saveparamslen; j++) {
+            struct saveparam *sp = server.saveparams+j;
+
+            /* Save if we reached the given amount of changes,
+             * the given amount of seconds, and if the latest bgsave was
+             * successful or if, in case of an error, at least
+             * CONFIG_BGSAVE_RETRY_DELAY seconds already elapsed. */
+            if (server.dirty >= sp->changes &&                       server.dirty changes的次数
+                server.unixtime-server.lastsave > sp->seconds &&
+                (server.unixtime-server.lastbgsave_try >
+                 CONFIG_BGSAVE_RETRY_DELAY ||
+                 server.lastbgsave_status == C_OK))  如何理解触发持久化机制?
+            {
+                serverLog(LL_NOTICE,"%d changes in %d seconds. Saving...",
+                    sp->changes, (int)sp->seconds);
+                rdbSaveBackground(server.rdb_filename);
+                break;
+            }
+         }
+
+
+2.手工进行实现序列化,save或bgsave 保存。。。实现（数据从内存到硬盘）
+
+
+save：    同步保存，保存期间，client是被阻塞的。。。 阻塞如何理解? 如何理解同步保存?
+
+		int rdbSave(char *filename);
+
+bgsave：  开启子进程来保存。。。 异步如何理解?  如何理解异步保存?
+
+		int rdbSaveBackground(char *filename);
+
+		if ((childpid = fork()) == 0) {
+			int retval;
+
+			/* Child */
+			closeListeningSockets(0);
+			redisSetProcTitle("redis-rdb-bgsave");
+			retval = rdbSave(filename);
+			if (retval == C_OK) {
+				size_t private_dirty = zmalloc_get_private_dirty();
+
+				if (private_dirty) {
+					serverLog(LL_NOTICE,
+						"RDB: %zu MB of memory used by copy-on-write",
+						private_dirty/(1024*1024));
+				}
+			}
+			exitFromChild((retval == C_OK) ? 0 : 1);
+		}
+
+
+
+2. aof  
+
+来一条命令，保存一次。。。即调用文件事件,写入磁盘.。 aof文件是保存我们的 。。。文本协议。。。
+																		文本协议如何理解?
+
+默认是不启用的。
+
+如果开启：
+
+三种不同的策略,具体如何实现? 每个 策略流程如何走?
+1. appendonly yes
+
+# appendfsync always     => 来一条保存一条。。 强制的执行fsync命令。。。  告诉操作系统强制flush到disk。    【slow，safe】 最多丢失一条数据
+
+appendfsync everysec     => 1秒 flush 一次。。。。  fsync命令  【折中】 最多丢失1s数据
+
+# appendfsync no         => flush。。。           不执行fsync命令。。等待操作系统将自己缓冲区中的数据flush到硬盘。。。  【unsafe】  不知道丢失多少。。。
+                                                             缓冲区如何理解?
+
+文本协议
+*2
+$6
+SELECT
+$1
+0
+*3
+$3
+set
+$8
+username
+$4
+jack
+*3
+$3
+set
+$8
+password
+$5
+12345
+
+=> select 0    选取第0个db
+
+=>  set username  jack
+
+=>  set password 12345
+
+redis重启后,后从aof文件,读取, 恢复数据
+
+serverCron函数中
+         /* Trigger an AOF rewrite if needed */
+         if (server.rdb_child_pid == -1 &&
+             server.aof_child_pid == -1 &&
+             server.aof_rewrite_perc &&
+             server.aof_current_size > server.aof_rewrite_min_size)
+         {
+            long long base = server.aof_rewrite_base_size ?
+                            server.aof_rewrite_base_size : 1;
+            long long growth = (server.aof_current_size*100/base) - 100;
+            if (growth >= server.aof_rewrite_perc) {
+                serverLog(LL_NOTICE,"Starting automatic rewriting of AOF on %lld%% growth",growth);
+                rewriteAppendOnlyFileBackground();
+            }
+         }
+
+ rewriteAppend:   如果db暴涨。。。redis命令是不是特别多。。。
+
+ CURD操作。。。 
+
+ set username jack
+
+ set username mary
+
+ set username peter
+
+ set username asdfasdf
+
+
+ 如果对username进行了100w操作。。。那命令多的吓人。。。
+
+
+所以redis做了一个机制，如果达到某一个阈值，会进行rewrite  赋值如何理解? 如何理解阀值机制?如何实现?
+
+
+auto-aof-rewrite-percentage 100
+auto-aof-rewrite-min-size 64mb 
+
+1. 如果你的文件有128M。。。   64 x 2 = 128 
+
+生成快照如何理解?
+生成快照 -> 生成命令到aof文件中。。。【缩小了文件的尺寸】
+
+重写到底做了什么?
+*2
+$6
+SELECT
+$1
+0
+*3
+$3
+set
+$8
+username
+$4
+jack
+*3
+$3
+set
+$8
+username
+$4
+mary
+*3
+$3
+set
+$8
+username
+$5
+peter
+
+
+=>  
+
+*2
+$6
+SELECT
+$1
+0
+*1
+set
+$8
+username
+$5
+peter
+
+int serverCron(struct aeEventLoop *eventLoop, long long id, void *clientData)  自动检测函数。。。
+让系统自动检测 系统函数检测就足够了
+定时器,定时执行ServerCorn函数? 如何理解?  定时器如何理解?
+
+
+
+
+
+
+
+
+
+学东西肯定是要用的?
+对比什么呢? 这是个问题?
+0.要对比自己知识点,流程,运用,关系的认识, 有对比才有进步.  =>加深认识和设计能力+发现自己的不足和认识不准确
+0. 对比过程要有猜想,要有预期?  预期与现状的比较?
+1.了然于胸=元素+元素关系+流程  eg:链表的value 是什么类型呢?
+5.0,很抽象的的概念,可以应用到很多层级,维度,粒度  例如生活,数据结构(算是知识点吧),系统(系统算是运用吧)
+5.首先一些最基本的个体, 
+             然后组合一些中级的个体,
+			 然后组合一些中级和基本的个体.
+			 最后可能我是使用的就是高级个体.
+			 我们不能局限于高级个体,其他的个体也要知道,还要知道如何演绎的.演绎是流程
+  演绎是流程.流程怎么走的?
+             流程是个过程,
+			 最开始准备工作,元素材料准备好,
+			 整体上流程是怎样的?
+			 理想情况下:一步接着一步是怎样走完整个流程?
+			 出现意外,如何处理,然后在接下来走下去?
+			 每一步骤中,是如何组合元素?如何交互?完成这一步?
+                
+5.1.人都是关注对自己有利的东西. 仅仅是记住? 没好处? 那还记得清楚? 
+5.2.如果一步步走下来,好处一次次大,那还能记不住? 兴趣也许就不过如此? 也许此过程就发现了优雅?
+5.4.之前好像仅仅是停留在高级个体,浏览高级个体?   填鸭式个体不过如此吧. 之前的状态好像也是这个原因吧
+5.5 咋牛逼,也要形成习惯? 持续的产生效果? 也就是牛逼的结果,变常见的结果.
+5.6 绝对不能放松状态,不然很难转换过来,必须一心认真对待,不认真不一心,绝对没有效果.
+
+
+1.如何理解刷盘,定时器,自动化保存,触发持久化机制,同步保存,异步保存,文本协议,缓冲区,阀值机制?
+
+
+0.概念,原理,运用.对比,局限,有什么借鉴,了然于心?
+1.知识点
+2.概念
+3.流程:不仅是系统流程,功能流程,还有命令流程
+4.技巧:对比+猜想+模型+预期+预期与现状比较+有逻辑的捋流程
+5.思维:填鸭式介绍,也填鸭式思考,思考是还浅尝辄止,还没形成习惯,把牛逼的变普通,越简单就灵活性越高
+6.贯穿: 学东西肯定是要用的. 意外怎么办? 
