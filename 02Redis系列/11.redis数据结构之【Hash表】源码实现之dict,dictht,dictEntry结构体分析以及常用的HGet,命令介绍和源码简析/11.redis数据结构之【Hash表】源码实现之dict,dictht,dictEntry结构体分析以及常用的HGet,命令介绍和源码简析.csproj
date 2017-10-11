@@ -51,7 +51,7 @@
   <ItemGroup>
     <Content Include="hash的基本原理.png" />
     <Content Include="hash的具体实现.png" />
-    <Content Include="Point.txt" />
+    <Content Include="11Point.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="char的位表示.png" />
-    <Content Include="Point.txt" />
+    <Content Include="08Point.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

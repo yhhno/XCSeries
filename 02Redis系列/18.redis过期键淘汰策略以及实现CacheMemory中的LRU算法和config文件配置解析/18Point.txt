@@ -1,0 +1,452 @@
+一：过期键  what?  过期键有什么了解? 用在什么地方? 没有?
+
+1. redis 作为Cache使用。。。  局部使用?如何理解呢? 就是说redis当做其他用途,比如database? 此情景下作为局部缓存使用.
+                              每个陌生的术语,都要有概念,有使用案例?
+set username jack  ....[ms] [ms]
+
+多种手段设置过期键
+2.第一种，初始化设置。。。  set
+
+  第二种：后期更改
+
+  第三种：过期变成持久。。。
+
+
+过期键命令的使用
+
+添加key时,设置过期时间.
+SET key value [EX seconds] [PX milliseconds] [NX|XX]
+
+ttl key  查看过期时间
+
+
+
+设置一个已存在的key 为过期键
+EXPIRE key seconds  将一个key变为过期键。。。   【以s为单位】
+
+PEXPIRE key milliseconds  将一个key变成过期键， 【以ms为单位】
+
+时间戳?  每个陌生的术语,都要有概念,有使用案例?
+如何理解时间戳..每个时间点都一个时间戳对应, 相比N秒后过期,设置一个时间戳,更有意境吧
+以某一个时间点为过期键，比如说，2016-12-27 9：07   想 2016-12-27 10：00 过期。。。。
+
+
+EXPIREAT key timestamp    
+
+
+过期操作是如何实现的?
+二：内部结构
+
+RedisDb -> dict
+
+
+/* Redis database representation. There are multiple databases identified
+ * by integers from 0 (the default database) up to the max configured
+ * database. The database number is the 'id' field in the structure. */
+typedef struct redisDb {
+    dict *dict;                 /* The keyspace for this DB */
+    dict *expires;              /* Timeout of keys with a timeout set */  过期keys集合? 
+    dict *blocking_keys;        /* Keys with clients waiting for data (BLPOP) */
+    dict *ready_keys;           /* Blocked keys that received a PUSH */
+    dict *watched_keys;         /* WATCHED keys for MULTI/EXEC CAS */
+    struct evictionPoolEntry *eviction_pool;    /* Eviction pool of keys */
+    int id;                     /* Database ID */
+    long long avg_ttl;          /* Average TTL, just for stats */
+} redisDb;
+
+
+过期keys集合?  如何存储? 什么结构存储?
+dict *expires;        
+
+  key       value
+username    时间的unix戳
+password    时间的unix戳
+
+
+流程如何走?
+问题：如何被删掉。。
+
+惰性? 陌生术语
+1. 惰性删除  如何理解惰性?  耗费一定的内存
+
+   就是访问key的时候再删除。。。 【节省cpu的时间】 + 【耗费一定的内存】
+
+   redis在定时删除中,加了惰性
+   定时删除,浪费cpu的时间 如何理解?
+   
+void setGenericCommand(client *c, int flags, robj *key, robj *val, robj *expire, int unit, robj *ok_reply, robj *abort_reply) {
+    long long milliseconds = 0; /* initialized to avoid any harmness warning */
+
+    if (expire) {
+        if (getLongLongFromObjectOrReply(c, expire, &milliseconds, NULL) != C_OK)
+            return;
+        if (milliseconds <= 0) {
+            addReplyErrorFormat(c,"invalid expire time in %s",c->cmd->name);
+            return;
+        }
+        if (unit == UNIT_SECONDS) milliseconds *= 1000;
+    }
+
+    if ((flags & OBJ_SET_NX && lookupKeyWrite(c->db,key) != NULL) ||
+        (flags & OBJ_SET_XX && lookupKeyWrite(c->db,key) == NULL))
+    {
+        addReply(c, abort_reply ? abort_reply : shared.nullbulk);
+        return;
+    }
+    setKey(c->db,key,val);
+    server.dirty++;
+    if (expire) setExpire(c->db,key,mstime()+milliseconds);
+    notifyKeyspaceEvent(NOTIFY_STRING,"set",key,c->db->id);
+    if (expire) notifyKeyspaceEvent(NOTIFY_GENERIC,
+        "expire",key,c->db->id);
+    addReply(c, ok_reply ? ok_reply : shared.ok);
+}
+
+
+/* Lookup a key for write operations, and as a side effect, if needed, expires
+ * the key if its TTL is reached.
+ *
+ * Returns the linked value object if the key exists or NULL if the key
+ * does not exist in the specified DB. */
+robj *lookupKeyWrite(redisDb *db, robj *key) {
+    expireIfNeeded(db,key);
+    return lookupKey(db,key,LOOKUP_NONE);
+}
+
+
+int expireIfNeeded(redisDb *db, robj *key) {
+    mstime_t when = getExpire(db,key);
+    mstime_t now;
+
+    if (when < 0) return 0; /* No expire for this key */
+
+    /* Don't expire anything while loading. It will be done later. */
+    if (server.loading) return 0;
+
+    /* If we are in the context of a Lua script, we claim that time is
+     * blocked to when the Lua script started. This way a key can expire
+     * only the first time it is accessed and not in the middle of the
+     * script execution, making propagation to slaves / AOF consistent.
+     * See issue #1525 on Github for more information. */
+    now = server.lua_caller ? server.lua_time_start : mstime();
+
+    /* If we are running in the context of a slave, return ASAP:
+     * the slave key expiration is controlled by the master that will
+     * send us synthesized DEL operations for expired keys.
+     *
+     * Still we try to return the right information to the caller,
+     * that is, 0 if we think the key should be still valid, 1 if
+     * we think the key is expired at this time. */
+    if (server.masterhost != NULL) return now > when;
+
+    /* Return when this key has not expired */
+    if (now <= when) return 0;
+
+    /* Delete the key */
+    server.stat_expiredkeys++;
+    propagateExpire(db,key);
+    notifyKeyspaceEvent(NOTIFY_EXPIRED,
+        "expired",key,db->id);
+    return dbDelete(db,key);
+}
+
+最后进行dbDelete ，然后继续做后续的正规操作。。。
+
+get -> expired 
+
+
+yes : delete  ->  正规流程  -> nil  正规流程是啥意思?
+
+
+no :  -> 正规流程  -> get value
+
+
+
+2. 定时删除 100ms一次   serverCron
+
+
+int serverCron(struct aeEventLoop *eventLoop, long long id, void *clientData) {
+    int j;
+    UNUSED(eventLoop);
+    UNUSED(id);
+    UNUSED(clientData);
+
+    /* Software watchdog: deliver the SIGALRM that will reach the signal
+     * handler if we don't return here fast enough. */
+    if (server.watchdog_period) watchdogScheduleSignal(server.watchdog_period);
+
+    /* Update the time cache. */
+    updateCachedTime();
+
+    run_with_period(100) {
+        trackInstantaneousMetric(STATS_METRIC_COMMAND,server.stat_numcommands);
+        trackInstantaneousMetric(STATS_METRIC_NET_INPUT,
+                server.stat_net_input_bytes);
+        trackInstantaneousMetric(STATS_METRIC_NET_OUTPUT,
+                server.stat_net_output_bytes);
+    }
+
+    /* We have just LRU_BITS bits per object for LRU information.
+     * So we use an (eventually wrapping) LRU clock.
+     *
+     * Note that even if the counter wraps it's not a big problem,
+     * everything will still work but some object will appear younger
+     * to Redis. However for this to happen a given object should never be
+     * touched for all the time needed to the counter to wrap, which is
+     * not likely.
+     *
+     * Note that you can change the resolution altering the
+     * LRU_CLOCK_RESOLUTION define. */
+    server.lruclock = getLRUClock();
+
+    /* Record the max memory used since the server was started. */
+    if (zmalloc_used_memory() > server.stat_peak_memory)
+        server.stat_peak_memory = zmalloc_used_memory();
+
+    /* Sample the RSS here since this is a relatively slow call. */
+    server.resident_set_size = zmalloc_get_rss();
+
+    /* We received a SIGTERM, shutting down here in a safe way, as it is
+     * not ok doing so inside the signal handler. */
+    if (server.shutdown_asap) {
+        if (prepareForShutdown(SHUTDOWN_NOFLAGS) == C_OK) exit(0);
+        serverLog(LL_WARNING,"SIGTERM received but errors trying to shut down the server, check the logs for more information");
+        server.shutdown_asap = 0;
+    }
+
+    /* Show some info about non-empty databases */
+    run_with_period(5000) {
+        for (j = 0; j < server.dbnum; j++) {
+            long long size, used, vkeys;
+
+            size = dictSlots(server.db[j].dict);
+            used = dictSize(server.db[j].dict);
+            vkeys = dictSize(server.db[j].expires);
+            if (used || vkeys) {
+                serverLog(LL_VERBOSE,"DB %d: %lld keys (%lld volatile) in %lld slots HT.",j,used,vkeys,size);
+                /* dictPrintStats(server.dict); */
+            }
+        }
+    }
+
+    /* Show information about connected clients */
+    if (!server.sentinel_mode) {
+        run_with_period(5000) {
+            serverLog(LL_VERBOSE,
+                "%lu clients connected (%lu slaves), %zu bytes in use",
+                listLength(server.clients)-listLength(server.slaves),
+                listLength(server.slaves),
+                zmalloc_used_memory());
+        }
+    }
+
+    /* We need to do a few operations on clients asynchronously. */
+    clientsCron();
+
+    /* Handle background operations on Redis databases. */
+    databasesCron();
+
+    /* Start a scheduled AOF rewrite if this was requested by the user while
+     * a BGSAVE was in progress. */
+    if (server.rdb_child_pid == -1 && server.aof_child_pid == -1 &&
+        server.aof_rewrite_scheduled)
+    {
+        rewriteAppendOnlyFileBackground();
+    }
+
+    /* Check if a background saving or AOF rewrite in progress terminated. */
+    if (server.rdb_child_pid != -1 || server.aof_child_pid != -1 ||
+        ldbPendingChildren())
+    {
+        int statloc;
+        pid_t pid;
+
+        if ((pid = wait3(&statloc,WNOHANG,NULL)) != 0) {
+            int exitcode = WEXITSTATUS(statloc);
+            int bysignal = 0;
+
+            if (WIFSIGNALED(statloc)) bysignal = WTERMSIG(statloc);
+
+            if (pid == -1) {
+                serverLog(LL_WARNING,"wait3() returned an error: %s. "
+                    "rdb_child_pid = %d, aof_child_pid = %d",
+                    strerror(errno),
+                    (int) server.rdb_child_pid,
+                    (int) server.aof_child_pid);
+            } else if (pid == server.rdb_child_pid) {
+                backgroundSaveDoneHandler(exitcode,bysignal);
+            } else if (pid == server.aof_child_pid) {
+                backgroundRewriteDoneHandler(exitcode,bysignal);
+            } else {
+                if (!ldbRemoveChild(pid)) {
+                    serverLog(LL_WARNING,
+                        "Warning, detected child with unmatched pid: %ld",
+                        (long)pid);
+                }
+            }
+            updateDictResizePolicy();
+        }
+    } else {
+        /* If there is not a background saving/rewrite in progress check if
+         * we have to save/rewrite now */
+         for (j = 0; j < server.saveparamslen; j++) {
+            struct saveparam *sp = server.saveparams+j;
+
+            /* Save if we reached the given amount of changes,
+             * the given amount of seconds, and if the latest bgsave was
+             * successful or if, in case of an error, at least
+             * CONFIG_BGSAVE_RETRY_DELAY seconds already elapsed. */
+            if (server.dirty >= sp->changes &&
+                server.unixtime-server.lastsave > sp->seconds &&
+                (server.unixtime-server.lastbgsave_try >
+                 CONFIG_BGSAVE_RETRY_DELAY ||
+                 server.lastbgsave_status == C_OK))
+            {
+                serverLog(LL_NOTICE,"%d changes in %d seconds. Saving...",
+                    sp->changes, (int)sp->seconds);
+                rdbSaveBackground(server.rdb_filename);
+                break;
+            }
+         }
+
+         /* Trigger an AOF rewrite if needed */
+         if (server.rdb_child_pid == -1 &&
+             server.aof_child_pid == -1 &&
+             server.aof_rewrite_perc &&
+             server.aof_current_size > server.aof_rewrite_min_size)
+         {
+            long long base = server.aof_rewrite_base_size ?
+                            server.aof_rewrite_base_size : 1;
+            long long growth = (server.aof_current_size*100/base) - 100;
+            if (growth >= server.aof_rewrite_perc) {
+                serverLog(LL_NOTICE,"Starting automatic rewriting of AOF on %lld%% growth",growth);
+                rewriteAppendOnlyFileBackground();
+            }
+         }
+    }
+
+
+    /* AOF postponed flush: Try at every cron cycle if the slow fsync
+     * completed. */
+    if (server.aof_flush_postponed_start) flushAppendOnlyFile(0);
+
+    /* AOF write errors: in this case we have a buffer to flush as well and
+     * clear the AOF error in case of success to make the DB writable again,
+     * however to try every second is enough in case of 'hz' is set to
+     * an higher frequency. */
+    run_with_period(1000) {
+        if (server.aof_last_write_status == C_ERR)
+            flushAppendOnlyFile(0);
+    }
+
+    /* Close clients that need to be closed asynchronous */
+    freeClientsInAsyncFreeQueue();
+
+    /* Clear the paused clients flag if needed. */
+    clientsArePaused(); /* Don't check return value, just use the side effect. */
+
+    /* Replication cron function -- used to reconnect to master,
+     * detect transfer failures, start background RDB transfers and so forth. */
+    run_with_period(1000) replicationCron();
+
+    /* Run the Redis Cluster cron. */
+    run_with_period(100) {
+        if (server.cluster_enabled) clusterCron();
+    }
+
+    /* Run the Sentinel timer if we are in sentinel mode. */
+    run_with_period(100) {
+        if (server.sentinel_mode) sentinelTimer();
+    }
+
+    /* Cleanup expired MIGRATE cached sockets. */
+    run_with_period(1000) {
+        migrateCloseTimedoutSockets();
+    }
+
+    /* Start a scheduled BGSAVE if the corresponding flag is set. This is
+     * useful when we are forced to postpone a BGSAVE because an AOF
+     * rewrite is in progress.
+     *
+     * Note: this code must be after the replicationCron() call above so
+     * make sure when refactoring this file to keep this order. This is useful
+     * because we want to give priority to RDB savings for replication. */
+    if (server.rdb_child_pid == -1 && server.aof_child_pid == -1 &&
+        server.rdb_bgsave_scheduled &&
+        (server.unixtime-server.lastbgsave_try > CONFIG_BGSAVE_RETRY_DELAY ||
+         server.lastbgsave_status == C_OK))
+    {
+        if (rdbSaveBackground(server.rdb_filename) == C_OK)
+            server.rdb_bgsave_scheduled = 0;
+    }
+
+    server.cronloops++;
+    return 1000/server.hz;
+}
+
+三：Cache  
+
+redis整体作为一个Cache。。。   memcache 真的是一样的。。。
+
+
+# maxmemory <bytes>   设置最大的内存  byte为单位。。。  也就是说redis最大 能占用的多大的内存
+
+
+server：100M
+
+maxmemory: 50M
+
+
+如果数据大于50M我该怎么办？？？
+以下介绍几种策略:  策略是如何实现的?
+# volatile-lru -> remove the key with an expire set using an LRU algorithm
+# allkeys-lru -> remove any key according to the LRU algorithm
+# volatile-random -> remove a random key with an expire set
+# allkeys-random -> remove a random key, any key
+# volatile-ttl -> remove the key with the nearest expire time (minor TTL)
+# noeviction -> don't expire at all, just return an error on write operations  数据库爆掉,如何理解?  灌进去如何理解?
+
+
+lru => leaset recently used  【最久未使用的】
+
+
+volatile-lru：  从过期键中去找最久未使用的数据。。。
+
+allkeys-lru:    从所有的keys中通过lru算法去删除。。。
+
+volatile-ttl：  redisObject  找到马上要过期的lru时间  
+
+# maxmemory-policy noeviction
+
+
+
+
+
+
+0.要对比自己知识点,流程,运用,关系的认识, 有对比才有进步.  =>加深认识和设计能力
+1.了然于胸=元素+元素关系+流程  eg:链表的value 是什么类型呢?
+5.0,很抽象的的概念,可以应用到很多层级,维度,粒度  例如生活,数据结构(算是知识点吧),系统(系统算是运用吧)
+5.首先一些最基本的个体, 
+             然后组合一些中级的个体,
+			 然后组合一些中级和基本的个体.
+			 最后可能我是使用的就是高级个体.
+			 我们不能局限于高级个体,其他的个体也要知道,还要知道如何演绎的.演绎是流程
+  演绎是流程.流程怎么走的?
+             流程是个过程,
+			 最开始准备工作,元素材料准备好,
+			 整体上流程是怎样的?
+			 理想情况下:一步接着一步是怎样走完整个流程?
+			 出现意外,如何处理,然后在接下来走下去?
+			 每一步骤中,是如何组合元素?如何交互?完成这一步?
+                
+5.1.人都是关注对自己有利的东西. 仅仅是记住? 没好处? 那还记得清楚? 
+5.2.如果一步步走下来,好处一次次大,那还能记不住? 兴趣也许就不过如此? 也许此过程就发现了优雅?
+5.4.之前好像仅仅是停留在高级个体,浏览高级个体?   填鸭式个体不过如此吧. 之前的状态好像也是这个原因吧
+
+
+
+1.对比过去, 有对比才有进步呀. 
+2.惰性,定时? 陌生的术语? 每个陌生的术语,都要有概念,有使用案例?
+3.数据库爆掉,如何理解?  灌进去如何理解?  
+4.其实有些概念,如果在进一步思考下,就能想明白,(如内存爆掉),可惜之前看到不理解,就不看了. 什么原因造成的呢? =>屏蔽不好的东西. 局部很好呀,但用了全面.
+5.错误的思维: 浅尝辄止,默认回避.

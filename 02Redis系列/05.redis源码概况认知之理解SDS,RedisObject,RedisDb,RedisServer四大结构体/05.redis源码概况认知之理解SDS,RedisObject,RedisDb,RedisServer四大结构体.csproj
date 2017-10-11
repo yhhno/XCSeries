@@ -611,7 +611,7 @@
     <Content Include="redis-3.2.6\src\zmalloc.h" />
     <Content Include="redis-3.2.6\utils\corrupt_rdb.c" />
     <Content Include="redis-3.2.6\utils\hashtable\rehashing.c" />
-    <Content Include="Point.txt" />
+    <Content Include="05Point.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

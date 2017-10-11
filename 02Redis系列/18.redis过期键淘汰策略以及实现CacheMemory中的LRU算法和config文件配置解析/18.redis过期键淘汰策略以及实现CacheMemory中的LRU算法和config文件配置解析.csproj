@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{18438DFC-356C-4AA8-82C4-FC0A550115DE}</ProjectGuid>
+    <ProjectGuid>{CA9AB454-0E21-403F-84D0-4B3F1B05AE7E}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_16.transaction事务之如何通过exec_multi_watch在redis中进行简单的commit和rollback操作</RootNamespace>
-    <AssemblyName>16.transaction事务之如何通过exec,multi,watch在redis中进行简单的commit和rollback操作</AssemblyName>
+    <RootNamespace>_18.redis过期键淘汰策略以及实现CacheMemory中的LRU算法和config文件配置解析</RootNamespace>
+    <AssemblyName>18.redis过期键淘汰策略以及实现CacheMemory中的LRU算法和config文件配置解析</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -49,8 +49,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="事务结构.png" />
-    <Content Include="16Point.txt" />
+    <Content Include="18Point.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

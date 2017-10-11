@@ -50,8 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="发布订阅模式.png" />
-    <Content Include="QQ截图20161225224326.png" />
-    <Content Include="Point.txt" />
+    <Content Include="模式与非模式的内部结构.png" />
+    <Content Include="17Point.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
