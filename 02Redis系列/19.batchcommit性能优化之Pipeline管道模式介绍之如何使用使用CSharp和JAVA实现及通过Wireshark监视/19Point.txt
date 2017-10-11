@@ -1,0 +1,200 @@
+1.对比什么呢 对比认识,对比实现,对比应用? 对比就是为了发现自己的不准确?
+一：redis 本身提供了两点性能优化。。。 优化是什么? 为什么要优化? 怎样优化?
+                                    产品本身也是迭代的.不断完善的, 基础方法? 复杂方法? 也是会提供优化后的方法?也就是说优化不仅是我们来做,系统也可以提供?
+
+
+1. 批量提交
+
+
+<1> mset 。。。。 驱动，。。。。
+
+
+思维错误: 程序不是三层? 不是三层方法都一样的?  
+                                   此例中,完全不知道数据初始化什么概念? 也不知道应用场景
+								   是特性不了解?还是应用场景不知道? 还是不知道流程?
+应用场景:
+   千人千面的时候，需要有一个数据初始化的需求。。。
+                   此时的数据初始化:构建数据到redis中   
+				   常用的术语,还是用理解清楚,准确?
+				   数据初始化也可以是用于添加缓存.更新缓存
+
+
+400w - 500w customerid
+
+id            某种类型的值
+customerid_1  22
+
+customerid_2  21
+
+customerid_3  14
+
+未优化版本,用set一个一个的塞入  为什么没有想到呢?
+操作400w  - 500w  tcp链接。。。。 几个G。。。  【1h】
+
+
+<2> mset  为什么没有认识到这是 某一种命令的批量提交  ?
+
+mset customerid_1 22  customerid_2  21  ....   
+
+
+
+也不会一次400w全部提交过去.
+会网络卡死 +  超时。。。。 为啥没有想到呢?  陌生的术语? 每个陌生的术语,都要有概念,有使用案例?
+
+1w条提交一次。。。
+
+
+jedis来演示一下。。。C# 驱动。。。
+
+
+	public static void main(String[] args) {
+		Jedis redis=new Jedis("192.168.23.155",6379);
+		
+//		String[] strlist={"customerid_1","22","customerid_2","21","customerid_3","14"};
+		
+		ArrayList<String> arrayList=new ArrayList<>();
+		
+		arrayList.add("customerid_1");
+		arrayList.add("22");
+		
+		arrayList.add("customerid_2");
+		arrayList.add("21");
+		
+		arrayList.add("customerid_3");
+		arrayList.add("14");
+		
+		String[] strlist=new String[arrayList.size()];
+		
+	    arrayList.toArray(strlist); 把arraylist的数据塞入strList中,这么奇怪? 不符合转换下咯
+		
+		redis.mset(strlist);   //batch
+	
+	   System.out.println("success");
+	}
+
+
+2. 多命令  为什么没有想到 可不可以 多命令批量提交呢?
+
+mset  string的批量
+
+hmset hash的批量
+
+sadd  set的批量
+
+
+如果做到三种命令的混合呢？？？
+
+set name jack
+
+hset person name jack
+
+sadd tags china
+
+为什么没有想到 节省内存,节省tcp链接,节省cpu呢?
+这样的三条混合命令，如果一次性提交？？？  【节省的网络的轮回】
+
+如何理解管道呢? 自己猜想了下,比如参考之前的批量,有个集合来保存多个命令,然后一起执行, 但此提供了pipeline.mset()方法,没想到
+用pipeline 【管道】 把多个命令打包,一次性丢给redis。。。 此时的丢给,如何理解?
+
+
+jedis来实现。。。
+
+
+package mytest2;
+
+import java.util.ArrayList;
+
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.Pipeline;
+
+public class Program {
+
+	public static void main(String[] args) {
+		Jedis redis=new Jedis("192.168.23.155",6379);
+	
+		//start pipeline
+	    Pipeline pipeline=redis.pipelined();
+	
+	    pipeline.set("name","jack");
+	    pipeline.hset("person","name","mary");
+	    pipeline.sadd("tags", "china");
+	    
+	    pipeline.sync();   //execute....
+	    
+	   System.out.println("success");
+	}
+}
+
+C#来实现pipeline。。。
+
+
+    static void Main(string[] args)
+        {
+            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("192.168.23.155:6379");
+
+            var db = redis.GetDatabase();
+
+            var batch = db.CreateBatch();
+            
+            batch.StringSetAsync("name", "jack");
+
+            batch.HashSetAsync("person", "name", "mary");
+
+            batch.SetAddAsync("tags", "china");
+
+            batch.Execute();
+
+            Console.ReadLine();
+        }
+
+
+
+
+
+
+0.要对比自己知识点,流程,运用,关系的认识, 有对比才有进步.  =>加深认识和设计能力+发现自己的不足和认识不准确
+1.了然于胸=元素+元素关系+流程  eg:链表的value 是什么类型呢?
+5.0,很抽象的的概念,可以应用到很多层级,维度,粒度  例如生活,数据结构(算是知识点吧),系统(系统算是运用吧)
+5.首先一些最基本的个体, 
+             然后组合一些中级的个体,
+			 然后组合一些中级和基本的个体.
+			 最后可能我是使用的就是高级个体.
+			 我们不能局限于高级个体,其他的个体也要知道,还要知道如何演绎的.演绎是流程
+  演绎是流程.流程怎么走的?
+             流程是个过程,
+			 最开始准备工作,元素材料准备好,
+			 整体上流程是怎样的?
+			 理想情况下:一步接着一步是怎样走完整个流程?
+			 出现意外,如何处理,然后在接下来走下去?
+			 每一步骤中,是如何组合元素?如何交互?完成这一步?
+                
+5.1.人都是关注对自己有利的东西. 仅仅是记住? 没好处? 那还记得清楚? 
+5.2.如果一步步走下来,好处一次次大,那还能记不住? 兴趣也许就不过如此? 也许此过程就发现了优雅?
+5.4.之前好像仅仅是停留在高级个体,浏览高级个体?   填鸭式个体不过如此吧. 之前的状态好像也是这个原因吧
+
+
+
+1.对比什么呢 对比认识,对比实现,对比应用? 对比就是为了发现自己的不准确? 也是一种逻辑推理吧
+2.新知识=>在对比中去学习,旧知识=> 对比中去修正?
+思维错误: 程序不是三层? 不是三层方法都一样的?  
+                                   此例中,完全不知道数据初始化什么概念? 也不知道应用场景
+								   是特性不了解?还是应用场景不知道? 还是不知道流程?
+
+
+0.概念,原理,运用.对比,局限,有什么借鉴,了然于心?
+1.知识点: 优化方式,批量提交
+2.概念:数据初始化,优化谁提供的,网络卡死,超时,多命令,单命令,pipeline(猜想如何实现的)
+3.流程:不仅是系统流程,功能流程,还有命令流程
+4.技巧:对比+猜想+模型
+5.思维:填鸭式介绍,也填鸭式思考,思考是还浅尝辄止
+
+
+从以下几个方面去学习,纠正
+0.概念,原理,运用.对比,局限,有什么借鉴,了然于心?
+1.知识点
+2.概念
+3.流程
+4.技巧
+5.思维
+
+

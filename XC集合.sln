@@ -46,6 +46,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "17.基于观察者模式的
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "18.redis过期键淘汰策略以及实现CacheMemory中的LRU算法和config文件配置解析", "02Redis系列\18.redis过期键淘汰策略以及实现CacheMemory中的LRU算法和config文件配置解析\18.redis过期键淘汰策略以及实现CacheMemory中的LRU算法和config文件配置解析.csproj", "{CA9AB454-0E21-403F-84D0-4B3F1B05AE7E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "19.batchcommit性能优化之Pipeline管道模式介绍之如何使用使用CSharp和JAVA实现及通过Wireshark监视", "02Redis系列\19.batchcommit性能优化之Pipeline管道模式介绍之如何使用使用CSharp和JAVA实现及通过Wireshark监视\19.batchcommit性能优化之Pipeline管道模式介绍之如何使用使用CSharp和JAVA实现及通过Wireshark监视.csproj", "{DE9D4203-CB95-40F1-A962-83399B17C21C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -124,6 +126,10 @@ Global
 		{CA9AB454-0E21-403F-84D0-4B3F1B05AE7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA9AB454-0E21-403F-84D0-4B3F1B05AE7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA9AB454-0E21-403F-84D0-4B3F1B05AE7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE9D4203-CB95-40F1-A962-83399B17C21C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE9D4203-CB95-40F1-A962-83399B17C21C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE9D4203-CB95-40F1-A962-83399B17C21C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE9D4203-CB95-40F1-A962-83399B17C21C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -147,6 +153,7 @@ Global
 		{18438DFC-356C-4AA8-82C4-FC0A550115DE} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{211AD425-A1A7-4B0C-B3FA-4633903286B4} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{CA9AB454-0E21-403F-84D0-4B3F1B05AE7E} = {813495A3-956D-46E1-B3F0-27B061B5527A}
+		{DE9D4203-CB95-40F1-A962-83399B17C21C} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
