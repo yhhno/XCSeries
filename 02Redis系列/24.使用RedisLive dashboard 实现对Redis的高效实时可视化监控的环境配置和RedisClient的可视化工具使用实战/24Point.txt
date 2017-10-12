@@ -1,0 +1,82 @@
+一：redis的监控 【一定是可视化的工具】
+
+winform
+web
+
+1. 程序员要经常用到的一个可视化监控工具。。。。
+
+   mysql，sqlserver 都有一个可视化界面。。。
+
+管理工具:
+1.Redis Desktop Manager
+
+
+2.Redis Client   【国人开发】  https://github.com/caoxinyu/RedisClient
+
+<a href="https://raw.githubusercontent.com/caoxinyu/RedisClient/windows/release/redisclient-win32.x86.2.0.exe">redisclient-win32.x86.2.0.exe</a>
+
+可视化的好处:有了可视化工具，就不用每次都输入命令去查看。。。
+
+
+3. Redis Studio
+
+
+二：web监控。。【redislive】
+
+自己不懂linux,不懂python,能否按照官网,来安装成功呢?=> 怕啥呢,什么来支撑呢?
+
+
+http://www.cnblogs.com/huangxincheng/archive/2016/06/08/5571185.html
+
+python 写的一个web监控。。。
+
+1. 安装pip =>  python的安装工具包。。。 类比:C# nuge， java maven。。。
+
+ 
+
+下载：https://pypi.python.org/pypi/pip
+
+centos默认自带了python
+[root@localhost Desktop]# python
+Python 2.7.5 (default, Nov 20 2015, 02:00:19) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-4)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+
+
+2.python setup.py install  安装pip工具包
+
+3.pip install tornado   python server ：                            类比:【java tomcat，.net IIS】
+
+4. pip install redis    python redis驱动                            类比:【java jedis，.net StackExchange】
+
+5. pip install python-dateutil --upgrade  python dateutil类库。。。  类比:【java 工具类jar】
+
+
+6. 获取redislive的源代码  python的应用程序
+
+理解陌生的配置?
+RedisServers： 你需要监控的redis server。。。。
+
+DataStoreType： RedisLive  【sqlite，redis】  专门开一台redis存放RedisLive的统计信息
+
+RedisStatsServer： 统计信息存放的Redis地址。。。
+
+7. 开启统计的redis 
+
+8. 开启监控脚本  ./redis-monitor.py --duration=120
+
+9. 开启web站点   ./redis-live.py
+
+
+
+三：怎么实现的。。
+
+
+RedisLive ： monitor，info。。。。来构建一个趋势图。。。
+
+
+Redis Live is a dashboard application with a number of useful widgets. At it's heart is a monitoring script that periodically issues INFO and MONITOR command to the redis instances and stores the data for analytics.
+
+
+monitor.py 脚本。。。

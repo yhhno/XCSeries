@@ -57,6 +57,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "22.redis集群操作之通�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "23.redis集群操作之使用四台Centos搭建高可用的sentinel哨兵架构实战", "02Redis系列\23.redis集群操作之使用四台Centos搭建高可用的sentinel哨兵架构实战\23.redis集群操作之使用四台Centos搭建高可用的sentinel哨兵架构实战.csproj", "{CD8CCEBE-4B92-4BED-B652-CA7FBFBF89E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "24.使用RedisLive dashboard 实现对Redis的高效实时可视化监控的环境配置和RedisClient的可视化工具使用实战", "02Redis系列\24.使用RedisLive dashboard 实现对Redis的高效实时可视化监控的环境配置和RedisClient的可视化工具使用实战\24.使用RedisLive dashboard 实现对Redis的高效实时可视化监控的环境配置和RedisClient的可视化工具使用实战.csproj", "{404943F8-0F03-46F5-A27B-ADF9309FFDA6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -155,6 +157,10 @@ Global
 		{CD8CCEBE-4B92-4BED-B652-CA7FBFBF89E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD8CCEBE-4B92-4BED-B652-CA7FBFBF89E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD8CCEBE-4B92-4BED-B652-CA7FBFBF89E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{404943F8-0F03-46F5-A27B-ADF9309FFDA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{404943F8-0F03-46F5-A27B-ADF9309FFDA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{404943F8-0F03-46F5-A27B-ADF9309FFDA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{404943F8-0F03-46F5-A27B-ADF9309FFDA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -183,6 +189,7 @@ Global
 		{E56F09D5-61AA-4FC9-8969-D67CEF94DD3E} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{96AAD287-A377-4C3D-BA9C-D5CB99E64F9F} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{CD8CCEBE-4B92-4BED-B652-CA7FBFBF89E9} = {813495A3-956D-46E1-B3F0-27B061B5527A}
+		{404943F8-0F03-46F5-A27B-ADF9309FFDA6} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
