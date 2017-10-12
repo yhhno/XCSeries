@@ -3,7 +3,7 @@
 Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperloglogs and geospatial indexes with radius queries. Redis has built-in replication, Lua scripting, LRU eviction, transactions and different levels of on-disk persistence, and provides high availability via Redis Sentinel and automatic partitioning with Redis Cluster. Learn more →
 
 ********* 既然使用redis,就是因为redis提供的功能更高性能,新特性,共享......不然其他语言也可以实现的,为什么不用呢******************
-1. 是什么。  in-memory data structure store  共享的目的
+1. 是什么。  in-memory data structure store  共享的目的  如何理解基于内存的数据机构存储?
 
 2. 用途：     used as a database, cache and message broker    80% 都是用作这三个场景。。。
 
@@ -11,7 +11,7 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
 
 4. Lua：【游戏插件上】
 
-5. master-slave , sentinel [mysql，sqlserver的双机热备] HA，   cluster 【集群】  16384个槽位  【将一个非常大的data进行切分】  如何理解?
+5. master-slave , sentinel [mysql，sqlserver的双机热备] HA，   cluster 【集群】  16384个槽位  【将一个非常大的data进行切分】  如何理解redis的集群?
 
 
 ********* 既然使用redis,就是因为redis提供的功能更高性能,新特性,共享......不然其他语言也可以实现的,为什么不用呢******************
@@ -28,24 +28,24 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
       如果在mysql中，一个请求来了，就要请求一次db。。。  shopid => connectionstring.根据shopid查找connectionString ,  查找的时间复杂度LogN + IO读取。。。
 
 	  解决:
-      redis  hash来存储这个   时间复杂度 O(1)  也就是定值查找。
+      redis  hash来存储这个   时间复杂度 O(1)  也就是定值查找。   hash+定值查找 =>效率很高
 
 
    cache：memcache【数据不能持久化】，
 
-          1. 重启之后数据丢失。。。        【redis有序列化机制 （AOF【来一个请求，写一次io】，RDB 【快照模式,也就是定期保存】）】
+          1. 重启之后数据丢失。。。         方案:【redis有序列化机制 （AOF【来一个请求，写一次io】，RDB 【快照模式,也就是定期保存】）】
    
           2. 很多系统对缓存有非常大的依赖，以致于没了缓存，系统就崩溃。。。为什么会崩溃? 没了cache所有的请求都压到db上,db受不了, 引发   雪崩。
 
-          3.  hash一致性。 在client端做成复杂均衡[也就是平摊,不集中]。   【redis cluster】  + 【各种语言驱动版本的client，（java，C#）】
+          3.  hash一致性。 在client端做成复杂均衡[也就是平摊数据到多个机器上,不集中在一台机器上]。   方案:【redis cluster】  + 【各种语言驱动版本的client，（java，C#）】 也就是说redis服务端支持集群? 如何支持? 新增机器后,还是会有数据要重写?
 
-
+											如何理解异步化?
     Message borker：如何将同步系统异步化。   1.  request就可以了，不需要等待response。。。
                                              2.  request  =>  ...中转页 ...  => response  
-
+									
                     client ->  borker  <- server   【消息队列】   rabbitmq。activemq。   
 
-    10w的读取。。。
+    10w/s的读取。。。 高性能
 
 	
 

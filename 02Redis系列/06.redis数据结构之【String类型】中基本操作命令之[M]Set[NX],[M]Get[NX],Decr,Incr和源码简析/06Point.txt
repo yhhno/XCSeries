@@ -40,17 +40,17 @@ set username mary NX =》 如果返回nil，说明没有获取到锁。。。
      IncrBy，DecrBy =>自增或者自减去指定的值 【 i=i + xx,  i=i - xx 】
 
      Redis中的String不是string类型。。。   如果存放到string中的value是int，那么其实在内部还是用int的。。。
-					   从encoding可以看出。。。       
+					   从encoding可以看出。。。     Encoding是什么意思呢? 如何理解?    
 
      RedisObject中有一个type属性，
-		  有一个encoding属性。。。
-		  有一个ptr属性。 => SDS
+		          有一个encoding属性。。。
+		          有一个ptr属性。 => SDS
 
      OBJECT ENCODING
 
 
-     从一个简单的String类型中，我们发现有int，embstr.... 【性能优化,相当于底层做了优化,】 
-
+     从一个简单的String类型中，我们发现string中存储的int和string,其实内部是int，embstr.... 【性能优化体,相当于底层做了优化,】 
+																							底层优化是什么?
 
 简要看一下源码： t_string.c  专门讲述string的源码。。。
 
@@ -342,7 +342,7 @@ void dbAdd(redisDb *db, robj *key, robj *val) {
  4.zookeeper是啥? 有啥用呢?
  5.看了源码,一路逻辑链串下来, 本质又清晰.  不过还是要有 发现代码的优雅 能力,借鉴别人是如何优雅的使用代码,解决问题?
  6.特性不是平白无故出来的,既然这样设计肯定是有用途的.  =>小小的逻辑推理下
- 7.灵活的使用单个或多个,来解决实际的需求.
+ 7.灵活的使用单个或多个,来解决实际的需求.=>组合的魅力
  8.要有发现优雅的能力
 
 

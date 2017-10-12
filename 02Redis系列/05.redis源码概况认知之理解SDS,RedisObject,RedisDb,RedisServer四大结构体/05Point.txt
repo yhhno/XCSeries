@@ -37,7 +37,7 @@ int main(int argc, char **argv) {}
 
     initServer();  
 
-    listenToPort(server.port,server.ipfd,&server.ipfd_count) == C_ERR) [监控tcp端口 6379]
+    listenToPort(server.port,server.ipfd,&server.ipfd_count) == C_ERR) [监控tcp端口 6379]  为什么有端口呢?
 
 
     /* Create the Redis databases, and initialize other internal state. */
@@ -138,7 +138,7 @@ struct __attribute__ ((__packed__)) sdshdr64 {
     char buf[];
 };
 
-因为在C语言中都是用char[]来存放数据，，在Redis中为了性能，封装了一下char[]   为什么能提高性能? 如何做能提高性能呢?
+因为在C语言中都是用char[]来存放数据，，在Redis中为了性能，封装了一下char[]   为什么能提高性能(【性能优化,相当于底层做了优化,】 )? 如何做能提高性能呢?
 
 高级语言中用到的String。。。
 
@@ -150,7 +150,7 @@ struct __attribute__ ((__packed__)) sdshdr64 {
 
 
 1.既然已经了解基本的使用. 现在我们结合源码来深入地学习redis的特性?各种数据结构?
-2.借着学习redis的数据结构, 来复习数据结构? 了解下高手是如何理解数据结构的?
+2.借着学习redis的数据结构, 来复习数据结构? 了解下高手是如何理解数据结构的?如何设计数据结构的
 3.首先对redis源代码 来个整体的,大局的认识?
 4.画个图,好理解? 技巧哦 ,  画图加文字推导,逻辑链串起来了. 
 5.为什么源码中,有那么多的struct.

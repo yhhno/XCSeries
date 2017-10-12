@@ -1,0 +1,169 @@
+*************流程和元素和场景,都要了然于胸,只有认识的很本质,很清晰,才能更好的了然于胸
+1.对比什么呢 对比认识,对比实现,对比应用? 对比就是为了发现自己的不准确?
+一：redis：多机操作 什么是多机操作? 不理解? 没概念?没应用场景? 没关系,猜想下,有逻辑的猜想下?
+
+其他产品. 如果之前有了解,就很好的去理解redis的master-slave
+mysql，sqlserver中也有 master - slave 概念 
+nosql：基本上都有。。。
+
+
+
+1>.master - slave  如何理解master-slave? master-slave是多机操作中最简单的.
+
+1. 数据的热备份  如何理解热备份? slave如何同步master的数据? 
+
+   如果master宕机了，slave还是有完整的备份。。。。【热备份】 数据在,但功能瘫痪了,不高可用. 
+
+2. 分解读写压力? 流程怎么走?
+
+   问题:如果你的业务读写特别大。。。 【手段:分流】
+
+
+   分而治之。。。
+
+一般来说， 读写8：2   10个操作中有8个读，2个写。。。
+
+
+这时候，就有一个集群来抗读写操作。。。来实现高负载
+
+
+3. 可以在slave上做冷备份
+
+   防止程序员，运维的误操作。。。比如说我做了flushall的操作。。。
+
+   直接copy一个slave3 的rdb文件。。。 
+
+
+
+
+
+
+二：实践
+
+用3台 Centos去做
+
+centos1： 192.168.23.158   master
+
+centos2： 192.168.23.152   slave1
+
+centos3： 192.168.23.145   slave2
+
+只需使用slaveof命令,,其中的同步等操作.有redis内部完成.  对于我们来说是黑盒.
+redis-cli slaveof 命令
+
+修改配置文件 slaveof命令。。。
+
+# masterauth <master-password>   如果master有密码，可以在这里配置。。。
+
+
+
+3257:M 28 Dec 06:28:53.339 * Slave 192.168.23.152:6379 asks for synchronization
+3257:M 28 Dec 06:28:53.339 * Full resync requested by slave 192.168.23.152:6379
+3257:M 28 Dec 06:28:53.339 * Starting BGSAVE for SYNC with target: disk
+3257:M 28 Dec 06:28:53.340 * Background saving started by pid 3376
+3376:C 28 Dec 06:28:53.349 * DB saved on disk
+3376:C 28 Dec 06:28:53.350 * RDB: 6 MB of memory used by copy-on-write
+3257:M 28 Dec 06:28:53.445 * Background saving terminated with success
+3257:M 28 Dec 06:28:53.446 * Synchronization with slave 192.168.23.152:6379 succeeded
+
+
+
+
+三：验证
+
+# Replication
+role:master
+connected_slaves:2
+slave0:ip=192.168.23.152,port=6379,state=online,offset=127,lag=0
+slave1:ip=192.168.23.145,port=6379,state=online,offset=141,lag=0
+master_repl_offset:141
+repl_backlog_active:1
+repl_backlog_size:1048576
+repl_backlog_first_byte_offset:2
+repl_backlog_histlen:140
+
+
+# Keyspace
+127.0.0.1:6379> info Replication
+# Replication
+role:slave
+master_host:192.168.23.158
+master_port:6379
+master_link_status:up
+master_last_io_seconds_ago:5
+master_sync_in_progress:0
+slave_repl_offset:211
+slave_priority:100
+slave_read_only:1
+connected_slaves:0
+master_repl_offset:0
+repl_backlog_active:0
+repl_backlog_size:1048576
+repl_backlog_first_byte_offset:0
+repl_backlog_histlen:0
+127.0.0.1:6379> 
+
+
+四：落地实践
+
+1.redis-cli
+
+通过验证，没有问题。。。
+
+
+2. C# client  =>  master - slave集群
+
+        static void Main(string[] args)
+        {
+            //创建链接
+            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("192.168.23.158:6379,192.168.23.152:6379,192.168.23.145:6379");
+
+            //获取db
+            var database = redis.GetDatabase();
+
+            //database.StringSet("username", "hellworld");
+
+            var str = database.StringGet("username");
+        }
+
+
+
+
+全过程,有血有肉的认识,拒绝浏览式的,有猜想(自己思考过)
+学东西肯定是要用的?
+对比什么呢? 这是个问题?
+0.要对比自己知识点,流程,运用,关系的认识, 有对比才有进步.  =>加深认识和设计能力+发现自己的不足和认识不准确
+0. 对比过程要有猜想,要有预期?  预期与现状的比较?
+1.了然于胸=元素+元素关系+流程  eg:链表的value 是什么类型呢?
+5.0,很抽象的的概念,可以应用到很多层级,维度,粒度  例如生活,数据结构(算是知识点吧),系统(系统算是运用吧)
+5.首先一些最基本的个体, 
+             然后组合一些中级的个体,
+			 然后组合一些中级和基本的个体.
+			 最后可能我是使用的就是高级个体.
+			 我们不能局限于高级个体,其他的个体也要知道,还要知道如何演绎的.演绎是流程
+  演绎是流程.流程怎么走的?
+             流程是个过程,
+			 最开始准备工作,元素材料准备好,
+			 整体上流程是怎样的?
+			 理想情况下:一步接着一步是怎样走完整个流程?
+			 出现意外,如何处理,然后在接下来走下去?
+			 每一步骤中,是如何组合元素?如何交互?完成这一步?
+			 直至结束
+                
+5.1.人都是关注对自己有利的东西. 仅仅是记住? 没好处? 那还记得清楚? 
+5.2.如果一步步走下来,好处一次次大,那还能记不住? 兴趣也许就不过如此? 也许此过程就发现了优雅?
+5.4.之前好像仅仅是停留在高级个体,浏览高级个体?   填鸭式个体不过如此吧. 之前的状态好像也是这个原因吧
+5.5 咋牛逼,也要形成习惯? 持续的产生效果? 也就是牛逼的结果,变常见的结果.
+5.6 绝对不能放松状态,不然很难转换过来,必须一心认真对待,不认真不一心,绝对没有效果.
+
+
+1.如何理解刷盘,定时器,自动化保存,触发持久化机制,同步保存,异步保存,文本协议,缓冲区,阀值机制,自动检测?
+
+
+0.概念,原理,运用.对比,局限,有什么借鉴,了然于心?
+1.知识点
+2.概念
+3.流程:不仅是系统流程,功能流程,还有命令流程
+4.技巧:对比+猜想+模型+预期+预期与现状比较+有逻辑的捋流程
+5.思维:填鸭式介绍,也填鸭式思考,思考是还浅尝辄止,还没形成习惯,把牛逼的变普通,越简单就灵活性越高
+6.贯穿: 学东西肯定是要用的. 意外怎么办? 

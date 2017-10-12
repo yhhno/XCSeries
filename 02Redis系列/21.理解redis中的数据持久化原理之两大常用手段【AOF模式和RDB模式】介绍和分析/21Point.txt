@@ -1,3 +1,5 @@
+*************Á÷³ÌºÍÔªËØ,¶¼ÒªÁËÈ»ÓÚÐØ
+1.¶Ô±ÈÊ²Ã´ÄØ ¶Ô±ÈÈÏÊ¶,¶Ô±ÈÊµÏÖ,¶Ô±ÈÓ¦ÓÃ? ¶Ô±È¾ÍÊÇÎªÁË·¢ÏÖ×Ô¼ºµÄ²»×¼È·?
 Ò»£ºredisÐòÁÐ»¯¡£ÐòÁÐ»¯?ÊÇÊ²Ã´?ÓÐÊ²Ã´ÓÃ? Ö®Ç°Ò»Ö±ãÂ±Æ?
 ´ó¼ÒÑ¡Ôñredis.Ò»¸öºÜÖØÒªµÄÔ­ÒòÊÇÖ§³ÖÐòÁÐ»¯.,»úÆ÷ÖØÆô,Êý¾Ý²»¶ªÊ§?  ÄÇÑ¡ÔñÓÐÉ¶±ê×¼ÄØ?
 
@@ -6,15 +8,18 @@ memcached Ã»ÓÐÐòÁÐ»¯¡£¡£¡£ »úÆ÷ÖØÆô,Êý¾Ý¶ªÊ§? ÔÙÖØÆô£¬¿ÉÄÜÃæÁÙÑ©±À£¿ Ã»¶Ô±ÈÃ»ÉËº
 
 ÈçºÎÀí½âredisÊÇÒ»¸öÄÚ´æÊý¾Ý¿â? 1.redisÖÐµÄÊý¾Ý,¶¼±£´æÔÚÄÚ´æÖÐ,»úÆ÷ÖØÆôÁË,Êý¾Ý¿Ï¶¨Ã»ÓÐÁË.
 							 2. ÓÐÁË³Ö¾Ã»¯Ö§³Ö,redisÖÐ»á°ÑÄÚ´æÖÐµÄÊý¾Ý,Ë¢ÅÌµ½Ó²ÅÌÖÐ.
-							 3.ÕâÑù¾Í²»ÅÂÊý¾Ý¿âÖØÆôÁË,ÄÇÖØÆôºó,ÈçºÎ»Ö¸´Êý¾Ý,×Ô¶¯,»¹ÊÇÊÖ¹¤.
+							 3.ÕâÑù¾Í²»ÅÂÊý¾Ý¿âÖØÆôÁË,
+							 3.ÄÇÖØÆôºó,ÈçºÎ»Ö¸´Êý¾Ý,×Ô¶¯,»¹ÊÇÊÖ¹¤.
 							 4.ÐòÁÐ»¯ÎÄ¼þÎªxx.rdb ºÍxx.aof
+							 5.²»³Ö¾Ã»¯µÄ»°,ÄÚ´æÖÐµÄÊý¾ÝÒ×¶ªÊ§.
 
-³Ö¾Ã»¯µÄÁ÷³ÌÊÇÊ²Ã´? 
+³Ö¾Ã»¯µÄÁ÷³ÌÊÇÊ²Ã´? ²ÂÒ»ÏÂ£¿ ÓÐÂß¼­ÞÛË³Á÷³Ì£¿
+ Á÷³ÌÈçºÎË³ÏÂÀ´ÄØ? ´Ë´¦ÎªÉ¶Ã»¶Ô±ÈÄØ?Ã»²ÂÏë? Ã»Ô¤ÆÚÄØ?
 
 Ö§³ÖÐòÁÐ»¯»úÖÆÓÐÄÄÐ©£¿
 1. rdb  ¿ìÕÕÄ£Ê½£¿ ÈçºÎÀí½â£¿²ÂÒ»ÏÂ£¿  ÒÔÇ°Ñ§¹ý? Õ¦ÓÖÍüÁË? ÎªÊ²Ã´»áÍü?
 
-    ¿ìÕÕµÄÄ£Ê½¡£ ÆäËûnosqlÈçmongodb¶¼Ö§³Ö¿ìÕÕÄ£Ê½¡£¡£¡£  ¡¾¶¨µã±£´æ¡¿ »µ´¦:Èç¹ûÖØÆô»á¶ªµôÒ»Ð©Êý¾Ý¡£¡£
+    ¿ìÕÕµÄÄ£Ê½¡£ ÆäËûnosqlÈçmongodb¶¼Ö§³Ö¿ìÕÕÄ£Ê½¡£¡£¡£  ¡¾¶¨µã±£´æ¡¿ »µ´¦:Èç¹ûÖØÆô»á¶ªµôÒ»Ð©Êý¾Ý¡£¡£±Ï¾¹ÄÚ´æ²»ÊÇ³Ö¾Ã»¯
 	                                                                    ±Ï¾¹²»ÊÇÊ±¼ä¼ä¸ô?
 																		ÎªÉ¶ÎÒÃ»Ïëµ½ÄØ?
 																		¿ÉÄÜÊÇÕâ¸öÖªÊ¶ÊÇÐÂµÄ,ÎÒÖ»¹Ë½ÓÊÕ, Ã»ÄÜ´Ó¸ü¸ß²ã´ÎÈ¥Ë¼¿¼.
@@ -25,7 +30,7 @@ memcached Ã»ÓÐÐòÁÐ»¯¡£¡£¡£ »úÆ÷ÖØÆô,Êý¾Ý¶ªÊ§? ÔÙÖØÆô£¬¿ÉÄÜÃæÁÙÑ©±À£¿ Ã»¶Ô±ÈÃ»ÉËº
 
 
   ¿ìÕÕÄ£Ê½¹¤×÷Ô­Àí£º ²ÂÒ»ÏÂ£¿ ÓÐÂß¼­ÞÛË³Á÷³Ì£¿
-  ÈçºÎÀí½â´¥·¢³Ö¾Ã»¯»úÖÆ?
+  ÈçºÎÀí½â´¥·¢³Ö¾Ã»¯»úÖÆ?   Ä°ÉúµÄÊõÓï? Ã¿¸öÄ°ÉúµÄÊõÓï,¶¼ÒªÓÐ¸ÅÄî,ÓÐÊ¹ÓÃ°¸Àý?
   
    ´¥·¢²ßÂÔÅäÖÃ£º  
     save time changes  ÕâËãÊÇ¸öÅäÖÃ£¬µ«¾ßÌåÈçºÎ¶ÁÈ¡Õâ¸öÅäÖÃÄØ£¿
@@ -34,12 +39,14 @@ memcached Ã»ÓÐÐòÁÐ»¯¡£¡£¡£ »úÆ÷ÖØÆô,Êý¾Ý¶ªÊ§? ÔÙÖØÆô£¬¿ÉÄÜÃæÁÙÑ©±À£¿ Ã»¶Ô±ÈÃ»ÉËº
 	save 300 ¡¾3min¡¿ 10
 	save 60 ¡¾1min¡¿ 10000
 
+
+  Á÷³ÌÈçºÎË³ÏÂÀ´ÄØ? ´Ë´¦ÎªÉ¶Ã»¶Ô±ÈÄØ?Ã»²ÂÏë? Ã»Ô¤ÆÚÄØ?
 1.ÏµÍ³¼ì²â×Ô¶¯ÊµÏÖÐòÁÐ»¯. (Êý¾Ý´ÓÄÚ´æµ½Ó²ÅÌ£©
 ¾ßÌå¼ì²â:
 ÏµÍ³¶¨Ê±¼ì²â£¬ÔÚRedisÖÐÊ¹ÓÃserverCronÀ´ÊµÏÖÕâ¸ö¼ì²â¡£¡£¡£
 
 serverCronº¯Êý¶¨ÆÚ¼ì²â Èý¸ösaveÊÇ·ñÂú×ã£¬Èç¹ûÂú×ã£¬µ÷ÓÃbgsave¡£¡£¡£ ÊµÏÖ×Ô¶¯»¯±£´æ,ÈçºÎÀí½â×Ô¶¯»¯±£´æ?
-																					
+																	Ä°ÉúµÄÊõÓï? Ã¿¸öÄ°ÉúµÄÊõÓï,¶¼ÒªÓÐ¸ÅÄî,ÓÐÊ¹ÓÃ°¸Àý?				
 
 		´¥·¢²ßÂÔµÄ»ù±¾½á¹¹
 		struct saveparam *saveparams;   /* Save points array for RDB */
@@ -65,7 +72,7 @@ serverCronº¯Êý¶¨ÆÚ¼ì²â Èý¸ösaveÊÇ·ñÂú×ã£¬Èç¹ûÂú×ã£¬µ÷ÓÃbgsave¡£¡£¡£ ÊµÏÖ×Ô¶¯»¯±£
                 server.unixtime-server.lastsave > sp->seconds &&
                 (server.unixtime-server.lastbgsave_try >
                  CONFIG_BGSAVE_RETRY_DELAY ||
-                 server.lastbgsave_status == C_OK))  ÈçºÎÀí½â´¥·¢³Ö¾Ã»¯»úÖÆ?
+                 server.lastbgsave_status == C_OK))  ÈçºÎÀí½â´¥·¢³Ö¾Ã»¯»úÖÆ? Ä°ÉúµÄÊõÓï? Ã¿¸öÄ°ÉúµÄÊõÓï,¶¼ÒªÓÐ¸ÅÄî,ÓÐÊ¹ÓÃ°¸Àý?
             {
                 serverLog(LL_NOTICE,"%d changes in %d seconds. Saving...",
                     sp->changes, (int)sp->seconds);
@@ -77,12 +84,12 @@ serverCronº¯Êý¶¨ÆÚ¼ì²â Èý¸ösaveÊÇ·ñÂú×ã£¬Èç¹ûÂú×ã£¬µ÷ÓÃbgsave¡£¡£¡£ ÊµÏÖ×Ô¶¯»¯±£
 
 2.ÊÖ¹¤½øÐÐÊµÏÖÐòÁÐ»¯,save»òbgsave ±£´æ¡£¡£¡£ÊµÏÖ£¨Êý¾Ý´ÓÄÚ´æµ½Ó²ÅÌ£©
 
-
-save£º    Í¬²½±£´æ£¬±£´æÆÚ¼ä£¬clientÊÇ±»×èÈûµÄ¡£¡£¡£ ×èÈûÈçºÎÀí½â? ÈçºÎÀí½âÍ¬²½±£´æ?
+ 
+save£º    Í¬²½±£´æ£¬±£´æÆÚ¼ä£¬clientÊÇ±»×èÈûµÄ¡£¡£¡£ ×èÈûÈçºÎÀí½â? ÈçºÎÀí½âÍ¬²½±£´æ? Ä°ÉúµÄÊõÓï? Ã¿¸öÄ°ÉúµÄÊõÓï,¶¼ÒªÓÐ¸ÅÄî,ÓÐÊ¹ÓÃ°¸Àý?
 
 		int rdbSave(char *filename);
 
-bgsave£º  ¿ªÆô×Ó½ø³ÌÀ´±£´æ¡£¡£¡£ Òì²½ÈçºÎÀí½â?  ÈçºÎÀí½âÒì²½±£´æ?
+bgsave£º  ¿ªÆô×Ó½ø³ÌÀ´±£´æ¡£¡£¡£ Òì²½ÈçºÎÀí½â?  ÈçºÎÀí½âÒì²½±£´æ? Ä°ÉúµÄÊõÓï? Ã¿¸öÄ°ÉúµÄÊõÓï,¶¼ÒªÓÐ¸ÅÄî,ÓÐÊ¹ÓÃ°¸Àý?
 
 		int rdbSaveBackground(char *filename);
 
@@ -92,7 +99,7 @@ bgsave£º  ¿ªÆô×Ó½ø³ÌÀ´±£´æ¡£¡£¡£ Òì²½ÈçºÎÀí½â?  ÈçºÎÀí½âÒì²½±£´æ?
 			/* Child */
 			closeListeningSockets(0);
 			redisSetProcTitle("redis-rdb-bgsave");
-			retval = rdbSave(filename);
+			retval = rdbSave(filename); ×ÓÏß³ÌÖ´ÐÐµÄ±£´æ·½·¨?  Ä°ÉúµÄÊõÓï? Ã¿¸öÄ°ÉúµÄÊõÓï,¶¼ÒªÓÐ¸ÅÄî,ÓÐÊ¹ÓÃ°¸Àý?
 			if (retval == C_OK) {
 				size_t private_dirty = zmalloc_get_private_dirty();
 
@@ -111,22 +118,25 @@ bgsave£º  ¿ªÆô×Ó½ø³ÌÀ´±£´æ¡£¡£¡£ Òì²½ÈçºÎÀí½â?  ÈçºÎÀí½âÒì²½±£´æ?
 
 À´Ò»ÌõÃüÁî£¬±£´æÒ»´Î¡£¡£¡£¼´µ÷ÓÃÎÄ¼þÊÂ¼þ,Ð´Èë´ÅÅÌ.¡£ aofÎÄ¼þÊÇ±£´æÎÒÃÇµÄ ¡£¡£¡£ÎÄ±¾Ð­Òé¡£¡£¡£
 																		ÎÄ±¾Ð­ÒéÈçºÎÀí½â?
+																		Ä°ÉúµÄÊõÓï? Ã¿¸öÄ°ÉúµÄÊõÓï,¶¼ÒªÓÐ¸ÅÄî,ÓÐÊ¹ÓÃ°¸Àý?
 
 Ä¬ÈÏÊÇ²»ÆôÓÃµÄ¡£
 
 Èç¹û¿ªÆô£º
 
-ÈýÖÖ²»Í¬µÄ²ßÂÔ,¾ßÌåÈçºÎÊµÏÖ? Ã¿¸ö ²ßÂÔÁ÷³ÌÈçºÎ×ß?
+Êý¾ÝÎªÉ¶»á¶ªÊ§? ÄÚ´æ²»ÊÇ³Ö¾Ã»¯µÄ,Ò×¶ªÊ§? 
+ÈýÖÖ²»Í¬µÄ²ßÂÔ,¾ßÌåÈçºÎÊµÏÖ? Ã¿¸ö ²ßÂÔÁ÷³ÌÈçºÎ×ß?   
+  Á÷³ÌÈçºÎË³ÏÂÀ´ÄØ? ´Ë´¦ÎªÉ¶Ã»¶Ô±ÈÄØ?Ã»²ÂÏë? Ã»Ô¤ÆÚÄØ?
 1. appendonly yes
 
 # appendfsync always     => À´Ò»Ìõ±£´æÒ»Ìõ¡£¡£ Ç¿ÖÆµÄÖ´ÐÐfsyncÃüÁî¡£¡£¡£  ¸æËß²Ù×÷ÏµÍ³Ç¿ÖÆflushµ½disk¡£    ¡¾slow£¬safe¡¿ ×î¶à¶ªÊ§Ò»ÌõÊý¾Ý
 
-appendfsync everysec     => 1Ãë flush Ò»´Î¡£¡£¡£¡£  fsyncÃüÁî  ¡¾ÕÛÖÐ¡¿ ×î¶à¶ªÊ§1sÊý¾Ý
+appendfsync everysec     => 1Ãë flush Ò»´Î¡£¡£¡£¡£  fsyncÃüÁî                                       ¡¾ÕÛÖÐ¡¿ ×î¶à¶ªÊ§1sÊý¾Ý
 
 # appendfsync no         => flush¡£¡£¡£           ²»Ö´ÐÐfsyncÃüÁî¡£¡£µÈ´ý²Ù×÷ÏµÍ³½«×Ô¼º»º³åÇøÖÐµÄÊý¾Ýflushµ½Ó²ÅÌ¡£¡£¡£  ¡¾unsafe¡¿  ²»ÖªµÀ¶ªÊ§¶àÉÙ¡£¡£¡£
-                                                             »º³åÇøÈçºÎÀí½â?
-
-ÎÄ±¾Ð­Òé
+                                                             »º³åÇøÈçºÎÀí½â?²Ù×÷ÏµÍ³ÈçºÎ±£´æÊý¾Ý?Êý¾Ýµ½Ó²ÅÌÊÇÔõÑùµÄÒ»¸ö¹ý³Ì?
+															 Ä°ÉúµÄÊõÓï? Ã¿¸öÄ°ÉúµÄÊõÓï,¶¼ÒªÓÐ¸ÅÄî,ÓÐÊ¹ÓÃ°¸Àý?
+ÎÄ±¾Ð­Òé Ä°ÉúµÄÊõÓï? Ã¿¸öÄ°ÉúµÄÊõÓï,¶¼ÒªÓÐ¸ÅÄî,ÓÐÊ¹ÓÃ°¸Àý?
 *2
 $6
 SELECT
@@ -147,6 +157,7 @@ password
 $5
 12345
 
+ÈçºÎÀí½âÎÄ±¾Ð­Òé? Ä°ÉúµÄÊõÓï? Ã¿¸öÄ°ÉúµÄÊõÓï,¶¼ÒªÓÐ¸ÅÄî,ÓÐÊ¹ÓÃ°¸Àý?
 => select 0    Ñ¡È¡µÚ0¸ödb
 
 =>  set username  jack
@@ -155,25 +166,26 @@ $5
 
 redisÖØÆôºó,ºó´ÓaofÎÄ¼þ,¶ÁÈ¡, »Ö¸´Êý¾Ý
 
-serverCronº¯ÊýÖÐ
+serverCronº¯ÊýÖÐ    ·§ÖµÁ÷³ÌÈçºÎË³ÏÂÀ´ÄØ? ´Ë´¦ÎªÉ¶Ã»¶Ô±ÈÄØ?Ã»²ÂÏë? Ã»Ô¤ÆÚÄØ?
          /* Trigger an AOF rewrite if needed */
          if (server.rdb_child_pid == -1 &&
              server.aof_child_pid == -1 &&
              server.aof_rewrite_perc &&
-             server.aof_current_size > server.aof_rewrite_min_size)
+             server.aof_current_size > server.aof_rewrite_min_size) ÈçºÎÀí½â·§Öµ»úÖÆ?ÈçºÎÊµÏÖ? Ä°ÉúµÄÊõÓï? Ã¿¸öÄ°ÉúµÄÊõÓï,¶¼ÒªÓÐ¸ÅÄî,ÓÐÊ¹ÓÃ°¸Àý?
          {
             long long base = server.aof_rewrite_base_size ?
                             server.aof_rewrite_base_size : 1;
             long long growth = (server.aof_current_size*100/base) - 100;
-            if (growth >= server.aof_rewrite_perc) {
+            if (growth >= server.aof_rewrite_perc) {                ÈçºÎÀí½â·§Öµ»úÖÆ?ÈçºÎÊµÏÖ? Ä°ÉúµÄÊõÓï? Ã¿¸öÄ°ÉúµÄÊõÓï,¶¼ÒªÓÐ¸ÅÄî,ÓÐÊ¹ÓÃ°¸Àý?
                 serverLog(LL_NOTICE,"Starting automatic rewriting of AOF on %lld%% growth",growth);
                 rewriteAppendOnlyFileBackground();
             }
          }
 
+ÒâÍâÇé¿ö:Ò²¾ÍÊÇÐèÇó³öÏÖ
  rewriteAppend:   Èç¹ûdb±©ÕÇ¡£¡£¡£redisÃüÁîÊÇ²»ÊÇÌØ±ð¶à¡£¡£¡£
 
- CURD²Ù×÷¡£¡£¡£ 
+ ¶¼ÊÇÐ©CURD²Ù×÷¡£¡£¡£ 
 
  set username jack
 
@@ -183,16 +195,17 @@ serverCronº¯ÊýÖÐ
 
  set username asdfasdf
 
-
+ÎÊÌâ?Ò²¾ÍÊÇÐèÇó?
  Èç¹û¶Ôusername½øÐÐÁË100w²Ù×÷¡£¡£¡£ÄÇÃüÁî¶àµÄÏÅÈË¡£¡£¡£
 
-
-ËùÒÔredis×öÁËÒ»¸ö»úÖÆ£¬Èç¹û´ïµ½Ä³Ò»¸öãÐÖµ£¬»á½øÐÐrewrite  ¸³ÖµÈçºÎÀí½â? ÈçºÎÀí½â·§Öµ»úÖÆ?ÈçºÎÊµÏÖ?
-
+ ½â¾ö·½·¨:
+ËùÒÔredis×öÁËÒ»¸ö»úÖÆ£¬Èç¹û´ïµ½Ä³Ò»¸öãÐÖµ£¬»á½øÐÐrewrite  ¸³ÖµÈçºÎÀí½â? ÈçºÎÀí½â´ïµ½Ò»¸ö·§Öµ?ÈçºÎÀí½â·§Öµ»úÖÆ?ÈçºÎÊµÏÖ?
+														Ä°ÉúµÄÊõÓï? Ã¿¸öÄ°ÉúµÄÊõÓï,¶¼ÒªÓÐ¸ÅÄî,ÓÐÊ¹ÓÃ°¸Àý?
 
 auto-aof-rewrite-percentage 100
 auto-aof-rewrite-min-size 64mb 
 
+ÎÊÌâ¼´ÐèÇó
 1. Èç¹ûÄãµÄÎÄ¼þÓÐ128M¡£¡£¡£   64 x 2 = 128 
 
 Éú³É¿ìÕÕÈçºÎÀí½â?
@@ -240,8 +253,8 @@ $8
 username
 $5
 peter
-
-int serverCron(struct aeEventLoop *eventLoop, long long id, void *clientData)  ×Ô¶¯¼ì²âº¯Êý¡£¡£¡£
+                                                                            Ä°ÉúµÄÊõÓï? Ã¿¸öÄ°ÉúµÄÊõÓï,¶¼ÒªÓÐ¸ÅÄî,ÓÐÊ¹ÓÃ°¸Àý?
+int serverCron(struct aeEventLoop *eventLoop, long long id, void *clientData)  ×Ô¶¯¼ì²âº¯Êý¡£¡£¡£ ÈçºÎÀí½â×Ô¶¯¼ì²âº¯Êý?
 ÈÃÏµÍ³×Ô¶¯¼ì²â ÏµÍ³º¯Êý¼ì²â¾Í×ã¹»ÁË
 ¶¨Ê±Æ÷,¶¨Ê±Ö´ÐÐServerCornº¯Êý? ÈçºÎÀí½â?  ¶¨Ê±Æ÷ÈçºÎÀí½â?
 
@@ -253,6 +266,7 @@ int serverCron(struct aeEventLoop *eventLoop, long long id, void *clientData)  ×
 
 
 
+È«¹ý³Ì,ÓÐÑªÓÐÈâµÄÈÏÊ¶,¾Ü¾øä¯ÀÀÊ½µÄ,ÓÐ²ÂÏë(×Ô¼ºË¼¿¼¹ý)
 Ñ§¶«Î÷¿Ï¶¨ÊÇÒªÓÃµÄ?
 ¶Ô±ÈÊ²Ã´ÄØ? ÕâÊÇ¸öÎÊÌâ?
 0.Òª¶Ô±È×Ô¼ºÖªÊ¶µã,Á÷³Ì,ÔËÓÃ,¹ØÏµµÄÈÏÊ¶, ÓÐ¶Ô±È²ÅÓÐ½ø²½.  =>¼ÓÉîÈÏÊ¶ºÍÉè¼ÆÄÜÁ¦+·¢ÏÖ×Ô¼ºµÄ²»×ãºÍÈÏÊ¶²»×¼È·
@@ -271,6 +285,7 @@ int serverCron(struct aeEventLoop *eventLoop, long long id, void *clientData)  ×
 			 ÀíÏëÇé¿öÏÂ:Ò»²½½Ó×ÅÒ»²½ÊÇÔõÑù×ßÍêÕû¸öÁ÷³Ì?
 			 ³öÏÖÒâÍâ,ÈçºÎ´¦Àí,È»ºóÔÚ½ÓÏÂÀ´×ßÏÂÈ¥?
 			 Ã¿Ò»²½ÖèÖÐ,ÊÇÈçºÎ×éºÏÔªËØ?ÈçºÎ½»»¥?Íê³ÉÕâÒ»²½?
+			 Ö±ÖÁ½áÊø
                 
 5.1.ÈË¶¼ÊÇ¹Ø×¢¶Ô×Ô¼ºÓÐÀûµÄ¶«Î÷. ½ö½öÊÇ¼Ç×¡? Ã»ºÃ´¦? ÄÇ»¹¼ÇµÃÇå³þ? 
 5.2.Èç¹ûÒ»²½²½×ßÏÂÀ´,ºÃ´¦Ò»´Î´Î´ó,ÄÇ»¹ÄÜ¼Ç²»×¡? ÐËÈ¤Ò²Ðí¾Í²»¹ýÈç´Ë? Ò²Ðí´Ë¹ý³Ì¾Í·¢ÏÖÁËÓÅÑÅ?
@@ -279,7 +294,7 @@ int serverCron(struct aeEventLoop *eventLoop, long long id, void *clientData)  ×
 5.6 ¾ø¶Ô²»ÄÜ·ÅËÉ×´Ì¬,²»È»ºÜÄÑ×ª»»¹ýÀ´,±ØÐëÒ»ÐÄÈÏÕæ¶Ô´ý,²»ÈÏÕæ²»Ò»ÐÄ,¾ø¶ÔÃ»ÓÐÐ§¹û.
 
 
-1.ÈçºÎÀí½âË¢ÅÌ,¶¨Ê±Æ÷,×Ô¶¯»¯±£´æ,´¥·¢³Ö¾Ã»¯»úÖÆ,Í¬²½±£´æ,Òì²½±£´æ,ÎÄ±¾Ð­Òé,»º³åÇø,·§Öµ»úÖÆ?
+1.ÈçºÎÀí½âË¢ÅÌ,¶¨Ê±Æ÷,×Ô¶¯»¯±£´æ,´¥·¢³Ö¾Ã»¯»úÖÆ,Í¬²½±£´æ,Òì²½±£´æ,ÎÄ±¾Ð­Òé,»º³åÇø,·§Öµ»úÖÆ,×Ô¶¯¼ì²â?
 
 
 0.¸ÅÄî,Ô­Àí,ÔËÓÃ.¶Ô±È,¾ÖÏÞ,ÓÐÊ²Ã´½è¼ø,ÁËÈ»ÓÚÐÄ?

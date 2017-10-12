@@ -31,7 +31,7 @@ void strlenCommand(client *c) {
     robj *o;
     //类型检查
     if ((o = lookupKeyReadOrReply(c,c->argv[1],shared.czero)) == NULL ||
-        checkType(c,o,OBJ_STRING)) return;     源码中如何实现,只针对string类型
+        checkType(c,o,OBJ_STRING)) return;     源码中如何实现,只针对string类型,如何猜想命令的一些介绍?
 
     addReplyLongLong(c,stringObjectLen(o));
 }

@@ -12,7 +12,7 @@ k,v   => 映射到数组中 Array
 
 index = gethashcode( k) % array.length       gethashcode如何实现呢?
 
-array[index]=[k,v];   数组中放的键值对，不是理解的value。。   想当然的思维错误？ 不劳而获的惯性
+array[index]=[k,v];   数组中放的键值对，不是理解的value。。   想当然的思维错误？ 不劳而获的惯性,或者想当然
 
 
 

@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1627FBDB-D8C2-4D07-8187-824F47A88A5A}"
 	ProjectSection(SolutionItems) = preProject
 		术语集合.txt = 术语集合.txt
+		模式的归纳与演绎.txt = 模式的归纳与演绎.txt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03.解读强大的redis.conf配置文件在network,general,security等方面的配置和应该注意的事项", "02Redis系列\03.解读强大的redis.conf配置文件在network,general,security等方面的配置和应该注意的事项\03.解读强大的redis.conf配置文件在network,general,security等方面的配置和应该注意的事项.csproj", "{EFEF4C1D-790A-4CAE-A868-F512C38182B5}"
@@ -51,6 +52,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20.使用Lua脚本实现对redis操作的高度自定义化及”集合去重”，“删除hash中小于某个阈值”等使用场景分析和代码展示", "02Redis系列\20.使用Lua脚本实现对redis操作的高度自定义化及”集合去重”，“删除hash中小于某个阈值”等使用场景分析和代码展示\20.使用Lua脚本实现对redis操作的高度自定义化及”集合去重”，“删除hash中小于某个阈值”等使用场景分析和代码展示.csproj", "{EF1E8D26-5FB8-477B-98F4-87E7AC6B6888}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "21.理解redis中的数据持久化原理之两大常用手段【AOF模式和RDB模式】介绍和分析", "02Redis系列\21.理解redis中的数据持久化原理之两大常用手段【AOF模式和RDB模式】介绍和分析\21.理解redis中的数据持久化原理之两大常用手段【AOF模式和RDB模式】介绍和分析.csproj", "{E56F09D5-61AA-4FC9-8969-D67CEF94DD3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "22.redis集群操作之通过slaveof和config配置实现master-slave主从复制模式以及使用CSharp语言驱动落地实战", "02Redis系列\22.redis集群操作之通过slaveof和config配置实现master-slave主从复制模式以及使用CSharp语言驱动落地实战\22.redis集群操作之通过slaveof和config配置实现master-slave主从复制模式以及使用CSharp语言驱动落地实战.csproj", "{96AAD287-A377-4C3D-BA9C-D5CB99E64F9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -142,6 +145,10 @@ Global
 		{E56F09D5-61AA-4FC9-8969-D67CEF94DD3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E56F09D5-61AA-4FC9-8969-D67CEF94DD3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E56F09D5-61AA-4FC9-8969-D67CEF94DD3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96AAD287-A377-4C3D-BA9C-D5CB99E64F9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96AAD287-A377-4C3D-BA9C-D5CB99E64F9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96AAD287-A377-4C3D-BA9C-D5CB99E64F9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96AAD287-A377-4C3D-BA9C-D5CB99E64F9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -168,6 +175,7 @@ Global
 		{DE9D4203-CB95-40F1-A962-83399B17C21C} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{EF1E8D26-5FB8-477B-98F4-87E7AC6B6888} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{E56F09D5-61AA-4FC9-8969-D67CEF94DD3E} = {813495A3-956D-46E1-B3F0-27B061B5527A}
+		{96AAD287-A377-4C3D-BA9C-D5CB99E64F9F} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
