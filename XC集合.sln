@@ -55,6 +55,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "21.理解redis中的数据�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "22.redis集群操作之通过slaveof和config配置实现master-slave主从复制模式以及使用CSharp语言驱动落地实战", "02Redis系列\22.redis集群操作之通过slaveof和config配置实现master-slave主从复制模式以及使用CSharp语言驱动落地实战\22.redis集群操作之通过slaveof和config配置实现master-slave主从复制模式以及使用CSharp语言驱动落地实战.csproj", "{96AAD287-A377-4C3D-BA9C-D5CB99E64F9F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "23.redis集群操作之使用四台Centos搭建高可用的sentinel哨兵架构实战", "02Redis系列\23.redis集群操作之使用四台Centos搭建高可用的sentinel哨兵架构实战\23.redis集群操作之使用四台Centos搭建高可用的sentinel哨兵架构实战.csproj", "{CD8CCEBE-4B92-4BED-B652-CA7FBFBF89E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -149,6 +151,10 @@ Global
 		{96AAD287-A377-4C3D-BA9C-D5CB99E64F9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96AAD287-A377-4C3D-BA9C-D5CB99E64F9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96AAD287-A377-4C3D-BA9C-D5CB99E64F9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD8CCEBE-4B92-4BED-B652-CA7FBFBF89E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD8CCEBE-4B92-4BED-B652-CA7FBFBF89E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD8CCEBE-4B92-4BED-B652-CA7FBFBF89E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD8CCEBE-4B92-4BED-B652-CA7FBFBF89E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -176,6 +182,7 @@ Global
 		{EF1E8D26-5FB8-477B-98F4-87E7AC6B6888} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{E56F09D5-61AA-4FC9-8969-D67CEF94DD3E} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 		{96AAD287-A377-4C3D-BA9C-D5CB99E64F9F} = {813495A3-956D-46E1-B3F0-27B061B5527A}
+		{CD8CCEBE-4B92-4BED-B652-CA7FBFBF89E9} = {813495A3-956D-46E1-B3F0-27B061B5527A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}

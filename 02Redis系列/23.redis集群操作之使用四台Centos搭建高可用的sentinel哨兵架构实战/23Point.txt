@@ -1,0 +1,58 @@
+一：sentinel  【哨兵】 集群的另一种形式?
+
+
+master -> slave 
+
+如果master挂掉了，，，程序只能读取，不能写入了。。。
+
+
+master的info：命令获取master集群的所有信息，比如说 slave的ip地址等信息。。。。
+
+
+主观： 个人的想法 【不一定真的下线】
+
+客观： 基本事实   【如果有某几个人都说master挂掉了，才是事实】
+
+
+二：搭建
+
+
+1. centos-1  192.168.23.158    master      
+
+2. centos-2  192.168.23.152    slave1
+
+3. centos-3  192.168.23.145    slave2
+
+4. centos-4  192.168.23.154  放三台 sentinel。。。。
+
+
+《1》 sentinel：
+
+ port
+
+ monitor masterhost masterip
+
+ 客观下线： quorum  [阈值]
+
+ 主观下线： 下线的标准 【】 15s，30s。1min。。。
+
+ 其余的采用默认配置。。。
+ 
+
+sentinel auth-pass <master-name> <password>   =》 master 有密码，在这地方设置。。。
+
+sentinel monitor <master-name> <ip> <redis-port> <quorum>
+
+port 26379
+
+sentinel down-after-milliseconds mymaster 30000
+
+
+protected-mode no  一定要关掉
+
+
+高可用的模式。。。你可以down 掉任何一台机器。。。sentinel会给我们重新选举select。。。
+
+
+
+C#，Java连接一下。。。  塞几个ip地址就ok了。。。
