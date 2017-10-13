@@ -1,0 +1,134 @@
+﻿
+一: memcache 中的一些常用命令
+
+1. 毕竟memcache是个缓存，我们一定要有手段对他进行操作。。。
+
+我们只需要通过文本协议和    memcache  进行通信。
+
+
+2. 究竟memcache都有哪些常用命令。  【CURD】
+
+   到底命令有哪些，我们其实可以通过 source代码去查找。
+
+   从源代码中的 process_command 方法中，我们基本上看到了memcache中所支持的所有方法。
+
+
+《1》 add，set，replace，prepend，append，delete 对memcache的键进行的操作。   
+
+		这些功能也是我们平时使用中 80%的应用场景。
+
+
+3. 如果说我们不需要驱动程序，怎么去和memcache进行互通。
+
+
+1. 我们通过telnet去和memcache进行互通。
+
+
+《1》 add  
+
+
+  add "key" "flag" "expire" "val length".
+
+  看起来，比我们使用redis复杂多了。
+
+  eg：  add username 0 0 4
+
+     => jack
+
+
+"flag": 0,1,2  表示”字符串“，”数组“，”序列化对象“。。。
+
+"val length" 叫做value的长度。
+
+《2》 get  可想而知，这个词法就说获取memcache中的key。
+
+
+《3》 set   可以看到，其实set和add的区别和其他语言是一致的。 【add,update】的功效
+
+《4》replace  【只有key存在才能正确操作】
+
+         key存在：   我们进行replace操作成功进行。
+
+         key不存在： replace无法执行。
+
+《5》 prepend  如果大家了解jquery的话，对prepend和append就会了如指掌。
+               
+               从telnet中，我们可以看到，此方法是给value的前面追加内容。
+
+
+《6》append   从telnet中我们成功的看到，append的作用就是在value的后面追加内容。
+
+
+《7》delete   删除操作非常简单，我们直接进行一个delete key 的操作。
+
+
+
+二：memcache中的其他命令
+
+1. incr, decr
+
+  《1》 incr：  set age 0 0 1  => 6
+                incr age 3     =>9
+
+  《2》 decr：  decr age 2     => 9-2 = 7
+
+
+2.cas命令 【check and set】 or 【compare and swap】
+
+  这个是原子性比较，或者说事务性，独占性，解决并行的问题。
+
+
+ A: update
+ B: update   【失败】
+
+  我们在代码中，使用lock锁机制来保证同步，在memcache中，使用 “版本号”来区分。
+
+3. gets命令  【查看我们key的版本号】
+
+   gets和get的区别就是，前者多一个版本号。恰恰就是这个版本号给了cas命令的执行机会。
+
+
+    《1》 给一个不正确的版本号： 更新我们的age参数，看看能不能正确的更新。  
+
+			         从telnet中我们可以看到，不能正确的更新，所以说返回一个Exists。
+
+    《2》 给一个正确的版本号：   同样从telnet中可以看到，当我们给了正确的版本号，这时候更新成功。。。
+
+
+4.  stats命令
+
+    查看memcache的内部各种状态。
+
+ 
+5. stats slabs 
+
+   查看memcache中的槽位，这个就涉及到了memcache的内存分配方式。
+
+
+
+6.stats items   内存分配方式。
+
+
+
+三：大概的来看一下process_command 命令的源代码。。
+
+1. 不同的命令执行的方法可能不同，可能相同。
+
+   add => process_update_command  =>  it = item_alloc(key, nkey, flags, realtime(exptime), vlen);
+
+       => do_item_alloc  => slabs_alloc
+
+
+
+	1.chunk啥意思?
+	2.如何查看并了解并掌握 操作命令?  bset啥意思呢? 二进制存储?
+	3.如何理解原子性 事务性 独占性? 什么是并行的问题? 如何解决? memcached是通过"版本号" 来解决的? gets命令获取key的版本号?
+	4.使用lock锁机制来保证同步?  memcached是通过"版本号" 来解决的? gets命令获取key的版本号? cas时,错误的版本号? 返回exists 如何理解? 此版本号已经更新过? 如果是给一个大于当前版本号呢?
+	5.学了如何使用?就愉快的用起来了? 如何查看用的情况呢? 这就需要运维了?
+	6.查看源码? memcached的内存分配? 内存分配原理是什么? 什么是槽位?
+
+
+
+
+
+

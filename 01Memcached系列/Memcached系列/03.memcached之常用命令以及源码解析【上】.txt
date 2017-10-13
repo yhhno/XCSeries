@@ -1,0 +1,79 @@
+﻿
+一: memcache 中的一些常用命令
+
+1. 毕竟memcache是个缓存，我们一定要有手段对他进行操作。。。
+
+我们只需要通过文本协议和    memcache  进行通信。
+
+
+2. 究竟memcache都有哪些常用命令。  【CURD】 经验
+
+   到底命令有哪些，我们其实可以通过 source代码去查找。
+
+   从源代码中的 process_command 方法中，我们基本上看到了memcache中所支持的所有方法。
+
+
+《1》 add，set，replace，prepend，append，delete 对memcache的键进行的操作。    归纳总结 演绎/
+
+		这些功能也是我们平时使用中 80%的应用场景。
+
+
+3. 如果说我们不需要驱动程序，怎么去和memcache进行互通。
+
+
+1. 我们通过telnet去和memcache进行互通。
+
+
+《1》 add   
+
+
+  add "key" "flag" "expire" "val length".  所有的代码都有格式
+
+  看起来，比我们使用redis复杂多了。
+
+  eg：  add username 0 0 4
+
+     => jack
+
+
+"flag": 0,1,2  表示”字符串“，”数组“，”序列化对象“。。。
+
+"val length" 叫做value的长度。
+
+《2》 get  可想而知，这个词法就说获取memcache中的key。
+
+
+《3》 set   可以看到，其实set和add的区别和其他语言是一致的。 【add,update】的功效
+
+《4》replace  【只有key存在才能正确操作】
+
+         key存在：   我们进行replace操作成功进行。
+
+         key不存在： replace无法执行。
+
+《5》 prepend  如果大家了解jquery的话，对prepend和append就会了如指掌。
+               
+               从telnet中，我们可以看到，此方法是给value的前面追加内容。
+
+
+《6》append   从telnet中我们成功的看到，append的作用就是在value的后面追加内容。
+
+
+《7》delete   删除操作非常简单，我们直接进行一个delete key 的操作。
+
+
+1.memcached 的配置部分,了解后, 了解如何使用memcached?
+2.我们通过文本协议和memcahced的守护进程通信, 通过通信进行操作? 如何通信? 驱动? telnet?
+3.有哪些操作呢? 在哪里查到? 源码?文档? CURD必不可少?
+4.通过查看有哪些操作? 来学习如何学习和查看陌生的源码?
+5.首先找到入口函数? 或者既然我们是要查看命令? 就可以通过查找处理命令的函数?来了解? process_command(0)
+6.破除眼前的障,看到解决方案里没有,就想当然没有?  破除这个想当然的障?  
+7.telnet 命令 有自己的格式? 如果操作的话,就需要知道命令格式?
+8.命令格式中. flag 乍看一眼不知道是啥意思? 就默认不知道? NO? 突破? 再进一步?
+
+
+
+
+
+
+

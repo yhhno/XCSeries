@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{96AAD287-A377-4C3D-BA9C-D5CB99E64F9F}</ProjectGuid>
+    <ProjectGuid>{19F1E7DC-1627-487A-8173-9F63B1DB817C}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_22.redis集群操作之通过slaveof和config配置实现master_slave主从复制模式以及使用CSharp语言驱动落地实战</RootNamespace>
-    <AssemblyName>22.redis集群操作之通过slaveof和config配置实现master-slave主从复制模式以及使用CSharp语言驱动落地实战</AssemblyName>
+    <RootNamespace>_25.redis集群操作之搭建cluster集群及通过slot机制实现redis的高可用_高负载_高性能模型以及使用CSharp客户端落地实战</RootNamespace>
+    <AssemblyName>25.redis集群操作之搭建cluster集群及通过slot机制实现redis的高可用,高负载,高性能模型以及使用CSharp客户端落地实战</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -49,8 +49,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="主从.png" />
-    <Content Include="22Point.txt" />
+    <Content Include="redis集群.png" />
+    <Content Include="25Point.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

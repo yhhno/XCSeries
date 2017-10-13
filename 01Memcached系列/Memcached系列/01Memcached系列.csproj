@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{954C798A-0C24-4570-BCA6-91B4B7DBEFD6}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Memcached脉络</RootNamespace>
+    <AssemblyName>Memcached脉络</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="10.4一致性哈希简单实现.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="13.0缓存穿透和雪崩分析.txt" />
+    <Content Include="12.memcache之安全，日志，停电，资源浪费，缓存时间问题分析.txt" />
+    <Content Include="11.运维必备之使用可视化的phpmem在线监控memcache性能.txt" />
+    <Content Include="09.1求余的集群操作.png" />
+    <Content Include="09.2一致性哈希的集群操作.png" />
+    <Content Include="10.0一致性哈希值算法搭建分布式的memecache集群分析【下】.txt" />
+    <Content Include="09.0一致性哈希值算法搭建分布式的memecache集群分析【上】.txt" />
+    <Content Include="08.使用php连接memcached案例介绍.txt" />
+    <Content Include="07.使用CSharp连接memcached案例介绍.txt" />
+    <Content Include="06.内存分配之源码简要分析.txt" />
+    <Content Include="05.memcached内存分配之slab,chuck分析.txt" />
+    <Content Include="04.memcached之常用命令以及源码解析【下】.txt" />
+    <Content Include="03.memcached之常用命令以及源码解析【上】.txt" />
+    <Content Include="01Memcached简介和安装.txt" />
+    <Content Include="02.Memcached的参数化配置和优化.txt" />
+    <Content Include="05.png" />
+    <Content Include="10.1一致性哈希不舒畅情况之一.png" />
+    <Content Include="10.2一致性哈希不舒畅情况之二.png" />
+    <Content Include="10.3优化的一致性哈希之虚结点.png" />
+    <Content Include="13.1缓存穿透和雪崩分析.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

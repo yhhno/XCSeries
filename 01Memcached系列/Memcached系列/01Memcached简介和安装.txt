@@ -1,0 +1,26 @@
+﻿什么是Memcached？ 有什么作用？ 如何安装
+一. 打开官网，查看介绍
+二.作用：减轻数据库的负载，【而且是一个分布式的内存对象存储系统】 如何理解此时的分布式?
+  .net/java 本地缓存，sesstion, cache.  无法做到分布式
+     为了达到“多机共享” 的效果，我们就需要使用独立进程来承载。
+
+三 memcache在Cenos中安装
+  1.安装libevent 网络库
+		yum install libevent-devel
+  2.安装Memcached
+		1.wget  http://www.memcached.org/files/memcached-1.4.36.tar.gz 
+
+		2.tar -zxvf memcached-1.4.36.tar.gz
+
+		3.cd memcached-1.4.36/configure
+
+		4. ./configure && make && make test && sudo make install
+
+
+3.  开启memcached ：使用memcached -u root
+
+4.检测是否开启： ps -ef | grep memcached
+
+1.分布式是什么? 内存对象如何理解? 内存对象缓存系统?  内存中缓存数据和对象? 缓存什么样的数据? 什么样的对象? 内存是有限的? 要注意缓存的大小?
+2.守护进程(daemon)? 客户端? 客户端通过memcached协议 与守护进程通信??
+3.负载如何理解? 高性能如何理解? hashmap如何理解?

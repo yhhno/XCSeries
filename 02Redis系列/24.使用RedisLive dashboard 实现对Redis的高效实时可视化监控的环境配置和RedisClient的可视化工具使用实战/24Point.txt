@@ -80,3 +80,6 @@ Redis Live is a dashboard application with a number of useful widgets. At it's h
 
 
 monitor.py 脚本。。。
+
+
+1.存在什么问题?

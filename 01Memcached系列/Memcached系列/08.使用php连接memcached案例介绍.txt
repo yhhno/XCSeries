@@ -1,0 +1,23 @@
+﻿
+一：php怎么去连接memcache
+
+1. 下载运行环境。 wamp集成环境。
+ 
+   php:     5.5.12
+   apache:  2.4.9
+
+
+二：安装步骤
+
+1. 下载wamp环境。【修改默认端口：80 => 8080】
+
+2. 安装memcache扩展 【一定要注意版本要对应，也就说什么样的php版本，对应什么样的memcache扩展】。
+   
+   扩展的dll为：php_memcache.dll
+
+3. 安装完毕，下一步我们开始写我们的memcache。
+
+  可以看一下php链接memcache的手册： http://www.php.net/memcache
+
+  
+  1.如何才能算是玩转各种语言? 或者就是精通一种,然后很容易切入其他的语言?  究竟要做到那些呢?
