@@ -16,5 +16,7 @@
 16.consumer  消费
 17.slot   槽位
 18.replica 复制
+19.diagnostic
+20.journal
 
 工具 wireshark 网络捕获器.
