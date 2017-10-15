@@ -18,5 +18,8 @@
 18.replica 复制
 19.diagnostic
 20.journal
+21.issue
+22.schema 模式
+23.no natation 无符号
 
 工具 wireshark 网络捕获器.

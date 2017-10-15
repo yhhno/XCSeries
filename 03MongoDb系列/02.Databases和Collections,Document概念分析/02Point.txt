@@ -1,0 +1,74 @@
+一：database，collection，document   三要素
+
+nosql是无模式的文档数据库。  如何理解无模式？ 
+
+mongodb      sqlserver
+
+database => database
+
+collection => table  都必须是几列?也就是说行与行之间没有关系.
+
+document => row  
+
+
+row: (每一行都是一样的字段，不可添加不可减少，也就说fields的个数在
+      定义table的时候就一定申明好了)
+
+document： 它的每一个document都是独立的，同时也不是我们在createcollection
+           的时候申明好的。 结合个例子.
+为什么多了_id? 自增id 主键id
+插入的时候需要验证?
+二：document 
+
+1. 有没有长度限制？？？ 对比sqlserver是有限制的,有血有肉的认识? 为什么没想到?
+	既然是文档,肯定是有限制的.  对比列, 文档中的key是否可以限制
+我们的document 和 json是非常相似的。。   16M （在很久以前是4M）。为什么是16m?
+
+document是否可以无限制呢? 不可以, 违背分布式.
+mongodb 天生就是分布式，可扩展，高性能。。。 CAP  如何理解分布式?  如何借鉴实现高性能?
+
+文档太大,影响内存和网络带宽. 这样就无法高性能.  为什么没想到?
+既然是分布式部署，存在两个问题： 内存【粒度太大】 和 网络带宽  【分布式讲究:多而碎,这样才能高性能】
+
+
+memcached 的value 是 1M
+
+redis 的value  512M 【针对string】
+
+
+2. 无模式的特点二
+
+{name:"jack",name="jack"}  这个在普通的json是时做不了的。。。  这是没有意义的
+
+
+
+二：百科全书上的介绍  看下官网
+
+1. database
+
+use ctrip
+db.plane.find()   存储时不存在就创建
+
+db.hotel.find()
+
+2. 字段命名：java，C#，nodejs。。。。 字段命名 老生常谈的话题
+
+   不要使用“特殊字符”。
+
+   mongodb是最像关系型数据库的文档数据库
+   以后会讲到两者的对照.
+   sql =>  mongodb 的对照
+
+
+Mongodb的增删改查都是以文档(bson)的形式.
+
+
+
+   持续的
+在正确的范围内
+用质量管理学
+思考过程中使用:
+[全过程,有血有肉的认识,拒绝浏览式的,有猜想(自己思考过),用为什么没想到来纠正,最后灵活地运用]
+贯穿:what?how?why? 为什么没想到.
+思维:拒绝填鸭式,拒绝片面的,必须有血有肉,
+疑问:为啥没激情,没渴望,没迫切呢? 做到一心干一件事
