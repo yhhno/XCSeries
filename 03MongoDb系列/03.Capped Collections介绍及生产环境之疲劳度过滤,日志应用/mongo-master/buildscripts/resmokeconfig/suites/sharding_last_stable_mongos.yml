@@ -1,0 +1,51 @@
+selector:
+  js_test:
+    roots:
+    - jstests/sharding/*.js
+    exclude_files:
+    # Error format changes. See SERVER-22184.
+    - jstests/sharding/error_propagation.js
+    # New features for v3.4
+    - jstests/sharding/shard_aware_init.js
+    - jstests/sharding/shard_aware_on_add_shard.js
+    - jstests/sharding/shard_aware_primary_failover.js
+    - jstests/sharding/shard_identity_config_update.js
+    - jstests/sharding/add_shard_to_zone.js
+    - jstests/sharding/remove_shard_from_zone.js
+    # v3.4 replace noAutoSplit flag with document in config.settings
+    - jstests/sharding/disable_autosplit.js
+    # v3.4 changes $in shard key extraction.
+    - jstests/sharding/upsert_sharded.js
+    - jstests/sharding/update_sharded.js
+    # validate() format changes. See SERVER-22588.
+    - jstests/sharding/validate_collection.js
+    # Write concern error format changes. See SERVER-22540.
+    - jstests/sharding/move_chunk_wc.js
+    - jstests/sharding/commands_that_write_accept_wc_configRS.js
+    - jstests/sharding/commands_that_write_accept_wc_shards.js
+    # NumInitialChunks verification changed. See SERVER-23327.
+    - jstests/sharding/shard_collection_verify_initial_chunks.js
+    # avgObjSize scaling behavior fixed. See SERVER-19533.
+    - jstests/sharding/stats.js
+    # TODO: Enable when SERVER-22672 is complete
+    - jstests/sharding/printShardingStatus.js
+    # TODO: Change in error reporting, enable when 3.4 becomes 'last-stable'.
+    - jstests/sharding/map_reduce_validation.js
+    # TODO Assumes mapReduce can handle the collation option; enable when 3.4 becomes 'last-stable'.
+    - jstests/sharding/mapReduce_inSharded.js
+    # TODO Assumes shardCollection can handle the collation option; enable when 3.4 becomes
+    # 'last-stable'.
+    - jstests/sharding/shard_collection_basic.js
+    # TODO Requires mongos to have the 'clientCursorMonitorFrequencySecs' server parameter; enable
+    # when 3.4 becomes 'last-stable'.
+    - jstests/sharding/cursor_timeout.js
+
+executor:
+  js_test:
+    config:
+      shell_options:
+        eval: "load('jstests/libs/override_methods/multiversion_override_balancer_control.js');"
+        global_vars:
+          TestData:
+            mongosBinVersion: 'last-stable'
+        nodb: ''

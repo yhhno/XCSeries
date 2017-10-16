@@ -47,7 +47,7 @@ redis 的value  512M 【针对string】
 1. database
 
 use ctrip
-db.plane.find()   存储时不存在就创建
+db.plane.find()   存储时不存在就创建, 当时不存在时存储有问题,为什么自己没深究呢?
 
 db.hotel.find()
 

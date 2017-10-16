@@ -1,0 +1,97 @@
+为啥没激情,没渴望,没迫切,不敏感呢?
+var mydb=db.createCollection("mytest");  不敏感?
+printjson(mydb);
+
+{ "ok" : 1 }
+
+
+一： capped collection  【上限集合】 如何理解? 进一步,上限什么内容呢? 特性决定用途? 如何自己定义一个类似的数据结构
+
+如何理解固定大小?  为什么固定大小 适合做日志?
+
+一个集合，它可以做到size的上限 和 document个数的上限。
+
+
+bytes maxinum 指定collection的大小。
+
+document maxinum 指定collection中的document的个数。。。有什么好处恩?
+
+案例【日志，疲劳度过滤】  什么是疲劳度过滤? 日志过期就删除.？
+
+
+千人千面的crm系统。 
+
+需求:【sms，edm的时候，三天内不要给这群人发送同样的信息】  对应: find和insert操作
+三天内不要给这群人发送同样的信息
+如何结合特性理解需求？同样有时分析不出需求和理解不了时，理解方式有问题？换个角度，换个维度。
+
+
+
+document为1w，这样我们就不需要自己去写代码删除。(是不是可以说自动化管理)。。。。达到上限,删除旧的, 然后就可以插入新的,  不理解的话,画个图.
+其实很多名词,不理解是我们理解的方式有问题,换个维度。不是角度哦。
+
+存储引擎
+mongodb wiredtiger，mmap。。
+
+数据验证 默认索引在_id上
+{_id:"guid", name:"jack",email:"3234234@qq.com"}
+
+
+二：怎么通过代码去创建 capped collection
+
+db.createCollection(<name>, { capped: <boolean>,
+                              autoIndexId: <boolean>,
+                              size: <number>,
+                              max: <number>,
+                              storageEngine: <document>,
+                              validator: <document>,
+                              validationLevel: <string>,
+                              validationAction: <string>,
+                              indexOptionDefaults: <document> } )
+
+
+
+三：为了更好的去发现，我们还可以下载一下mongodb的源代码 【本身server，shell】的脚本。
+
+
+四：如何倒序查询capped collection
+
+
+var list=db.logs.find().sort( { $natural: -1 } ).toArray();
+
+
+capped collection不支持横向扩展, 那如果支持横向扩展是什么样?
+自动删除,没有删除函数  这是不是很像数据结构提供的方法.
+
+五：将一个普通集合 转换为 上限集合
+
+db.runCommand({"convertToCapped": "mycoll", size: 100000});
+
+
+
+六：ctrip   hadoop方式来实现，2015年  30亿/日   存放7天。
+
+
+
+1.解决问题是核心竞争力, 也是厉害的人的核心竞争力.
+2.他可以顺着文档看下来,我可以吗?
+3.打成数组
+4.蛮简单的,可视化+百科
+5.理解特性和察觉特性,
+6.结合官方文档来理解提供的功能,理解对象的特性,察觉对象的特性. 特性与应用场景的映射? 如何映射呢?
+  它设计成这样,可能是为了更好的处理问题? so类似于自己创建一个数据结构.
+				  so现在我们不是去根据需求去创建一个数据结构,而是根据一个数据结构,去匹配需求.
+
+   持续的
+在正确的范围内
+用质量管理学
+思考过程中使用:
+[全过程,有血有肉的认识,拒绝浏览式的,有猜想(自己思考过),用为什么没想到来纠正,最后灵活地运用]
+贯穿:what?how?why? 为什么没想到? 如果觉得没有否定或者补充以前的观点就是失败,
+思维:拒绝填鸭式,拒绝片面的,必须有血有肉,
+疑问:为啥没激情,没渴望,没迫切呢? 做到一心干一件事
+问题:1.理解新东西 2.理解需求 3.为需求建立一个数学模型
+
+
+
+

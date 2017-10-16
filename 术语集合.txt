@@ -16,10 +16,13 @@
 16.consumer  消费
 17.slot   槽位
 18.replica 复制
-19.diagnostic
-20.journal
+19.diagnostic 诊断
+20.journal 日记
 21.issue
 22.schema 模式
 23.no natation 无符号
+24.capped  给..上套
+25.overhead 间接成本
+26.sharing 分片 即横向扩展.
 
 工具 wireshark 网络捕获器.

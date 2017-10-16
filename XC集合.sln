@@ -85,6 +85,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01.准备工作之下载cen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.Databases和Collections,Document概念分析", "03MongoDb系列\02.Databases和Collections,Document概念分析\02.Databases和Collections,Document概念分析.csproj", "{5229A80F-2216-43C0-A821-D30F4B3048A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03.Capped Collections介绍及生产环境之疲劳度过滤,日志应用", "03MongoDb系列\03.Capped Collections介绍及生产环境之疲劳度过滤,日志应用\03.Capped Collections介绍及生产环境之疲劳度过滤,日志应用.csproj", "{8D503D66-2D3A-459C-AAAC-72AC023754D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -207,6 +209,10 @@ Global
 		{5229A80F-2216-43C0-A821-D30F4B3048A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5229A80F-2216-43C0-A821-D30F4B3048A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5229A80F-2216-43C0-A821-D30F4B3048A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D503D66-2D3A-459C-AAAC-72AC023754D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D503D66-2D3A-459C-AAAC-72AC023754D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D503D66-2D3A-459C-AAAC-72AC023754D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D503D66-2D3A-459C-AAAC-72AC023754D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -241,6 +247,7 @@ Global
 		{ADACC5A3-915C-4135-B9EA-7603D8DA09D8} = {1627FBDB-D8C2-4D07-8187-824F47A88A5A}
 		{A9B1EDD9-2E17-4A08-B84A-7F4C42082F05} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 		{5229A80F-2216-43C0-A821-D30F4B3048A5} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
+		{8D503D66-2D3A-459C-AAAC-72AC023754D3} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
