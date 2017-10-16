@@ -24,5 +24,10 @@
 24.capped  给..上套
 25.overhead 间接成本
 26.sharing 分片 即横向扩展.
+27.portable  轻便的
+28.corresponding 相当于,对应的
+29.symbol  特征
+30.heep  堆
+
 
 工具 wireshark 网络捕获器.
