@@ -28,6 +28,8 @@
 28.corresponding 相当于,对应的
 29.symbol  特征
 30.heep  堆
+31.terms
+32.concepts
 
 
 工具 wireshark 网络捕获器.

@@ -91,6 +91,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04.Bson结构解析以及$t
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05.mongodb shell使用loadjs与mongodb高速交互分析", "03MongoDb系列\05.mongodb shell使用loadjs与mongodb高速交互分析\05.mongodb shell使用loadjs与mongodb高速交互分析.csproj", "{E4FC607D-56CF-45D7-AFEF-87BEED7B00E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06.高频咨询之sql statement 和mongodb statement对照分析和记忆", "03MongoDb系列\06.高频咨询之sql statement 和mongodb statement对照分析和记忆\06.高频咨询之sql statement 和mongodb statement对照分析和记忆.csproj", "{6B9D71B2-C48B-4A06-9D07-B4BB2BD88217}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -225,6 +227,10 @@ Global
 		{E4FC607D-56CF-45D7-AFEF-87BEED7B00E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4FC607D-56CF-45D7-AFEF-87BEED7B00E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4FC607D-56CF-45D7-AFEF-87BEED7B00E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B9D71B2-C48B-4A06-9D07-B4BB2BD88217}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B9D71B2-C48B-4A06-9D07-B4BB2BD88217}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B9D71B2-C48B-4A06-9D07-B4BB2BD88217}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B9D71B2-C48B-4A06-9D07-B4BB2BD88217}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -262,6 +268,7 @@ Global
 		{8D503D66-2D3A-459C-AAAC-72AC023754D3} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 		{FE7B8BAA-0625-4482-BDA6-E707595C5AE8} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 		{E4FC607D-56CF-45D7-AFEF-87BEED7B00E6} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
+		{6B9D71B2-C48B-4A06-9D07-B4BB2BD88217} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
