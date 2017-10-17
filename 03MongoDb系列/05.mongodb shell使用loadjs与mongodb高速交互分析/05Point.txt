@@ -1,0 +1,103 @@
+一：shell  壳  没概念, 没接触, 搞懂，搞清，搞透。
+
+在monogdb中，我们有一个测试工具，就是一个shell。 为什么要有测试工具呢
+
+很多分布式软件 都有测试工具.
+redis/zookeeper/hbase/memcache  那都是啥呢? 也就是redis中 redis-cli
+
+测试工具具体是什么?
+这个shell封装了一个v8引擎。。。可以运行我们的js代码。。。
+shell只是个编程环境
+
+bin目录下的一个monogo程序就是一个对mongodb进行测试的一个程序。  如何理解测试工具？ 自带的没提示 测试也就是操作。
+自带的没提示，很麻烦，不利于编程，不利于测试，自带的多行不方便。=》扩展api
+
+还有一个有代码提示的GUI工具，那么就是robomongo。。。 有智能提示，很方便。 为什么看到提示没反应，没想过它是什么？
+没想过用的爽不爽这回事，=》很多习以为常的不好的潜意识思维。？
+也就是说现实总有一点或者一个角度，是自己没意识到，不要停止，持续思考，持续寻找。
+
+
+看完shell是什么后，再看看如何使用shell
+二：在shell如果进行多行编程。。 没想到多行编程？  多行了,那不就是编辑器了
+
+> db.person.find(
+... {}
+... )
+{ "_id" : ObjectId("57899c98655a0b4517f7051a"), "name" : "jack", "age" : 20 }
+{ "_id" : ObjectId("5789a3f9655a0b4517f7051b"), "name" : { "first" : "Alan", "last" : "Turing" } }
+{ "_id" : ObjectId("5789a67d99bd0adc84b36537"), "name" : { "first" : "Alan", "last" : "Turing" }, "contact" : { "phone" : { "type" : "cell", "number" : "111-222-3333" } } }
+{ "_id" : ObjectId("5789faac631178e7844d11c3"), "name" : function (){} }
+> 
+
+多行编程解决方案：
+
+采用外部jsfile的形式执行我们的命令。。。。 
+
+1. 使用load方法。 类似于脚本
+
+  当有点懵的时候，先换一下，重新梳理下，在继续
+2. help操作。。。顾名思义就是帮助我们查询。。。 没想到去寻找帮助？ 如何寻找帮助？ 给一个工具，应该有帮助文档吧？
+
+   如果在没有代码提示的环境下， 如何办？
+
+		1. 我不知道db下面有哪些方法。。 db.help(); 不方便编程，所有一定要有代码提示。
+
+		2. 不知道collection下面有哪些方法。。 很多提示，是不是蛮有意思的，所以它不喜欢使用自带的shell
+
+		3. cusor下面有哪些方法。。。
+
+Cursor methods
+	.toArray() - iterates through docs and returns an array of the results
+	.forEach(<func>)
+	.map(<func>)
+	.hasNext()
+	.next()
+	.close()
+	.objsLeftInBatch() - returns count of docs left in current batch (when exhausted, a new getMore will be issued)
+	.itcount() - iterates through documents and counts them
+	.getQueryPlan() - get query plans associated with shape. To get more info on query plans, call getQueryPlan().help().
+	.pretty() - pretty print each document, possibly over multiple lines
+> 
+
+既然是操作数据库的,那肯定也能操作远程的,
+三：通过mongo链接远程连接操作。 
+
+shell只是个编程环境，编辑器。执行应该要通讯的哦
+此时就是真正的编程了，没啥感想吗？原来这里也可以编程了， 对为什么可以编程？和编程环境有了认识。
+
+自己能不能写出这样的代码.
+//链接远程数据库
+var mongo=new Mongo("192.168.161.136:27017");
+
+var db=mongo.getDB("datamip");
+
+var collection=db.getCollection("person");
+
+var list= collection.find().toArray();
+
+printjson(list);
+
+
+
+1.shell的认识,编程环境的认识.
+2.命令行,或者编辑器,来操作mongodb数据库.
+3.也就是交互.
+4.不管有知识点,特性的评价,还有使用工具的评价
+评价:自带的没提示,不好,不爽,不方便.
+
+
+
+
+   持续的
+在正确的范围内
+用质量管理学
+从局部到整体的
+思考过程中使用:
+[全过程(有逻辑,前因后果),有血有肉的认识,拒绝浏览式的,有猜想(自己思考过),用为什么没想到来纠正,最后灵活地运用]
+搞懂,搞清,搞透后,和其他知识串起来,毕竟不是孤零零的存在.
+贯穿:what?how?why? 为什么没想到? 做个有血有肉的评价呗，如果觉得没有否定或者补充以前的观点就是失败,
+思维:拒绝填鸭式,拒绝片面的,必须有血有肉, 有效率
+疑问:为啥没激情,没渴望,没迫切呢? 做到一心干一件事
+问题:1.理解新东西 2.理解需求 3.为需求建立一个数学模型
+积累:常用套路的总结,也就是什么问题,用什么样的手段.
+手段:每个观点,每个技巧,不管是新的旧的,都要记录下来,保证一次学习的的最大效率,也为后面的复习提供最全的的信息,并学习他是如何介绍的?
