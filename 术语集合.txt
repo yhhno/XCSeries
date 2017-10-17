@@ -30,6 +30,8 @@
 30.heep  ¶Ñ
 31.terms
 32.concepts
+33.comparson
+34.inventory ¿â´æ
 
 
 ¹¤¾ß wireshark ÍøÂç²¶»ñÆ÷.
