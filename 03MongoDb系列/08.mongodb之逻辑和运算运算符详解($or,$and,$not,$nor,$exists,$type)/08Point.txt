@@ -1,0 +1,183 @@
+所说,全部记录下来.没追求的话,都只是完成. 必须有效率.
+有逻辑的全过程:现在问题是我和他学,但最终是我要用,如果用我该如何运用的角度.来学习? 可以不.不要变成为了学而学?
+同样不是为了模仿，而是学习技巧，最好自己也能总结出技巧来。
+
+
+一：逻辑运算符
+
+是不是可以说？ 学习Mongodb也算是学习了一个新语言。
+ 有哪些呢 就算抛开没学习Mongodb的逻辑运算符的话，我们也知道有哪些？
+ or，and，not
+ 对比下，在vb中是由not的 说明啥？
+1，$or, $and,$not,$nor 后两个有点像 有啥关系？
+
+
+二：详解
+
+1. $or   普通的sql select * from users where id=1 or name='jack' 可以提取出来一个or带了两个条件短语 据此，推测Mongodb会怎样做？ 类似于
+如果学习时,事前归纳下,使用角度去学习>
+单逻辑运算符$or的理解和使用. 这样自然能考虑到组合使用.
+
+
+类似于，推测下？
+一个or 对应一个数组，数组里应该是两个情况？ 不然如何组织json呢？
+{$or:[{},{}]}   //组织json。
+
+当or的两个条件 都落在 一行数据上， 和and有什么区别、
+
+模型：  $or: [ { <expression1> }, { <expression2> }, ... , { <expressionN> } ] }
+
+
+$or 和 $in  in类似于or
+
+如果$or在同一个字段上进行多次，官方建议使用$in操作。。。 多看文档，看文档也是一种能力，避免想当然，浏览过
+
+
+
+2.$and    select * from users where id=1 and name='jack'
+短路现象
+
+{ $and: [ { <expression1> }, { <expression2> } , ... , { <expressionN> } ] }
+
+
+db.inventory.find({$and:[{"item.name":"ab"},{"qty":{$gt:4}}]});
+
+and和or可以组合使用
+
+3.$not   
+
+{ field: { $not: { <operator-expression> } } }
+
+找到 exression的反向操作。
+
+db.inventory.find({"qty":{$not:{$lt:10}}}).sort({"qty":-1});比较运算符和逻辑运算符的使用  看的不认真。and操作符就应该发现。
+
+
+4.$nor操作
+
+  $not 等于 not or 操作。。。 
+
+{ $nor: [ { <expression1> }, { <expression2> }, ...  { <expressionN> } ] }
+
+
+db.inventory.find({$nor:[{"qty":{$gt:10}}]});
+
+db.inventory.find({$or:[{"qty":{$gt:10}}]});
+
+两个集合一直都是互补的关系。。。
+
+
+
+element query 操作符  Mongodb中的可以体现出关系型文档。
+5. $exists 和sql的exists完全不同
+此$exists当然针对无模式特点了。
+
+Syntax: { field: { $exists: <boolean> } }
+
+
+MongoDB $exists does not correspond to SQL operator exists. For SQL exists, refer to the $in operator.
+
+
+exists => hasfield(""); => true/false
+
+
+这个得益于document的无模式，不然的话也不会有这个一个字段。。。 为什么呢？
+什么是无模式，此时考虑到了吗
+
+不懂，不理解，没概念时，不能默认啥也没有。
+6. $type   typeof C#/Java
+
+{ field: { $type: <BSON type number> | <String alias> } }
+db.inventory.find({"qty":{$type:6}}); 
+由于构建数据时的刻意安排成 关系型结构，慢慢就忽视了无模式的概念，
+同一个field可以是不同类型的，也说明当时理解不深刻
+
+
+
+/* 1 */
+{
+    "_id" : 1,
+    "item" : {
+        "name" : "ab",
+        "code" : "123"
+    },
+    "qty" : 5,
+    "tags" : [ 
+        "A", 
+        "B", 
+        "C"
+    ],
+    "desc" : "asdfasdfasdfasd"
+}
+/* 2 */
+
+{
+    "_id" : 2,
+    "item" : {
+        "name" : "cd",
+        "code" : "123"
+    },
+    "qty" : 20,
+    "tags" : [ 
+        "B"
+    ]
+}
+
+/* 3 */
+{
+    "_id" : 3,
+    "item" : {
+        "name" : "ij",
+        "code" : "456"
+    },
+    "qty" : 25,
+    "tags" : [ 
+        "A", 
+        "B"
+    ]
+}
+
+/* 4 */
+{
+    "_id" : 4,
+    "item" : {
+        "name" : "xy",
+        "code" : "456"
+    },
+    "qty" : 30,
+    "tags" : [ 
+        "B", 
+        "A"
+    ]
+}
+
+/* 5 */
+{
+    "_id" : 5,
+    "item" : {
+        "name" : "mn",
+        "code" : "000"
+    },
+    "qty" : 20,
+    "price" : 100,
+    "tags" : [ 
+        [ 
+            "A", 
+            "B"
+        ], 
+        "C"
+    ]
+}
+
+1.docment是无模式的概念忘了。 这是个问题。沉浸于逻辑运算符，没有考虑其他的。
+2.Mongodb也可以表现出 关系型结构。
+3.补充了下无模式认识的不足
+4.除了了解运算符的本身的使用，为什么没想到组合使用。=》算不算没有逻辑推理下。或者没有用使用的角度去学习，或者说明自己根本没接触过复杂的运算。
+5.还是仅仅完成式学习，还理解的不深刻，这样咋能灵活使用呢？
+5.学习时,不够投入,理解不深刻.
+5.当你修正你一个问题时,得到一个更好的处理方式时,你也就处于停止思考的开始.因为有一丝的满足.
+6.觉得没啥问题，其实很可怕，同样觉得不好不坏，同样可怕。
+
+归纳：逻辑运算符和element query操作符的使用。以及组合使用，补充了下无模式认识的不足。
+
+评价：很简单，但是要认识清楚。
