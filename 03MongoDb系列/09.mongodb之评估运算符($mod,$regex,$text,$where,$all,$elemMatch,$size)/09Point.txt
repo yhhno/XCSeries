@@ -1,0 +1,165 @@
+所说,全部记录下来.没追求的话,都只是完成. 必须有效率.
+有逻辑的全过程:现在问题是我和他学,但最终是我要用,如果用我该如何运用的角度.来学习? 可以不.不要变成为了学而学?
+同样不是为了模仿，而是学习技巧，最好自己也能总结出技巧来。
+目前仅仅是模仿
+
+无模式的前提.
+
+学习时,如果能在脑中,有个整体的概念存在就好了.就像自己去学习一样
+事后如果想个这个知识点,心中就有个整体的概念,这就是真正的学会.
+目前所有思考,得到的东西,仅仅是在还账,不是骄傲的资本.
+
+自己时候肯定要自己多翻翻文档,最好多实践,不然会忘的.
+自己看文档,遇到陌生的术语,还是心中有点虚.
+啥时候不虚,就好了.
+
+看的时候不认真,容易被外界打扰. 
+一：评估运算 什么是评估运算?
+
+1.简单的筛选:$mod   VB中有这么一个关键字。。  C#/Java      =》 %
+
+猜想下,所有的的操作,都是要基于docmennt的前提来解释的,比较麻烦,不像编程语言很方便
+  {"field":{$mod:[ele1,ele2]}}
+
+  有没心中形成一个概念?  
+2. $regex 正则在Mongodb中玩得挺溜的.  其他的sql就不好实现正则.
+正则不会. 正则性能不高. 如果我建了索引后,成了b树,如果是模糊匹配的话,只能是表扫描
+相反,如果你建了主键索引,就是主键索引扫描.
+
+   { <field>: { $regex: /pattern/, $options: '<options>' } }
+   { <field>: { $regex: 'pattern', $options: '<options>' } }
+   { <field>: { $regex: /pattern/<options> } }
+
+db.getCollection('inventory').find({})
+
+db.inventory.find(
+   {"qty":{$mod:[6,0]}}
+)
+
+怎么去组合，要大家在课下自己去练习。。。
+
+有没有一个概念呢?
+3. $text   【全文索引，因为不支持中文】 中文分词很麻烦的。。。  词库+trietree 字典树
+我们要要有自己的词库,然后根据这个词库加上一个trietree 来做分词
+{
+  $text:
+    {
+      $search: <string>,
+      $language: <string>,        //en
+      $caseSensitive: <boolean>, //可选择项可以没有.
+      $diacriticSensitive: <boolean>
+    }
+}
+
+但使用前,必须先对一个字段进行全文索引，原理是倒排索引。。。当然是索引是,不用指定字段
+ 性能非常高. 数据非常大,也是一样的.
+
+用处不大.
+有没有概念? 有血有肉的认识.
+
+4. 复杂的筛选:$where 之前的所有操作符,都可以用where的方式实现.都可以用js实现
+
+   非常强大的遍历器，通过function的模式，一排一排的去找最后的数据。。。。也就是逐行迭代
+   
+   最灵活，也是性能比较差的模式。。。为啥差,因为【不走索引】，全表扫描。。。
+
+
+db.articles.find(
+{
+    $where:function(){ //灌入js  可以用js做更复杂的筛选.
+             return this.author=="abc" && this.views==200;     //this就是当前的迭代文档  
+          }
+}
+);
+因为逐行迭代,不管你有多复杂,我都能通过遍历的方式给你找出来.
+
+//只要我们会js，这些所有的in，notin都是很方便解决的。。。。
+
+db.mytest.find(
+{
+    $where:function(){  深刻理解 此时function做了什么? 和linq的where 有什么异同? 也就是where及where中的委托做了什么
+            return this.item.name=="ab";
+			//return true; 找到所有的docment.
+          }
+}
+);
+
+还可以有字符串的形式.
+db.myCollection.find( { $where: "obj.credits == obj.debits" } );   没有代码提示.不推荐
+
+
+心中是否有概念? where好强大哦,可以替代很多其他的操作符
+
+Query operator array
+5. $all(需要所有的都满足)   => $and(满足and),$in(其中一个满足)。。其实到现在提到还是有点没概念。 对应 C#  all,any linq的一些类似的方法
+
+
+{ <field>: { $all: [ <value1> , <value2> ... ] } }
+
+
+db.mytest.find(
+      {"tags":{$not:{$all:["A","B"]}}} 组合使用.
+);
+
+
+db.mytest.find(
+      {"tags":{$all:["A","B"]}}
+);
+
+
+
+有没概念?
+
+
+不认真和想当然和有没概念,算不算有逻辑的推演全过程呢。
+6. elemMatch 看文档出错了. 想当然认为,和in的条件一样,只符合一个条件就好.
+
+{ <field>: { $elemMatch: { <query1>, <query2>, ... } } }
+
+   对array每个元素进行条件过滤,判断是否符合条件,只要一个元素符合条件即可
+
+
+   db.scores.find(
+   { results: { $elemMatch: { $gte: 80, $lt: 85 }//既然是一个{},中间肯定不止一个条件, } }
+)
+
+
+$elemMatch: { <query1>, <query2>, ... }
+{ $or: [ { <expression1> }, { <expression2> }, ... , { <expressionN> } ] }
+query1与expression1的区别？
+
+
+如何用where实现相同的效果，，where好强大哦
+db.scores.find(
+   {$where:function(){
+    for(var i in this.results){
+       return this.results[i]>80 && this.results[i]<85;
+    }
+    return false;  为啥价格return false;
+   }
+   }
+);
+  
+
+  有没概念?
+7. $size
+   
+db.scores.find(
+  {$where:function(){
+        return this.results.length==3;    
+      }
+  }
+)
+有没概念.?
+
+
+简单的会了,想复杂的
+单个的会了,想组合
+...
+
+这些共同铸成编程的基础.
+
+必须对每个元素都有评价,拒绝浏览式学习,  不好不坏,那怎么选呢? 怎样的一个标准选出.来使用呢.
+并做到有血有肉的认识,和实现原理.
+
+评价:很简单的操作符,但是到认真搞清每个的具体执行细节.比如where 

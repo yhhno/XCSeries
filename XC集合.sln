@@ -97,6 +97,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07.mongodb之比较运算�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08.mongodb之逻辑和运算运算符详解($or,$and,$not,$nor,$exists,$type)", "03MongoDb系列\08.mongodb之逻辑和运算运算符详解($or,$and,$not,$nor,$exists,$type)\08.mongodb之逻辑和运算运算符详解($or,$and,$not,$nor,$exists,$type).csproj", "{095998EB-3526-43EB-A1E9-23CAF9FC3BC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "09.mongodb之评估运算符($mod,$regex,$text,$where,$all,$elemMatch,$size)", "03MongoDb系列\09.mongodb之评估运算符($mod,$regex,$text,$where,$all,$elemMatch,$size)\09.mongodb之评估运算符($mod,$regex,$text,$where,$all,$elemMatch,$size).csproj", "{573A0967-29A6-4D26-919B-897D251308EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -243,6 +245,10 @@ Global
 		{095998EB-3526-43EB-A1E9-23CAF9FC3BC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{095998EB-3526-43EB-A1E9-23CAF9FC3BC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{095998EB-3526-43EB-A1E9-23CAF9FC3BC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{573A0967-29A6-4D26-919B-897D251308EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{573A0967-29A6-4D26-919B-897D251308EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{573A0967-29A6-4D26-919B-897D251308EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{573A0967-29A6-4D26-919B-897D251308EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -283,6 +289,7 @@ Global
 		{6B9D71B2-C48B-4A06-9D07-B4BB2BD88217} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 		{60CC816F-304D-4013-A6AE-039411B73B8E} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 		{095998EB-3526-43EB-A1E9-23CAF9FC3BC0} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
+		{573A0967-29A6-4D26-919B-897D251308EC} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
