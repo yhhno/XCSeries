@@ -103,6 +103,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "10.mongodb之update运算�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "11.mongodb之update运算符分析二($set,$unset,$min,$max,$currentDate)", "03MongoDb系列\11.mongodb之update运算符分析二($set,$unset,$min,$max,$currentDate)\11.mongodb之update运算符分析二($set,$unset,$min,$max,$currentDate).csproj", "{7583D59D-7CBC-4FBC-854A-DFEF014D2F1B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "12.mongodb之数组操作运算符分析($,$addToSet,$pop,$pull,$pullAll,$pushAll,$push)", "03MongoDb系列\12.mongodb之数组操作运算符分析($,$addToSet,$pop,$pull,$pullAll,$pushAll,$push)\12.mongodb之数组操作运算符分析($,$addToSet,$pop,$pull,$pullAll,$pushAll,$push).csproj", "{57AEB4D4-D106-498B-AD4B-5503C308F2BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -261,6 +263,10 @@ Global
 		{7583D59D-7CBC-4FBC-854A-DFEF014D2F1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7583D59D-7CBC-4FBC-854A-DFEF014D2F1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7583D59D-7CBC-4FBC-854A-DFEF014D2F1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57AEB4D4-D106-498B-AD4B-5503C308F2BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57AEB4D4-D106-498B-AD4B-5503C308F2BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57AEB4D4-D106-498B-AD4B-5503C308F2BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57AEB4D4-D106-498B-AD4B-5503C308F2BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -304,6 +310,7 @@ Global
 		{573A0967-29A6-4D26-919B-897D251308EC} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 		{5D0DD3F5-CF3C-49E7-B9EE-11BAB41AF9D2} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 		{7583D59D-7CBC-4FBC-854A-DFEF014D2F1B} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
+		{57AEB4D4-D106-498B-AD4B-5503C308F2BB} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
