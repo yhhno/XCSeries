@@ -1,0 +1,95 @@
+所说,全部记录下来.没追求的话,都只是完成. 必须有效率.
+有逻辑的全过程:现在问题是我和他学,但最终是我要用,如果用我该如何运用的角度.来学习? 可以不.不要变成为了学而学?
+同样不是为了模仿，而是学习技巧，最好自己也能总结出技巧来。
+目前仅仅是模仿,不仅仅是全盘接受,做到心中有概念,它也是有错的,翻译有问题?
+最终还是要自己来做,来试, 要慢慢从被动吸收,到主动吸收转换.
+
+效率要提升起来,不然时间太慢了. 找找哪里费时间了.
+记录(有时还会重新看)+看手机,看新闻,其实看的时候很投入可以节省时间.
+
+
+一：$set操作 也及时替换新值 
+原型也就是语法
+{ $set: { <field1>: <value1>, ... } }
+其实也就是存在和存在两种情况.
+
+<1> 存在 或者不存在的两种情况。。。
+
+
+<2> 不存在：如果不存在我们就add。。。
+
+有无概念?
+二：unset操作。。 反向也就是删除
+
+首先知道它的语法
+{ $unset: { <field1>: "", ... } }
+
+The $unset operator deletes a particular field. 
+
+To specify a <field> in an embedded document or in an array, use dot notation.
+
+我们可以delete 普通的字典，还可以delete embeded，array。。。。
+
+删除普通的字段：db.user.update({"_id":1},{$unset:{"nae":""}})
+
+
+删除内嵌的文档：db.user.update({"_id":1},{$set:{"nae.jack":"jack"}})
+
+
+
+db.user.update({"_id":1},{$set:{"status":"b"}})
+
+
+/* 1 */
+{
+    "_id" : 1.0,
+    "status" : "b",
+    "lastModified" : ISODate("2016-07-18T16:09:19.906+08:00"),
+    "price" : 75.0,
+    "my" : {
+        "test11" : 5.0
+    },
+    "price11" : 0.0
+}
+
+/* 2 */
+{
+    "_id" : 2.0,
+    "nae" : "jack"
+}
+
+心中有无概念?
+三：$min  [less than]   特性呢? 其实它是两个原子性操作的组合  发现新东西
+没有就新增
+
+看起来就聚合操作中的$min,其实呢？？？
+
+The $min updates the value of the field to a specified value if the specified value is less than the current value of the field.
+
+{ $min: { <field1>: <value1>, ... } }
+
+就是说 如何value 小于 filed1，那么将会执行: fields=value1...
+
+db.user.update({"_id":1},{$min:{"price":30}})
+
+有没概念
+四：$max  [greater than]  min的反向.
+
+
+五：$currentDate 字面上是当前时间?
+因为此操作在update的大范围内
+  猜想:  就是当前时间。和update有什么关系，难道是将date改成成currentdate？？？？
+
+{ $currentDate: { <field1>: <typeSpecification1>, ... } }
+
+db.user.update({"_id":1},{$currentDate:{"mydate":{$type:"date"}}})
+
+db.user.find();
+
+心中是否由概念?=> 心中的概念多了,也归纳分类(update针对field和array),是不是在设计东西的时候,心中有谱.
+
+猜想:1.字面意思2.实现过程3.
+
+评价: 很简单. 发现一个新认识多个原子性组合. 思考在一个大范围内(currentdate),学习时可以猜想下嘛(字面意思)
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?
