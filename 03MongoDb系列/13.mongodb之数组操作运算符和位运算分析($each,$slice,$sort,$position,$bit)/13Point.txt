@@ -1,0 +1,165 @@
+所说,全部记录下来.没追求的话,都只是完成. 必须有效率.
+有逻辑的全过程:现在问题是我和他学,但最终是我要用,如果用我该如何运用的角度.来学习? 可以不.不要变成为了学而学?
+同样不是为了模仿，而是学习技巧，最好自己也能总结出技巧来。
+目前仅仅是模仿,不仅仅是全盘接受,做到心中有概念,它也是有错的,翻译有问题?
+最终还是要自己来做,来试, 要慢慢从被动吸收,到主动吸收转换.
+
+效率要提升起来,不然时间太慢了. 找找哪里费时间了.
+记录(有时还会重新看)+看手机,看新闻,其实看的时候很投入可以节省时间.
+
+
+update operator modifiers
+更新操作 改进器.
+一：Array操作续
+
+1.$each 和update operator一起使用  组合使用
+
+$each 和 $addToSet  和 $push一起使用。。。
+
+
+{ $addToSet: { <field>: { $each: [ <value1>, <value2> ... ] } } }
+
+
+db.students.update(
+{"_id":1},
+{$addToSet:{"grades":{$each:[100,200,300]}}}
+);
+
+
+{ $push: { <field>: { $each: [ <value1>, <value2> ... ] } } }
+
+是否有概念？
+2.$slice 截取  特性，多个组合到一起。  添加后截取  特性
+
+$slice 和 $push 是一起使用的。。。
+
+js 也是有$slice的函数。。。
+
+{
+  $push: {
+     <field>: {
+       $each: [ <value1>, <value2>, ... ],
+       $slice: <num>
+     }
+  }
+}
+
+
+db.students.update(
+{"_id":1},
+{
+    $push:
+        {
+             "grades":
+                       {$each:[600],$slice:2}
+        }
+}
+);
+
+db.students.find();
+
+
+
+心中有无概念？
+3. $sort  添加后排序  特性
+
+{
+  $push: {
+     <field>: {
+       $each: [ <value1>, <value2>, ... ],
+       $sort: <sort specification>
+     }
+  }
+}
+
+
+db.students.update(
+{"_id":1},
+{
+    $push:
+        {
+             "grades":
+                       {$each:[100,200,350],$sort:1}
+        }
+}
+);
+
+db.students.find();
+
+心中有无概念？
+4. $position  [位置的含义]   指定从某个位置插入数据。
+
+{
+  $push: {
+    <field>: {
+       $each: [ <value1>, <value2>, ... ],
+       $position: <num>
+    }
+  }
+}
+db.students.update(
+{"_id":1},
+{
+    $push:
+        {
+             "grades":
+                       {$each:[150],$position:1}
+        }
+}
+);
+
+db.students.find();
+
+心中有无概念？
+5. $bit  特性。 用在什么地方呢？
+
+java，C# 都是bit的概念。。。
+
+int  32位
+
+0 0 0 0 0 .....0 0 0 0
+
+& 0 0 0 0 .....0 0 0 0
+
+
+就是在这些bit位上做一些手脚。。。
+
+位运算案例？
+bitmap 【百度一个经典的面试题】  去重。用O(1)的时间去判断某一位是否有值。也就是通过0或1的判断。
+
+
+  0 0 1 0   => 2
+
+& 1 0 0 1   => 9
+
+
+
+
+&  0 0 0 0   => 0
+
+|  1 0 1 1   => 11  
+
+xor1 0 1 1   => 11
+
+
+是一个技巧性的东西。。。
+
+{ $bit: { <field>: { <and|or|xor>: <int> } } }
+
+
+比较常用和比较基础的运算符。。。
+
+心中有无概念？
+
+
+
+这几节学的都是基础，为之后打基础，做准备。
+group, mapreduce  聚合框架
+
+
+
+
+    
+	评价: 很简单. 发现一个认识elementmatch不深刻. 思考在一个大范围内(currentdate),学习时可以猜想下嘛(字面意思)
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?
