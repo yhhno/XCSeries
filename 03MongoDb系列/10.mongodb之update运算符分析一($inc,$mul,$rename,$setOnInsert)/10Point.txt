@@ -1,0 +1,88 @@
+所说,全部记录下来.没追求的话,都只是完成. 必须有效率.
+有逻辑的全过程:现在问题是我和他学,但最终是我要用,如果用我该如何运用的角度.来学习? 可以不.不要变成为了学而学?
+同样不是为了模仿，而是学习技巧，最好自己也能总结出技巧来。
+目前仅仅是模仿,不仅仅是全盘接受,做到心中有概念,它也是有错的,翻译有问题?
+无模式的前提.
+
+先看官网.
+更新对象有哪些? field array等
+有使用范围;db.collection.update()和db.collection.findAndModify();
+以前看文档时,只是朦朦胧胧的认识.毫无深入 
+
+首先是【Fileds】
+一：update原子性运算符  原子性? 啥是原子性?
+
+1. $inc  递增.
+ 
+   redis increase
+
+  猜想: {"field":{$inc:parameter}}
+  Mongodb有一个好处:所有的操作都可以用一个docment来解释.一个docmennt做不了,就用内嵌的docment,或者说用array,或者配合一个array.
+
+  要能发现和借鉴别人的好处:
+    {$inc:{"filed":""},{..},{...}}   一次针对多个字段.　　　　　　　
+	这种docment解释万物,告诉我们一个手段.　　　一个SOA系统,你也想表达这么模式,比如什么需要自增,什么需要自减,等多个方面 可以用json表示作为两方的交互手段。。。也就是说通过json来表示你要做的事,类似上面的形式. 协议?json协议?  交互手段是什么 有哪些?
+	案例: 用类似的格式和多方进行交互. 详细:当前用户的选择的查询条件, 大于等于多少,小于等于多少,剔除那个条件(也就是in操作.and操作,or操作),因为我们要把用户所进行的查询条件记录下来,刚好我们就用docment的这种模式来记录. 然后把这些记录塞给第三方应用,第三方拿到这些记录进行各种筛选,就像我们的Mongodb一样解析({"filed":""},{..},{...}条件),然后把符合条件的结果拿出来,
+
+	到现在对json没有概念.
+
+
+mongodb强大的一个好处就是可以用document来解释万物。。。 如何理解document来解释万物? bson=>用docment来解释万物,有什么借鉴.
+对比:那如何理解万事万物皆为类.
+
+
+《１》　$inc 递增不存在的字段会是什么样？？ 特性哦
+Mongodb中当操作不存在的db collection field或者内嵌的field时,会怎么样?
+
+心中有没概念
+2. $mul 乘法?
+
+   { $mul: { field: <number> } }
+   
+《1》 如果mul的字段不存在，默认给一个default值。。。  特性哦
+
+《2》 存在就拿filed * number 。。。。（parameter）。
+
+心中有无概念?
+3. $rename
+
+{$rename: { <field1>: <newName1>, <field2>: <newName2>, ... } }
+
+dot notation. 使用.符号
+<1> top-level document
+
+<2> embedded document 
+如果字段不存在,do nothing
+
+有没概念?
+4. $setOnInsert 从字面意思猜测下,在set的时候执行的的insert操作. =>错误,是在insert的时候执行set操作.不是insert不执行set 这么奇怪,用在什么地方?
+If an update operation with upsert: true results in an insert of a document 如何翻译?
+If an update operation with upsert: true  导致 an insert of a documen(一个文档的插入)
+主谓宾?
+有疑问就要深入去挖?
+
+
+   db.collection.update(
+   <query>,
+   { $setOnInsert: { <field1>: <value1>, ... } },
+   { upsert: true }
+)
+
+如果查询没有结果，那么我们用$setOnInsert作为insert的document。。。 这句话对不?
+
+我们的update 和 insert 是一个原子性的操作。【原子性】 如何强调原子性?体现原子性?
+
+setoninsert 心中是否有概念? 心中是否由概念也是一种质量管理学.
+
+
+
+1.英语翻译要多加强.
+2.我发现他的一个错误. 哈哈.
+3.本来很容易理解的东西,由于基础的缺失,导致理解起来困难重重.
+3.理解起来困难重重的原因有哪些?   以前就是浏览式,囫囵吞枣式,过一眼,也不知道懂不懂,就算完成了. 多么傻的错误呀.
+
+
+
+评价: 本来应该很简单. 我抓住了一个疑惑,深究下去,找他一个错误.棒棒棒
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?

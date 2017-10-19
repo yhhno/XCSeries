@@ -33,7 +33,9 @@
 33.comparson
 34.inventory 库存
 35.module
-36.divisor  remainder
-
+36.divisor  remainder.
+37.bitwise
+38.projection 投射
+39.isolation 隔离
 
 工具 wireshark 网络捕获器.
