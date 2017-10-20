@@ -113,6 +113,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "15.mongodb之CURD众方法�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "16.mongodb索引之Index索引原理分析之创建single field indexes分析", "03MongoDb系列\16.mongodb索引之Index索引原理分析之创建single field indexes分析\16.mongodb索引之Index索引原理分析之创建single field indexes分析.csproj", "{02548777-349B-43A2-9CAB-D19EAF310256}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "17.mongodb索引之使用multikey,hashIndex,paritalIndex索引分析", "03MongoDb系列\17.mongodb索引之使用multikey,hashIndex,paritalIndex索引分析\17.mongodb索引之使用multikey,hashIndex,paritalIndex索引分析.csproj", "{6E9F5426-CC37-4163-A825-C6C2D7103DE4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -291,6 +293,10 @@ Global
 		{02548777-349B-43A2-9CAB-D19EAF310256}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02548777-349B-43A2-9CAB-D19EAF310256}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02548777-349B-43A2-9CAB-D19EAF310256}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E9F5426-CC37-4163-A825-C6C2D7103DE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E9F5426-CC37-4163-A825-C6C2D7103DE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E9F5426-CC37-4163-A825-C6C2D7103DE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E9F5426-CC37-4163-A825-C6C2D7103DE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -339,6 +345,7 @@ Global
 		{92E1EFBE-860E-4D4F-9011-0357AF610D3F} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 		{2856929D-BBB1-4093-9696-C73A65ED0E63} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 		{02548777-349B-43A2-9CAB-D19EAF310256} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
+		{6E9F5426-CC37-4163-A825-C6C2D7103DE4} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}

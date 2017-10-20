@@ -8,111 +8,53 @@
 记录(有时还会重新看)+看手机,看新闻,其实看的时候很投入可以节省时间.
 
 
-一：mongodb的索引操作。。。
+single fields indexes
 
-抛开mongodb来说.
-index: 目的是什么。。。 加速查找， （mysql，sqlserver）
-
-mysql： 单键索引    
-
-        复合索引   多个字段的组合，注意顺序 为什么注意顺序呢?
-
-        hash索引   （sqlserver没有)  也就是Dictionary/HashTable/HashMap/Set
+conpound fileds indexes
 
 
-索引的实现原理：  BTree。。。
+一：多键值索引  是什么？ 如何查询呢？
+
+其实所谓的多键值索引就是在array上面建立一个索引，mongodb会将array的每一个数字进行排序【索引】。。。。
 
 
-二：看一下mongodb中可以支持哪些索引。。。
+比较奇葩的索引的方式， mysql，sqlserver中都是不存在。。
 
 
-Single Field    单键索引
+1. 创建方式
 
-Compound Index  复合索引
-
-Multikey Index  多键值索引  在array上建立索引	 
-
-Geospatial Index 地理索引
-
-Text Indexes     全文索引  不支持中文,用不了,了解即可
-
-Hashed Indexes   hash索引  O（1）的查找，，， 毕竟hash就是为了做定值查找的。。。
-如果大家属性mysql的话,就是把键的值,换成key
-
-Unique Indexes   唯一索引  就是不重复
-
-Sparse Indexes   稀疏索引  
-
-TTL  Indexes     过期索引 【非常重要】这个索引就有意思了,有意思就是有特性,有特性就可以用到特殊场景. 我们就可以用这个做定时过期的效果。。。
-                 也就是达到Cache的效果(cache会过期,过期就找不到了.)
-
-三：如何创建索引
-
-db.collection.createIndex(keys, options) 看文档有点蒙,不了解参数的详情,一下子接收太多信息,心理会默认浏览过,完事, 不可以这样,至少知道个大概.为什么他可以快速浏览呢? 是他学过,还有由相关知识呢?
-
-他错了都可以纠正过来.
-他是边想,边写?  至少心中知道要做什么，流程怎么走， 心中有数，这样才能走下去吧
-批量和单个操作的时间相差很大
-
-实验索引,必须先添加数据呀, js操作呗.添加个10000个.
+db.coll.createIndex( { <field>: < 1 or -1 > } )  single fields 创建方式是一样的。
 
 
-代码写不出呀,,心中没谱,以前没干过,没参照,,,也没逻辑分析.  这是个问题。
-var  arr=[];
-for( var i=10;i<100000;i++){
-    var name="jace"+i;
-    var age =parseInt(Math.random()*1000000000)%1000;
-    arr.push({"name":name,"age":age});
-}
-print(arr.length);
+db.plane.createIndex({"ratings":1})
 
-db.person.insert(arr);
-db.person.createIndex({"name":1},{"age":1});
-db.person.find({"name":"jace10"}).explain("executionStats");
+db.plane.find()
 
-<1> 单键索引： 添加索引后,如何执行查找呢? 流程是怎样?
-               db.person.createIndex({"age":1}) 就是这麽简单
+db.plane.find({"ratings":[5,9]}).explain()  哈哈 它找不到 executestats这个参数哦。逻辑推理也不是很强嘛， 知识经验多了嘛。
 
-               看下添加索引后的效果.db.person.find({"age":45}).explain()  explian()执行计划 ,应该可以想到可以看执行详情.
+心中是否有概念？
+二:Hash索引 如何创建？创建流程？查找流程？
 
-"inputStage" : {
-                "stage" : "IXSCAN", 表示我们走的是索引.
-                "keyPattern" : {
-                    "age" : 1.0
-                },
+提到hash索引，mysql中也是有hash的。。。
 
+相当于C#/Java Map/HashSet/HashTable
 
-   "winningPlan" : {
-            "stage" : "COLLSCAN",  行扫描
-            "filter" : {
-                "name" : {
-                    "$eq" : "jack1000"
-                }
-            },
-            "direction" : "forward"
-        },
+将字段的之通过hash函数变成一个int类型的一个数字。。。 %int.MaxValue
+最终放到数组中。。。
+
+hashindex支持sharing  如何理解？
+1. 创建方式：
+
+db.collection.createIndex( { _id: "hashed" } )
+
+sharded cluster 我们是支持 hashed index
+
+同时大家要知道，hash就是为了定值查找。。。
 
 
-		心中是否概念?
+hash函数很重要？ 整个hash过程是否清晰？
+Hashing Function     O(1)定制查找很牛逼了，很有优势   如果function比较懒，那么就容易造成 冲突 和 挂链。。。
 
-<2> 复合索引     与单建索引的区别?  如何查找呢? 流程是怎样? 两个键,查询的时候先找第一个,找到第一个,在第二个?
-
-    一定要注意顺序。。 哪个字段在前，哪个字段在后都有严格的区别。。。
-
-	搜索小技巧, 百度  mongodb+关键字,有时目录太复杂不好找 
-
-	复合索引,如果是查找设置索引的两个field时,走的是索引,与设置索引顺序无关.
-	也就是  createindex(name+age)
-	find(name,age) 走索引
-	find(age,name) 走索引
-	find(age)   全表扫描.
-
-
-你创建一个： name + age 的索引
-
-但是，我查询是通过age作为前缀条件，那么这时候是走不了 name_1 这个索引的 。。。
-
-而是情愿采用 全表扫描。。。
 
 
 db.person.find({"age":8}).sort({"age":1}).explain("executionStats")
@@ -226,17 +168,44 @@ db.person.find({"age":8}).sort({"age":1}).explain("executionStats")
 
 
 
-心中是否由概念？
+3: partial indexes  【New in version 3.2】  猜测下，部分索引，只建立局部数据的索引。
 
-1.索引是什么？ 其他数据库支持的索引类型
-2.mongodb支持的数据类型
-3.索引的原理
-4.添加数据
-5.创建索引
-6.验证索引
-7.单建索引是怎样，
-8.复合索引是怎样？ 注意事项？
-9.如何验证索引下效果。
+局部索引。。 mysql和sqlserver 都是没有的。。。
+
+如果你是一个basic indexes。。。 你检索的索引是针对所有的文档。。。。
+
+既然有所有，那么就有相对的词： 局部。。。 有一百个数据，针对50个建立索引，其余的50就是heap    这么奇特应该有应用场景
+																如何理解堆？ 查找要逐条比对。
+Partial indexes only index the documents in a collection that meet a specified filter expression. 
+
+Create a Partial Index
+
+db.restaurants.createIndex(
+   { cuisine: 1, name: 1 },
+   { partialFilterExpression: { rating: { $gt: 5 } } }
+)
+
+db.restaurants.createIndex(
+   { cuisine: 1, name: 1 },
+   { partialFilterExpression: { rating: { $gt: 5 } } }
+)
+
+db.person.createIndex(
+   { "age": 1, },
+   { partialFilterExpression: { "age": { $gt: 600 } } }
+)
+
+
+db.person.find({"age":820}).explain("executionStats")
+
+可以用到更少的存储空间，多少的性能开销。。。。。
+
+
+
+2.多键值索引。 给array中的数据建立索引
+3.hash索引，hash函数，hash过程，查找过程，hash函数，hash 的强大
+4.局部索引，特定情境的处理。
+
 
 
 评价: 理解了蛮简单的.
@@ -247,10 +216,3 @@ db.person.find({"age":8}).sort({"age":1}).explain("executionStats")
 		   3.遇到理解卡壳，怎么办？
 		   4.遇到不知所措，怎么办？
 是否复习：
-		   
-
-
-
-
-
-  
