@@ -1,0 +1,244 @@
+所说,全部记录下来.没追求的话,都只是完成. 必须有效率.
+有逻辑的全过程:现在问题是我和他学,但最终是我要用,如果用我该如何运用的角度.来学习? 可以不.不要变成为了学而学?
+同样不是为了模仿，而是学习技巧，最好自己也能总结出技巧来。
+目前仅仅是模仿,不仅仅是全盘接受,做到心中有概念,它也是有错的,翻译有问题?
+最终还是要自己来做,来试, 要慢慢从被动吸收,到主动吸收转换.
+
+效率要提升起来,不然时间太慢了. 找找哪里费时间了.
+记录(有时还会重新看)+看手机,看新闻,其实看的时候很投入可以节省时间.
+
+
+一：mongodb的索引操作。。。
+
+抛开mongodb来说.
+index: 目的是什么。。。 加速查找， （mysql，sqlserver）
+
+mysql： 单键索引    
+
+        复合索引   多个字段的组合，注意顺序 为什么注意顺序呢?
+
+        hash索引   （sqlserver没有)  也就是Dictionary/HashTable/HashMap/Set
+
+
+索引的实现原理：  BTree。。。
+
+
+二：看一下mongodb中可以支持哪些索引。。。
+
+
+Single Field    单键索引
+
+Compound Index  复合索引
+
+Multikey Index  多键值索引  在array上建立索引	 
+
+Geospatial Index 地理索引
+
+Text Indexes     全文索引  不支持中文,用不了,了解即可
+
+Hashed Indexes   hash索引  O（1）的查找，，， 毕竟hash就是为了做定值查找的。。。
+如果大家属性mysql的话,就是把键的值,换成key
+
+Unique Indexes   唯一索引  就是不重复
+
+Sparse Indexes   稀疏索引  
+
+TTL  Indexes     过期索引 【非常重要】这个索引就有意思了,有意思就是有特性,有特性就可以用到特殊场景. 我们就可以用这个做定时过期的效果。。。
+                 也就是达到Cache的效果(cache会过期,过期就找不到了.)
+
+三：如何创建索引
+
+db.collection.createIndex(keys, options) 看文档有点蒙,不了解参数的详情,一下子接收太多信息,心理会默认浏览过,完事, 不可以这样,至少知道个大概.为什么他可以快速浏览呢? 是他学过,还有由相关知识呢?
+
+他错了都可以纠正过来.
+他是边想,边写? 
+批量和单个操作的时间相差很大
+
+实验索引,必须先添加数据呀, js操作呗.添加个10000个.
+
+
+代码写不出呀,,心中没谱,以前没干过,没参照,,,也没逻辑分析.  这是个问题。
+var  arr=[];
+for( var i=10;i<100000;i++){
+    var name="jace"+i;
+    var age =parseInt(Math.random()*1000000000)%1000;
+    arr.push({"name":name,"age":age});
+}
+print(arr.length);
+
+db.person.insert(arr);
+db.person.createIndex({"name":1},{"age":1});
+db.person.find({"name":"jace10"}).explain("executionStats");
+
+<1> 单键索引： 添加索引后,如何执行查找呢? 流程是怎样?
+               db.person.createIndex({"age":1}) 就是这麽简单
+
+               看下添加索引后的效果.db.person.find({"age":45}).explain()  explian()执行计划 ,应该可以想到可以看执行详情.
+
+"inputStage" : {
+                "stage" : "IXSCAN", 表示我们走的是索引.
+                "keyPattern" : {
+                    "age" : 1.0
+                },
+
+
+   "winningPlan" : {
+            "stage" : "COLLSCAN",  行扫描
+            "filter" : {
+                "name" : {
+                    "$eq" : "jack1000"
+                }
+            },
+            "direction" : "forward"
+        },
+
+
+		心中是否概念?
+
+<2> 复合索引     与单建索引的区别?  如何查找呢? 流程是怎样? 两个键,查询的时候先找第一个,找到第一个,在第二个?
+
+    一定要注意顺序。。 哪个字段在前，哪个字段在后都有严格的区别。。。
+
+	搜索小技巧, 百度  mongodb+关键字,有时目录太复杂不好找 
+
+	复合索引,如果是查找设置索引的两个field时,走的是索引,与设置索引顺序无关.
+	也就是  createindex(name+age)
+	find(name,age) 走索引
+	find(age,name) 走索引
+	find(age)   全表扫描.
+
+
+你创建一个： name + age 的索引
+
+但是，我查询是通过age作为前缀条件，那么这时候是走不了 name_1 这个索引的 。。。
+
+而是情愿采用 全表扫描。。。
+
+
+db.person.find({"age":8}).sort({"age":1}).explain("executionStats")
+
+/* 1 */
+{
+    "queryPlanner" : {
+        "plannerVersion" : 1,
+        "namespace" : "ctrip.plane",
+        "indexFilterSet" : false,
+        "parsedQuery" : {
+            "item" : {
+                "$eq" : "eee"
+            }
+        },
+        "winningPlan" : {
+            "stage" : "FETCH",
+            "filter" : {
+                "item" : {
+                    "$eq" : "eee"
+                }
+            },
+            "inputStage" : {
+                "stage" : "IXSCAN",
+                "keyPattern" : {
+                    "item" : "hashed"
+                },
+                "indexName" : "item_hashed",
+                "isMultiKey" : false,
+                "isUnique" : false,
+                "isSparse" : false,
+                "isPartial" : false,
+                "indexVersion" : 1,
+                "direction" : "forward",
+                "indexBounds" : {
+                    "item" : [ 
+                        "[6782435454978459636, 6782435454978459636]"
+                    ]
+                }
+            }
+        },
+        "rejectedPlans" : []
+    },
+    "executionStats" : {
+        "executionSuccess" : true,
+        "nReturned" : 1,
+        "executionTimeMillis" : 0,
+        "totalKeysExamined" : 1,
+        "totalDocsExamined" : 1,
+        "executionStages" : {
+            "stage" : "FETCH",
+            "filter" : {
+                "item" : {
+                    "$eq" : "eee"
+                }
+            },
+            "nReturned" : 1,
+            "executionTimeMillisEstimate" : 0,
+            "works" : 2,
+            "advanced" : 1,
+            "needTime" : 0,
+            "needYield" : 0,
+            "saveState" : 0,
+            "restoreState" : 0,
+            "isEOF" : 1,
+            "invalidates" : 0,
+            "docsExamined" : 1,
+            "alreadyHasObj" : 0,
+            "inputStage" : {
+                "stage" : "IXSCAN",
+                "nReturned" : 1,
+                "executionTimeMillisEstimate" : 0,
+                "works" : 2,
+                "advanced" : 1,
+                "needTime" : 0,
+                "needYield" : 0,
+                "saveState" : 0,
+                "restoreState" : 0,
+                "isEOF" : 1,
+                "invalidates" : 0,
+                "keyPattern" : {
+                    "item" : "hashed"
+                },
+                "indexName" : "item_hashed",
+                "isMultiKey" : false,
+                "isUnique" : false,
+                "isSparse" : false,
+                "isPartial" : false,
+                "indexVersion" : 1,
+                "direction" : "forward",
+                "indexBounds" : {
+                    "item" : [ 
+                        "[6782435454978459636, 6782435454978459636]"
+                    ]
+                },
+                "keysExamined" : 1,
+                "dupsTested" : 0,
+                "dupsDropped" : 0,
+                "seenInvalidated" : 0
+            }
+        }
+    },
+    "serverInfo" : {
+        "host" : "localhost.localdomain",
+        "port" : 27017,
+        "version" : "3.2.8",
+        "gitVersion" : "ed70e33130c977bda0024c125b56d159573dbaf0"
+    },
+    "ok" : 1.0
+}
+
+
+
+
+评价: 理解了蛮简单的.
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+是否复习：
+		   
+
+
+
+
+
+  
