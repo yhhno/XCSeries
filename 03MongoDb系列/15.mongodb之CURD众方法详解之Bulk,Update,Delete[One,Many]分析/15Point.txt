@@ -1,0 +1,113 @@
+所说,全部记录下来.没追求的话,都只是完成. 必须有效率.
+有逻辑的全过程:现在问题是我和他学,但最终是我要用,如果用我该如何运用的角度.来学习? 可以不.不要变成为了学而学?
+同样不是为了模仿，而是学习技巧，最好自己也能总结出技巧来。
+目前仅仅是模仿,不仅仅是全盘接受,做到心中有概念,它也是有错的,翻译有问题?
+最终还是要自己来做,来试, 要慢慢从被动吸收,到主动吸收转换.
+
+效率要提升起来,不然时间太慢了. 找找哪里费时间了.
+记录(有时还会重新看)+看手机,看新闻,其实看的时候很投入可以节省时间.
+
+他有时将的也不够细..
+
+
+delete操作　
+
+　　remove
+    deleteOne
+    deleteMany
+
+        if (justOne) {
+            removeOp.removeOne();
+        } else {
+            removeOp.remove();
+        }
+
+从代码中可以看到，到底是执行deleteone还是deletemany取决于justOne这个参数。。
+
+
+update操作
+
+    update()
+    updateOne()
+    updateMany()
+    replaceOne()
+
+  update()  你一定要记住，它默认是更新一条。。。
+
+            常规印象中的update是更新多条。。。sqlserver mysql
+  
+
+          if (multi) {
+            updateOp.update(obj);
+           } else {
+            updateOp.updateOne(obj);
+           }
+
+
+bulk操作
+
+bulk操作 mongodb支持的一个批量的操作。
+
+二阶段提交【达到事务性】  什么是二阶段提交？
+
+减少网络的带宽，提高性能。。 10个operator 。。 pipeline
+
+否则我们要链接10次mongodb。。。 现在我们只需要一次就ok了。。。
+适合批量操作和导入数据
+
+
+如果某一个执行出错，不影响其他的执行，所以说没有回滚了。也没有事务了。
+
+try {
+   db.characters.bulkWrite(
+      [
+         { insertOne :
+            {
+               "document" :
+               {
+                  "_id" : 4, "char" : "Dithras", "class" : "barbarian", "lvl" : 4
+               }
+            }
+         },
+         { insertOne :
+            {
+               "document" :
+               {
+                  "_id" : 5, "char" : "Taeln", "class" : "fighter", "lvl" : 3
+               }
+            }
+         },
+         { updateOne :
+            {
+               "filter" : { "char" : "Eldon" },
+               "update" : { $set : { "status" : "Critical Injury" } }
+            }
+         },
+         { deleteOne :
+            { "filter" : { "char" : "Brisbane"} }
+         },
+         { replaceOne :
+            {
+               "filter" : { "char" : "Meldane" },
+               "replacement" : { "char" : "Tanys", "class" : "oracle", "lvl" : 4 }
+            }
+         }
+      ]
+   );
+}
+catch (e) {
+   print(e);
+}
+
+ If an error occurs during the processing of one of the write operations, MongoDB will continue to process remaining write operations in the list. 
+ 
+
+
+ 为什么他说这些是很简单的
+
+ 心中是否有概念？
+
+ 评价: 有点蒙,稍加分析,稍加浏览  这节学的不够好.
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)

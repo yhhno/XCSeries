@@ -109,6 +109,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "13.mongodb之数组操作�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "14.mongodb之CURD众方法详解之Insert,Find[One,Many,Replace]分析", "03MongoDb系列\14.mongodb之CURD众方法详解之Insert,Find[One,Many,Replace]分析\14.mongodb之CURD众方法详解之Insert,Find[One,Many,Replace]分析.csproj", "{92E1EFBE-860E-4D4F-9011-0357AF610D3F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "15.mongodb之CURD众方法详解之Bulk,Update,Delete[One,Many]分析", "03MongoDb系列\15.mongodb之CURD众方法详解之Bulk,Update,Delete[One,Many]分析\15.mongodb之CURD众方法详解之Bulk,Update,Delete[One,Many]分析.csproj", "{2856929D-BBB1-4093-9696-C73A65ED0E63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -279,6 +281,10 @@ Global
 		{92E1EFBE-860E-4D4F-9011-0357AF610D3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92E1EFBE-860E-4D4F-9011-0357AF610D3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92E1EFBE-860E-4D4F-9011-0357AF610D3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2856929D-BBB1-4093-9696-C73A65ED0E63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2856929D-BBB1-4093-9696-C73A65ED0E63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2856929D-BBB1-4093-9696-C73A65ED0E63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2856929D-BBB1-4093-9696-C73A65ED0E63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -325,6 +331,7 @@ Global
 		{57AEB4D4-D106-498B-AD4B-5503C308F2BB} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 		{DC611458-59D1-429D-9006-434B13C61215} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 		{92E1EFBE-860E-4D4F-9011-0357AF610D3F} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
+		{2856929D-BBB1-4093-9696-C73A65ED0E63} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
