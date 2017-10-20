@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{92E1EFBE-860E-4D4F-9011-0357AF610D3F}</ProjectGuid>
+    <ProjectGuid>{12E4D5A8-AD6D-4D9B-8FAE-F4FBB34AF06B}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_14.mongodb之CURD众方法详解之Insert_Find_One_Many_Replace_分析</RootNamespace>
-    <AssemblyName>14.mongodb之CURD众方法详解之Insert,Find[One,Many,Replace]分析</AssemblyName>
+    <RootNamespace>_18.mongodb索引之使用sparseIndex及ttlIndex及我们生产二次营销场景分析</RootNamespace>
+    <AssemblyName>18.mongodb索引之使用sparseIndex及ttlIndex及我们生产二次营销场景分析</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -49,8 +49,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="14Point.txt" />
-    <Content Include="FindOneAndDelete+定时任务结构.png" />
+    <Content Include="18Point.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

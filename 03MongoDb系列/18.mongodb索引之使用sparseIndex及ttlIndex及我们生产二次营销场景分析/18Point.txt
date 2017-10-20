@@ -1,0 +1,168 @@
+所说,全部记录下来.没追求的话,都只是完成. 必须有效率.
+有逻辑的全过程:现在问题是我和他学,但最终是我要用,如果用我该如何运用的角度.来学习? 可以不.不要变成为了学而学?
+同样不是为了模仿，而是学习技巧，最好自己也能总结出技巧来。
+目前仅仅是模仿,不仅仅是全盘接受,做到心中有概念,它也是有错的,翻译有问题?
+最终还是要自己来做,来试, 要慢慢从被动吸收,到主动吸收转换.
+
+效率要提升起来,不然时间太慢了. 找找哪里费时间了.
+记录(有时还会重新看)+看手机,看新闻,其实看的时候很投入可以节省时间.
+
+你看着深渊，深渊也看着你。 哈哈。
+
+
+索引存储在哪里呢？
+
+一： sparse index  【稀疏索引】 这么奇葩？ 什么意思呢？
+
+三个document一点关系都没有，除了主键ID是一样的。。。
+
+这样的documents怎么建立索引。。。
+
+
+稀疏索引： 他的意思就是我建立的index字段必须在有这个字段的document上才可以建立。
+
+
+ The index skips over any document that is missing the indexed field. 抓住关键,得到准确描述.
+
+
+总体上说和partial indexs 有一点像，都是一种局部性质的。。。  局域也就是目标明确。
+                                     这就涉及到一个问题？ 准确的描述？准确的认识？此时着眼点不在索引上,在索引的范围上.?
+									 没有想到是不是关注点的限制?换个关注点?为什么没想到局部呢
+									 为什么没想到和局部索引有点像呢？
+									 或者另外一个角度去理解，去解释？
+									 换个关注点是否更好的有血有肉的认识?
+1. 创建方式
+
+db.hotel.createIndex( { "age": 1 }, { sparse: true } )
+
+db.hotel.find()
+
+db.hotel.find({"age":20}).explain()
+
+
+/* 1 */
+{
+    "queryPlanner" : {
+        "plannerVersion" : 1,
+        "namespace" : "ctrip.hotel",
+        "indexFilterSet" : false,
+        "parsedQuery" : {
+            "age" : {
+                "$eq" : 20.0
+            }
+        },
+        "winningPlan" : {
+            "stage" : "FETCH",
+            "inputStage" : {
+                "stage" : "IXSCAN",
+                "keyPattern" : {
+                    "age" : 1.0
+                },
+                "indexName" : "age_1",
+                "isMultiKey" : false,
+                "isUnique" : false,
+                "isSparse" : true,
+                "isPartial" : false,
+                "indexVersion" : 1,
+                "direction" : "forward",
+                "indexBounds" : {
+                    "age" : [ 
+                        "[20.0, 20.0]"
+                    ]
+                }
+            }
+        },
+        "rejectedPlans" : []
+    },
+    "serverInfo" : {
+        "host" : "localhost.localdomain",
+        "port" : 27017,
+        "version" : "3.2.8",
+        "gitVersion" : "ed70e33130c977bda0024c125b56d159573dbaf0"
+    },
+    "ok" : 1.0
+}
+
+
+和其他索引的组合?
+
+心中是否有概念?
+2. unique index
+
+ 不向大家介绍了。。
+
+
+3. TTL indexes  关注点应在过期上? 一直看着index,目光太局限了,哪能认识到美好呢?
+
+
+TTL indexes are special single-field indexes that MongoDB can use to automatically remove documents from a collection after a certain amount of time.这句话就非常清楚,说明要点.  抓住这句话就好了.
+
+a certain amount of time  
+
+也就是叫做缓存。。。指定时间过期。。。
+
+mongodb现在也可以做缓存过期,也就是充当缓存功能
+
+案例:
+1. 营销活动，给用户发送短信和邮件。。。。
+
+             千人千面：【快消品】
+
+
+                          用户下单的时候：发送一封推荐的邮件。。。 ”猜你喜欢“。
+
+						    	   既然收货成功，肯定是认可这个产品的。。。
+
+                          收货成功的时候：再发送一封推荐的邮件。。。”第二波营销”。
+
+
+             订单贷款：【10天的收获期】
+
+
+ 第一次下单： 会把已经下单的人数据塞到我们的collections。。。 同时设置一个过期时间：11天。。。
+
+ 第二次下单： 我只会根据前10天这个时间段获取到数据，然后发送第二波。。。
+
+              7.22  =>  7.12 
+              
+              7.23  =>  7.13    这个时候7.12的数据自动踢掉了。。。
+				
+              这样的话，我们就不需要手动去剔除数据。。Mongodb线程帮助我们删除。=>典型的特性,匹配场景
+
+
+2. 怎么创建：
+
+db.eventlog.createIndex( { "lastModifiedDate": 1 }, { expireAfterSeconds: 3600 } )
+
+字段：必须是“时间”
+
+      过期的秒数： expireAfterSeconds: 3600 
+
+	 发现问题深究?,可以猜想下,延迟和系统删除有关?
+3. 我们发现有延迟，现在查找一下这个延迟的原因
+
+
+   A background thread in mongod reads the values in the index and removes expired documents from the collection.
+
+   关注错地方,是不可能得到正确的认识,正确的解释.  哈哈
+   The background task that removes expired documents runs every 60 seconds. As a result, documents may remain in a collection during the period between the expiration of the document and the running of the background task.
+
+
+   我们的background tasks 60s 执行一次。。。 实时执行会有性能问题。。。。=>实时心系性能?哈哈
+
+
+   1.spareindex, 奇葩的, 侧重点肯定不一样.关注点要换
+2.unique index 唯一索引
+3.TTL index 过期索引. 有特性的,关注点侧重的地方
+
+
+   
+
+   评价: 理解了蛮简单的.
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+是否复习：
