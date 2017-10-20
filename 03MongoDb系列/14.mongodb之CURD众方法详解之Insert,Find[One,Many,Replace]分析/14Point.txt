@@ -1,0 +1,74 @@
+所说,全部记录下来.没追求的话,都只是完成. 必须有效率.
+有逻辑的全过程:现在问题是我和他学,但最终是我要用,如果用我该如何运用的角度.来学习? 可以不.不要变成为了学而学?
+同样不是为了模仿，而是学习技巧，最好自己也能总结出技巧来。
+目前仅仅是模仿,不仅仅是全盘接受,做到心中有概念,它也是有错的,翻译有问题?
+最终还是要自己来做,来试, 要慢慢从被动吸收,到主动吸收转换.
+
+效率要提升起来,不然时间太慢了. 找找哪里费时间了.
+记录(有时还会重新看)+看手机,看新闻,其实看的时候很投入可以节省时间.
+
+
+
+针对docment的curd操作.
+一：CURD操作
+
+Create,Update,Read,Delete。。。
+
+db.collection.insert()
+
+db.collection.insertOne() New in version 3.2
+
+db.collection.insertMany() New in version 3.2  为什么会这个版本?
+
+
+我们可以通过源代码去找到mongo shell中关于 insert ， 为什么在shell中看
+
+
+        // Bit 1 of option flag is continueOnError. Bit 0 (stop on error) is the default.
+        var bulk = ordered ? this.initializeOrderedBulkOp() : this.initializeUnorderedBulkOp();
+        var isMultiInsert = Array.isArray(obj);
+
+        if (isMultiInsert) {                  区分是否是数组这个情况
+            obj.forEach(function(doc) {
+                bulk.insert(doc);
+            });
+        } else {
+            bulk.insert(obj);
+        }
+
+insert操作的三个方法 ，， insert  insertone  insertmany。。。
+
+			                  后面两个都是i
+							  insert的扩展版。。。 为什么?
+inset心中是否有概念?  没有啊,文档要看,源码也要看
+
+find操作    （read)  不同的特性,有不同的用处?
+
+   find
+   findAndModify  不同的特性,有不同的用处?
+   findOne
+   findoneAndDelete  => modify 衍生出来的
+   findOneAndReplace  => modify 中衍生出来的 ，具有集合性质的替换,也就是说所有符合条件查出来的数据,都执行更新.
+   findoneAndUpdate
+
+   这么多find方法有什么好处呢?
+好处:   第一个：批量的操作 把find + modify 组合起来,用在一个事务里面。。。 
+
+案例: 发邮件和短信的时候, 当前Mongodb中没有被执行的一些任务 然后把这些任务捞出来,让它发掉,因为我要给用户批量的发短信和邮件
+                      每个创建的任务,可以找到 (给那些用户,邮件和短信信息)
+   findoneanddelete函数。。。 
+
+   心中是否有概念?
+   
+   1.不同的操作,针对不同的类型的对象,一定要心中有数,有概念,,这样才能整体把控.
+   2.shell封装了js, shell就传递个mongodb线程对应的cmd, 看看如何做的>
+
+   2.遇到问题就分析,遇到新的就吸收,不用想太多.
+3.做到不管新的旧的,都要心中有数,知道如何做,不能懵逼,
+4. 文档多起来了,复杂起来了.没看完, 此时应该大体有个概念.
+
+
+评价: 有点蒙,稍加分析,稍加浏览
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?
+掌握的技巧: 不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
