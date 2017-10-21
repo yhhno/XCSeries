@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7A263C42-5206-491B-849B-31E13D55A069}</ProjectGuid>
+    <ProjectGuid>{D73F117F-33EC-474E-A9F7-224CEA1CD779}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_20.mongodb索引之Query_plan及官方对index的策略分析</RootNamespace>
-    <AssemblyName>20.mongodb索引之Query plan及官方对index的策略分析</AssemblyName>
+    <RootNamespace>_21.分布式文件存储利器之GridFS分析和mongofiles工具介绍</RootNamespace>
+    <AssemblyName>21.分布式文件存储利器之GridFS分析和mongofiles工具介绍</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -49,8 +49,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="plancache原理也就是执行流程.png" />
-    <Content Include="20Point.txt" />
+    <Content Include="文件存储原理.png" />
+    <Content Include="21Point.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
