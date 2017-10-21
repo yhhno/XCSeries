@@ -117,6 +117,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "17.mongodb索引之使用mu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "18.mongodb索引之使用sparseIndex及ttlIndex及我们生产二次营销场景分析", "03MongoDb系列\18.mongodb索引之使用sparseIndex及ttlIndex及我们生产二次营销场景分析\18.mongodb索引之使用sparseIndex及ttlIndex及我们生产二次营销场景分析.csproj", "{12E4D5A8-AD6D-4D9B-8FAE-F4FBB34AF06B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "19.mongodb索引管理【create,Drop,ReBuild,GetAll】等操作分析", "03MongoDb系列\19.mongodb索引管理【create,Drop,ReBuild,GetAll】等操作分析\19.mongodb索引管理【create,Drop,ReBuild,GetAll】等操作分析.csproj", "{16D04962-A093-49D4-AAE2-8EF5005BE881}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -303,6 +305,10 @@ Global
 		{12E4D5A8-AD6D-4D9B-8FAE-F4FBB34AF06B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12E4D5A8-AD6D-4D9B-8FAE-F4FBB34AF06B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12E4D5A8-AD6D-4D9B-8FAE-F4FBB34AF06B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16D04962-A093-49D4-AAE2-8EF5005BE881}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16D04962-A093-49D4-AAE2-8EF5005BE881}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16D04962-A093-49D4-AAE2-8EF5005BE881}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16D04962-A093-49D4-AAE2-8EF5005BE881}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -353,6 +359,7 @@ Global
 		{02548777-349B-43A2-9CAB-D19EAF310256} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 		{6E9F5426-CC37-4163-A825-C6C2D7103DE4} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 		{12E4D5A8-AD6D-4D9B-8FAE-F4FBB34AF06B} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
+		{16D04962-A093-49D4-AAE2-8EF5005BE881} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
