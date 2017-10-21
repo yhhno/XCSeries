@@ -1,0 +1,117 @@
+所说,全部记录下来.没追求的话,都只是完成. 必须有效率.
+有逻辑的全过程:现在问题是我和他学,但最终是我要用,如果用我该如何运用的角度.来学习? 可以不.不要变成为了学而学?
+同样不是为了模仿，而是学习技巧，最好自己也能总结出技巧来。
+目前仅仅是模仿,不仅仅是全盘接受,做到心中有概念,它也是有错的,翻译有问题?
+最终还是要自己来做,来试, 要慢慢从被动吸收,到主动吸收转换.
+
+效率要提升起来,不然时间太慢了. 找找哪里费时间了.
+记录(有时还会重新看)+看手机,看新闻,其实看的时候很投入可以节省时间.
+
+索引的优化, 为啥要优化呢? 更快的查询呀.
+类似于sql server的评估计划,可视化的建立评估计划? I\O的开销,有了主键id,表就成了b树. 聚集索引,聚集索引扫描就是扫主键
+没有索引和添加索引后,查询有什么不一样呢? 各自都是如何执行的?
+
+一：Query Plan    他讲的也是有问题的.  此时思路有点乱
+
+1. 如何去优化query和建立index。。
+
+   在mongodb中我们使用explain去查看执行计划的。。。
+
+ 原理: Plan Cache /Cache Plan 执行计划缓存   与sqlserver 有所不同.? 原理是什么? 深挖下? 具体的流程是否有概念?
+
+  winning plan  若干个执行计划中挑选一个作为胜出者。
+
+
+/* 1 */
+{
+    "queryPlanner" : {
+        "plannerVersion" : 1,
+        "namespace" : "datamip.person",
+        "indexFilterSet" : false,
+        "parsedQuery" : {
+            "$and" : []
+        },
+        "winningPlan" : {  获胜的plan
+            "stage" : "COLLSCAN",
+            "filter" : {
+                "$and" : []
+            },
+            "direction" : "forward"
+        },
+        "rejectedPlans" : [] 拒绝的plan
+    },
+    "serverInfo" : {
+        "host" : "localhost.localdomain",
+        "port" : 27017,
+        "version" : "3.2.8",
+        "gitVersion" : "ed70e33130c977bda0024c125b56d159573dbaf0"
+    },
+    "ok" : 1.0
+}
+
+drop collection or index   will flush plan cache
+The plan cache does not persist if a mongod restarts or shuts down.
+
+100w数据时, plan cache 没有问题,  1亿时,此时的plan  不见得就是最优了, 这时需要剔除plan  ,重新生成候选的,评估处最优的 选出winner plan  对不?
+
+如何更好的利用plan cache?
+
+
+
+index讲解完了,如何用好呢? 这是个问题?
+二：index的建议 Indexing Strategies  index 官方策略建议   他是大概,简单的,抓重点的 讲解, 有错误  
+都是些概念? 要看文档充实.
+索引创建就是要用的,尽可能多匹配查询字段, 建在查询字段上.
+
+切记一点,学习时演示的案例,仅仅是案例,演示使用作用,讲述原理之用,不可将其作为全部..  这样就太局限了.就不能自如使用,解决问题了.
+有些是原理的东西,抓住关键就好
+有些是运用的常识,必须全部掌握..不可只抓脉络,,不然,用时只有概念,不知如何下手
+
+1. 你创建的索引最好能够覆盖大多数的查询。。。
+
+{ "category": 1, "item": 1 }
+
+可以用： category做前缀
+
+也可以用：category + item
+
+千万不要： item + category 这种模式。。。  这个有问题哦
+
+
+2. sort的时候最好sort的键也要在索引上面。。。
+
+
+3. ensure index fit in RAM
+
+When your index fits in RAM, the system can avoid reading the index from disk and you get the fastest processing.
+
+   最好的建议是我们的index最好都能够存储在内存中。。。
+
+   db.collection.totalIndexSize()
+
+ 我们的操作获取最近的插入数据比较多。。这时候我们可以不必讲究所有的indexes都放在
+   内存中。。。
+
+日志：的场景
+
+4. 确保索引的高选择性
+
+   比如说10个index，其中有1，2index基本上不是不被选中的，，那么这个索引基本上就没什么用了。。。
+   复合索引可以是高选择性?
+
+
+
+
+   1.要看文档补充,index的具体使用,和如何运用的更好.
+
+
+   评价: 理解了蛮简单的. 为啥容易理解了呢,剔除了深渊啊 哈哈
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.关注负面的东西,着眼于美好的东西.
+是否复习：
+
