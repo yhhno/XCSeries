@@ -1,0 +1,168 @@
+所说,全部记录下来.没追求的话,都只是完成. 必须有效率.
+有逻辑的全过程:现在问题是我和他学,但最终是我要用,如果用我该如何运用的角度.来学习? 可以不.不要变成为了学而学?
+同样不是为了模仿，而是学习技巧，最好自己也能总结出技巧来。
+目前仅仅是模仿,不仅仅是全盘接受,做到心中有概念,它也是有错的,翻译有问题?
+最终还是要自己来做,来试, 要慢慢从被动吸收,到主动吸收转换.
+
+效率要提升起来,不然时间太慢了. 找找哪里费时间了.
+记录(有时还会重新看)+看手机,看新闻,其实看的时候很投入可以节省时间.
+
+
+
+
+一：aggregation pipeline  
+
+1. 管道模型。。。 不懂,先搞定管道模型是啥?
+
+   也就是后面操作的数据源是来自于前一个操作。。。  类似链式调用
+
+
+   聚合框架是啥? 不懂,先搞定
+2. 非Mongodb:，我们用aggregation聚合框架做什么？ 聚合操作。 group。 单纯的group就是轻量的聚合计算也就是分组.
+
+   也就是Mongodb中的agrregation框架.
+   从我们看到的$group，我们就可以认为 Mongodb中更加强大。。。支持的运算符更多.
+
+   
+   aggregation  可以多机器跨越查询(如何实现?)。。  group做不到的。。
+
+
+
+   有一个问题,要能看明白,每个stage的语法结构. 其实理解了也好明白.
+《1》 $project  相当于我们sql操作的 select
+
+《2》 $match    相当于我们的 where
+
+《3》 $limit    相当于我们sql操作的 limit
+
+《4》 $skip     
+
+《5》 $unwind   将数据拆解成每一个document。。。
+
+《6》 $group    这个就是分组计算的。
+
+《7》 $sample   随机选择文档
+
+《8》 $sort     sql中的desc asc。
+
+《9》 $geoNear    经纬度。
+
+《10》$lookup    sql中的join操作
+
+《11》$out       将最后的结果输出到指定的collection中去。。
+
+《12》$indexStats 查询过程中的索引情况。。
+
+《13》$redact:    决定内嵌文档是否keep。。
+
+
+有时候我们想用mongodb做一些collection的关联。。。
+
+db.collection.aggregate(pipeline, options)
+
+一：$lookup讲解  所谓的表关联,是用临时表来表示的.
+
+{
+   $lookup:
+     {
+       from: <collection to join>,
+       localField: <field from the input documents>,
+       foreignField: <field from the documents of the "from" collection>,
+       as: <output array field>
+     }
+}
+
+二： $match讲解
+
+{ $match: { <query> } }
+
+
+db.orders.aggregate([
+    {
+      $lookup:
+        {
+          from: "inventory",
+          localField: "item",
+          foreignField: "sku",
+          as: "inventory_docs"
+        }
+   },
+   {
+      $match:{"price":{$gt:0}}
+   },
+   
+])
+
+三：$group
+
+{ $group: { _id: <expression>, <field1>: { <accumulator1> : <expression1> }, ... } }
+
+
+四：$project
+
+{ $project: { <specifications> } }
+
+五：$out
+
+{ $out: "<output-collection>" }
+
+将结果保存到一个collection上面去。。。。
+
+如果不用$out,那么我们的pipeline计算的结果并没有序列化到硬盘。。。
+
+
+allowDiskUse：非常重要，因为我们的group和sort都有内存100M的限制，所以开启为true的
+
+              话，我们就没有100M的限制了。。。。
+
+
+
+db.orders.aggregate([
+    {
+      $lookup:
+        {
+          from: "inventory",
+          localField: "item",
+          foreignField: "sku",
+          as: "inventory_docs"
+        }
+   },
+   {
+      $match:{"price":{$gt:0}}
+   },
+   {
+       $group:{"_id":"$item","totalprice":{$sum:"$price"},"quantityAvg":{$avg:"$quantity"}}
+   },
+   {
+       $project:{"_id":1,"totalprice":1}
+   },
+   {
+       $limit:1
+   },
+   {
+       $out:"myaggregate"
+   }
+],
+{"allowDiskUse":true})
+
+
+
+1.必须要看文档,多理解?
+
+
+1.聚合管道
+2.管道模型是什么>
+3.聚合框架是什么?
+4.lookup,match,group,project,out
+5.多看文档.
+
+
+   评价:仅仅是单个点理解了,
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.关注负面的东西,着眼于美好的东西.
+是否复习：
