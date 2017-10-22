@@ -1,0 +1,208 @@
+所说,全部记录下来.没追求的话,都只是完成. 必须有效率.
+有逻辑的全过程:现在问题是我和他学,但最终是我要用,如果用我该如何运用的角度.来学习? 可以不.不要变成为了学而学?
+同样不是为了模仿，而是学习技巧，最好自己也能总结出技巧来。
+目前仅仅是模仿,不仅仅是全盘接受,做到心中有概念,它也是有错的,翻译有问题?
+最终还是要自己来做,来试, 要慢慢从被动吸收,到主动吸收转换.
+
+效率要提升起来,不然时间太慢了. 找找哪里费时间了.
+记录(有时还会重新看)+看手机,看新闻,其实看的时候很投入可以节省时间.
+
+
+一：group 轻量级的聚合框架.
+
+sqlserver中也是有 group。。。
+
+agrregate pipeline  => group操作。。  sharding cluster。。分片集群
+
+
+group 不可以分片集群的，
+
+
+mapreduce。。。
+
+
+{
+  group:
+   {
+     ns: <namespace>,
+     key: <key>,
+     $reduce: <reduce function>,
+     $keyf: <key function>,
+     cond: <query>,
+     finalize: <finalize function>
+   }
+}
+
+ns：collections  你group的集合。。。
+
+key:   我们group的键值。。
+
+$keyf: 采用函数的定义我们的key， 我们可以后更高的灵活性来定义。。。
+
+       去string的最后一个字母，或者中间，或者最后。。。
+
+$reduce: 刚好就是我们聚合进行中的每个操作。。。
+
+$initial: 聚合的初始文档。。。
+
+cond:     ($match) where条件
+
+finalize:  在某一个groupkey结束后插入点。。。。
+
+
+
+
+//db.inventory.find()
+
+
+db.runCommand(
+   {
+     group:
+       {
+         ns: 'inventory',
+         key: { "description":1 },   //分组的key
+         cond: { "_id":{$gt:1} },
+         $reduce: function ( curr, result ) {
+            //curr:   当前当前得到的document
+            //result: 第一次就是我们目前的initial，后续的话看你怎么对result进行操作
+                   result.count++;
+            return result.total+=curr.instock;
+         },
+         initial: {"total":0,"count":0 },
+         finalize:function(result){
+            result.avg=result.total/result.count;
+         }
+       }
+   }
+)
+
+
+$keyf => $key function  <=> key
+
+普通的key： 是死条件，不好修改。。。
+
+            这时候我们可以用function的形式来替代，增加我们的灵活性。。
+
+            javascript。。。。
+
+
+
+
+db.inventory.find()
+
+db.runCommand(
+   {
+     group:
+       {
+         ns: 'inventory',
+        //key: { "description":1 },   //分组的key
+         $keyf:function(doc){
+             return {"description":1}      //doc: 当前的文档
+          },
+         cond: { "_id":{$gt:1} },
+         $reduce: function ( curr, result ) {
+            //curr:   当前当前得到的document
+            //result: 第一次就是我们目前的initial，后续的话看你怎么对result进行操作
+                   result.count++;
+            return result.total+=curr.instock;
+         },
+         initial: {"total":0,"count":0 },
+         finalize:function(result){
+            result.avg=result.total/result.count;
+         }
+       }
+   }
+)
+
+
+二：group的一些官方介绍
+
+1. The group command does not work with sharded clusters. Use the aggregation framework or map-reduce in sharded environments.
+
+2. The result set must fit within the maximum BSON document size.
+
+/* 1 */
+{
+    "_id" : 1,
+    "sku" : "abc",
+    "description" : "product 1",
+    "instock" : 120
+}
+
+/* 2 */
+{
+    "_id" : 2,
+    "sku" : "def",
+    "description" : "product 2",
+    "instock" : 80
+}
+
+/* 3 */
+{
+    "_id" : 3,
+    "sku" : "ijk",
+    "description" : "product 3",
+    "instock" : 60
+}
+
+/* 4 */
+{
+    "_id" : 4,
+    "sku" : "jkl",
+    "description" : "product 4",
+    "instock" : 70
+}
+
+/* 5 */
+{
+    "_id" : 5,
+    "sku" : "abcedfe",
+    "description" : "product 1",
+    "instock" : 120
+}
+
+/* 6 */
+{
+    "_id" : 6,
+    "sku" : "def而微软为",
+    "description" : "product 2",
+    "instock" : 70
+}
+
+
+
+/* 1 */
+{
+    "waitedMS" : NumberLong(0),
+    "retval" : [ 
+        {
+            "description" : 1.0,
+            "total" : 400.0,
+            "count" : 5.0,
+            "avg" : 80.0
+        }
+    ],
+    "count" : NumberLong(5),
+    "keys" : NumberLong(1),
+    "ok" : 1.0
+}
+
+
+心中是否有概念? 这个功能是做什么? 整体上如何认识?  分那几步骤? 每步骤是做什么的?可以如何做? 结果是如何?
+之前看了不理解？是为什么呢？ 对比，生活中你看到了别人做的事情，不明白是什么呢？
+
+
+1轻量级聚合框架group
+2.心中是否有概念？
+3。js要加强
+4.一些限制和推荐场景要了解。有血有肉嘛
+
+   评价:有点蒙,避免啥也没学到.
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.关注负面的东西,着眼于美好的东西.
+是否复习：
