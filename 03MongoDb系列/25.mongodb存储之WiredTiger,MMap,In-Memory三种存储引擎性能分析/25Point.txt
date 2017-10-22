@@ -1,0 +1,117 @@
+所说,全部记录下来.没追求的话,都只是完成. 必须有效率.
+有逻辑的全过程:现在问题是我和他学,但最终是我要用,如果用我该如何运用的角度.来学习? 可以不.不要变成为了学而学?
+同样不是为了模仿，而是学习技巧，最好自己也能总结出技巧来。
+目前仅仅是模仿,不仅仅是全盘接受,做到心中有概念,它也是有错的,翻译有问题?
+最终还是要自己来做,来试, 要慢慢从被动吸收,到主动吸收转换.
+
+效率要提升起来,不然时间太慢了. 找找哪里费时间了.
+记录(有时还会重新看)+看手机,看新闻,其实看的时候很投入可以节省时间.
+
+
+一：wiredtiger 各自的特性呢 
+
+     mongodb收购的一个 第三方团队。
+
+     We're proud to announce that MongoDB has acquired WiredTiger, and we've joined the MongoDB team!
+
+   
+     在3.0之后，我们的mongodb开始指定是否使用wiredtiger, 到3.2之后，wiredtiger已经是默认的存储引擎。
+
+     在3.0之前，我们都是用mmap。。（内存文件隐射）也就是说把大部分文件映射到虚拟内存中.   如何理解?
+
+
+1.      Document Level Concurrency  文档级别的并发。。。   锁 粒度更小   粒度如何理解?
+
+                   关键点:multiple clients can modify different documents of a collection at the same time.
+
+                   和sqlserver，mysql中的record lock 有点像。 记录锁.
+
+                  但是有时也会用到全局锁, 当alter database，collection时,     用database，collection lock  什么是全局锁.?
+
+
+    
+        collection level concurrency 集合级别的并发。。。  锁 粒度更大
+
+
+2.      Snapsshots and Checkpoints    快照和（生成快照点）    redis： snapshot，aof  快照如何理解?生成快照如何理解?
+
+
+                                      checkpoint: 触发时机：  60s triiger(也就是说60秒触发一次), 或者up to 2G journal data 也就是说达到2g的阀值
+
+        journal 	              事务日志的方式。。。如果mongodb挂掉了，mmap会通过事务日志回访来恢复collection。  事务日志是个毛?
+
+
+3.      journal:                      记录“checkpoint” 和 “checkpoint”的日志记录。 为什么要这样做?  和snapshot的关系是什么呢? 如何放在一起理解?
+
+        journal:                      一直记录着操作日志。。。
+
+
+4.      compression:                  wiredtiger会对collection，indexes进行压缩。。。 snappy 。zlib。。
+
+         none
+
+
+				      110G => 30G  compression    [耗费额外的CPU，benefit：reduce memory]
+
+5.       memory use：                 wiretiger： internal，memorys 这两种分别指什么呢?               使用内存 如何理解? 不解呀.
+			
+				      Via the filesystem cache, MongoDB automatically uses all free memory that is not used by the WiredTiger cache or by other processes. Data in the filesystem cache is compressed.         
+
+
+         mmap：			      system memorys                
+         
+
+
+
+二：mmapv1
+
+        In the default configuration for the MMAPv1 storage engine, MongoDB writes to the data files on disk every 60 seconds and writes to the journal files roughly every 100 milliseconds。
+
+        in-place updates : 原地替换 
+		 mmap映射到内存的一段空间,地址是连续的,存储的docment在内存中的地址是连续的,如果此时想修改其中的某一个docment,有可能会遇到更新后的占用的内存大于原有的内存,此时放不下.
+
+        解决方案： 生成一个document，给两倍的空间。。。 这样的话减少移动。。
+
+
+
+
+
+三：in-memory enterpirse
+
+    Changed in version 3.2.6.    基于内存的存储引擎。。。。  【membercache】有得一拼。
+
+    既然基于内存,肯定会数据丢失。。。  The in-memory storage engine uses document-level concurrency
+
+   1. 知道指定的方式：
+
+
+      inMemory for the --storageEngine option, or the storage.engine setting if using a configuration file.
+
+
+   2. 手工去设置占用的内容上限
+
+        --inMemorySizeGB
+
+       storage.inMemory.engineConfig.inMemorySizeGB setting in the YAML configuration file.
+
+
+	   存储引擎如何工作的? 也就是底层如何工作的? 搞清楚?
+
+1.三种存储引擎的介绍
+2.wireedtiger的详细介绍,与mmap的对比,
+3.存储引擎的工作机制,和特性, 
+4.说明存储引擎?如何工作?
+5.快照和事务日志,内存文件映射,全局锁,锁如何参与工作,快照如何工作的?压缩. 内存使用是啥?是啥?
+
+
+
+
+       评价:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.关注负面的东西,着眼于美好的东西.
+是否复习：

@@ -81,7 +81,7 @@ function() {
 
     最后我们会生成很多的 key/value的键值对。。。  this => 就是当前的document。
 
-<2> reduce 搞清楚它是它是干嘛的？  是每个map的值,都执行吗? 当然不是了? 此时要搞清楚?
+<2> reduce 搞清楚它是它是干嘛的？  是每个map的值,都执行吗? 当然不是了? 此时要搞清楚? 新更新,这样理解也不对.毕竟转换了另一种格式的docment
 
 function(key, values) {    //values: {key:cust_id，[10,20,30,40]}
    return result;  如何发生的？  为什么要return呢？
@@ -107,7 +107,7 @@ function(key, reducedValue) {
     "counts" : {
         "input" : 6,   //输入了6个文档
         "emit" : 6,    //映射了6个
-        "reduce" : 2,  //reduce执行了2次  这说明了什么? 流程没有逻辑性的分析?顺下来? 只是抓住了主要概念? 忽略了小细节?
+        "reduce" : 2,  //reduce执行了2次  这说明了什么? 流程没有逻辑性的分析?顺下来? 只是抓住了主要概念? 忽略了小细节? 新理解?
         "output" : 4   //最终输出是4个。
     },
 
@@ -126,6 +126,7 @@ var reduce=function(key,values){
 };
 
 var myfinallize=function(key, reducedValue) {//reducedValue.avg 为什么可以这样写呢?
+    应该说是错误由reducedValue.values.length 引起的,value不一定是数组array.
     reducedValue.avg=reducedValue.values && reducedValue.values.length;  //有错误.
     return reducedValue;
 }
@@ -192,15 +193,18 @@ db.runCommand(
 }
 
 
+
+
 1.重量级组合框架mapReduce,及其他聚合框架的对比
 2.map是什么? reduce是什么?
 3.聚合执行结果?如何看?
 4.存在的问题,抓住了主概念,忽略了流程的梳理.
 5.js中&&和||的区别
 
+问题: 如果自己可以看文档,能达到这种理解程度,就好了? 欠缺什么呢?
 
 
-   评价:理解了就不难,关键怎样算理解了? 如何去理解呢?
+   评价:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
 掌握的方法:有逻辑的分析,有逻辑的理解.
 掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
 掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
