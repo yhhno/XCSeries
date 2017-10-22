@@ -1,0 +1,211 @@
+所说,全部记录下来.没追求的话,都只是完成. 必须有效率.
+有逻辑的全过程:现在问题是我和他学,但最终是我要用,如果用我该如何运用的角度.来学习? 可以不.不要变成为了学而学?
+同样不是为了模仿，而是学习技巧，最好自己也能总结出技巧来。
+目前仅仅是模仿,不仅仅是全盘接受,做到心中有概念,它也是有错的,翻译有问题?
+最终还是要自己来做,来试, 要慢慢从被动吸收,到主动吸收转换.
+
+效率要提升起来,不然时间太慢了. 找找哪里费时间了.
+记录(有时还会重新看)+看手机,看新闻,其实看的时候很投入可以节省时间.
+
+
+
+对比grop 和mapreduce 和aggregate pineline 之间的异同？以及count disitinct的关联？
+一：MapReduce  分布式计算框架？ 如何理解？如何实现？
+
+<1>  group：叫做轻量级聚合框架。。    不能跨机器的。。 单机版本的。。
+
+<2>  mapreduce  叫做重量级的聚合框架。 sharding cluster上面。。。。
+
+                它的性能不见得比group高，但是mapreduce可以利用多个机器的计算能力进行并行计算。。。然后通过reduce进行汇总。
+				如何利用多台机器的计算能力？如何进行汇总呢？此时的汇总是个很笼统的概念? 具体汇总什么?不清楚?如何汇总?不清楚?
+
+看完概念，然后详细介绍
+二：介绍
+
+
+group: 很简单的 为什么老说很简单的？
+
+
+db.collection.group({ key, reduce, initial [, keyf] [, cond] [, finalize] })		
+
+
+<1> key/keyf => map
+
+<2> reduce => reduce
+
+<3> cond   => query
+
+<4> finalize => finalize
+
+mapreduce:
+
+db.collection.mapReduce(
+                         <map>,
+                         <reduce>,
+                         {
+                           out: <collection>,   //就是我们聚合结果可以放到一个collection上去。。inline模式。inline模式是什么？也就是说放到和不放到collection都可以
+                           query: <document>,
+                           sort: <document>,
+                           limit: <number>,
+                           finalize: <function>,
+                           scope: <document>,
+                           jsMode: <boolean>,
+                           verbose: <boolean>,
+                           bypassDocumentValidation: <boolean>
+                         }
+                       )
+
+db.runCommand(
+               {
+                 mapReduce: <collection>,
+                 map: <function>,
+                 reduce: <function>,
+                 finalize: <function>,
+                 out: <output>,
+                 query: <document>,
+                 sort: <document>,
+                 limit: <number>,
+                 scope: <document>,
+                 jsMode: <boolean>,
+                 verbose: <boolean>,
+                 bypassDocumentValidation: <boolean>
+               }
+             )
+用到最多的几个选项： 
+
+<1> map  搞清楚它是它是干嘛的？
+
+function() {
+        emit(this.cust_id, 1);  通过这个函数进行“投影”。  如何发生的？
+}
+
+    最后我们会生成很多的 key/value的键值对。。。  this => 就是当前的document。
+
+<2> reduce 搞清楚它是它是干嘛的？  是每个map的值,都执行吗? 当然不是了? 此时要搞清楚?
+
+function(key, values) {    //values: {key:cust_id，[10,20,30,40]}
+   return result;  如何发生的？  为什么要return呢？
+}
+
+<3> query
+
+    简单的一些查询：{"filed":{$gt:10}}
+
+<4> finalize
+
+reduce聚合好了之后再来执行。。。。
+
+function(key, reducedValue) {
+   ...
+   return modifiedObject;
+}
+
+做一个演示。
+
+
+
+    "counts" : {
+        "input" : 6,   //输入了6个文档
+        "emit" : 6,    //映射了6个
+        "reduce" : 2,  //reduce执行了2次  这说明了什么? 流程没有逻辑性的分析?顺下来? 只是抓住了主要概念? 忽略了小细节?
+        "output" : 4   //最终输出是4个。
+    },
+
+
+
+    
+
+db.inventory.find()
+
+var map=function() {
+        emit(this.description,this.instock);   //description as key, instock as sum ...
+};
+
+var reduce=function(key,values){
+     return {"values":values};
+};
+
+var myfinallize=function(key, reducedValue) {//reducedValue.avg 为什么可以这样写呢?
+    reducedValue.avg=reducedValue.values && reducedValue.values.length;  //有错误.
+    return reducedValue;
+}
+
+db.runCommand(
+               {
+                 mapReduce: "inventory",
+                 map: map,
+                 reduce: reduce,
+                 finalize:myfinallize,
+                 out: {inline:1}                 
+               }
+             )
+
+
+
+
+/* 1 */
+{
+    "_id" : 1,
+    "sku" : "abc",
+    "description" : "product 1",
+    "instock" : 120
+}
+
+/* 2 */
+{
+    "_id" : 2,
+    "sku" : "def",
+    "description" : "product 2",
+    "instock" : 80
+}
+
+/* 3 */
+{
+    "_id" : 3,
+    "sku" : "ijk",
+    "description" : "product 3",
+    "instock" : 60
+}
+
+/* 4 */
+{
+    "_id" : 4,
+    "sku" : "jkl",
+    "description" : "product 4",
+    "instock" : 70
+}
+
+/* 5 */
+{
+    "_id" : 5,
+    "sku" : "abcedfe",
+    "description" : "product 1",
+    "instock" : 120
+}
+
+/* 6 */
+{
+    "_id" : 6,
+    "sku" : "def而微软为",
+    "description" : "product 2",
+    "instock" : 70
+}
+
+
+1.重量级组合框架mapReduce,及其他聚合框架的对比
+2.map是什么? reduce是什么?
+3.聚合执行结果?如何看?
+4.存在的问题,抓住了主概念,忽略了流程的梳理.
+5.js中&&和||的区别
+
+
+
+   评价:理解了就不难,关键怎样算理解了? 如何去理解呢?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.关注负面的东西,着眼于美好的东西.
+是否复习：

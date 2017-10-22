@@ -127,6 +127,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "22.mongodb之重量级Aggre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "23.mongodb之轻量级聚合框架之db.collections.group详解", "03MongoDb系列\23.mongodb之轻量级聚合框架之db.collections.group详解\23.mongodb之轻量级聚合框架之db.collections.group详解.csproj", "{355E76EA-CB73-40EE-948F-D1D123831D8A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "24.mongodb之分布式计算框架MapReduce讲解", "03MongoDb系列\24.mongodb之分布式计算框架MapReduce讲解\24.mongodb之分布式计算框架MapReduce讲解.csproj", "{58C3EB96-0AB9-4F7A-9378-D920B603E453}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -333,6 +335,10 @@ Global
 		{355E76EA-CB73-40EE-948F-D1D123831D8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{355E76EA-CB73-40EE-948F-D1D123831D8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{355E76EA-CB73-40EE-948F-D1D123831D8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58C3EB96-0AB9-4F7A-9378-D920B603E453}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58C3EB96-0AB9-4F7A-9378-D920B603E453}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58C3EB96-0AB9-4F7A-9378-D920B603E453}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58C3EB96-0AB9-4F7A-9378-D920B603E453}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -388,6 +394,7 @@ Global
 		{D73F117F-33EC-474E-A9F7-224CEA1CD779} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 		{670392A4-9A23-41D7-845B-D77C34079DEE} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 		{355E76EA-CB73-40EE-948F-D1D123831D8A} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
+		{58C3EB96-0AB9-4F7A-9378-D920B603E453} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
