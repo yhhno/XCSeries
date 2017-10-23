@@ -1,0 +1,51 @@
+一：怎么用驱动去连接我们的mongodb
+
+
+1. 之前用的是mongodb shell 工具  robomongo
+
+
+各种语言都有自己的驱动。。。 C#，Java。。。
+最重要的是告诉大家如何用?引引路.
+
+
+
+二：C#版本
+百度搜索  mongodb 驱动
+1. 网址:    https://docs.mongodb.com/ecosystem/drivers/csharp/
+
+            Nuget is the simplest way to get the driver. There are 4 packages available on nuget.
+
+
+3.2.8 版本    Install-Package MongoDB.Driver
+
+
+ 
+2. 不会使用,下载完后,不知道杂用?
+
+tour  getting start guid   教程之类的英文单词......当找不到时, 心理会有什么样的变化呢? 会有什么样的行动呢?  为什么会这样呢?   注意力不集中呀.
+http://mongodb.github.io/mongo-csharp-driver/2.2/getting_started/quick_tour/
+
+var client = new MongoClient("mongodb://localhost:27017");  为什么是mongodb://xxxx  呢?
+
+
+
+
+
+
+二：Java版本
+
+1. 下载地址：   http://mongodb.github.io/mongo-java-driver/?_ga=1.147327294.888672511.1469238562
+
+2. 下载列表：   https://oss.sonatype.org/content/repositories/releases/org/mongodb/mongo-java-driver/3.3.0/
+
+3. myeclipse:   java环境的配置。。。
+
+4. 快速使用的浏览版本：                
+			http://mongodb.github.io/mongo-java-driver/3.3/driver/getting-started/quick-tour/
+
+
+nodejs和php
+
+
+
+
