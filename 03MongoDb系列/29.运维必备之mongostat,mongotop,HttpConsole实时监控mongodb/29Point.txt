@@ -1,0 +1,141 @@
+所说,全部记录下来.没追求的话,都只是完成. 必须有效率.
+有逻辑的全过程:现在问题是我和他学,但最终是我要用,如果用我该如何运用的角度.来学习? 可以不.不要变成为了学而学?
+同样不是为了模仿，而是学习技巧，最好自己也能总结出技巧来。
+目前仅仅是模仿,不仅仅是全盘接受,做到心中有概念,它也是有错的,翻译有问题?
+最终还是要自己来做,来试, 要慢慢从被动吸收,到主动吸收转换.
+
+效率要提升起来,不然时间太慢了. 找找哪里费时间了.
+记录(有时还会重新看)+看手机,看新闻,其实看的时候很投入可以节省时间.
+
+既然学完了使用, 就要看看使用的效果.
+一：监控  监控什么内容呢:【CURD，network traffic,indexes】 以前对监控没概念? 不知如何监控? 监控什么?不知道以什么样的方式去监控? 
+                                                             以什么样的形式去显示?
+															 同时对性能也没概念?不知道如何评判?如何判断?
+															 让说说不出来,看了没感觉?认不得? 这多不好
+															 此节的学习,状态不好,浏览式的学习? 不知什么原因? 觉得太简单?注意力不集中? 
+
+1.对运维来说非常重要。。。
+
+二：mongodb本身提供的一些工具：
+
+1. mongostatus  有默认设置
+  
+   --host <hostname><:port>
+
+   --port <port>
+
+   一秒钟刷新一次? 如何实现的呢?
+    *0    *0     *0     *0       0     1|0     0.0    0.0       0 359.0M 74.0M   0|0   0|0   79b    18k    1 2016-07-26T07:50:45-07:00
+insert query update delete getmore command % dirty % used flushes  vsize   res qr|qw ar|aw netIn netOut conn                      time
+    *0    *0     *0     *0       0     1|0     0.0    0.0       0 359.0M 74.0M   0|0   0|0   79b    18k    1 2016-07-26T07:50:46-07:00
+    *0    *0     *0     *0       0     1|0     0.0    0.0       0 359.0M 74.0M   0|0   0|0   79b    18k    1 2016-07-26T07:50:47-07:00
+    *0    *0     *0     *0       0     1|0     0.0    0.0       0 359.0M 74.0M   0|0   0|0   79b    18k    1 2016-07-26T07:50:48-07:00
+    *0    *0     *0     *0       0     2|0     0.0    0.0       0 359.0M 74.0M   0|0   0|0  133b    18k    1 2016-07-26T07:50:49-07:00
+    *0    *0     *0     *0       0     1|0     0.0    0.0       0 359.0M 74.0M   0|0   0|0   79b    18k    1 2016-07-26T07:50:50-07:00
+    *0    *0     *0     *0       0     1|0     0.0    0.0       0 359.0M 74.0M   0|0   0|0   79b    18k    1 2016-07-26T07:50:51-07:00
+    *0    *0     *0     *0       0     1|0     0.0    0.0       0 359.0M 74.0M   0|0   0|0   79b    18k    1 2016-07-26T07:50:52-07:00
+    *0    *0     *0     *0       0     1|0     0.0    0.0       0 359.0M 74.0M   0|0   0|0   79b    18k    1 2016-07-26T07:50:53-07:00
+    *0    *0     *0     *0       0     1|0     0.0    0.0       0 359.0M 74.0M   0|0   0|0   79b    18k    1 2016-07-26T07:50:54-07:00
+
+  
+1s flush/per
+
+vsize  虚拟空间
+used   已使用的内存
+flushes  刷盘了几次?
+qr/qw : queue read/write  【就是正在排队的写入/读取】 为什么有排队的?   异步?
+
+ar/aw: active read/write  【活动的client的读写】
+
+netIn/Out:     [network traffic]
+
+conn:          连接数
+
+time:          时间
+
+通过上面的参数，我们就可以简单的看一下某一时刻的mongodb状况。。。。 关键点某一刻? 以前没概念 
+
+学完了,试一把,
+有个有趣的事情 在shell中for循环时,, conn不止一个?
+
+2. mongotop
+
+
+                 ns    total    read    write    2016-07-26T07:57:27-07:00
+  admin.system.roles      0ms     0ms      0ms                             
+admin.system.version      0ms     0ms      0ms                             
+         ctrip.plane      0ms     0ms      0ms                             
+   local.startup_log      0ms     0ms      0ms                             
+local.system.replset      0ms     0ms      0ms   
+
+
+展示当前集合操作的中 每个read/write 耗费的的时间。。。也就是查看性能。。。 以前没概念?
+
+                          
+mongotop provides a method to track the amount of time a MongoDB instance spends reading and writing data.
+
+
+                  ns    total    read    write    2016-07-26T08:00:20-07:00
+         ctrip.plane     13ms     0ms     13ms                             
+  admin.system.roles      0ms     0ms      0ms                             
+admin.system.version      0ms     0ms      0ms                             
+   local.startup_log      0ms     0ms      0ms                             
+local.system.replset      0ms     0ms      0ms   
+
+
+                  ns    total    read    write    2016-07-26T08:01:54-07:00
+         ctrip.plane      6ms     6ms      0ms                             
+  admin.system.roles      0ms     0ms      0ms                             
+admin.system.version      0ms     0ms      0ms                             
+   local.startup_log      0ms     0ms      0ms                             
+local.system.replset      0ms     0ms      0ms                             
+
+
+3. httpweb站点
+
+
+4. mongodb自带的一些命令。。
+
+《1》 serverStatus
+
+《2》 dbStats
+
+《3》 collection.collStats
+
+《4》 replSetGetStatus
+
+
+db.serverStatus()
+db.stats()
+db.plane.stats()
+
+
+4. 一些第三方开源或者商业的软件。。。 
+
+    《1》 MMC mongodb官方自带的。。
+    《2》 DataDog...
+    《3》motop
+
+都是些一些图像化的监控工具。。。
+
+
+
+
+1.监控 和性能
+1.mongodb本身提供的工具,mongodb自带的命令,要会使用
+2.第三方的
+3,要多监控和性能有个基本的认识, 之前都不知道监控和性能是什么? 如何体现? 如何判断?
+4.文档要看? 不能说是觉得简单,就不重视, 这是坏的行为,很大可能会养成坏的习惯.
+
+
+
+
+          评价:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.关注负面的东西,着眼于美好的东西.
+是否复习：
