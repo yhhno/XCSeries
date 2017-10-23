@@ -16,13 +16,14 @@
     ： master-slave  主从集群  
        replica set   副本集
        sharding      分片
-
+	   三种比较下嘛? 心中要有概念?
 
 <1> master-slave
 
-   write 在 master
+工作概況：
+		   write 在 master
 
-   read  在 slave
+		   read  在 slave
 
 但是，master-slave 没有“主挂从顶” 也就是自动故障转移.
 
@@ -64,11 +65,11 @@ slave的mongodb中有一个 sources集合，这个集合保存了master的信息。
 同步每10秒进行一次.所以有个10s的延迟.,默认是同步主的所有db,但是可以只同步指定的db
 我们的 主从 有一个10s的延迟，如果对这个时间差没有关系，那么就可以使用master-slave
 
-
+文档还是要看的
 
 1.分布式部署的三种形式：master-slave，replica set，sharding
 2.主从的概念，流程，工作机制，配置启动，缺陷（有延迟，不能自动故障转移）
-3.如何同步的呢？
+3.如何同步的呢？ 两者还是要通信的，从通过读取 主的所有操作日志oplog.$main集合 来实现同步数据.
 
 
 是不是很简单？ 哈哈     为啥以前觉得难呢？

@@ -133,6 +133,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "25.mongodb存储之WiredTig
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "26.mongodb分布式部署之使用Master-Slave集群", "03MongoDb系列\26.mongodb分布式部署之使用Master-Slave集群\26.mongodb分布式部署之使用Master-Slave集群.csproj", "{32B52CEE-5D02-4904-A259-99C64E2043AA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "27.mongodb分布式部署之ReplicaSet集群（我们生产已经使用到的）", "03MongoDb系列\27.mongodb分布式部署之ReplicaSet集群（我们生产已经使用到的）\27.mongodb分布式部署之ReplicaSet集群（我们生产已经使用到的）.csproj", "{6EA37C86-8CB2-44E0-9E4E-2ED1572ABC78}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -351,6 +353,10 @@ Global
 		{32B52CEE-5D02-4904-A259-99C64E2043AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32B52CEE-5D02-4904-A259-99C64E2043AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32B52CEE-5D02-4904-A259-99C64E2043AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EA37C86-8CB2-44E0-9E4E-2ED1572ABC78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EA37C86-8CB2-44E0-9E4E-2ED1572ABC78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EA37C86-8CB2-44E0-9E4E-2ED1572ABC78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EA37C86-8CB2-44E0-9E4E-2ED1572ABC78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -409,6 +415,7 @@ Global
 		{58C3EB96-0AB9-4F7A-9378-D920B603E453} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 		{7D21B967-635B-4423-9476-1F4A6C53E37E} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 		{32B52CEE-5D02-4904-A259-99C64E2043AA} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
+		{6EA37C86-8CB2-44E0-9E4E-2ED1572ABC78} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
