@@ -1,0 +1,142 @@
+所说,全部记录下来.没追求的话,都只是完成. 必须有效率.
+有逻辑的全过程:现在问题是我和他学,但最终是我要用,如果用我该如何运用的角度.来学习? 可以不.不要变成为了学而学?
+同样不是为了模仿，而是学习技巧，最好自己也能总结出技巧来。
+目前仅仅是模仿,不仅仅是全盘接受,做到心中有概念,它也是有错的,翻译有问题?
+最终还是要自己来做,来试, 要慢慢从被动吸收,到主动吸收转换.
+
+效率要提升起来,不然时间太慢了. 找找哪里费时间了.
+记录(有时还会重新看)+看手机,看新闻,其实看的时候很投入可以节省时间.
+
+
+
+
+一：sharding。。。  和redis中的sharding 有什么不一样?
+
+分片是集群中的最后一种。。。之前 master-slave ，replication set 【实现了冗余性和高可用】
+
+分片的特点
+	将大量的操作均摊到各自的服务器上。。。  也就是负载均衡的效果，来提高系统的吞吐量。。。 
+
+	实现负载均衡也就是将一个大问题拆分成很多的小问题。。。。 但负载均衡是如何实现的呢? 都有那些呢
+
+
+二：架构模式
+
+原先我们用replica set 它使用一台机器承载所有的流量。。。
+
+sharding： 我们用三台机器去承载这个流量。。。  sharding弥补了replica set的缺点(数据都在一台机器上),  算不算是实现了负载
+
+
+达到高可用，冗余，负载这三个标准,   这种情况下的服务器部署将会非常复杂。。。。
+
+
+三：实践
+
+1. 生成config文件。。。 也就说要准备好配置文件
+
+
+
+《1》 mongos： port: 27004  mongos是啥呢 也就是主入口,一看到就有点蒙,完全没概念,不知道是啥?不知道如何工作的?之前的mongodb学习,也没有提供相同类型的案例,去借鉴,,所有有点蒙,=>困在这里啦,心中始终放着这个疑惑,也影响了以后的学习.
+
+《2》 config server  port: 27000   配置的是啥呢?  感觉同上?
+
+      configsvr:true;
+在以上的两个步骤中,又犯了同样的错误,放错关注点.
+关注该关注的,其实也就很多简单了.
+《3》 two shard port: 27001,27002
+
+四者之间是什么样的关系呢? 其中一个挂了怎么办? 官方的示例图的replicate set 是什么意思?
+
+
+我们最后的分片是对某一个collection的数据进行分片。。。 也就说分片,分谁的片.
+
+步骤1：  开启config服务器  如何操作? 有什么影响? mongod --config=  配置配置,终归还是mongodb.还是docment
+
+步骤二： 开启mongos服务器  如何操作? 有什么影响? mongos --config=  
+
+
+步骤三： 开启shard服务器【mongod进程】
+
+
+
+
+//将mongod进程添加到sharding中
+sh.addShard("192.168.161.138:27001")
+sh.addShard("192.168.161.138:27002")
+
+//在ctrip这个db上面启动分片功能
+sh.enableSharding("ctrip") 
+
+//在ctrip.plane上面开启分片功能，shard key 是 主键ID
+sh.shardCollection("ctrip.plane",{"_id":1});
+
+sh.status()
+
+
+
+
+--- Sharding Status --- 
+  sharding version: {
+	"_id" : 1,
+	"minCompatibleVersion" : 5,
+	"currentVersion" : 6,
+	"clusterId" : ObjectId("5798bcf3105de4fa3269d5c1")
+}
+  shards:
+	{  "_id" : "shard0000",  "host" : "192.168.161.138:27001" }
+	{  "_id" : "shard0001",  "host" : "192.168.161.138:27002" }
+  active mongoses:
+	"3.2.8" : 1
+  balancer:
+	Currently enabled:  yes
+	Currently running:  no
+	Failed balancer rounds in last 5 attempts:  0
+	Migration Results for the last 24 hours: 
+		No recent migrations
+  databases:
+	{  "_id" : "ctrip",  "primary" : "shard0000",  "partitioned" : true }
+		ctrip.plane
+			shard key: { "_id" : 1 }
+			unique: false
+			balancing: true
+			chunks:
+				shard0000	1
+			{ "_id" : { "$minKey" : 1 } } -->> { "_id" : { "$maxKey" : 1 } } on : shard0000 Timestamp(1, 0) 
+
+
+分片的方式:
+
+
+1. range     默认的 范围分片
+
+2. hash  	 [redis cluster] 就明白了。 16384个slot
+
+3. tag           手工指定分片。。
+
+
+
+
+1.sharding的特点,实现了负载. 和其他两种集群的区别,和redis的sharding的区别.
+2.高可用 冗余,负载 
+3.Mongodb中操作的是docment
+4.sharing架构时怎样的? 如何工作的? 之间如何相互工作的?
+5. 操作步骤
+      1.开启一个配置好配置文件的config实例
+      2.开启一配置好配置文件的额mongos实例,命令不一样.此实例作用不一样.
+     3.开启多个sharding实例
+     4.在mongos的shell中将sharding实例添加到集群的sharding中,在db上开启分片功能,在db的collection上开启分片功能,设置shard key,
+     5.在mongos上的shell添加数据
+     6.为什么在mongos上操作呢? 集群的设置内容都在config上.
+     7.文档必须看,不然欠缺常识
+
+文档不要忘了看?
+
+          评价:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.关注负面的东西,着眼于美好的东西.
+是否复习：
