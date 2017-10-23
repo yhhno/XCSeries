@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7D21B967-635B-4423-9476-1F4A6C53E37E}</ProjectGuid>
+    <ProjectGuid>{32B52CEE-5D02-4904-A259-99C64E2043AA}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_25.mongodb存储之WiredTiger_MMap_In_Memory三种存储引擎性能分析</RootNamespace>
-    <AssemblyName>25.mongodb存储之WiredTiger,MMap,In-Memory三种存储引擎性能分析</AssemblyName>
+    <RootNamespace>_26.mongodb分布式部署之使用Master_Slave集群</RootNamespace>
+    <AssemblyName>26.mongodb分布式部署之使用Master-Slave集群</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -49,8 +49,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="快照和in-place update.png" />
-    <Content Include="25Point.txt" />
+    <Content Include="maste-slave概念模式.png" />
+    <Content Include="26Point.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
