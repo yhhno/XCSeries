@@ -1,0 +1,226 @@
+所有的都要记录下来. 边学边记. 抛弃深渊. 状态要预热呀.
+
+多线程可以带来性能上的提升
+一个事实,线程不是你想开就能开的  有时间和空间的开销.
+
+
+
+一：空间上的开销  有哪些?
+
+ 抛开C#,thread本身来说就是操作系统的概念。。。既然是操作系统的概念,那操作系统如何表示thread  也叫作thread的内核数据结构
+
+<1> thread的内核数据结构(来表示thread)，其中有osid(线程id)，context => 存放cpu寄存器的里面的一些变量。。。 大概一个时间片 30ms
+                                         context(线程上下文)这个概念用到了时间片切换,因为时间片切换会把当前线程中的一些cpu寄存器的内容放在当前的context,然后线程休眠,cpu开始调度另一个线程
+<2>. thread 环境块    啥意思? 有啥？
+   
+  包括 tls【thread本地存储】, execptionList 的信息 。。。。等等
+
+怎么看?  windbg来给大家演示。。。    有32,64分别    32位和64位 到底有啥区别呢?
+windg的作用=可以达到clr的层面给大家展示底层知识
+   
+   因为你要调试exe
+   需要先加载 .loadby sos clr   用到这两个dll给大家演示   sos和clr是啥? 在哪里? 微软的安装包里   %windir%
+
+0:006> .loadby sos clr
+0:006> !threads
+ThreadCount:      3  3个线程
+UnstartedThread:  0
+BackgroundThread: 1
+PendingThread:    0
+DeadThread:       1  死掉一个线程,为什么死掉了,因为这个线程执行完了,还没有被释放掉
+Hosted Runtime:   no
+                                                                         Lock  
+       ID OSID ThreadOBJ    State GC Mode     GC Alloc Context  Domain   Count Apt Exception
+   0    1 2668 00f9dcc0     2a020 Preemptive  02FD26A8:00000000 00f912e0 1     MTA               主线程
+   5    2  66c 00fad3b0     2b220 Preemptive  00000000:00000000 00f912e0 0     MTA (Finalizer)   终结器 gc用来回收的
+XXXX    3    0 00fc8fc0     39820 Preemptive  00000000:00000000 00f912e0 0     Ukn               已经执行完毕的工作线程
+
+
+
+线程环境块的内容,肯定占用空间. 
+0:005> !teb
+TEB at 002cd000
+    ExceptionList:        04a0fb74  存放异常信息
+    StackBase:            04a10000
+    StackLimit:           04a0c000
+    SubSystemTib:         00000000
+    FiberData:            00001e00
+    ArbitraryUserPointer: 00000000
+    Self:                 002cd000
+    EnvironmentPointer:   00000000
+    ClientId:             00000804 . 0000069c
+    RpcHandle:            00000000
+    Tls Storage:          00000000  线程的本地存储 功效 我们的数据可以让当前的线程可见 其他线程不可见,也就是可见级别限定于线程
+    PEB Address:          002b8000
+    LastErrorValue:       0
+    LastStatusValue:      0
+    Count Owned Locks:    0
+    HardErrorMode:        0
+
+
+
+
+<3> 用户模式堆栈    内存溢出的一个异常  【堆栈溢出】  也是tread的空间消耗的一个方面
+  讲到堆栈,可能大多很多人,会有这样一个概念,经常我们会爆一个memory overflow也就是内存溢出,内存溢出的异常经常是由于堆栈溢出 ,很多情况就是你堆栈满掉了,在thread的这个概念下,一个线程默认给一m的堆栈空间.
+
+    一个线程 分配 1M的堆栈空间，，【参数，局部变量】 这个堆栈空间会放什么东西呢? 比如说参数,或者较多局部变量
+
+<4> 内核模式堆栈     也是tread的空间消耗的一个方面
+也就是我们的线程包括一些线程同步,其实本质上是调用win32函数 ,也就是说我们用户模式堆栈的一些参数要转递给底层的win32函数,也就是说内核模式也是需要类似的堆栈空间,不然参数放哪里?      
+
+    在CLR的线程操作，包括线程同步，大多都是调用底层的win32 函数  ，用户模式的参数需要传递到内核模式。。。  
+
+2. 时间的开销
+
+<1> 我们进程启动的时候，会加载很多的dll [托管和非托管的], exe，资源，元数据。。。。
+
+*** wait with pending attach
+Symbol search path is: SRV*c:\mysymbol* http://msdl.microsoft.com/download/symbols
+Executable search path is: 
+ModLoad: 00240000 00248000   D:\src\XCDemo\XC集合\XC集合\09多线程系列\01.Thread基础之从windbg角度理解你必须知道的时间和空间上的开销\bin\Debug\01.Thread基础之从windbg角度理解你必须知道的时间和空间上的开销.exe
+ModLoad: 77350000 774de000   C:\WINDOWS\SYSTEM32\ntdll.dll
+ModLoad: 72e60000 72eb5000   C:\WINDOWS\SYSTEM32\MSCOREE.DLL
+ModLoad: 74580000 74650000   C:\WINDOWS\System32\KERNEL32.dll
+ModLoad: 75230000 753f2000   C:\WINDOWS\System32\KERNELBASE.dll
+ModLoad: 742f0000 74367000   C:\WINDOWS\System32\ADVAPI32.dll
+ModLoad: 741e0000 7429d000   C:\WINDOWS\System32\msvcrt.dll
+ModLoad: 75160000 751a1000   C:\WINDOWS\System32\sechost.dll
+ModLoad: 75990000 75a50000   C:\WINDOWS\System32\RPCRT4.dll
+ModLoad: 73e20000 73e40000   C:\WINDOWS\System32\SspiCli.dll
+ModLoad: 73e10000 73e1a000   C:\WINDOWS\System32\CRYPTBASE.dll
+ModLoad: 74490000 744e7000   C:\WINDOWS\System32\bcryptPrimitives.dll
+ModLoad: 72de0000 72e5d000   C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscoreei.dll
+ModLoad: 73e40000 73e85000   C:\WINDOWS\System32\SHLWAPI.dll
+ModLoad: 74650000 74888000   C:\WINDOWS\System32\combase.dll
+ModLoad: 74c40000 74d58000   C:\WINDOWS\System32\ucrtbase.dll
+ModLoad: 74150000 74171000   C:\WINDOWS\System32\GDI32.dll
+ModLoad: 74e00000 74f58000   C:\WINDOWS\System32\gdi32full.dll
+ModLoad: 751b0000 75229000   C:\WINDOWS\System32\msvcp_win.dll
+ModLoad: 74890000 749cc000   C:\WINDOWS\System32\USER32.dll
+ModLoad: 741b0000 741c6000   C:\WINDOWS\System32\win32u.dll
+ModLoad: 74180000 741a5000   C:\WINDOWS\System32\IMM32.DLL
+ModLoad: 74460000 7446e000   C:\WINDOWS\System32\kernel.appcore.dll
+ModLoad: 73e00000 73e08000   C:\WINDOWS\SYSTEM32\VERSION.dll
+ModLoad: 71ef0000 725d6000   C:\Windows\Microsoft.NET\Framework\v4.0.30319\clr.dll
+ModLoad: 71960000 71a55000   C:\WINDOWS\SYSTEM32\MSVCR120_CLR0400.dll
+ModLoad: 6fb60000 70eed000   C:\WINDOWS\assembly\NativeImages_v4.0.30319_32\mscorlib\0caeceddf4f18e8de485e8a01587a5ae\mscorlib.ni.dll
+ModLoad: 74b40000 74c33000   C:\WINDOWS\System32\ole32.dll
+ModLoad: 6f420000 6f4a0000   C:\Windows\Microsoft.NET\Framework\v4.0.30319\clrjit.dll
+ModLoad: 74d60000 74df6000   C:\WINDOWS\System32\OLEAUT32.dll
+
+
+这么多的dll会加载到进程(01.Thread基础之从windbg角度理解你必须知道的时间和空间上的开销.exe)中.
+Name	                                                         PID	Status	User name	CPU	Memory (private working set)	Description
+01.Thread基础之从windbg角度理解你必须知道的时间和空间上的开销.exe	9208	Running	DowmUp	00 	1,460 K	01.Thread基础之从windbg角度理解你必须知道的时间和空间上的开销
+
+ 有的人会说;   进程启动的时候，我怎么没有看到应用程序域。。。
+
+ 如何看应用程序域?
+ 0:006> .loadby sos clr
+0:006> !dumpdomain
+--------------------------------------
+System Domain:      725765d8   系统程序域 由clr创建
+LowFrequencyHeap:   725768fc
+HighFrequencyHeap:  72576948
+StubHeap:           72576994
+Stage:              OPEN
+Name:               None
+--------------------------------------
+Shared Domain:      72576288   由system domain创建的
+LowFrequencyHeap:   725768fc
+HighFrequencyHeap:  72576948
+StubHeap:           72576994
+Stage:              OPEN
+Name:               None
+Assembly:           008269b0 [C:\WINDOWS\Microsoft.Net\assembly\GAC_32\mscorlib\v4.0_4.0.0.0__b77a5c561934e089\mscorlib.dll]
+ClassLoader:        00826a68
+  Module Name
+6fb61000    C:\WINDOWS\Microsoft.Net\assembly\GAC_32\mscorlib\v4.0_4.0.0.0__b77a5c561934e089\mscorlib.dll  GAC里面的 全局的托管的一些dll
+
+--------------------------------------
+Domain 1:           00806410  默认的应用程序域
+LowFrequencyHeap:   0080687c
+HighFrequencyHeap:  008068c8
+StubHeap:           00806914
+Stage:              OPEN
+SecurityDescriptor: 00807420
+Name:               01.Thread基础之从windbg角度理解你必须知道的时间和空间上的开销.exe
+Assembly:           008269b0 [C:\WINDOWS\Microsoft.Net\assembly\GAC_32\mscorlib\v4.0_4.0.0.0__b77a5c561934e089\mscorlib.dll]
+ClassLoader:        00826a68
+SecurityDescriptor: 00828ef0
+  Module Name
+6fb61000    C:\WINDOWS\Microsoft.Net\assembly\GAC_32\mscorlib\v4.0_4.0.0.0__b77a5c561934e089\mscorlib.dll  也加载了mscorlib.dll
+
+Assembly:           008381b0 [D:\src\XCDemo\XC集合\XC集合\09多线程系列\01.Thread基础之从windbg角度理解你必须知道的时间和空间上的开销\bin\Debug\01.Thread基础之从windbg角度理解你必须知道的时间和空间上的开销.exe]
+ClassLoader:        00836960
+SecurityDescriptor: 00827430
+  Module Name
+00c13ffc    D:\src\XCDemo\XC集合\XC集合\09多线程系列\01.Thread基础之从windbg角度理解你必须知道的时间和空间上的开销\bin\Debug\01.Thread基础之从windbg角度理解你必须知道的时间和空间上的开销.exe  加载了exe
+
+
+
+
+
+    进程启动的时候，默认会有三个应用程序域。system domain, shared domain[int,long....] ,domain1.
+	system domain会把mscorlib.dll加载到shared domain.
+	shared domain 会把gac里的一些数据,比如说基础类型 int long等
+	domain1 类似私有的domain
+
+	上面都是题外话
+    ----------------下面是真正消耗时间的原因---------------------
+    开启一个thread，销毁一个thread 都会通知进程中的dll，attach，detach 标志位。。。
+	 通知dll的目的就是 给thread做准备工作，比如销毁，让这些dll做资源清理。。。。   这就是一个净开销了.
+    线程中有一个概念,开启一个线程,销毁一个线程,都会通知进程中的dll,因为他会给它一个attach或detach标志位,也就是表明我要生成了,,我要销毁了.
+	通知dll的目的就是:给thread做准备工作. 什么准备工作呢? 比如销毁，让这些dll做资源清理。。。。很好理解了,你new一个thread我都会通知这些dll,比如说我们现在的进程有这么多的dll,可能会说.我全部打一遍通知,我这个thread 要生成或者销毁了,这些dll都会受到通知
+   
+
+<2> 时间片切换
+ 
+ 
+    8个逻辑处理器，可供8个thread并行执行。。。。 多于8个，就必须休眠了，休眠了就有时间片切换
+
+    比如说9个thread并发执行。 必然会有一个thread休眠30ms。。。。
+    
+	所以说实践开发中，尽量不要生成太多的thread，因为太多的thread，会让cpu很难堪，因为它需要调度，比如说当前电脑有1000多个线程，这不是说着一千多个线程并行执行。这里面有很多线程都是休眠的，比如说看到当前cpu是没有被运用的，曲线很平，这就说明很多线程是休眠的，所以看到这么多线程不要怕，当遇到死循环导致cpu飚高，当然除非有8个死循环，这样会占用全部的cpu，一个死循环不怕，还有其他的7个呢
+
+
+
+
+综上：对thread的时间和空间的上的开销，有了基本的认识，算是有血有肉的认识。 在使用的时候，就要有理性的判断了
+上面这些就是开启thread带来的开销。。。
+
+
+大家一定要权衡利弊，开启线程是否划得来。。。
+
+比如串行的for循环的性能强于并行的for循环。
+for  => palleral for  
+
+
+
+1.对thread有了基本的认识，空间和时间的消耗，性能的提升，以后使用的可是有顾虑的。
+2.空间上的开销  
+     1,thread的内核数据结构
+     2.thread 环境块
+     3.用户模式堆栈
+     4.内核模式堆栈
+3时间上的开销 
+     1.进程启动时的加载和thread的开启及销毁
+      2.时间片的切换
+4.操作系统的概念,内核数据结构,osid,context,时间片切换,cpu调度,thread本地存储,winbg用户模式堆栈空间,内核模式堆栈空间,用户模式和内和模式的关系, win32函数,进程的启动,进程与线程的关系,应用程序域,sharding程序域, gac,标志位,逻辑处理器,并发执行 ,thread休眠,
+5.得到thrad的使用判断依据
+
+
+评价:理解了也就不难了.
+    1.使用thread函数时,要能根据代码提示和注解,来判断要做什么? 做的是否对?  
+	2.也就是说看着提示,就可以使用了. 比如参数是委托,你就给传个委托, 返回结果是list,就用list接收.
+
+
+理解的标准:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.关注负面的东西,着眼于美好的东西.
+是否复习：
