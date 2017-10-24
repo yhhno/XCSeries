@@ -143,6 +143,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "30.CSharp,Java驱动下载�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01.Thread基础之从windbg角度理解你必须知道的时间和空间上的开销", "09多线程系列\01.Thread基础之从windbg角度理解你必须知道的时间和空间上的开销\01.Thread基础之从windbg角度理解你必须知道的时间和空间上的开销.csproj", "{C2EC77E2-19A9-4385-9A17-C1111A9D397B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.2Thread实例方法介绍之Join方法介绍", "09多线程系列\02.Thread实例方法介绍之生命周期管理的Start,Suspend,Resume,Join,Interrupt,Abort五大方法介绍\02.2Thread实例方法介绍之Join方法介绍.csproj", "{9070E2EE-7826-4F94-A0D5-ECD72B20AE53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.1Thread实例方法介绍之生命周期管理的Start,Suspend,Resume,Join,Interrupt,Abort五大方法介绍", "09多线程系列\02.1Thread实例方法介绍之生命周期管理的Start,Suspend,Resume,Join,Interrupt,Abort五大方法介绍\02.1Thread实例方法介绍之生命周期管理的Start,Suspend,Resume,Join,Interrupt,Abort五大方法介绍.csproj", "{8375411A-4644-446B-B07E-7B96D3C2AA04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -381,6 +385,14 @@ Global
 		{C2EC77E2-19A9-4385-9A17-C1111A9D397B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2EC77E2-19A9-4385-9A17-C1111A9D397B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2EC77E2-19A9-4385-9A17-C1111A9D397B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9070E2EE-7826-4F94-A0D5-ECD72B20AE53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9070E2EE-7826-4F94-A0D5-ECD72B20AE53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9070E2EE-7826-4F94-A0D5-ECD72B20AE53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9070E2EE-7826-4F94-A0D5-ECD72B20AE53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8375411A-4644-446B-B07E-7B96D3C2AA04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8375411A-4644-446B-B07E-7B96D3C2AA04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8375411A-4644-446B-B07E-7B96D3C2AA04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8375411A-4644-446B-B07E-7B96D3C2AA04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -444,6 +456,8 @@ Global
 		{8D84BBB5-6540-452A-A03C-EECDFD424719} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 		{D7F64CD8-5FFC-4453-96E8-A8C2771062AA} = {7C8FE5F5-51ED-44ED-8D15-6A53978F5E3A}
 		{C2EC77E2-19A9-4385-9A17-C1111A9D397B} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
+		{9070E2EE-7826-4F94-A0D5-ECD72B20AE53} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
+		{8375411A-4644-446B-B07E-7B96D3C2AA04} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
