@@ -259,3 +259,4 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/09多线程系列/04.Thread静态方法介绍之通过经典releaseBug认识MemoryBarrier,等如何禁止编译器优化和Cache读取

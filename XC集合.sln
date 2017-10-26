@@ -147,6 +147,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.2Thread实例方法介�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.1Thread实例方法介绍之生命周期管理的Start,Suspend,Resume,Join,Interrupt,Abort五大方法介绍", "09多线程系列\02.1Thread实例方法介绍之生命周期管理的Start,Suspend,Resume,Join,Interrupt,Abort五大方法介绍\02.1Thread实例方法介绍之生命周期管理的Start,Suspend,Resume,Join,Interrupt,Abort五大方法介绍.csproj", "{8375411A-4644-446B-B07E-7B96D3C2AA04}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03.Thread静态方法介绍之认识三大TLS[线程本地存储]操作ThreadStatic和AllocateDataSlot等", "09多线程系列\03.Thread静态方法介绍之认识三大TLS[线程本地存储]操作ThreadStatic和AllocateDataSlot等\03.Thread静态方法介绍之认识三大TLS[线程本地存储]操作ThreadStatic和AllocateDataSlot等.csproj", "{5EB49C09-0111-4286-B33E-CFE52DB89CF2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{AA31CAFD-A381-4D2C-AE2B-3DFEB6A617F2}"
+	ProjectSection(SolutionItems) = preProject
+		Tools\X64 Debuggers And Tools-x64_en-us.rar = Tools\X64 Debuggers And Tools-x64_en-us.rar
+		Tools\X86 Debuggers And Tools-x86_en-us.rar = Tools\X86 Debuggers And Tools-x86_en-us.rar
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04.Thread静态方法介绍之通过经典releaseBug认识MemoryBarrier,等如何禁止编译器优化和Cache读取", "09多线程系列\04.Thread静态方法介绍之通过经典releaseBug认识MemoryBarrier,等如何禁止编译器优化和Cache读取\04.Thread静态方法介绍之通过经典releaseBug认识MemoryBarrier,等如何禁止编译器优化和Cache读取.csproj", "{74AB21DF-FF0A-4B63-A511-744BDF7778FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -393,6 +403,14 @@ Global
 		{8375411A-4644-446B-B07E-7B96D3C2AA04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8375411A-4644-446B-B07E-7B96D3C2AA04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8375411A-4644-446B-B07E-7B96D3C2AA04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EB49C09-0111-4286-B33E-CFE52DB89CF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EB49C09-0111-4286-B33E-CFE52DB89CF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EB49C09-0111-4286-B33E-CFE52DB89CF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EB49C09-0111-4286-B33E-CFE52DB89CF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74AB21DF-FF0A-4B63-A511-744BDF7778FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74AB21DF-FF0A-4B63-A511-744BDF7778FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74AB21DF-FF0A-4B63-A511-744BDF7778FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74AB21DF-FF0A-4B63-A511-744BDF7778FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -458,6 +476,8 @@ Global
 		{C2EC77E2-19A9-4385-9A17-C1111A9D397B} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{9070E2EE-7826-4F94-A0D5-ECD72B20AE53} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{8375411A-4644-446B-B07E-7B96D3C2AA04} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
+		{5EB49C09-0111-4286-B33E-CFE52DB89CF2} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
+		{74AB21DF-FF0A-4B63-A511-744BDF7778FD} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}

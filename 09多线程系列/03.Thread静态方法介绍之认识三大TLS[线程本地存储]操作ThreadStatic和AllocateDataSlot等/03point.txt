@@ -1,0 +1,442 @@
+所有的都要记录下来. 边学边记. 抛弃深渊. 状态要预热呀. 还是要有激情的. 关注点要正确的. 体现各种形式上的"主动" , 用脑子学习思考.
+
+
+事先的准备:
+此模型,一连串逻辑上的运用的意识还没有形成. 不仅仅单个点, 要面对的是一大坨问题呢?
+0.心中有数(整体上的前因后果,大体的脉络,或者概念上的认识,作用(不能学完了不知道能干啥),),掌握主动,
+	   1.有逻辑=>不断逻辑分析然后持续化解遇到卡壳问题
+	   2.有技巧=>范围,目标,关注点,关键点,注意力集中,排除干扰因素,拒绝深渊(缺知识点,),先搞定不懂的基础知识点,先搞清功能流程,先搞清功能作用,
+	   3.有效率=> 过程中,针对不断出现的情况,运用上面的方式,不断破击,不断改进.
+	   4.其他的都是反面案例,不可取.=>目前不是时刻都处在正确的状态,所以要试试调整. =>直至成为习惯
+	   5.有逻辑的,做到心中有概念.
+
+过程中:
+      1.过程中出现问题了.怎么办? 这是个很大的问题?
+
+
+3.Thread静态方法介绍之认识三大TLS[线程本地存储]操作ThreadStatic和AllocateDataSlot,ThreadLocal
+
+槽位和静态方法的搭配使用,也可以实现一些功能的, 功能不仅仅是由单独的一个类的方法来提供的. 以后设计可以借鉴, 如果有多少个方法,就有多少个功能,这是设计的失败,就像三层的方法都一样.
+
+Thread中的一些静态方法
+一AllocateDataSlot
+Thread下面有不少的静态方法, AllocateDataSlot(未命名的) 叫做槽位,在线程上分配一个数据槽,这是一个什么样的概念?AllocateNamedDataSlot是一个命名的,给所有线程分配一个数据槽,分配数据槽是干嘛的呢,存放数据?Thread.AllocateNamedDataSlot("user") 和Thread.SetData一起搭配使用 Thread.SetData什么意思呢? 在当前正在运行的线程上为此线程的当前域在指定槽中设置数据? 由set必有get
+FreeNamedDataSlot释放槽位,既然有分配必然有释放
+
+1.有哪些? 
+   AllocateDataSlot
+
+   AllocateNamedDataSlot
+
+   GetNamedDataSlot
+
+   FreeNamedDataSlot
+
+   给所有线程分配一个数据槽。 存放数据。。。  槽位是干嘛用的呢?
+
+  SetData
+
+  GetData
+
+2.干嘛用的？？？ 
+很多情况下,我们的一个变量,可以被多个线程操作,修改,也可以在每个线程私有
+
+
+变量  与  Thread 的关系  t1, t2 如下
+
+
+《1》 t1，t2  共享变量       可见性为public                   注意有“锁”的概念
+ 
+《2》 t1, t2 各自有一个 变量  可见性为internel(程序集内)       没有锁争用的概念
+第二种情况也就是说,t1和t2看到标量是各自的,你看到是你的.我看到是我的,互相看不到.
+
+  static void Main(string[] args)
+        {
+            var slot = Thread.AllocateNamedDataSlot("username");
+
+            //主线程 上 设置槽位，， 也就是hello world 只能被主线程读取，其他线程无法读取
+            Thread.SetData(slot, "hello world!!!");
+
+            var t = new Thread(() =>
+            {
+                var obj = Thread.GetData(slot);
+
+                Console.WriteLine("当前工作线程:{0}", obj);
+            });
+
+            t.Start();
+
+            var obj2 = Thread.GetData(slot);
+
+            Console.WriteLine("主线程:{0}", obj2);
+
+            Console.Read();
+        }
+
+演示一下第二种情况
+
+ static void Main(string[] args)//主线程入口
+        {
+            //演示下t1和t2各有一个变量
+            //首先定义一个槽位,也就是说在所有的线程上都分配了槽位,但槽位不一定都有数据
+            //槽位中塞入一个值helloworld
+            //现在有一个工作线程.
+            //也就是说变量是槽位的的值,两个线程分别为工作线程和主线程.
+			 //我设置的槽位大家都是有的,但我在主线程上setdata,工作线程是获取不到的,同样的道理,我在工作线程中setdata,主线程也是获取不到的.
+            //我们也可以分配未命名的槽位,
+
+            var slot = Thread.AllocateNamedDataSlot("username");
+            //在主线程上设置槽位,也就是helloworld只能被主线程读取,其他线程无法读取
+            Thread.SetData(slot, "HelloWorld");
+
+            var t = new Thread(()=> {
+                //工作线程获取不槽位的值. 这也就说明了演示下t1和t2各有一个变量,
+                //也就是说如果在工作线程中设置槽位的值,主线程也是获取不到的.
+                var obj = Thread.GetData(slot);
+                Console.WriteLine("当前工作线程:{0}", obj);
+            });
+            t.Start();
+
+            var obj2 = Thread.GetData(slot);
+            Console.WriteLine("主线程:{0}", obj2);
+
+            Console.Read();
+        }
+
+
+
+二：性能提升版： ThreadStatic 静态变量线程可见性？
+
+        [ThreadStatic]
+        static string username = string.Empty;
+
+        static void Main(string[] args)
+        {
+            username = "hello world!!!";
+
+            var t = new Thread(() =>
+            {
+                Console.WriteLine("当前工作线程:{0}", username);
+            });
+
+            t.Start();
+
+            Console.WriteLine("主线程:{0}", username);
+
+            Console.Read();
+        }
+
+演示一下
+		 //指示静态字段的值对于每个线程都是唯一的,也就是说程序集可见
+        [ThreadStatic]
+        static string username = string.Empty;
+        static void Main(string[] args)//主线程入口
+        {
+            username = "helloworld";
+            var t = new Thread(() =>
+            {
+             
+                Console.WriteLine("当前工作线程:{0}", username);
+            });
+            t.Start();
+
+        
+            Console.WriteLine("主线程:{0}", username);
+
+            Console.Read();
+        }
+
+
+三：ThreadLocal： 也是用来做 线程可见性 线程可见性是啥? 干啥用的?
+
+  static void Main(string[] args)
+        {
+            ThreadLocal<string> local = new ThreadLocal<string>();
+
+            local.Value = "hello world!!!";
+
+            var t = new Thread(() =>
+            {
+                Console.WriteLine("当前工作线程:{0}", local.Value);
+            });
+
+            t.Start();
+
+            Console.WriteLine("主线程:{0}", local.Value);
+
+            Console.Read();
+        }
+
+
+这些数据都是存放在线程环境块中。。【是线程的空间开销】 !teb来查看。。
+
+即TLS： thread local storage。。。线程本地存储.   本地存储如何理解?
+
+下面就来看一看环境代码块.
+0:000> .loadby sos clr
+0:000> !threads
+ThreadCount:      3
+UnstartedThread:  0
+BackgroundThread: 1
+PendingThread:    0
+DeadThread:       0
+Hosted Runtime:   no
+                                                                         Lock  
+       ID OSID ThreadOBJ    State GC Mode     GC Alloc Context  Domain   Count Apt Exception
+   0    1 3484 00abbcf8     2a020 Preemptive  028771C8:00000000 00ab6000 1     MTA 
+   5    2 3798 00aca4e8     2b220 Preemptive  00000000:00000000 00ab6000 0     MTA (Finalizer) 
+   6    3 3c08 00aee900   202b020 Preemptive  02874120:00000000 00ab6000 0     MTA 
+0:000> !teb
+TEB at 00693000
+    ExceptionList:        005eee4c
+    StackBase:            005f0000
+    StackLimit:           005ed000
+    SubSystemTib:         00000000
+    FiberData:            00001e00
+    ArbitraryUserPointer: 00000000
+    Self:                 00693000
+    EnvironmentPointer:   00000000
+    ClientId:             000019b4 . 00003484
+    RpcHandle:            00000000
+    Tls Storage:          00aa1808  线程本地存储  数据都放在这里?
+    PEB Address:          00690000
+    LastErrorValue:       0
+    LastStatusValue:      c000007c
+    Count Owned Locks:    0
+    HardErrorMode:        0
+
+
+
+	0:000> !dumpstack  我们可以看到它的堆栈的一些信息
+OS Thread Id: 0x3484 (0)
+Current frame: ntdll!NtReadFile+0xc
+ChildEBP RetAddr  Caller, Callee
+005eedf8 76d57df2 KERNELBASE!ReadFile+0xe2, calling ntdll!NtReadFile
+005eee30 727afd32 clr!SafeHandle::DangerousAddRef+0x32, calling clr!LazyMachStateCaptureState
+005eee5c 7159c747 (MethodDesc 712169f0 +0x67 DomainNeutralILStubClass.IL_STUB_PInvoke(Microsoft.Win32.SafeHandles.SafeFileHandle, Byte*, Int32, Int32 ByRef, IntPtr))
+005eee88 7159c747 (MethodDesc 712169f0 +0x67 DomainNeutralILStubClass.IL_STUB_PInvoke(Microsoft.Win32.SafeHandles.SafeFileHandle, Byte*, Int32, Int32 ByRef, IntPtr))
+005eeea8 726fef79 clr!ThePreStub+0x11, calling clr!PreStubWorker
+005eeecc 71cd25a3 (MethodDesc 712f98e4 +0x87 System.IO.__ConsoleStream.ReadFileNative(Microsoft.Win32.SafeHandles.SafeFileHandle, Byte[], Int32, Int32, Boolean, Boolean, Int32 ByRef)), calling 7144842c
+005eeef8 71cd24b2 (MethodDesc 712f98cc +0x9a System.IO.__ConsoleStream.Read(Byte[], Int32, Int32)), calling (MethodDesc 712f98e4 +0 System.IO.__ConsoleStream.ReadFileNative(Microsoft.Win32.SafeHandles.SafeFileHandle, Byte[], Int32, Int32, Boolean, Boolean, Int32 ByRef))
+005eef24 714f79c3 (MethodDesc 7120df54 +0x33 System.IO.StreamReader.ReadBuffer())
+005eef3c 714abf2e (MethodDesc 7120df00 +0x2a System.IO.StreamReader.Read())
+005eef48 71e0c371 (MethodDesc 712d1bac +0x19 System.IO.TextReader+SyncTextReader.Read())
+005eef58 71c77678 (MethodDesc 711f1a14 +0x14 System.Console.Read())
+005eef60 02620540 (MethodDesc 00cd4d6c +0xf8 _03.Thread静态方法介绍之认识三大TLS_线程本地存储_操作ThreadStatic和AllocateDataSlot等.Program.Main(System.String[])), calling (MethodDesc 711f1a14 +0 System.Console.Read())
+005eef98 726feaf6 clr!CallDescrWorkerInternal+0x34
+005eefa4 727070c9 clr!CallDescrWorkerWithHandler+0x6b, calling clr!CallDescrWorkerInternal
+005eefb8 72707082 clr!CallDescrWorkerWithHandler+0x20, calling clr!_alloca_probe
+005eefcc 72726026 clr!MetaSig::SkipArg+0x25, calling clr!SigParser::SkipExactlyOne
+005eeff8 727076f4 clr!MethodDescCallSite::CallTargetWorker+0x16a, calling clr!CallDescrWorkerWithHandler
+005ef014 7281e835 clr!MethodDesc::IsVoid+0x20, calling clr!SigPointer::PeekElemTypeClosed
+005ef01c 72707684 clr!MethodDescCallSite::CallTargetWorker+0x87, calling clr!_alloca_probe_16
+005ef068 7289abf1 clr!RunMain+0x1ad, calling clr!MethodDescCallSite::CallTargetWorker
+005ef128 72707dd0 clr!EEConfig::GetConfiguration_DontUse_+0x1b4, calling clr!SHash<StringSHashTraits<_ConfigStringKeyValuePair,unsigned short,CaseSensitiveStringCompareHash<unsigned short> > >::Lookup
+005ef12c 72706a28 clr!ClrFlsIncrementValue+0x14
+005ef154 72706a28 clr!ClrFlsIncrementValue+0x14
+005ef160 72706ea0 clr!ThreadSuspend::UnlockThreadStore+0x3f, calling clr!ClrFlsIncrementValue
+005ef194 7289ace9 clr!Assembly::ExecuteMainMethod+0x124, calling clr!RunMain
+005ef1c8 72710381 clr!SString::ConvertToUnicode+0x47, calling clr!SString::IsRepresentation
+005ef1d4 727103a7 clr!SString::ConvertToUnicode+0xce, calling clr!__security_check_cookie
+005ef1e0 77522dfe ntdll!RtlAllocateHeap+0x3e, calling ntdll!RtlpAllocateHeapInternal
+005ef1e8 77522eea ntdll!RtlpAllocateHeapInternal+0xda, calling ntdll!RtlpLowFragHeapAllocFromContext
+005ef240 727081c7 clr!EEHeapAlloc+0x2c, calling ntdll!RtlAllocateHeap
+005ef24c 714b98a8 (MethodDesc 711fd368 +0x18 System.AppDomain.SetTargetFrameworkName(System.String)), calling clr!JIT_WriteBarrierEDI
+005ef258 726feaf6 clr!CallDescrWorkerInternal+0x34
+005ef274 726ff1d2 clr!_SEH_epilog4_GS+0xa, calling clr!__security_check_cookie
+005ef278 7270712e clr!CallDescrWorkerWithHandler+0xb7, calling clr!_SEH_epilog4_GS
+005ef2c0 77522eea ntdll!RtlpAllocateHeapInternal+0xda, calling ntdll!RtlpLowFragHeapAllocFromContext
+005ef2c8 77522eea ntdll!RtlpAllocateHeapInternal+0xda, calling ntdll!RtlpLowFragHeapAllocFromContext
+005ef2f8 77520ce6 ntdll!RtlFreeHeap+0x426, calling ntdll!RtlpIsSubSegmentReuseable
+005ef304 77551d3c ntdll!NtWaitForSingleObject+0xc
+005ef308 76d58869 KERNELBASE!WaitForSingleObjectEx+0x99, calling ntdll!NtWaitForSingleObject
+005ef314 76d58886 KERNELBASE!WaitForSingleObjectEx+0xb6, calling KERNELBASE!WaitForSingleObjectEx+0x108
+005ef330 775209db ntdll!RtlFreeHeap+0x11b, calling ntdll!RtlGetCurrentServiceSessionId
+005ef340 775209db ntdll!RtlFreeHeap+0x11b, calling ntdll!RtlGetCurrentServiceSessionId
+005ef37c 7270822b clr!EEHeapFree+0x3b, calling KERNEL32!HeapFreeStub
+005ef394 7270825d clr!EEHeapFreeInProcessHeap+0x2f, calling clr!EEHeapFree
+005ef3a0 72708280 clr!operator delete+0x1f
+005ef3b4 7284adf4 clr!AssemblySecurityDescriptor::`vector deleting destructor'+0x24, calling clr!operator delete
+005ef3b8 7284adfc clr!AssemblySecurityDescriptor::`vector deleting destructor'+0x2c, calling clr!_EH_epilog3
+005ef3c8 7279f4a1 clr!CLRConfig::GetConfigValue+0x10, calling clr!CLRConfig::GetConfigValue
+005ef3d4 7286ce8f clr!MulticoreJitManager::AutoStartProfile+0x3a, calling clr!CLRConfig::GetConfigValue
+005ef408 7289b2eb clr!SystemDomain::ExecuteMainMethod+0x631, calling clr!Assembly::ExecuteMainMethod
+005ef630 72794fea clr!FileLoadLock::`vector deleting destructor'+0x4a, calling clr!_EH_epilog3
+005ef654 72794fea clr!FileLoadLock::`vector deleting destructor'+0x4a, calling clr!_EH_epilog3
+005ef658 72794f93 clr!FileLoadLock::Release+0x26
+005ef66c 72742de2 clr!AppDomain::LoadDomainFile+0x224, calling clr!FileLoadLock::Release
+005ef7c8 77520ad7 ntdll!RtlFreeHeap+0x217, calling ntdll!RtlpFreeHeap
+005ef7e0 72644ae6 MSVCR120_CLR0400!getptd+0x6, calling MSVCR120_CLR0400!getptd+0x18
+005ef7f8 726600e1 MSVCR120_CLR0400!towlower_l+0x21, calling MSVCR120_CLR0400!swprintf+0x93
+005ef8a0 77522dfe ntdll!RtlAllocateHeap+0x3e, calling ntdll!RtlpAllocateHeapInternal
+005ef8c0 72807c1f clr!EEStartupHelper+0xa8c, calling clr!_EH_epilog3
+005ef8c4 7280524f clr!EEStartup+0xb8, calling clr!_SEH_epilog4
+005ef8dc 7270820a clr!EEHeapAllocInProcessHeap+0x5b, calling clr!EEHeapAlloc
+005ef900 7289b4a1 clr!ExecuteEXE+0x4c, calling clr!SystemDomain::ExecuteMainMethod
+005ef958 7289b3e7 clr!_CorExeMainInternal+0xdc, calling clr!ExecuteEXE
+005ef964 7281f7c0 clr!_CorExeMain
+005ef998 7281f7dc clr!_CorExeMain+0x4d, calling clr!_CorExeMainInternal
+005ef9a4 7281f7c0 clr!_CorExeMain
+005ef9d4 72ded45b mscoreei!CorExeMain+0x7b
+005ef9e8 7281f7c0 clr!_CorExeMain
+005ef9f4 76b351c4 KERNEL32!GetProcAddressStub+0x14, calling KERNELBASE!GetProcAddressForCaller
+005efa10 72e6e849 MSCOREE!DllUnregisterServer+0x169
+005efa24 72e74dc8 MSCOREE!CorExeMain+0x8, calling MSCOREE!DllUnregisterServer+0xc0
+005efa2c 76b38744 KERNEL32!BaseThreadInitThunk+0x24
+005efa40 7754582d ntdll!__RtlUserThreadStart+0x2f
+005efa88 775457fd ntdll!_RtlUserThreadStart+0x1b, calling ntdll!__RtlUserThreadStart
+0:000> !dumpstack -1
+Unknown option: -1
+
+
+
+ 
+ 0:000> !clrstack  我们也看一下局部变量
+OS Thread Id: 0x3484 (0)
+Child SP       IP Call Site
+005eee7c 77551d5c [InlinedCallFrame: 005eee7c] 
+005eee78 7159c747 DomainNeutralILStubClass.IL_STUB_PInvoke(Microsoft.Win32.SafeHandles.SafeFileHandle, Byte*, Int32, Int32 ByRef, IntPtr)
+005eee7c 71cd25a3 [InlinedCallFrame: 005eee7c] Microsoft.Win32.Win32Native.ReadFile(Microsoft.Win32.SafeHandles.SafeFileHandle, Byte*, Int32, Int32 ByRef, IntPtr)
+005eeee0 71cd25a3 System.IO.__ConsoleStream.ReadFileNative(Microsoft.Win32.SafeHandles.SafeFileHandle, Byte[], Int32, Int32, Boolean, Boolean, Int32 ByRef)
+005eef14 71cd24b2 System.IO.__ConsoleStream.Read(Byte[], Int32, Int32)
+005eef34 714f79c3 System.IO.StreamReader.ReadBuffer()
+005eef44 714abf2e System.IO.StreamReader.Read()
+005eef50 71e0c371 System.IO.TextReader+SyncTextReader.Read()
+005eef60 71c77678 System.Console.Read()
+005eef68 02620540 *** WARNING: Unable to verify checksum for D:\src\XCDemo\XC集合\XC集合\09多线程系列\03.Thread静态方法介绍之认识三大TLS[线程本地存储]操作ThreadStatic和AllocateDataSlot等\bin\Debug\03.Thread静态方法介绍之认识三大TLS[线程本地存储]操作ThreadStatic和AllocateDataSlot等.exe
+_03.Thread静态方法介绍之认识三大TLS_线程本地存储_操作ThreadStatic和AllocateDataSlot等.Program.Main(System.String[]) [D:\src\XCDemo\XC集合\XC集合\09多线程系列\03.Thread静态方法介绍之认识三大TLS[线程本地存储]操作ThreadStatic和AllocateDataSlot等\Program.cs @ 81]
+005ef110 726feaf6 [GCFrame: 005ef110] 
+
+
+
+
+我们看一下主线程的 !clrstack
+       ID OSID ThreadOBJ    State GC Mode     GC Alloc Context  Domain   Count Apt Exception
+   0    1 3484 00abbcf8     2a020 Preemptive  028771C8:00000000 00ab6000 1     MTA 
+   5    2 3798 00aca4e8     2b220 Preemptive  00000000:00000000 00ab6000 0     MTA (Finalizer) 
+   6    3 3c08 00aee900   202b020 Preemptive  02874120:00000000 00ab6000 0     MTA 
+0:000> ~~[3484]s
+eax=00000000 ebx=00000094 ecx=00000000 edx=00000000 esi=005eef14 edi=00000000
+eip=77551d5c esp=005eedfc ebp=005eee5c iopl=0         nv up ei pl nz na pe nc
+cs=0023  ss=002b  ds=002b  es=002b  fs=0053  gs=002b             efl=00000206
+ntdll!NtReadFile+0xc:
+77551d5c c22400          ret     24h
+0:000> !clrstack
+OS Thread Id: 0x3484 (0)
+Child SP       IP Call Site
+005eee7c 77551d5c [InlinedCallFrame: 005eee7c] 
+005eee78 7159c747 DomainNeutralILStubClass.IL_STUB_PInvoke(Microsoft.Win32.SafeHandles.SafeFileHandle, Byte*, Int32, Int32 ByRef, IntPtr)
+005eee7c 71cd25a3 [InlinedCallFrame: 005eee7c] Microsoft.Win32.Win32Native.ReadFile(Microsoft.Win32.SafeHandles.SafeFileHandle, Byte*, Int32, Int32 ByRef, IntPtr)
+005eeee0 71cd25a3 System.IO.__ConsoleStream.ReadFileNative(Microsoft.Win32.SafeHandles.SafeFileHandle, Byte[], Int32, Int32, Boolean, Boolean, Int32 ByRef)
+005eef14 71cd24b2 System.IO.__ConsoleStream.Read(Byte[], Int32, Int32)
+005eef34 714f79c3 System.IO.StreamReader.ReadBuffer()
+005eef44 714abf2e System.IO.StreamReader.Read()
+005eef50 71e0c371 System.IO.TextReader+SyncTextReader.Read()
+005eef60 71c77678 System.Console.Read()
+005eef68 02620540 _03.Thread静态方法介绍之认识三大TLS_线程本地存储_操作ThreadStatic和AllocateDataSlot等.Program.Main(System.String[]) [D:\src\XCDemo\XC集合\XC集合\09多线程系列\03.Thread静态方法介绍之认识三大TLS[线程本地存储]操作ThreadStatic和AllocateDataSlot等\Program.cs @ 81]
+005ef110 726feaf6 [GCFrame: 005ef110] 
+
+
+当时跟着一步一步走,此时每一步有啥,没关注,只关注步骤了,在遇到不对的时候,重复再看,再看? 还是出错? 此时就是问题的关键了.?
+下一步怎么走,就体现功夫了.
+
+0:000> !clrstack -l  再看下当前的局部信息.
+OS Thread Id: 0x3484 (0)
+Child SP       IP Call Site
+005eee7c 77551d5c [InlinedCallFrame: 005eee7c] 
+005eee78 7159c747 DomainNeutralILStubClass.IL_STUB_PInvoke(Microsoft.Win32.SafeHandles.SafeFileHandle, Byte*, Int32, Int32 ByRef, IntPtr)
+
+005eee7c 71cd25a3 [InlinedCallFrame: 005eee7c] Microsoft.Win32.Win32Native.ReadFile(Microsoft.Win32.SafeHandles.SafeFileHandle, Byte*, Int32, Int32 ByRef, IntPtr)
+005eeee0 71cd25a3 System.IO.__ConsoleStream.ReadFileNative(Microsoft.Win32.SafeHandles.SafeFileHandle, Byte[], Int32, Int32, Boolean, Boolean, Int32 ByRef)
+    LOCALS:
+        <no data>
+        <no data>
+        0x005eeee8 = 0x02876e98
+        <no data>
+        <no data>
+        <no data>
+
+005eef14 71cd24b2 System.IO.__ConsoleStream.Read(Byte[], Int32, Int32)
+    LOCALS:
+        <no data>
+        <no data>
+
+005eef34 714f79c3 System.IO.StreamReader.ReadBuffer()
+    LOCALS:
+        <no data>
+        <no data>
+
+005eef44 714abf2e System.IO.StreamReader.Read()
+    LOCALS:
+        <no data>
+
+005eef50 71e0c371 System.IO.TextReader+SyncTextReader.Read()
+
+005eef60 71c77678 System.Console.Read()
+
+005eef68 02620540 _03.Thread静态方法介绍之认识三大TLS_线程本地存储_操作ThreadStatic和AllocateDataSlot等.Program.Main(System.String[]) [D:\src\XCDemo\XC集合\XC集合\09多线程系列\03.Thread静态方法介绍之认识三大TLS[线程本地存储]操作ThreadStatic和AllocateDataSlot等\Program.cs @ 81]
+    LOCALS:
+        0x005eef84 = 0x028726f0
+        0x005eef80 = 0x02872810
+
+005ef110 726feaf6 [GCFrame: 005ef110] 
+
+
+
+
+0:000> !do 02876e98  看一下局部变量是啥? 有啥内容
+<Note: this object has an invalid CLASS field>
+Invalid object
+0:000> !do 028726f0
+Name:        _03.Thread静态方法介绍之认识三大TLS_线程本地存储_操作ThreadStatic和AllocateDataSlot等.Program+<>c__DisplayClass0_0
+MethodTable: 00cd4e00
+EEClass:     00cd1724
+Size:        12(0xc) bytes
+File:        D:\src\XCDemo\XC集合\XC集合\09多线程系列\03.Thread静态方法介绍之认识三大TLS[线程本地存储]操作ThreadStatic和AllocateDataSlot等\bin\Debug\03.Thread静态方法介绍之认识三大TLS[线程本地存储]操作ThreadStatic和AllocateDataSlot等.exe
+Fields:
+      MT    Field   Offset                 Type VT     Attr    Value Name
+00a84170  4000001        4 ...tring, mscorlib]]  0 instance 028726fc local
+0:000> !DumpObj /d 028726fc
+Name:        System.Threading.ThreadLocal`1[[System.String, mscorlib]]
+MethodTable: 00a84170
+EEClass:     711c80f0
+Size:        24(0x18) bytes
+File:        C:\WINDOWS\Microsoft.Net\assembly\GAC_32\mscorlib\v4.0_4.0.0.0__b77a5c561934e089\mscorlib.dll
+Fields:
+      MT    Field   Offset                 Type VT     Attr    Value Name
+7162c860  4001979        4 ...Canon, mscorlib]]  0 instance 00000000 m_valueFactory
+71633c04  400197c        c         System.Int32  1 instance       -1 m_idComplement
+7162e97c  400197d       10       System.Boolean  1 instance        1 m_initialized
+7161eca8  400197f        8 ...Canon, mscorlib]]  0 instance 02872714 m_linkedSlot
+7162e97c  4001980       11       System.Boolean  1 instance        0 m_trackAllValues
+7161ed18  400197e        0 ...Canon, mscorlib]]  0   shared   static s_idManager
+    >> Domain:Value dynamic statics NYI 00ab6000:NotInit  <<
+7204a0a8  400197a        0 ...non, mscorlib]][]  0   shared TLstatic ts_slotArray
+    >> Thread:Valuedynamic thread statics NYIdynamic thread statics NYI <<
+7161f004  400197b        4 ...Canon, mscorlib]]  0   shared TLstatic ts_finalizationHelper
+    >> Thread:Valuedynamic thread statics NYIdynamic thread statics NYI <<
+
+
+
+
+
+ 1.AllocateDataSlot和ThreadStatic和ThreadLocal
+2.如何理解线程可见于线程不可见
+3.如何理解给线程分配一个数据槽
+4.槽位,共享变量,可见性,程序集内,锁,主线程,工作线程,主线程与工作线程的区别,线程可见性,
+5.为何学时有点蒙蔽,一种不知道要干什么,干的事是啥意思的感觉? 是不是不知道的太多了, 哈哈哈哈,
+6.不知道的就当是学习,知道就当是重新认识,反正都是学习.=>拒绝深渊.
+7.一个windbg搞不定,很说明问题?
+
+ 
+ 	理解的标准:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.遇到错误了,该怎么办?
+		   5.关注负面的东西,着眼于美好的东西.
+		   6.不关注坏习惯,而是养成好习惯,关注点要正确?
+是否复习：
