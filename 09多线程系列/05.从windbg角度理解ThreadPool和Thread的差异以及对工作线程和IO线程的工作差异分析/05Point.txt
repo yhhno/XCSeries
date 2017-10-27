@@ -1,0 +1,342 @@
+所有的都要记录下来. 边学边记. 抛弃深渊. 状态要预热呀. 还是要有激情的. 关注点要正确的. 体现各种形式上的"主动" , 用脑子学习思考.
+找出自己的不足? 心理素质还是最关键的.
+
+
+一：thread  它是clr表示一个线程的数据结构 也就是说它是一个数据结构,用来表示线程的,而且是clr层面来表示的
+
+
+二：ThreadPool 线程池 就是个池子,
+
+现实中的例子:
+   thread   我如果想做一个异步任务，就需要开启一个Thread。 具有专有性。。。 如何理解专有性,你很难让一个thread做两个异步任务
+
+
+   ThreadPool (相当于租赁公司)     =》 如果想做异步任务      只需要向租车公司借用    =》 使用完了就要归还 
+
+   
+   演示下ThreadPool是如何用的?
+三：ThreadPool的使用方式
+Threadpool使用还是蛮简单的,提供一个线程池，该线程池可用于发送工作项、处理异步 I/O、代表其他线程等待以及处理计时器。静态的类,方法都是静态方法,
+ThreadPool.QueueUserWorkItem()将方法排入队列以便执行。 此方法在有线程池线程变得可用时执行。 ThreadPool.QueueUserWorkItem此方法的参数委托,
+我们看下,委托可以如何写呢?我们new一下WaitCallback,发现这个委托的返回值是void,入参是object,(public delegate void WaitCallback(object state))
+所以我们这样就ok了(obj)=>{},然后呢,方法体内就可以随便执行,
+ ThreadPool.QueueUserWorkItem((obj) => {
+                Console.WriteLine("我是工作线程:{0}",Thread.CurrentThread.ManagedThreadId);
+            });
+            Console.WriteLine("主线程:{0}",Thread.CurrentThread.ManagedThreadId);
+            Console.Read();
+此方法还有一个重载,可以传入一个参数, 我们试一下,看看方法能接受到吗? 用obj接收
+ ThreadPool.QueueUserWorkItem((obj) => {
+                Console.WriteLine("我是工作线程:{0},context:{1}",Thread.CurrentThread.ManagedThreadId,obj);
+            },"HelloWorld");
+            Console.WriteLine("主线程:{0}",Thread.CurrentThread.ManagedThreadId);
+            Console.Read();
+可以接收到.但,因为入参类型是object类型,我们可以塞入很多类型的对象,不仅仅是value,比如一个委托 func 带返回值的委托,此时的委托参数,可以当做回调函数使用.
+ ThreadPool.QueueUserWorkItem((obj) => {
+                var func = obj as Func<string>;
+                Console.WriteLine("我是工作线程:{0},context:{1}", Thread.CurrentThread.ManagedThreadId, func());
+            }, new Func<string>(()=> { return "HelloWorld"; }));
+            Console.WriteLine("主线程:{0}", Thread.CurrentThread.ManagedThreadId);
+            Console.Read();
+
+
+
+        static void Main(string[] args)
+        {
+            ThreadPool.QueueUserWorkItem((obj) =>
+            {
+                var func = obj as Func<string>;
+
+                Console.WriteLine("我是工作线程:{0}, content={1}", Thread.CurrentThread.ManagedThreadId,
+                                                                   func());
+            }, new Func<string>(() => "hello world"));
+
+            Console.WriteLine("主线程ID：{0}", Thread.CurrentThread.ManagedThreadId);
+
+            Console.Read();
+        }
+
+
+四：Thread 和 ThreadPool 到底多少区别。。。
+
+
+举例:现在有10个任务，如果用Thread来做，需要开启10个Thread  如何写?
+
+	                如果用ThreadPool来做，只需要将10个任务丢给线程池
+
+windbg的角度来看一下两者的区别。。。。  如何理解从windbg的角度呢
+
+
+0:000> .loadby sos clr
+0:000> !threads
+ThreadCount:      12
+UnstartedThread:  0
+BackgroundThread: 1
+PendingThread:    0   等待线程
+DeadThread:       10   死线程,但没回收
+Hosted Runtime:   no
+                                                                         Lock  
+       ID OSID ThreadOBJ    State GC Mode     GC Alloc Context  Domain   Count Apt Exception
+   0    1 263c 0144ded8     2a020 Preemptive  0322E7F8:00000000 01442280 1     MTA 
+   5    2  884 0145f5e0     2b220 Preemptive  00000000:00000000 01442280 0     MTA (Finalizer) 
+XXXX    3    0 0147b230     39820 Preemptive  00000000:00000000 01442280 0     Ukn 
+XXXX    4    0 0147d3c0     39820 Preemptive  00000000:00000000 01442280 0     Ukn 
+XXXX    5    0 0147e840     39820 Preemptive  00000000:00000000 01442280 0     Ukn 
+XXXX    6    0 01484238     39820 Preemptive  00000000:00000000 01442280 0     Ukn 
+XXXX    7    0 01486810     39820 Preemptive  00000000:00000000 01442280 0     Ukn 
+XXXX    8    0 0147f678     39820 Preemptive  00000000:00000000 01442280 0     Ukn 
+XXXX    9    0 01492210     39820 Preemptive  00000000:00000000 01442280 0     Ukn 
+XXXX   10    0 01493098     39820 Preemptive  00000000:00000000 01442280 0     Ukn 
+XXXX   11    0 01485180     39820 Preemptive  00000000:00000000 01442280 0     Ukn 
+XXXX   12    0 014950a0     39820 Preemptive  00000000:00000000 01442280 0     Ukn 
+
+
+
+1.区别： DeadThread: 10   虽然都挂掉了，但是没有被GC回收。。。。
+共12个线程,但10个已经挂掉了,但是没有被回收,此时看下,Thread是如何销毁的?
+         
+
+		~Thread()Thread销毁.ILSpy中查看
+		{
+			this.InternalFinalize();
+		}
+
+从析构函数中可以看到 this.InternalFinalize();  就是说销毁之后，先进入终结器。。。
+进入终结器两点好处
+《1》 或许能够被复活。。。
+《2》 下次被GC回收。。。。(clr基础知识)  如何理解下次被回收? gc有可能是一次性回收,也有可能是到终结器中去回收.(给你一次机会.)
+
+进入终结器中后,此时我们从源码中是看不到的,这时候如何看呢?
+0:000> !help  通过help查看下 有哪些命令
+-------------------------------------------------------------------------------
+SOS is a debugger extension DLL designed to aid in the debugging of managed
+programs. Functions are listed by category, then roughly in order of
+importance. Shortcut names for popular functions are listed in parenthesis.
+Type "!help <functionname>" for detailed info on that function. 
+
+Object Inspection                  Examining code and stacks
+-----------------------------      -----------------------------
+DumpObj (do)                       Threads
+DumpArray (da)                     ThreadState
+DumpStackObjects (dso)             IP2MD
+DumpHeap                           U
+DumpVC                             DumpStack
+GCRoot                             EEStack
+ObjSize                            CLRStack
+FinalizeQueue                      GCInfo
+PrintException (pe)                EHInfo
+TraverseHeap                       BPMD 
+                                   COMState
+
+Examining CLR data structures      Diagnostic Utilities
+-----------------------------      -----------------------------
+DumpDomain                         VerifyHeap
+EEHeap                             VerifyObj
+Name2EE                            FindRoots
+SyncBlk                            HeapStat
+DumpMT                             GCWhere
+DumpClass                          ListNearObj (lno)
+DumpMD                             GCHandles
+Token2EE                           GCHandleLeaks
+EEVersion                          FinalizeQueue (fq)
+DumpModule                         FindAppDomain
+ThreadPool                         SaveModule
+DumpAssembly                       ProcInfo 
+DumpSigElem                        StopOnException (soe)
+DumpRuntimeTypes                   DumpLog
+DumpSig                            VMMap
+RCWCleanupList                     VMStat
+DumpIL                             MinidumpMode 
+DumpRCW                            AnalyzeOOM (ao)
+DumpCCW
+
+Examining the GC history           Other
+-----------------------------      -----------------------------
+HistInit                           FAQ
+HistRoot
+HistObj
+HistObjFind
+HistClear
+0:000> !FinalizeQueue  查看一下终结器队列
+SyncBlocks to be cleaned up: 0
+Free-Threaded Interfaces to be released: 0
+MTA Interfaces to be released: 0
+STA Interfaces to be released: 0
+----------------------------------
+generation 0 has 17 finalizable objects (0145e628->0145e66c)
+generation 1 has 0 finalizable objects (0145e628->0145e628)
+generation 2 has 0 finalizable objects (0145e628->0145e628)
+Ready for finalization 0 objects (0145e66c->0145e66c)
+Statistics for all finalizable objects (including all objects ready for finalization):
+      MT    Count    TotalSize Class Name
+71636240        1           20 Microsoft.Win32.SafeHandles.SafePEFileHandle
+716259bc        1           20 Microsoft.Win32.SafeHandles.SafeFileMappingHandle
+7162596c        1           20 Microsoft.Win32.SafeHandles.SafeViewOfFileHandle
+71634ae4        2           40 Microsoft.Win32.SafeHandles.SafeFileHandle
+71634550        1           44 System.Threading.ReaderWriterLock
+71632958       11          572 System.Threading.Thread    进入终结器的11个线程
+Total 17 objects
+0:000> !DumpHeap /d -mt 71632958    查看 进入终结器的11个线程
+ Address       MT     Size
+03222664 71632958       52     
+032226f8 71632958       52     
+03223c14 71632958       52     
+03223cfc 71632958       52     
+03223de4 71632958       52     
+03223ecc 71632958       52     
+03223fb4 71632958       52     
+0322e0a8 71632958       52     
+0322e190 71632958       52     
+0322e278 71632958       52     
+0322e360 71632958       52     
+
+Statistics:
+      MT    Count    TotalSize Class Name
+71632958       11          572 System.Threading.Thread
+Total 11 objects
+0:000> !DumpObj /d 03222664   查看地址的线程信息
+Name:        System.Threading.Thread
+MethodTable: 71632958
+EEClass:     711cf914
+Size:        52(0x34) bytes
+File:        C:\WINDOWS\Microsoft.Net\assembly\GAC_32\mscorlib\v4.0_4.0.0.0__b77a5c561934e089\mscorlib.dll
+Fields:
+      MT    Field   Offset                 Type VT     Attr    Value Name
+715fa338  40018ef        4 ....Contexts.Context  0 instance 00000000 m_Context
+7162fa9c  40018f0        8 ....ExecutionContext  0 instance 00000000 m_ExecutionContext
+71631d64  40018f1        c        System.String  0 instance 03223bb0 m_Name
+716334f0  40018f2       10      System.Delegate  0 instance 00000000 m_Delegate
+71634db8  40018f3       14 ...ation.CultureInfo  0 instance 00000000 m_CurrentCulture
+71634db8  40018f4       18 ...ation.CultureInfo  0 instance 00000000 m_CurrentUICulture
+71632104  40018f5       1c        System.Object  0 instance 00000000 m_ThreadStartArg
+716310f8  40018f6       20        System.IntPtr  1 instance  147b230 DONT_USE_InternalThread
+71633c04  40018f7       24         System.Int32  1 instance        2 m_Priority
+71633c04  40018f8       28         System.Int32  1 instance        3 m_ManagedThreadId
+7162e97c  40018f9       2c       System.Boolean  1 instance        0 m_ExecutionContextBelongsToOuterScope
+7163a4b8  40018fa      6d8 ...LocalDataStoreMgr  0   shared   static s_LocalDataStoreMgr
+    >> Domain:Value  01442280:NotInit  <<
+720595a8  40018fc      6dc ...eInfo, mscorlib]]  0   shared   static s_asyncLocalCurrentCulture
+    >> Domain:Value  01442280:NotInit  <<
+720595a8  40018fd      6e0 ...eInfo, mscorlib]]  0   shared   static s_asyncLocalCurrentUICulture
+    >> Domain:Value  01442280:NotInit  <<
+7163a470  40018fb        c ...alDataStoreHolder  0   shared TLstatic s_LocalDataStore
+    >> Thread:Value <<
+0:000> !DumpObj /d 03223bb0   查看m_name的值 03223bb0 m_Name
+Name:        System.String
+MethodTable: 71631d64
+EEClass:     711cf624
+Size:        24(0x18) bytes
+File:        C:\WINDOWS\Microsoft.Net\assembly\GAC_32\mscorlib\v4.0_4.0.0.0__b77a5c561934e089\mscorlib.dll
+String:      main0    03223bb0 m_Name的值
+Fields:
+      MT    Field   Offset                 Type VT     Attr    Value Name
+71633c04  400026f        4         System.Int32  1 instance        5 m_stringLength
+716327ac  4000270        8          System.Char  1 instance       6d m_firstChar
+71631d64  4000274       48        System.String  0   shared   static Empty
+    >> Domain:Value  01442280:NotInit  <<
+
+
+虽然thread已经死掉了，但是该占的资源还是要站。。。还是会占1m的堆栈空间. 占用那些资源呢? 时间和空间上?。
+
+
+  static void Main(string[] args)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Thread thread = new Thread(() =>
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        Console.WriteLine("work:{0}，tid={1}", i, Thread.CurrentThread.ManagedThreadId);
+                    }
+                });
+
+                thread.Name = "main" + i;
+
+                thread.Start();
+            }
+
+            Console.Read();
+        }
+
+
+2.threadPool解决同样的问题。。。
+
+          for (int i = 0; i < 10; i++)
+            {
+
+                ThreadPool.QueueUserWorkItem((obj) => {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        Console.WriteLine("work:{0},tid:{1}", i, Thread.CurrentThread.m);
+                    }
+                });
+
+                //此时不可以设置线程名称,此时线程是租用的,不是专有的,专有的话我们可以对这个数据结构做各种操作.线程池的线程不属于你,你只是租用而已
+                //thread.Name = "main" + i;
+                //thread.Start();
+            }
+            Console.Read();
+
+
+从windbg中可以看到，当前没有死线程，而是都是默认初始化的。。。  如何理解默认初始化? 每个线程都是初始化的,可以被调用
+
+DeadThread:       0
+
+0:014> !threadpool
+CPU utilization: 4%
+Worker Thread: Total: 8 Running: 0 Idle: 8 MaxLimit: 2047 MinLimit: 8
+Work Request in Queue: 0
+--------------------------------------
+Number of Timers: 0
+--------------------------------------
+Completion Port Thread:Total: 0 Free: 0 MaxFree: 16 CurrentLimit: 0 MaxLimit: 1000 MinLimit: 8
+
+Idle 空闲的
+
+好像看到了当前的threadpool， 其中有“工作线程” 和 “IO线程”
+
+工作线程： 给一般的异步任务执行的。。其中不涉及到 网络，文件 这些IO操作。。。 【开发者调用】
+
+IO线程：  一般用在文件，网络IO上。。。    也就是(Completion Port Thread)   【CLR调用】
+ io线程什么意思呢?我们通过工作线程去访问了这个文件iO,这个文件IO会到硬件驱动里,处理完了后会打给io线程.然后通过IO线程执行我们的回调函数
+ 我们把异步任务(工作线程)打给驱动程序,驱动程序执行完后,打给线程池中的io线程,io执行异步函数.
+
+ 工作线程最大可以开启2046个,最少开启8个.
+
+8的由来就是因为我有 8个逻辑处理器，也就是说可以8个Thread 并行处理。。。。
+
+
+总结：
+不是线程越多越好.线程多了,也就有了调度
+
+1.threadPool 可以用8个线程 解决 thread 10个线程干的事情， 也就是说workQueue中有10个任务,8个thread去workqueue中去任务去执行
+
+节省了空间和时间：
+
+时间： 通知各个托管和非托管的dll。。。
+
+空间：teb，osthread结构， 堆栈。[1m]
+
+
+
+1.thread与threadPool的区别? 如何体现?写个例子,如何查看原因,?windbg,
+2.Threadpool的机制原理
+3.Thread的回收
+4.cllr层面的thread,thread的专有性和thread的租用,参数为委托时,object类型包括委托,回调函数,windbg角度,thread的出生死亡,线程的回收,终结器,1m空间,线程默认初始化,工作线程,IO线程,8个逻辑处理器并行处理,
+5.总结:各有千秋, thread自由度,threadpool性能.
+6.要总结改善学习方法.
+
+
+
+理解的标准:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.遇到错误了,该怎么办?
+		   5.关注负面的东西,着眼于美好的东西.
+		   6.不关注坏习惯,而是养成好习惯,关注点要正确?
+是否复习：

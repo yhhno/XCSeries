@@ -157,6 +157,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{AA31CAFD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04.Thread静态方法介绍之通过经典releaseBug认识MemoryBarrier,等如何禁止编译器优化和Cache读取", "09多线程系列\04.Thread静态方法介绍之通过经典releaseBug认识MemoryBarrier,等如何禁止编译器优化和Cache读取\04.Thread静态方法介绍之通过经典releaseBug认识MemoryBarrier,等如何禁止编译器优化和Cache读取.csproj", "{74AB21DF-FF0A-4B63-A511-744BDF7778FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05.从windbg角度理解ThreadPool和Thread的差异以及对工作线程和IO线程的工作差异分析", "09多线程系列\05.从windbg角度理解ThreadPool和Thread的差异以及对工作线程和IO线程的工作差异分析\05.从windbg角度理解ThreadPool和Thread的差异以及对工作线程和IO线程的工作差异分析.csproj", "{E2265DFC-6261-43D0-802A-B4EB3F5E5A20}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -411,6 +413,10 @@ Global
 		{74AB21DF-FF0A-4B63-A511-744BDF7778FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74AB21DF-FF0A-4B63-A511-744BDF7778FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74AB21DF-FF0A-4B63-A511-744BDF7778FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2265DFC-6261-43D0-802A-B4EB3F5E5A20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2265DFC-6261-43D0-802A-B4EB3F5E5A20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2265DFC-6261-43D0-802A-B4EB3F5E5A20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2265DFC-6261-43D0-802A-B4EB3F5E5A20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -478,6 +484,7 @@ Global
 		{8375411A-4644-446B-B07E-7B96D3C2AA04} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{5EB49C09-0111-4286-B33E-CFE52DB89CF2} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{74AB21DF-FF0A-4B63-A511-744BDF7778FD} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
+		{E2265DFC-6261-43D0-802A-B4EB3F5E5A20} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}

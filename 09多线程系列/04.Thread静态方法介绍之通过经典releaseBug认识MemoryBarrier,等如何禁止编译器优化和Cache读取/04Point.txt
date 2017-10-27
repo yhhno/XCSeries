@@ -2,6 +2,9 @@
 
 
 
+
+一个问题? 程序到底是如何运行的?
+
 4.Thread静态方法介绍之通过经典releaseBug认识MemoryBarrier,VolatileRead,Write如何禁止编译器优化和Cache读取
 
 禁止编译器优化和Cache读取  如何理解?
