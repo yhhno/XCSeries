@@ -1,0 +1,185 @@
+所有的都要记录下来. 边学边记. 抛弃深渊. 状态要预热呀. 还是要有激情的. 关注点要正确的. 体现各种形式上的"主动" , 用脑子学习思考.
+找出自己的不足? 心理素质还是最关键的.
+
+一：定时器    Timer
+看到定时器,很多人想多Timer, ThreadPool也有定时器的功能,
+
+ThreadPool 也有定时器的功能。。。。 
+
+ThreadPool定时器的功能肯定需要 工作线程来处理。。。 不然主线程卡死了.
+
+1. ThreadPool 定时器功能  mutex互斥锁, 如何理解注册一个委托? 如何理解等待waithandle? 如何理解超时?如何理解定时?
+ 上节讲到ThreadPool.QueueUserWorkItem()是添加任务的. 本节讲ThreadPool.RegisterWaitForSingleObject()注册一个等待 WaitHandle 的委托，并指定一个 32 位有符号整数来表示超时值（以毫秒为单位）。 waitHandle是一个抽象类,其实很多的一些事件,信号量,都是继承自waithandle,所以我可以用AutoResetEvent,我们一般用到锁机制的话,要用到事件锁,WaitOrTimerCallback是个委托,也就是回调函数,来看下委托有什么参数,new WaitOrTimerCallback(),有代码提示,这样就可以知道委托的方法体如何写?然后来看第三个参数:传递给委托的对象,也就是传递给obj,第四个参数是以毫米为单位的超时,为0是立即返回,为-1永远不过期,我们设置1000,也就是一秒钟调用一次,此时的超时如何理解?第五个参数如果为 true，表示在调用了委托后，线程将不再在 waitObject 参数上等待；如果为 false，表示每次完成等待操作后都重置计时器，直到注销等待。
+
+ 这样实现了一个简单的定时器功能,也可以做逻辑判断,是否在某一时刻执行?  是不是很简单
+        static void Main(string[] args)
+        {
+            ThreadPool.RegisterWaitForSingleObject(new AutoResetEvent(true), new WaitOrTimerCallback((obj, b) =>
+            {
+                //做逻辑判断，判断是否在否以时刻执行。。。
+                Console.WriteLine("obj={0}，tid={1}, datetime={2}", obj, Thread.CurrentThread.ManagedThreadId,
+                                                                         DateTime.Now);
+            }), "hello world", 1000, false);
+
+            Console.Read();
+        }
+
+ 一般在使用Timer的时候，有一个延期执行的功能。
+ 
+            Console.WriteLine("main time:{0}", DateTime.Now);
+            ThreadPool.RegisterWaitForSingleObject(new AutoResetEvent(false), new WaitOrTimerCallback((obj, b) => {
+
+                ////做逻辑判断，判断是否在否以时刻执行。。。
+                Console.WriteLine("obj:{0},tid:{1},time:{2}", obj, Thread.CurrentThread.ManagedThreadId, DateTime.Now);
+            }), "helloworld", 1000, false);
+
+           
+            Console.Read();
+AutoResetEvent(false)为false时, 不想threadpool马上执行,通过让它拥有信号,或者没有信号,为false时,将等待间隔,待重置后才能用.
+
+ThreadPool的定时器功能  底层使用AutoResetEvent作为锁机制,  如何实现定时器? 和之前的while try finally(thread.sleep()) 有啥不一样
+
+windbg 来看一下底层线程是什么样的。。。。 到时和timer 比较
+
+
+       ID OSID ThreadOBJ    State GC Mode     GC Alloc Context  Domain   Count Apt Exception
+   0    1 3f54 01157bc8     2a020 Preemptive  02E8A3E4:00000000 01152258 1     MTA 
+   5    2 2594 011678f8     2b220 Preemptive  00000000:00000000 01152258 0     MTA (Finalizer) 
+   6    3 3c28 01189990   1020220 Preemptive  00000000:00000000 01152258 0     Ukn (Threadpool Worker) 
+   7    4 121c 0118a2c0   8029220 Preemptive  02E8D8A4:00000000 01152258 0     MTA (Threadpool Completion Port) 
+   8    5 28f4 0118bd70   8029220 Preemptive(强占式)  00000000:00000000 01152258 0     MTA (Threadpool Completion Port) 
+
+
+0:009> !threadpool
+CPU utilization: 9%
+Worker Thread: Total: 0 Running: 0 Idle: 0 MaxLimit: 2047 MinLimit: 8
+Work Request in Queue: 0
+--------------------------------------
+Number of Timers: 0
+--------------------------------------
+Completion Port Thread:Total: 2 Free: 2 MaxFree: 16 CurrentLimit: 2 MaxLimit: 1000 MinLimit: 8
+
+
+2. Timer
+timer 有很多种,
+System.threading    下面有timer  在线程池上做了封装实现的timer  ,而其他的三种timer是在本timer为基础封装的 
+
+System.Timer        下面Timer。。。
+
+System.Windows.Form 下面Timer。。。
+
+System.Web.UI        下面Timer。。。
+
+
+0:000> .loadby sos clr
+0:000> !threads
+*** Unable to resolve unqualified symbol in Bp expression '!threads'.
+ThreadCount:      5
+UnstartedThread:  0
+BackgroundThread: 4
+PendingThread:    0
+DeadThread:       0
+Hosted Runtime:   no
+                                                                         Lock  
+       ID OSID ThreadOBJ    State GC Mode     GC Alloc Context  Domain   Count Apt Exception
+   0    1 2f18 0078e3c0     2a020 Preemptive  025648B4:00000000 00787d28 1     MTA 
+   5    2 3e70 0079f700     2b220 Preemptive  00000000:00000000 00787d28 0     MTA (Finalizer) 
+   6    3 2078 007c0c68   102a220 Preemptive  00000000:00000000 00787d28 0     MTA (Threadpool Worker) 
+   7    4 1b54 007c2b98   1029220 Preemptive  0256B598:00000000 00787d28 0     MTA (Threadpool Worker) 
+   8    5 1a98 007c9c20   1029220 Preemptive  0256CDA4:00000000 00787d28 0     MTA (Threadpool Worker)  这里的ThreadPool说明问题,底层用到TreadPool
+0:000> ~~[1a98]s
+eax=00000000 ebx=00000002 ecx=00000000 edx=00000000 esi=00000000 edi=000002a0
+eip=77a11d3c esp=04e0f858 ebp=04e0f8c8 iopl=0         nv up ei pl nz na po nc
+cs=0023  ss=002b  ds=002b  es=002b  fs=0053  gs=002b             efl=00000202
+ntdll!NtWaitForSingleObject+0xc:   等待一个什么东西,类似锁
+77a11d3c c20c00          ret     0Ch
+0:008> !threadpool    某一个时刻的工作线程和io线程的存量
+CPU utilization: 7%
+Worker Thread: Total: 2 Running: 0 Idle: 2 MaxLimit: 2047 MinLimit: 4  4是怎么来的?
+Work Request in Queue: 0
+--------------------------------------
+Number of Timers: 1
+--------------------------------------
+Completion Port Thread:Total: 0 Free: 0 MaxFree: 8 CurrentLimit: 0 MaxLimit: 1000 MinLimit: 4
+0:008> !ThreadState 1029220
+    Legal to Join
+    Background
+    CLR Owns
+    In Multi Threaded Apartment
+    Fully initialized
+    Thread Pool Worker Thread
+
+
+
+
+
+0:009> !threads
+ThreadCount:      4
+UnstartedThread:  0
+BackgroundThread: 3
+PendingThread:    0
+DeadThread:       0
+Hosted Runtime:   no
+                                                                         Lock  
+       ID OSID ThreadOBJ    State GC Mode     GC Alloc Context  Domain   Count Apt Exception
+   0    1 2d74 00f785c8     2a020 Preemptive  02E360F0:00000000 00f72030 1     MTA 
+   5    2 3784 00f87ea0     2b220 Preemptive  00000000:00000000 00f72030 0     MTA (Finalizer) 
+   6    3 2dc4 00faae18   102a220 Preemptive  00000000:00000000 00f72030 0     MTA (Threadpool Worker) 
+   7    4 3e34 00fab748   1029220 Preemptive  02E3D4D0:00000000 00f72030 0     MTA (Threadpool Worker)  
+
+
+   来看一下timer底层的代码
+Timer底层有一个队列	TimerQueue instance2 = TimerQueue.Instance;
+
+internal class TimerQueue
+
+Timer 首先是用 ThreadPool.UnsafeQueueUserWorkItem(waitCallback, timer); 来完成定时功能。。
+
+
+三：实战开发中，基本上不会用Timer来处理问题。。。。
+
+因为处理的功能太少：
+
+1. 我希望早上8点执行。。。
+
+2. 我希望明天8点执行。。。
+
+3. 我希望每天8点执行。。。
+
+4. 我希望每个月的8号执行。。。
+
+5. 我希望下个月8号执行，排除双休日。。。
+
+6. 半个小时执行一次。。。
+
+
+四：Quarz.net 
+
+Quartz.dll
+
+
+
+1.定时器实现的两种方式ThreadPool和Time 以及while try finally 语句
+2.TreadPool如何实现定时器,Windbg查看底层
+3.Timer如何实现定时器,ILSpy和windbg查看底层
+4.定时器,mutex互斥锁,超时,等待waithandle,定时,锁机制,事件,信号量,回调函数,重置计时器,延期执行,
+5.quarz.net
+6.windbg+ilspy+ 更清晰地掌握.
+
+
+
+理解的标准:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.遇到错误了,该怎么办?
+		   6.遇到没效率的时候,该怎么办?
+		   5.关注负面的东西,着眼于美好的东西.
+		   6.不关注坏习惯,而是养成好习惯,关注点要正确?
+是否复习：
+
+
+
