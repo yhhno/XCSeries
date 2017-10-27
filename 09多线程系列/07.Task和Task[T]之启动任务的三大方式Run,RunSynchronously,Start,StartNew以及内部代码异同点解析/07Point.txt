@@ -1,0 +1,196 @@
+所有的都要记录下来. 边学边记. 抛弃深渊. 状态要预热呀. 还是要有激情的. 关注点要正确的. 体现各种形式上的"主动" , 用脑子学习思考.
+找出自己的不足? 心理素质还是最关键的.
+
+一：Task   .net 4.0 
+
+为什么要有Task。
+
+Task => Thread + ThreadPool + 优化和功能扩展 如何理解? 优化的是啥? 有哪些功能扩展?底层使用Thread和ThreadPool实现的,所以会体现出Thead和Threadpool的一些特性 如state  类似于基于什么实现? 肯定要体现底层的特性. 对不?
+
+Thread：        容易造成时间 + 空间开销，而且使用不当，容易造成线程过多，导致时间片切换。。。
+
+ThreadPool：    控制能力比较弱。 不能做thread的延续，阻塞，取消，超时等等功能。。。。
+
+                控制权在CLR，而不是在我们这里。。。
+
+
+Task 看起来像是一个Thread。。。
+
+Task 是在ThreadPool的基础上进行的封装。。。。 如何理解? 正常流程是用threadpool ,特殊情况使用Thread
+
+task是不是自己建立了任务,然后把任务委托给ThreadPool来执行.?
+
+.net 4.0之后，微软是极力的推荐 Task。。。来作为异步计算。。。 之后的很多类库底层都是由task实现的
+
+试一把
+二：Task启动的几种启动方式   
+
+1. 实例化的方式启动Task  异步方法
+
+            Task task = new Task(() =>
+            {
+                Console.WriteLine("我是工作线程： tid={0}", Thread.CurrentThread.ManagedThreadId);
+            });
+
+            task.Start();
+
+            Console.Read();
+
+2. TaskFactory的方式启动Task  异步方法
+
+   //使用TaskFactory启动 类似于ThreadPool
+            var task = Task.Factory.StartNew(() =>
+            {
+                Console.WriteLine("我是工作线程： tid={0}", Thread.CurrentThread.ManagedThreadId);
+            });
+
+3. Task.Run 方法  异步方法
+
+    //使用Task的Run方法
+            var task = Task.Run(() =>
+            {
+                Console.WriteLine("我是工作线程： tid={0}", Thread.CurrentThread.ManagedThreadId);
+            });
+
+4. Task的同步方法
+
+            //这个是同步执行。。。。也就是阻塞执行。。。  什么是同步执行呢? a方法执行完,才能执行b方法. 大家是同步的
+            var task = new Task(() =>
+            {
+                Console.WriteLine("我是工作线程： tid={0}", Thread.CurrentThread.ManagedThreadId);
+            });
+
+            task.RunSynchronously();
+
+试完后,研究底层
+三：Task是建立在ThreadPool上面吗？？？
+
+实例方法启动的Task
+0:000> .loadby sos clr
+0:000> !threads
+*** Unable to resolve unqualified symbol in Bp expression '!threads'.
+ThreadCount:      4
+UnstartedThread:  0
+BackgroundThread: 3
+PendingThread:    0
+DeadThread:       0
+Hosted Runtime:   no
+                                                                         Lock  
+       ID OSID ThreadOBJ    State GC Mode     GC Alloc Context  Domain   Count Apt Exception
+   0    1 1c10 0091e890     2a020 Preemptive  027BA360:00000000 00912730 1     MTA 
+   5    2 1f6c 00934640     2b220 Preemptive  00000000:00000000 00912730 0     MTA (Finalizer) 
+   9    3 31b4 009634b0   1029220 Preemptive  027B729C:00000000 00912730 0     MTA (Threadpool Worker) 
+  10    4 3ebc 00965e00   1029220 Preemptive  027B81E4:00000000 00912730 0     MTA (Threadpool Worker)   用到了Threadpool
+0:000> !threadpool
+CPU utilization: 17%
+Worker Thread: Total: 2 Running: 0 Idle: 2 MaxLimit: 2047 MinLimit: 4    两个工作线程
+Work Request in Queue: 0
+--------------------------------------
+Number of Timers: 0
+--------------------------------------
+Completion Port Thread:Total: 0 Free: 0 MaxFree: 8 CurrentLimit: 0 MaxLimit: 1000 MinLimit: 4
+0:000> !ThreadState 1029220
+    Legal to Join
+    Background
+    CLR Owns  clr拥有的
+    In Multi Threaded Apartment
+    Fully initialized 完全初始化
+    Thread Pool Worker Thread  线程池工作线程
+
+
+
+
+	Task的同步执行 底层
+	0:000> .loadby sos clr
+0:000> !threads
+*** Unable to resolve unqualified symbol in Bp expression '!threads'.
+ThreadCount:      2
+UnstartedThread:  0
+BackgroundThread: 1
+PendingThread:    0
+DeadThread:       0
+Hosted Runtime:   no
+                                                                         Lock  
+       ID OSID ThreadOBJ    State GC Mode     GC Alloc Context  Domain   Count Apt Exception
+   0    1  cf0 0072eaf8     2a020 Preemptive  026B6C54:00000000 00722730 1     MTA   只有一个主线程,没有Threadpool线程,说明是同步执行
+   2    2  ca0 007401f0     2b220 Preemptive  00000000:00000000 00722730 0     MTA (Finalizer) 
+0:000> !threadpool  查看线程池,线程池中也没有线程使用
+CPU utilization: 0%
+Worker Thread: Total: 0 Running: 0 Idle: 0 MaxLimit: 0 MinLimit: 0
+Work Request in Queue: 0
+--------------------------------------
+Number of Timers: 0
+--------------------------------------
+Completion Port Thread:Total: 0 Free: 0 MaxFree: 0 CurrentLimit: 0 MaxLimit: 1000 MinLimit: 0
+
+
+
+使用ILSpy 查看Task的底层源码
+
+我们的Task底层都是由不同的TaskScheduler支撑的。。。  如何理解?
+
+TaskScheduler 相当于Task的CPU处理器。。。  如何理解?
+task的所有的执行,都是基于TaskScheduler
+默认的TaskScheduler是ThreadPoolTaskScheduler。。。
+
+wpf中的TaskScheduler是 SynchronizationContextTaskScheduler  好处是不需要执行空间的invoke 二而是用他这个上下文就ok了
+
+
+ThreadPoolTaskScheduler
+
+
+ILspy也可以调试程序集
+this.m_taskScheduler.InternalQueueTask(this);
+
+大家也可以自定义一些TaskScheduler。。。。
+
+
+		protected internal override void QueueTask(Task task)
+		{
+		   如果是长时间运行的话,单独开一个thread, 不委托给ThreadPool执行
+			if ((task.Options & TaskCreationOptions.LongRunning) != TaskCreationOptions.None) 
+			{
+				new Thread(ThreadPoolTaskScheduler.s_longRunningThreadWork)
+				{
+					IsBackground = true
+				}.Start(task);
+				return;
+			}
+			委托给ThreadPool执行
+			bool forceGlobal = (task.Options & TaskCreationOptions.PreferFairness) > TaskCreationOptions.None;
+			ThreadPool.UnsafeQueueCustomWorkItem()方法是程序集可用,外界调用不到.
+			ThreadPool.UnsafeQueueCustomWorkItem(task, forceGlobal);
+		}
+
+四：Task<TResult>  可以返回值,是thread和threadpool做不到的. 实际开发中很有用
+
+让Task具有返回值。。。 它的父类其实就是Task。。
+
+
+task.state  是Thread.state是对应的? 为啥? 应为底层使用thread和threadpool
+具体的启动方式和Task是一样的。。。
+
+
+
+
+
+1.Task是什么? 异步方法,为什么会出现? 与Thread和ThreadPool的异同?
+2.Task的启动方式?
+3.Task的底层源码,TaskScheduler.
+4.Task可以返回值,不仅仅做thread的延续，阻塞，取消，超时等等功能
+5.程序集内,如何做优化(以一些东西为底层),同步执行,阻塞执行,异步执行,如何理解基于
+
+
+
+理解的标准:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.遇到错误了,该怎么办?
+		   6.遇到没效率的时候,该怎么办?
+		   5.关注负面的东西,着眼于美好的东西.
+		   6.不关注坏习惯,而是养成好习惯,关注点要正确?
+是否复习：

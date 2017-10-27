@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BE01A243-459B-4E8F-A330-EB353D72B99F}</ProjectGuid>
+    <ProjectGuid>{9C3FE873-7F3E-4B65-943C-C759EF376DC5}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_06.定时任务之使用RegisterWaitForSingleObject和Timer以及专业的Quarz.Net的简要介绍</RootNamespace>
-    <AssemblyName>06.定时任务之使用RegisterWaitForSingleObject和Timer以及专业的Quarz.Net的简要介绍</AssemblyName>
+    <RootNamespace>_07.Task和Task_T_之启动任务的三大方式Run_RunSynchronously_Start_StartNew以及内部代码异同点解析</RootNamespace>
+    <AssemblyName>07.Task和Task[T]之启动任务的三大方式Run,RunSynchronously,Start,StartNew以及内部代码异同点解析</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -49,9 +49,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="06Point.txt" />
-    <Content Include="Quarz.net使用\1定时任务之使用.JPG" />
-    <Content Include="Quarz.net使用\2.定时任务之使用.JPG" />
+    <Content Include="07Point.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -161,6 +161,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05.从windbg角度理解Thr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06.定时任务之使用RegisterWaitForSingleObject和Timer以及专业的Quarz.Net的简要介绍", "09多线程系列\06.定时任务之使用RegisterWaitForSingleObject和Timer以及专业的Quarz.Net的简要介绍\06.定时任务之使用RegisterWaitForSingleObject和Timer以及专业的Quarz.Net的简要介绍.csproj", "{BE01A243-459B-4E8F-A330-EB353D72B99F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07.Task和Task[T]之启动任务的三大方式Run,RunSynchronously,Start,StartNew以及内部代码异同点解析", "09多线程系列\07.Task和Task[T]之启动任务的三大方式Run,RunSynchronously,Start,StartNew以及内部代码异同点解析\07.Task和Task[T]之启动任务的三大方式Run,RunSynchronously,Start,StartNew以及内部代码异同点解析.csproj", "{9C3FE873-7F3E-4B65-943C-C759EF376DC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -423,6 +425,10 @@ Global
 		{BE01A243-459B-4E8F-A330-EB353D72B99F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE01A243-459B-4E8F-A330-EB353D72B99F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE01A243-459B-4E8F-A330-EB353D72B99F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C3FE873-7F3E-4B65-943C-C759EF376DC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C3FE873-7F3E-4B65-943C-C759EF376DC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C3FE873-7F3E-4B65-943C-C759EF376DC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C3FE873-7F3E-4B65-943C-C759EF376DC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -492,6 +498,7 @@ Global
 		{74AB21DF-FF0A-4B63-A511-744BDF7778FD} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{E2265DFC-6261-43D0-802A-B4EB3F5E5A20} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{BE01A243-459B-4E8F-A330-EB353D72B99F} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
+		{9C3FE873-7F3E-4B65-943C-C759EF376DC5} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
