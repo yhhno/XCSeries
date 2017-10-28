@@ -1,0 +1,175 @@
+所有的都要记录下来. 边学边记. 抛弃深渊. 状态要预热呀. 还是要有激情的. 关注点要正确的. 体现各种形式上的"主动" , 用脑子学习思考.
+找出自己的不足? 心理素质还是最关键的. 不要习以为常? 还是心中要有概念.
+
+一：task的阻塞和延续操作
+
+这些操作都是task的核心
+
+1. 阻塞  如何理解? 阻塞的是啥? 当然对不阻塞的不起任何作用?   阻塞是如何实现的?
+
+   thread => Join方法 【让调用线程阻塞,仅仅是让调用线程阻塞,对其它的子线程不起作用】
+ 
+
+   Thread t = new Thread(() =>
+            {
+                Thread.Sleep(5000);
+                Console.WriteLine("我是工作线程1");
+            });
+            Thread t1 = new Thread(() =>
+            {
+                Thread.Sleep(1000);
+                Console.WriteLine("我是工作线程2");
+            });
+
+            t1.Start();
+            t.Start();
+            //两个join一起 也就是 t1 && t2 都完成了,才能执行主线程, 类似于WaitAll操作。。。 
+            //发现这种写法没有一种数组的形式,如果有更多的thread时,要有更多的join,写起来很麻烦, 
+            //而且没有类似于WaitAny  t1 ||  t2 ,,只能实现and关系,不是特别灵活.
+            t.Join();//t.join能阻塞t1的执行吗?
+            t1.Join();
+
+            Console.WriteLine("我是主线程");
+            Console.Read();
+
+
+
+
+
+            Thread t = new Thread(() =>
+            {
+                System.Threading.Thread.Sleep(100);
+
+                Console.WriteLine("我是工作线程1");
+            });
+
+            Thread t2 = new Thread(() =>
+            {
+                System.Threading.Thread.Sleep(100);
+
+                Console.WriteLine("我是工作线程2");
+            });
+
+            t.Start();
+            t2.Start();
+
+            t.Join();   // t1 && t2 都完成了 WaitAll操作。。。  WaitAny  t1 ||  t2 
+            t2.Join();
+
+            Console.WriteLine("我是主线程");
+
+            Console.Read();
+
+
+Thread有这些局限? 有没更强大的方法呢?
+2.Task:  task的阻塞更强大? 强大在哪里呢?
+Task看起来像使用Thread一样,new一下,其实他是委托给线程池执行.
+
+WaitAll方法   必须其中所有的task执行完成才算完成阻塞  关键点 过程是怎样?
+
+WaitAny方法，只要其中一个task执行完成就算完成阻塞  关键点 过程是怎样?
+
+task.wait方法： 等待操作
+
+上面这些等待操作，返回值都是void。。。。 如何理解返回值为void,  如何理解等待?
+就是我在调用Waitall或者waitany的时候,主线程是阻塞死的,就是说我在等待其他任务完成后,还是返回一个task,就是说我不想阻塞主线程的同时,实现类似以waitall的操作,之前返回void,此时返回一个task,如果返回一个task,可以作为任务的延续,因为task可以接东西.
+
+如何理解主线程与工作线程的关系? 
+
+
+现在有一个想法就是，我不想阻塞主线程的同时,实现一个waitall的操作。。。。 也就是换成阻塞工作线程,
+
+
+如何理解延续? 如何实现呢? 比如放在一个队里中,先入列的任务完成后,后面的任务才能执行?  延续是如何实现的?
+t1 执行完成了执行 t2  ，这就是延续的概念。。。。   如何理解?
+
+延续 = 它的基础就是wait。。。 如何理解? wait谁? 也就是阻塞谁呢?  延续如何实现的? 猜想下
+
+如何看任务窗口?
+
+   static void Main(string[] args)
+        {
+            Task task1 = new Task(() =>
+            {
+                System.Threading.Thread.Sleep(1000);
+
+                Console.WriteLine("我是工作线程1:{0}", DateTime.Now);
+            });
+
+            task1.Start();
+
+            Task task2 = new Task(() =>
+            {
+                System.Threading.Thread.Sleep(2000);
+
+                Console.WriteLine("我是工作线程2:{0}", DateTime.Now);
+            });
+
+            task2.Start();
+
+            Task.WhenAll(task1, task2).ContinueWith(t =>
+            {
+                //执行“工作线程3”的内容
+                Console.WriteLine("我是工作线程 {0}", DateTime.Now);
+            });
+
+            Console.Read();
+        }
+
+WhenAll   如何理解?过程是怎样?  此时等待的谁? 阻塞的是谁?
+
+WhenAny 如何理解?  过程是怎样?
+
+Task工厂中的一些延续操作。。。 延续本身就是一个等待, 前面没完成,后面怎么执行呢?
+
+ContinueWhenAll
+
+Action<Task[]> 如何理解? (t) => { task3.Start(); } 
+Action<Task[]> 是系统封装的委托, 那入参是什么时候赋给的呢?    t也就是个占位符,,但它是如何使用的呢?
+
+ Task.Factory.ContinueWhenAll(new Task[2] { task1, task2 }, (t) =>
+            {
+                //执行“工作线程3”的内容
+                Console.WriteLine("我是主线程 {0}", DateTime.Now);
+            });
+
+ContinueWhenAny
+
+
+本节课就是介绍Task的7种阻塞方式 +  延续
+
+
+如果会打组合拳，task异步任务还是写的非常漂亮。。。。  如何打组合拳??
+
+
+
+1.Task的阻塞和延续, 与thread的阻塞对比, 
+2.阻塞的是啥? 延续的是啥?  具体有哪几种方式?
+3.阻塞如何实现的? 延续如何实现的?
+4.不方便,实现不了,才导致task的出现
+5.task.waitall 是怎样的一个特性?可以实现怎样的一个功能?
+6.task.waitall 是怎样的一个特性?可以实现怎样的一个功能?
+7.task.wait
+8.task.whenall是怎样的一个特性?可以实现怎样的一个功能?
+9.task.whenany是怎样的一个特性?可以实现怎样的一个功能?
+10.Task.Factory.ContinueWhenAll是怎样的一个特性?可以实现怎样的一个功能?
+11.带参数的委托和Action<in t>的区别?
+
+
+
+
+理解的标准:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.遇到错误了,该怎么办?
+		   6.遇到没效率的时候,该怎么办?
+		   5.关注负面的东西,着眼于美好的东西.
+		   6.不关注坏习惯,而是养成好习惯,关注点要正确?
+是否复习：
+
+
+
