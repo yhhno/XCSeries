@@ -1,0 +1,333 @@
+所有的都要记录下来. 边学边记. 抛弃深渊. 状态要预热呀. 还是要有激情的. 关注点要正确的. 体现各种形式上的"主动" , 用脑子学习思考.
+找出自己的不足?心理素质还是最关键的. 不要习以为常? 还是心中要有概念. 不懂的地方一定要深挖,深挖了就简单了.哈哈 
+
+
+
+一：Task中的常见两种枚举  枚举有啥用呢?
+
+
+1. Task构造函数中使用的。。。  也就是说是Task本身使用的,不然咋在构造函数中
+
+public Task(Action action, TaskCreationOptions creationOptions);
+
+
+看一下枚举有什么项?
+
+    //
+    // 摘要:
+    //     指定可控制任务的创建和执行的可选行为的标志。
+    [Flags]
+    public enum TaskCreationOptions
+    {
+        //
+        // 摘要:
+        //     指定应使用默认行为。
+        None = 0,
+        //
+        // 摘要:
+        //     提示 System.Threading.Tasks.TaskScheduler 以一种尽可能公平的方式安排任务，这意味着较早安排的任务将更可能较早运行，而较晚安排运行的任务将更可能较晚运行。
+        PreferFairness = 1,
+        //
+        // 摘要:
+        //     指定任务将是长时间运行的、粗粒度的操作，涉及比细化的系统更少、更大的组件。它会向 System.Threading.Tasks.TaskScheduler
+        //     提示，过度订阅可能是合理的。您可以通过过度订阅创建比可用硬件线程数更多的线程。
+        LongRunning = 2,
+        //
+        // 摘要:
+        //     指定将任务附加到任务层次结构中的某个父级。有关详细信息，请参阅 已附加和已分离的子任务。
+        AttachedToParent = 4,
+        //
+        // 摘要:
+        //     如果尝试附有子任务到创建的任务，指定 System.InvalidOperationException 将被引发。
+        DenyChildAttach = 8,
+        //
+        // 摘要:
+        //     防止环境计划程序被视为已创建任务的当前计划程序。这意味着像 StartNew 或 ContinueWith 创建任务的执行操作将被视为 System.Threading.Tasks.TaskScheduler.Default
+        //     当前计划程序。
+        HideScheduler = 16
+    }
+	看到这里,可能我们不明白这是什么意思? 干什么用的?
+
+2. 任务延续中的枚举    次枚举是任务延续中使用的.
+
+public Task ContinueWith(Action<Task> continuationAction, TaskContinuationOptions continuationOptions);
+
+
+二：演示  枚举起到什么作用呢?
+
+TaskCreationOptions ：
+
+
+1. AttachedToParent  ：指定将任务附加到任务层次结构中的某个父级  这话有点不好理解   对于子任务而言,
+
+建立了父子关系。。。 一旦建立父子关系, 也就是说 父任务想要继续执行，必须等待子任务执行完毕。。。为什么没想到呢。  这样的一个特性? 父子关系?
+
+  看例子可以看到，其中是一个WaitAll的一个操作。。。
+
+  为什么没想到父子关系呢? 为什么没想到waitall呢? 
+
+
+         //
+        // 摘要:
+        //     指定将任务附加到任务层次结构中的某个父级。 默认情况下，子任务（即由外部任务创建的内部任务）将独立于其父任务执行。 可以使用 System.Threading.Tasks.TaskContinuationOptions.AttachedToParent
+        //     选项以便将父任务和子任务同步。请注意，如果使用 System.Threading.Tasks.TaskCreationOptions.DenyChildAttach
+        //     选项配置父任务，则子任务中的 System.Threading.Tasks.TaskCreationOptions.AttachedToParent 选项不起作用，并且子任务将作为分离的子任务执行。有关详细信息，请参阅附加和分离的子任务。
+
+
+		 默认情况下，子任务（即由外部任务创建的内部任务）将独立于其父任务执行。 如何理解独立于
+
+		 可以使用 System.Threading.Tasks.TaskContinuationOptions.AttachedToParent 选项以便将父任务和子任务同步  如何理解父任务和子任务同步?
+   
+		好好看看摘要先,都没看,就瞎想.  这是错误方式.
+
+
+  Task task = new Task(() =>
+              {
+
+                  Task task1 = new Task(() =>
+                  {
+                      Thread.Sleep(1000);
+                      Console.WriteLine("Task1");
+                  },TaskCreationOptions.AttachedToParent);
+                  task1.Start();
+                  Task task2 = new Task(() =>
+                  {
+                      Thread.Sleep(1000);
+                      Console.WriteLine("Task2");
+                  }, TaskCreationOptions.AttachedToParent);
+                  task2.Start();
+
+              });
+            task.Start();
+            //如果没加TaskCreationOptions.AttachedToParent的话,
+            //task的执行是这样的,task1和task2都启动了,就算是task的任务执行了,此时就不阻塞主线程了,
+            //加了的话,task是task1和task2的父任务,父任务要想执行完成,必须等子任务执行完毕,才算完成.有task的延续任务才能执行延续任务,没有的话,就不阻塞主线程的执行.
+            //这样有什么好处? 和Waitall有什么区别? 和whenall有什么区别呢?
+            task.Wait();//相当于实现waitall的操作, 
+            Console.WriteLine("我是主线程");
+            Console.Read();
+
+
+
+            Task task = new Task(() =>
+            {
+                Task task1 = new Task(() =>
+                {
+                    Thread.Sleep(100);
+                    Console.WriteLine("task1");
+                }, TaskCreationOptions.AttachedToParent);
+
+                Task task2 = new Task(() =>
+                {
+                    Thread.Sleep(10);
+                    Console.WriteLine("task2");
+                }, TaskCreationOptions.AttachedToParent);
+
+                task1.Start();
+
+                task2.Start();
+            });
+
+            task.Start();
+
+            task.Wait();  //task.WaitAll(task1,task2);
+
+            Console.WriteLine("我是主线程！！！！");
+
+            Console.Read();
+
+反向的就是拒绝子任务
+DenyChildAttach： 不让子任务附加到父任务上去。。。  对于父任务而言   即可以设置父任务,也可以设置子任务, 好灵活呀
+
+        static void Main(string[] args)
+        {
+            Task task = new Task(() =>
+            {
+                Task task1 = new Task(() =>
+                {
+                    Thread.Sleep(100);
+                    Console.WriteLine("task1");
+                }, TaskCreationOptions.AttachedToParent);
+
+                Task task2 = new Task(() =>
+                {
+                    Thread.Sleep(10);
+                    Console.WriteLine("task2");
+                }, TaskCreationOptions.AttachedToParent);
+
+                task1.Start();
+
+                task2.Start();
+            }, TaskCreationOptions.DenyChildAttach);
+
+            task.Start();
+
+            task.Wait();  //task.WaitAll(task1,task2);
+
+            Console.WriteLine("我是主线程！！！！");
+
+            Console.Read();
+        }
+
+HideScheduler： 子任务默认不使用父类的Task的Scheduler。。。而是使用默认的。
+
+LongRunning：如果你明知道是长时间运行的任务，建议你使用此选项。。如果你一个任务使用跑10分钟， 此时建议使用 “Thread” 而不是“threadPool"。
+            
+
+如果长期租用不还给threadPool,线程池里的线程就少了，不能满足使用，threadPool为了满足市场需求，会新开一些线程。。。
+满足当前使用，如果此时租用线程被归还，这会导致ThreadPool的线程过多，销毁和调度都是一个很大的麻烦。。
+
+看下源码，满足下好奇心
+1.task的start方法，找到this.ScheduleAndStart(true); 既然是构造函数中的枚举,,肯定是先看启动方法
+
+2.ScheduleAndStart中，找到InternalQueueTask方法
+3.InternalQueueTask中找到，this.QueueTask(task);
+4.this.QueueTask(task)是个抽象方法， 执行的必定是子方法的重写，
+5.TaskScheduler的抽象类，ThreadPoolTaskScheduler是默认指定的实现子类，
+6.查看其重写方法 protected internal override void QueueTask(Task task)
+7.位运算 用在什么地方呢？  为啥可以有复合值呢？ 什么是复合值呢？ [flags]
+	try
+	{
+		this.m_taskScheduler.InternalQueueTask(this);
+	}
+	catch (ThreadAbortException exceptionObject)
+	{
+		this.AddException(exceptionObject);
+		this.FinishThreadAbortedTask(true, false);
+	}
+
+		internal void InternalQueueTask(Task task)
+		{
+			task.FireTaskScheduledIfNeeded(this);
+			this.QueueTask(task);
+		}
+
+
+		protected internal override void QueueTask(Task task)
+		{
+			if ((task.Options & TaskCreationOptions.LongRunning) != TaskCreationOptions.None)  位运算？为啥不用等号呢？ 因为Options可能是复合值？
+			{
+				new Thread(ThreadPoolTaskScheduler.s_longRunningThreadWork)
+				{
+					IsBackground = true
+				}.Start(task);
+				return;
+			}
+			bool forceGlobal = (task.Options & TaskCreationOptions.PreferFairness) > TaskCreationOptions.None;
+			ThreadPool.UnsafeQueueCustomWorkItem(task, forceGlobal);
+		}
+
+源码解释了,再看看windbg
+
+0:000> .loadby sos clr
+0:000> !threads
+*** Unable to resolve unqualified symbol in Bp expression '!threads'.
+ThreadCount:      3
+UnstartedThread:  0
+BackgroundThread: 1
+PendingThread:    0
+DeadThread:       1  当前线程已死,进入终结器,等待下一次gc
+Hosted Runtime:   no
+                                                                         Lock  
+       ID OSID ThreadOBJ    State GC Mode     GC Alloc Context  Domain   Count Apt Exception
+   0    1 426c 016aeb60     2a020 Preemptive  03484B24:00000000 016a80a0 1     MTA 
+   2    2 25cc 016be2c8     2b220 Preemptive  00000000:00000000 016a80a0 0     MTA (Finalizer) 
+XXXX    3    0 016ec238     39820 Preemptive  00000000:00000000 016a80a0 0     Ukn   thread线程,非线程池线程
+
+
+PreferFairness： 给你的感觉就是一个”queue“的感觉。。。
+ 提示 System.Threading.Tasks.TaskScheduler 以一种尽可能公平的方式安排任务，这意味着较早安排的任务将更可能较早运行，而较晚安排运行的任务将更可能较晚运行。 是不是类似队列的特性:先进先出
+
+原理:也就是说会将Task放入到ThreadPool的全局队列中。。。。 让work thread进行争抢。。。。 在全局中,对大家都公平,
+
+默认情况会放到task的一个本地队列中。。。。不公平. 本地队列,只能本线程执行?
+
+
+
+看源码
+protected internal override void QueueTask(Task task)
+		{
+			if ((task.Options & TaskCreationOptions.LongRunning) != TaskCreationOptions.None)  位运算？为啥不用等号呢？ 因为Options可能是复合值？
+			{
+				new Thread(ThreadPoolTaskScheduler.s_longRunningThreadWork)
+				{
+					IsBackground = true
+				}.Start(task);
+				return;
+			}
+			bool forceGlobal = (task.Options & TaskCreationOptions.PreferFairness) > TaskCreationOptions.None; 位运算
+			ThreadPool.UnsafeQueueCustomWorkItem(task, forceGlobal);
+		}
+
+		forceGlobal是否全局?
+		ThreadPoolGlobals.workQueue.Enqueue(workItem, forceGlobal);
+
+
+// System.Threading.ThreadPoolWorkQueue
+[SecurityCritical]
+public void Enqueue(IThreadPoolWorkItem callback, bool forceGlobal)
+{
+	ThreadPoolWorkQueueThreadLocals threadPoolWorkQueueThreadLocals = null;
+	if (!forceGlobal)
+	{
+	不是全局的话的处理,线程的本地存储,每个线程有一个本地的队列, 本地队列还有一个偷的概念?
+		threadPoolWorkQueueThreadLocals = ThreadPoolWorkQueueThreadLocals.threadLocals;
+	}
+	if (this.loggingEnabled)
+	{
+		FrameworkEventSource.Log.ThreadPoolEnqueueWorkObject(callback);
+	}
+	if (threadPoolWorkQueueThreadLocals != null)
+	{
+		threadPoolWorkQueueThreadLocals.workStealingQueue.LocalPush(callback);
+	}
+	else
+	{
+		ThreadPoolWorkQueue.QueueSegment queueSegment = this.queueHead;
+		while (!queueSegment.TryEnqueue(callback))
+		{
+			Interlocked.CompareExchange<ThreadPoolWorkQueue.QueueSegment>(ref queueSegment.Next, new ThreadPoolWorkQueue.QueueSegment(), null);
+			while (queueSegment.Next != null)
+			{
+				Interlocked.CompareExchange<ThreadPoolWorkQueue.QueueSegment>(ref this.queueHead, queueSegment.Next, queueSegment);
+				queueSegment = this.queueHead;
+			}
+		}
+	}
+	this.EnsureThreadRequested();
+}
+
+
+这些枚举都实现了啥功能呢
+
+
+
+1.task的的构造函数中的枚举
+2.构造函数代表啥呢?
+3.AttachedToParent 先看摘要
+4.DenyChildAttach
+5.LongRunning
+6.PreferFairness
+7.任务层次结构,独立执行,父子任务同步,threadpool的工作原理及不好的操作,如何看源码,位运算,符合值,flags,抽象类与实现子类,threadpool的全局队列和本地队列,
+
+
+
+
+理解的标准:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.遇到错误了,该怎么办?
+		   6.遇到没效率的时候,该怎么办?
+		   5.关注负面的东西,着眼于美好的东西.
+		   6.不关注坏习惯,而是养成好习惯,关注点要正确?
+是否复习：
+
+
+
+
+
+

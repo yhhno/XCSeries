@@ -165,6 +165,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07.Task和Task[T]之启动�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08.Task详解之7种阻塞方式Wait,WaitAll,WaitAny,,ContinueWith等实现任务的延续和阻塞代码解析", "09多线程系列\08.Task详解之7种阻塞方式Wait,WaitAll,WaitAny,,ContinueWith等实现任务的延续和阻塞代码解析\08.Task详解之7种阻塞方式Wait,WaitAll,WaitAny,,ContinueWith等实现任务的延续和阻塞代码解析.csproj", "{2CC513EF-FE7B-45C0-A92D-93674F8BCB13}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "09.Task实用枚举之TaskCreationOptions在【父子任务允许和拒绝，长任务，公平处理】上的源码分析", "09多线程系列\09.Task实用枚举之TaskCreationOptions在【父子任务允许和拒绝，长任务，公平处理】上的源码分析\09.Task实用枚举之TaskCreationOptions在【父子任务允许和拒绝，长任务，公平处理】上的源码分析.csproj", "{AF0D61B0-13AF-4044-80F6-C1792527C355}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -435,6 +437,10 @@ Global
 		{2CC513EF-FE7B-45C0-A92D-93674F8BCB13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CC513EF-FE7B-45C0-A92D-93674F8BCB13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CC513EF-FE7B-45C0-A92D-93674F8BCB13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF0D61B0-13AF-4044-80F6-C1792527C355}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF0D61B0-13AF-4044-80F6-C1792527C355}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF0D61B0-13AF-4044-80F6-C1792527C355}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF0D61B0-13AF-4044-80F6-C1792527C355}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -506,6 +512,7 @@ Global
 		{BE01A243-459B-4E8F-A330-EB353D72B99F} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{9C3FE873-7F3E-4B65-943C-C759EF376DC5} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{2CC513EF-FE7B-45C0-A92D-93674F8BCB13} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
+		{AF0D61B0-13AF-4044-80F6-C1792527C355} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
