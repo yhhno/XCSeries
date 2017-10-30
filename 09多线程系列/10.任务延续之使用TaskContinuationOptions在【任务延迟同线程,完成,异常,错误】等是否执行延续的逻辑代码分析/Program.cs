@@ -128,7 +128,7 @@ namespace _10.任务延续之使用TaskContinuationOptions在_任务延迟同线
             {
                 //Thread.Sleep(100);
                 Console.WriteLine("task2 tid={0},dt={1},task1的转态:{2}", Thread.CurrentThread.ManagedThreadId, DateTime.Now, task1.Status);
-            }, TaskContinuationOptions.NotOnFaulted);
+            }, TaskContinuationOptions.OnlyOnRanToCompletion);
             Task task3 = task2.ContinueWith((t) =>
             {
                 Console.WriteLine("task3 tid={0},dt={1},task2的转态:{2}", Thread.CurrentThread.ManagedThreadId, DateTime.Now, task2.Status);

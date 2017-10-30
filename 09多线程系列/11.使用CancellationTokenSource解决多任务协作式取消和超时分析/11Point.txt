@@ -1,0 +1,194 @@
+所有的都要记录下来. 边学边记. 抛弃深渊. 状态要预热呀. 还是要有激情的. 关注点要正确的. 体现各种形式上的"主动" , 用脑子学习思考.
+找出自己的不足?心理素质还是最关键的. 不要习以为常? 还是心中要有概念. 不懂的地方一定要深挖,深挖了就简单了.哈哈 
+效率啊  理解能力有待加强, 理论变成大白话, 一眼看本质,看透的能力要加强(核心竞争力呀)
+无论什么都是要有个模型的? 比如理解模型? 思考模型? 对比模型? 等等
+
+
+一：task中的取消功能  从来没有这个概念? 没遇到?
+
+
+task之前是thread, thread如何做取消操作? 通常用一个bool变量 去判断thread是否可以退出,
+1. thread。在这个种如何做取消操作。。。 bool变量
+
+isstop变量取判断thread中是否可以退出。。。。 low。。。
+
+
+            //取消到底什么怎样的一个流程呢?  关键点在哪里?如何取消呢?如何传递信号呢? 基本概况是啥呢?有东西在执行,取消正在执行的东西?如何体现一直运行? 如何体现判断取消?
+            //之前可以一看到就懵逼了(没概念+更加没分析.),无论什么都是要有个模型的? 比如理解模型? 思考模型? 对比模型? 等等
+            var isStop = false;
+            var thread = new Thread(() =>
+              {
+                  while(!isStop) //为何要有while呢? 如何感知变化?
+                  {
+                        Thread.Sleep(100);// 比如间断输出在控制台上, 也会困在这里  那就换,那就分析
+                      //有可能会困在正在运行 这件事上,  其实很多事都是很简单的,只是理解有问题. 那就换,那就分析
+                      Console.WriteLine("当前thread={0} 正在运行", Thread.CurrentThread.ManagedThreadId);
+                  }
+              });
+            thread.Start();
+            Thread.Sleep(1000);
+            isStop = true;
+            Console.Read();
+
+			演示了某个时候,想停止,怎么停止?
+
+关键点:不能让多个线程操作一个共享变量，否则会在release版本中有潜在bug。。。。
+
+
+其实在task中也对取消操作做了很多的优化,不能使用一个简单的变量来取消任务的执行
+2. task中有一个专门的类【CancellationTokenSource】去处理 “任务取消”
+
+
+CancellationTokenSource 远比 isStop这个变量强的多。。。
+
+1. 使用cancel实现isStop同样的功能。。。
+
+ CancellationTokenSource source = new CancellationTokenSource();
+            var task = Task.Factory.StartNew(() =>
+            {
+                //为何要有while呢? 如何感知变化?
+                while (!source.IsCancellationRequested) //判断取消是否已经请求?source.IsCancellationRequested为false时一直运行
+                {
+                    Thread.Sleep(100);// 比如间断输出在控制台上, 也会困在这里  那就换,那就分析
+                                      //有可能会困在正在运行 这件事上,  其实很多事都是很简单的,只是理解有问题. 那就换,那就分析
+                    Console.WriteLine("当前thread={0} 正在运行", Thread.CurrentThread.ManagedThreadId);
+
+                }
+            });
+
+            Thread.Sleep(1000);
+            source.Cancel();
+            Console.Read();
+
+
+
+
+
+
+
+强在哪里？？？？
+ 
+<1> 当任务取消的时候，我希望有一个函数能够被触发，这个触发可以做一些资源的清理，
+    又或者是更新数据库信息。。。
+
+            CancellationTokenSource source = new CancellationTokenSource();
+
+            source.Token.Register(() =>
+            {
+                //如果当前的token被取消，此函数将会被执行
+                Console.WriteLine("当前source已经被取消，现在可以做资源清理了。。。。");
+            });
+
+            var task = Task.Factory.StartNew(() =>
+            {
+                while (!source.IsCancellationRequested)
+                {
+                    Thread.Sleep(100);
+
+                    Console.WriteLine("当前thread={0} 正在运行", Thread.CurrentThread.ManagedThreadId);
+                }
+            }, source.Token);
+
+            Thread.Sleep(1000);
+            source.Cancel();
+
+            Console.Read();
+
+<2> 延时取消 也就是2秒后自动取消的意思? 困在这里了. 有时只是对从结果来看的描述, 不是过程的描述.
+我想2秒之后自动取消，N秒。。。。 webservice。。。wcf。
+比如我们请求远程的webservice 或wcf,这个接口不能说一天都没有返回值,自然会有一个取消的操作.不能wcf没有数据,对方卡死了, 这时候
+我们要在线程上做一些应对措施.
+
+《1》 CancelAfter   
+
+ source.CancelAfter(new TimeSpan(0, 0, 0, 1));
+
+《2》 CancellationTokenSource 的构造函数中进行取消
+
+CancellationTokenSource source = new CancellationTokenSource(1000);
+
+两种操作是否由优先级?
+
+<3> 取消的组合 将CancellationTokenSource 组合成一个链表
+
+    其中任何一个CancellationTokenSource被取消，组合source也会被取消。。。 如何理解组合source? 本身也是个source?
+
+    var s3= s1 && s2;  实现了类似并的操作? 一取消,组合也取消. 这是啥特性呢?
+
+        static void Main(string[] args)
+        {
+            CancellationTokenSource source1 = new CancellationTokenSource();
+
+            //现在要让source1取消
+            //source1.Cancel();
+
+            CancellationTokenSource source2 = new CancellationTokenSource();
+
+            source2.Cancel();
+
+            var combineSource = CancellationTokenSource.CreateLinkedTokenSource(source1.Token, source2.Token);
+
+            Console.WriteLine("s1={0}  s2={1}  s3={2}", source1.IsCancellationRequested,
+                                                     source2.IsCancellationRequested,
+                                                     combineSource.IsCancellationRequested);
+
+            Console.Read();
+        }
+
+<4> ThrowIfCancellationRequested 比 IsCancellationRequested 多了throw。。。
+
+    如果一个任务被取消，我希望代码抛出一个异常。。。
+    
+    if(IsCancellationRequested) throw new Exception("adasdaf");
+
+     == 等价操作  ==     
+
+    throwIfCancellationRequested();
+
+
+            CancellationTokenSource source1 = new CancellationTokenSource();
+
+            //现在要让source1取消
+            //source1.Cancel();
+
+            CancellationTokenSource source2 = new CancellationTokenSource();
+
+            source2.Cancel();
+
+            var combineSource = CancellationTokenSource.CreateLinkedTokenSource(source1.Token, source2.Token);
+
+            Console.WriteLine("s1={0}  s2={1}  s3={2}", source1.IsCancellationRequested,
+                                                     source2.IsCancellationRequested,
+                                                     combineSource.IsCancellationRequested);
+
+            Console.Read();
+
+http://www.cnblogs.com/huangxincheng/p/6541220.html
+
+
+1.thread的取消实现  由此可见对知识点缺少全面的认识,,用时茫然,不知所措, 然后恶循环下去.
+2.task的取消实现? 并列举几个方面
+   1.取消触发一个函数,后续操作
+   2.延时取消,也就是n秒后自动取消
+   3.取消组合 类似 waitany的感觉
+   4.取消就抛出个异常
+3.拒绝多线程操作一个共享变量
+4.CancellationTokenSource
+5.分析模型和理解模型,以及 如何加强功能,使功能更强大?
+
+
+
+
+理解的标准:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.遇到错误了,该怎么办?
+		   6.遇到没效率的时候,该怎么办?
+		   5.关注负面的东西,着眼于美好的东西.
+		   6.不关注坏习惯,而是养成好习惯,关注点要正确?
+是否复习：
+  

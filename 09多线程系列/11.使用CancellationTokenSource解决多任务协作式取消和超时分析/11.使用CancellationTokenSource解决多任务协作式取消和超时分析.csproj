@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EB75EBEB-C48B-4857-9B56-A1EAB289BA54}</ProjectGuid>
+    <ProjectGuid>{625F8648-45EC-4188-BFC1-BF1CD9EE5708}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_10.任务延续之使用TaskContinuationOptions在_任务延迟同线程_完成_异常_错误_等是否执行延续的逻辑代码分析</RootNamespace>
-    <AssemblyName>10.任务延续之使用TaskContinuationOptions在【任务延迟同线程,完成,异常,错误】等是否执行延续的逻辑代码分析</AssemblyName>
+    <RootNamespace>_11.使用CancellationTokenSource解决多任务协作式取消和超时分析</RootNamespace>
+    <AssemblyName>11.使用CancellationTokenSource解决多任务协作式取消和超时分析</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -49,10 +49,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="OnlyOnRanToCompletion案例\OnlyOnRanToCompletion的替代效果.JPG" />
-    <Content Include="OnlyOnRanToCompletion案例\OnlyOnRanToCompletion的案例.JPG" />
-    <Content Include="取消功能示意图.jpg" />
-    <Content Include="10Point.txt" />
+    <Content Include="11Point.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

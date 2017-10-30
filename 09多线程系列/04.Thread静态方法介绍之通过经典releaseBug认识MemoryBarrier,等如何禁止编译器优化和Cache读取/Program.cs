@@ -12,8 +12,8 @@ namespace _04.Thread静态方法介绍之通过经典releaseBug认识MemoryBarri
     {
         static void Main(string[] args)
         {
-            Thread.MemoryBarrier()
-            Thread.VolatileRead();
+            //Thread.MemoryBarrier();
+            //Thread.VolatileRead();
 
 
             //先找文件路径,在读取,在转化成int,最后tolist. 然后循环5次. web和非web的路径是不一样的.
