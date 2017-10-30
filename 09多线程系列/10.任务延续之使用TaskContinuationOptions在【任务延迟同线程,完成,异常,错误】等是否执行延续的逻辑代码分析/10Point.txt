@@ -1,0 +1,204 @@
+所有的都要记录下来. 边学边记. 抛弃深渊. 状态要预热呀. 还是要有激情的. 关注点要正确的. 体现各种形式上的"主动" , 用脑子学习思考.
+找出自己的不足?心理素质还是最关键的. 不要习以为常? 还是心中要有概念. 不懂的地方一定要深挖,深挖了就简单了.哈哈 
+效率啊  理解能力有待加强, 理论变成大白话
+
+一：ContinuWith
+
+1. Task   TaskCreationOptions   第一个task
+
+2. Task  TaskContinuationOptions 第二个task  多灵活.  有血有肉
+
+关键点: 第二个task更复杂些:因为第二个task需要判断第一个task在什么情况下，我该执行或者不该执行。。。。
+学习时贯穿基本常识和关键点, 不然会认识错误和无方向.
+
+       //
+        // 摘要:
+        //     Default = "Continue on any, no task options, run asynchronously" 指定应使用默认行为。默认情况下，完成前面的任务之后将安排运行延续任务，而不考虑前面任务的最终
+        //     System.Threading.Tasks.TaskStatus。
+        None = 0,
+        //
+        // 摘要:
+        //     提示 System.Threading.Tasks.TaskScheduler 以一种尽可能公平的方式安排任务，这意味着较早安排的任务将更可能较早运行，而较晚安排运行的任务将更可能较晚运行。
+        PreferFairness = 1,
+        //
+        // 摘要:
+        //     指定某个任务将是运行时间长、粗粒度的操作。它会向 System.Threading.Tasks.TaskScheduler 提示，过度订阅可能是合理的。
+        LongRunning = 2,
+        //
+        // 摘要:
+        //     指定将任务附加到任务层次结构中的某个父级。
+        AttachedToParent = 4,
+        //
+        // 摘要:
+        //     如果尝试附有子任务到创建的任务，指定 System.InvalidOperationException 将被引发。
+        DenyChildAttach = 8,
+        //
+        // 摘要:
+        //     防止环境计划程序被视为已创建任务的当前计划程序。这意味着像 StartNew 或 ContinueWith 创建任务的执行操作将被视为 System.Threading.Tasks.TaskScheduler.Default
+        //     当前计划程序。
+        HideScheduler = 16,
+        //
+        // 摘要:
+        //     在延续取消的情况下，防止延续的完成直到完成先前的任务。
+        LazyCancellation = 32,
+        //
+        // 摘要:
+        //     指定不应在延续任务前面的任务已完成运行的情况下安排延续任务。此选项对多任务延续无效。
+        NotOnRanToCompletion = 65536,
+        //
+        // 摘要:
+        //     指定不应在延续任务前面的任务引发了未处理异常的情况下安排延续任务。此选项对多任务延续无效。
+        NotOnFaulted = 131072,
+        //
+        // 摘要:
+        //     指定只应在延续任务前面的任务已取消的情况下安排延续任务。此选项对多任务延续无效。
+        OnlyOnCanceled = 196608,
+        //
+        // 摘要:
+        //     指定不应在延续任务前面的任务已取消的情况下安排延续任务。此选项对多任务延续无效。
+        NotOnCanceled = 262144,
+        //
+        // 摘要:
+        //     指定只有在延续任务前面的任务引发了未处理异常的情况下才应安排延续任务。此选项对多任务延续无效。
+        OnlyOnFaulted = 327680,
+        //
+        // 摘要:
+        //     指定只应在延续任务前面的任务已完成运行的情况下才安排延续任务。此选项对多任务延续无效。
+        OnlyOnRanToCompletion = 393216,
+        //
+        // 摘要:
+        //     指定应同步执行延续任务。指定此选项后，延续任务将在导致前面的任务转换为其最终状态的相同线程上运行。如果在创建延续任务时已经完成前面的任务，则延续任务将在创建此延续任务的线程上运行。只应同步执行运行时间非常短的延续任务。
+        ExecuteSynchronously = 524288
+
+		归纳分类
+前6个和TaskCreateOption中的一样,后面的7个,是判断第二个task是否执行,最后一个是同步执行
+
+二： LazyCancellation
+
+之前关注点在于是取消任务的取消,应该是 正常的流程是执行, 中间夹杂着取消..  =>基本的认识错了,导致无方向 和认识错误.
+首先要有个大体的认识, 概况, 然后抓住关键点 去梳理过程, 这样才能认识清楚,也就是本质. 不然,就知道某个点, 以偏概全,模模糊糊,之后也学的蒙蒙的,效果很差,理解不了,也记不住,咋行呢?
+
+
+
+1. Cancellation 判断任务的取消。。。 类似Thread abort 线程的关闭,此时还没有销毁? 认识要清楚
+
+
+期望的正常执行是这个链条顺序:task1 -> continuewith  task2  -> continuewith -> task3  类似于串行执行 过程清晰  关键点和常识?
+如果说现在task2取消了,, 作为task1的延续任务被取消了,此时链条断了,task2的延续任务,和task1 已经没有关系了,task1和task3并行执行 过程清晰
+
+
+取消操作,认识不深刻.
+就是说，continuewith的时候，也就是要执行task2的时候,预先判断了source.token的值，结果发现任务已经取消。  预先判断是关键?  和枚举状态无关哦
+
+
+这个时候，task2就不会执行了。。，但是task3和task2有延续。。。
+
+有因为task2 和task1已经没有延续关系了。。。所以 task1和task3可以并行，
+
+看似continuewith的关系得不到延续。没有延续,也就不是期望的效果,并行保证不了执行顺序.。。。【并行】  过程清晰
+
+如何才能有这种 也就是说的能力? 理论变成大白话,  也就是加个判断? 判断也可以,先执行什么后执行什么吗? 不一定非要判等
+TaskContinuationOptions.LazyCancellation  在延续取消的情况下，防止延续的完成直到完成先前的任务。它的本质就是：  
+
+也就是说需要等待task1执行完成之后再判断source.token的状态。。。。 这样的话， 将断掉的任务重新延续了,链被修复了
+
+首先就形成了一条链： task1 -> task2 -> task3...  期望的执行顺序, 即使task2被取消了.
+
+
+        static void Main(string[] args)
+        {
+            CancellationTokenSource source = new CancellationTokenSource(); 是如何执行的? 如何实现的呢? 之前看的一脸懵逼
+
+            source.Cancel();
+
+            Task task1 = new Task(() =>
+            {
+                Thread.Sleep(1000);
+                Console.WriteLine("task1 tid={0}， dt={1}", Thread.CurrentThread.ManagedThreadId, DateTime.Now);
+            });
+
+            var task2 = task1.ContinueWith(t =>
+            {
+                Console.WriteLine("task2 tid={0}， dt={1}", Thread.CurrentThread.ManagedThreadId, DateTime.Now);
+            }, source.Token, TaskContinuationOptions.LazyCancellation, TaskScheduler.Current);
+
+            var task3 = task2.ContinueWith(t =>
+            {
+                Console.WriteLine("task3 tid={0}， dt={1}  {2}", Thread.CurrentThread.ManagedThreadId,
+                                                                 DateTime.Now, task2.Status);
+            });
+
+            task1.Start();
+
+            Console.Read();
+        }
+
+
+
+
+
+
+三：ExecuteSynchronously 这个枚举就是希望执行前面那个task的thread也在执行本延续任务。此时task1和task2显示的tid是一样的. 后面的不管
+
+task2 也希望使用 task1的线程去执行，好多是这样可以防止线程切换。带来的时间片切换。。 
+否则task1和task2会用线程池里可用的两个线程
+同步是什么? 同步就是用一个线程来执行多个操作. 执行顺序是依次执行,   把理论变成大白话
+
+            Task task1 = new Task(() =>
+            {
+                Thread.Sleep(1000);
+                Console.WriteLine("task1 tid={0}， dt={1}", Thread.CurrentThread.ManagedThreadId, DateTime.Now);
+            });
+
+            var task2 = task1.ContinueWith(t =>
+            {
+                Console.WriteLine("task2 tid={0}， dt={1}", Thread.CurrentThread.ManagedThreadId, DateTime.Now);
+            },TaskContinuationOptions.ExecuteSynchronously);
+
+
+四：NotOnRanToCompletion  OnlyOnRanToCompletion    错误,都没有自己先了解,先学习,自己还没操作呢? 就根据别人的学习成果,来做对比, 这不对,
+如何理解呢? 任务还是延续执行的,只是加了些判断条件而已? 最开始把取消操作执行因素考虑进来,,不对 为什么会有这种现象呢? 取消认识不深刻,+想当然.
+其实也蛮好理解的吗? 不就是些判断条件嘛,哈哈,  也可以代替方法体中的判断嘛, 大家都是判断, 效果一样可以代替.  把理论变成大白话
+
+前面表示延续任务必须在前面task非完成状态才能执行。。
+
+后面表示延续任务必须在前面task完成状态才能执行。。。
+
+            Task task1 = new Task(() =>
+            {
+                Thread.Sleep(1000);
+                Console.WriteLine("task1 tid={0}， dt={1}", Thread.CurrentThread.ManagedThreadId, DateTime.Now);
+
+                throw new Exception("hello world");
+            });
+
+            var task2 = task1.ContinueWith(t =>
+            {
+                Console.WriteLine("task2 tid={0}， dt={1}", Thread.CurrentThread.ManagedThreadId, DateTime.Now);
+            }, TaskContinuationOptions.NotOnRanToCompletion);
+
+
+
+1.延续任务中的枚举, 枚举时啥作用呢?判断? 判断有是那些呢?
+2.LazyCancellation  啥意思? 用在什么情况? 达到什么效果? 可以代替什么呢? 也就是抽象下本质
+3.ExecuteSynchronously 啥意思? 用在什么情况? 达到什么效果? 可以代替什么呢? 也就是抽象下本质
+4.NotOnRanToCompletion啥意思? 用在什么情况? 达到什么效果? 可以代替什么呢? 也就是抽象下本质
+5.既然是判断可不可以组合使用呢?
+6.串行,并行,延续就是并行,多线程和异步就是并行,CancellationTokenSource,同步.
+
+
+
+
+理解的标准:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.遇到错误了,该怎么办?
+		   6.遇到没效率的时候,该怎么办?
+		   5.关注负面的东西,着眼于美好的东西.
+		   6.不关注坏习惯,而是养成好习惯,关注点要正确?
+是否复习：
+  

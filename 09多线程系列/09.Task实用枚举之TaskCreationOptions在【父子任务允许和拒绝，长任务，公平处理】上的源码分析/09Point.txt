@@ -298,7 +298,7 @@ public void Enqueue(IThreadPoolWorkItem callback, bool forceGlobal)
 }
 
 
-这些枚举都实现了啥功能呢
+这些枚举都实现了啥功能呢 判断条件嘛 哈哈
 
 
 
