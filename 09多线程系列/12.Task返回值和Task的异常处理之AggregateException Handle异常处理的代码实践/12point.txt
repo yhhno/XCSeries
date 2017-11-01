@@ -1,0 +1,292 @@
+所有的都要记录下来. 边学边记. 抛弃深渊. 状态要预热呀. 还是要有激情的. 关注点要正确的. 体现各种形式上的"主动" , 用脑子学习思考.
+找出自己的不足?心理素质还是最关键的. 不要习以为常? 还是心中要有概念. 不懂的地方一定要深挖,深挖了就简单了.哈哈 
+效率啊  理解能力有待加强, 理论变成大白话, 一眼看本质,看透的能力要加强(核心竞争力呀)
+无论什么都是要有个模型的? 比如理解模型? 思考模型? 对比模型? 等等
+理解不够透彻? 大概了解就完成了,没有深入有逻辑,全过程推演.
+理解了大概? 在了解如何实现?  真正的了解大概(有大前提,基本流程,在扣关键点), 真正的如何去实现?
+
+
+返回值有两种: 1;Task<TResult> 2,延续任务中返回.  要有总结归纳嘛.
+一：Task<TResult>   如何实现呢?
+
+   前些课程主要讲没有返回值的task。。。本节课就超重去说这个有“返回值”的。。。
+
+实际开发中，带有TResult的形式还是特别多。。。
+
+实际案例:
+        protected List<long> ExecuteOR(IFilterCore filterCore, List<FilterValueItem> fieldValueItemList)
+        {
+            List<long> customerIDList = new List<long>();
+
+            try
+            {
+                //多线程处理
+                Task<List<long>>[] tasks = new Task<List<long>>[fieldValueItemList.Count];
+
+                for (int i = 0; i < fieldValueItemList.Count; i++)
+                {
+                    tasks[i] = Task.Factory.StartNew((fieldValueItem) =>
+                    {
+                        using (SearchStopWatch watch = new SearchStopWatch(string.Format("或者条件：{0}", filterCore.GetType().Name)))
+                        {
+                            List<long> smallCustomerIDList = null;
+                            try
+                            {
+                                smallCustomerIDList = filterCore.Filter((FilterValueItem)fieldValueItem);
+                            }
+                            catch (Exception ex)
+                            {
+                                LogHelper.WriteLog(ex);
+                                throw;  为什么要有throw?
+                            }
+                            return smallCustomerIDList;
+                        }
+
+                    }, fieldValueItemList[i]);
+                }
+
+                Task.WhenAll(tasks).ContinueWith(t =>
+                {
+                    using (SearchStopWatch watch = new SearchStopWatch(string.Format("或者条件 追加List时间： {0}", filterCore.GetType().Name)))
+                    {
+                        foreach (var task in tasks)
+                        {
+                            customerIDList.AddRange(task.Result);
+                        }
+                    }
+                }, TaskContinuationOptions.OnlyOnRanToCompletion).Wait();
+            }
+            catch (Exception ex)
+            {
+                LogHelper.WriteLog(ex); //日志操作
+                throw; 为什么要有throw?
+            }
+
+            return customerIDList;
+        }
+
+演示下:
+大体上的认识,先有task,然后有需要返回值,才有Task<TResult>.  一上来就关注TResult是错误的.此刻还没有全局认识呢 ?要养成习惯?
+Task<TResult>是继承于Task 继承的话不然比父类多个东西? 多了什么呢?最重要多了Result属性
+
+二:Task<TResult>获取返回值:
+
+<1> 获取Task<TResult>的返回值： Wait();
+
+public class Task<TResult> : Task
+
+
+            Task<int> task1 = Task.Factory.StartNew(() =>
+            {
+                //做一些逻辑运算
+                return 1;
+            });
+
+            task1.Wait();
+
+            Console.WriteLine(task1.Result);
+
+            Console.Read();
+
+要养成习惯/
+我们来看下Task<TResult>中wait方法  要深究下嘛,不能了解了大概情况就停止了.
+1.Task<TResult>没有找到,  Task<TResult>继承自task, 会调用父类的wiat
+2.Task中的wait方法,this.Wait(-1, default(CancellationToken));
+3.	internal bool InternalWait(int millisecondsTimeout, CancellationToken cancellationToken)
+4.private bool SpinThenBlockingWait(int millisecondsTimeout, CancellationToken cancellationToken) 死循环,也就是说一段代码做循环操作.
+等待是怎样的一个具体代码实现呢?
+
+// System.Threading.Tasks.Task
+[__DynamicallyInvokable]
+public bool Wait(int millisecondsTimeout, CancellationToken cancellationToken)
+{
+	if (millisecondsTimeout < -1)
+	{
+		throw new ArgumentOutOfRangeException("millisecondsTimeout");
+	}
+	if (!this.IsWaitNotificationEnabledOrNotRanToCompletion)
+	{
+		return true;
+	}
+	if (!this.InternalWait(millisecondsTimeout, cancellationToken))
+	{
+		return false;
+	}
+	if (this.IsWaitNotificationEnabledOrNotRanToCompletion)
+	{
+		this.NotifyDebuggerOfWaitCompletionIfNecessary(); 这是什么呢? 如何实现? 有什么作用?
+		if (this.IsCanceled)
+		{
+			cancellationToken.ThrowIfCancellationRequested();
+		}
+		this.ThrowIfExceptional(true);
+	}
+	return true;
+}
+
+
+
+<2> 直接TResult。。。 属性内也可以有代码,逻辑判断. 要养成习惯?
+
+// System.Threading.Tasks.Task<TResult>
+internal TResult GetResultCore(bool waitCompletionNotification)//属性内的方法.
+{
+	if (!base.IsCompleted)
+	{
+		base.InternalWait(-1, default(CancellationToken));
+	}
+	if (waitCompletionNotification)
+	{
+		base.NotifyDebuggerOfWaitCompletionIfNecessary();
+	}
+	if (!base.IsRanToCompletion)
+	{
+		base.ThrowIfExceptional(true);
+	}
+	return this.m_result;
+}
+
+
+三: 延续任务:ContinueWith<TResult> 也可以具有返回值  实际中非常有用?
+
+        static void Main()
+        {
+            Task<int> task1 = Task.Factory.StartNew(() =>
+            {
+                //做一些逻辑运算
+                return 1;
+            });
+
+            var task2 = task1.ContinueWith<string>(t =>
+            {
+			//要有逻辑分析
+                int num = t.Result;
+
+                var sum = num + 10;
+
+                return sum.ToString();
+            });
+
+            Console.WriteLine(task2.Result);
+
+            Console.Read();
+        }
+
+四. Task.WhenAll<TResult>/ WhenAny
+
+task1和task2 也可以实现并行计算? 啥是并行计算呢?
+        static void Main()
+        {
+            Task<int> task1 = Task.Factory.StartNew(() =>
+            {
+                //做一些逻辑运算
+                return 1;
+            });
+
+            Task<int> task2 = Task.Factory.StartNew(() =>
+            {
+                //做一些逻辑运算
+                return 2;
+            });
+
+            var task = Task.WhenAll<int>(new Task<int>[2] { task1, task2 });
+
+            var result = task.Result;
+
+            Console.WriteLine(task2.Result);
+
+            Console.Read();
+        }
+
+在使用task进行开发的时候,难免会遇到异常. 什么是异常重新抛出? 为啥要这样做? 
+二：异常  AggregateException类专门处理task中的异常. 
+
+要分类嘛 ,单个处理和集合处理肯定不一样.
+
+AggregateException  是一个集合，因为task中可能会抛出多个异常，所以我们需要一种新的类型
+把这些异常都追加到一个集合中。。。 为什么会有多个异常呢?  如何实现?
+
+之前的概念? 抛出了异常? 就破坏了程序的执行, 多个task子任务抛出错误,为啥不影响父task.
+task窗口及task的执行过程?
+gettype();
+
+1. 什么时候抛出异常： Wait操作， TResult操作。。。 也就是要childtask1执行嘛,不执行咋触发错误呢
+
+2. 何时会有多个异常在 AggregateException，以及如何去一个一个的去获取  为什么是个集合? 既然是集合肯定有添加和删除操作嘛?
+
+3. Handle方法。。。就是处理当前的异常数组，告诉上一层我当前哪些已经处理好了，
+   没有处理好的，还需要向上抛出。。。   为什么要抛出呢?  handle方法哪里来的?
+   之前没有聚合的Exception集合.对于集合,肯定要遍历了.
+
+            /遍历操作?  对于集合可能是遍历操作了.  基本的是遍历, 再谈具体的操作嘛,要有个大前提. 之前就犯了错误.
+			ex.Handle(x =>
+                {
+				    //这里算是底层函数.
+                    if (x.InnerException.Message == "我是 childTask1 异常")
+                    {
+                        return true;//也就是说exception内部有一个list,如果返回true时,就不加入list中
+                    }
+
+                    return false;如果返回false时,就不加入list中
+                });
+
+当前的Handle就是来遍历 异常数组，如果有一个异常信息是这样的，我认为是已经处理的。
+
+如果你觉得异常还需要往上抛，请返回false。。。 也就是屏蔽异常1,向上抛异常2
+
+
+
+来看看源码? 源码很重要呀,既然想到了集合的方法,都是遍历处理? 如何实现遍历处理呢？
+
+		public void Handle(Func<Exception, bool> predicate)
+		{
+			if (predicate == null)
+			{
+				throw new ArgumentNullException("predicate");
+			}
+			List<Exception> list = null;
+			for (int i = 0; i < this.m_innerExceptions.Count; i++) 如何遍历处理呢？
+			{
+				if (!predicate(this.m_innerExceptions[i])) 如何遍历处理呢？
+				{
+					if (list == null)
+					{
+						list = new List<Exception>();
+					}
+					list.Add(this.m_innerExceptions[i]); 如何遍历处理呢？
+				}
+			}
+			if (list != null)
+			{
+				throw new AggregateException(this.Message, list);
+			}
+		}
+
+
+
+
+		1.task的返回值和异常处理
+2.Task<TResutl> 和延续任务中返回
+3.Task<TResutl>如何实现返回返回值?
+4.延续任务是如何实现返回值的?
+5.异常: 之前异常如何处理?
+6.集合异常如何处理?
+7.对于的集合的方法,都是遍历操作? 有什么启示
+8.集合异常的处理,有什么启示?
+
+
+
+
+		理解的标准:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.遇到错误了,该怎么办?
+		   6.遇到没效率的时候,该怎么办?
+		   5.关注负面的东西,着眼于美好的东西.
+		   6.不关注坏习惯,而是养成好习惯,关注点要正确?
+是否复习：
+  

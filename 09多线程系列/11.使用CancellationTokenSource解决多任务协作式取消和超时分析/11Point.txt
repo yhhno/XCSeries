@@ -99,7 +99,7 @@ CancellationTokenSource 远比 isStop这个变量强的多。。。
 比如我们请求远程的webservice 或wcf,这个接口不能说一天都没有返回值,自然会有一个取消的操作.不能wcf没有数据,对方卡死了, 这时候
 我们要在线程上做一些应对措施.
 
-《1》 CancelAfter   
+《1》 CancelAfter    也就是个定时器,定时触发定义好的 cancell操作.? 能否想得到,就看定时理解的咋样?
 
  source.CancelAfter(new TimeSpan(0, 0, 0, 1));
 
@@ -107,7 +107,7 @@ CancellationTokenSource 远比 isStop这个变量强的多。。。
 
 CancellationTokenSource source = new CancellationTokenSource(1000);
 
-两种操作是否由优先级?
+两种操作是否由优先级?  并非是优先级,  构造函数创建timer并赋值.CancelAfter时检查timer是否为空,为空就创建,不为空就修改.
 
 <3> 取消的组合 将CancellationTokenSource 组合成一个链表
 

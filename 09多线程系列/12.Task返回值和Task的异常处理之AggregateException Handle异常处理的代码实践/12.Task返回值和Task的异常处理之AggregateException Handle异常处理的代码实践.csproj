@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2CC513EF-FE7B-45C0-A92D-93674F8BCB13}</ProjectGuid>
+    <ProjectGuid>{F83C7C12-5022-4CEA-9E6B-738A69B6DE70}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_08.Task详解之7种阻塞方式Wait_WaitAll_WaitAny__ContinueWith等实现任务的延续和阻塞代码解析</RootNamespace>
-    <AssemblyName>08.Task详解之7种阻塞方式Wait,WaitAll,WaitAny,,ContinueWith等实现任务的延续和阻塞代码解析</AssemblyName>
+    <RootNamespace>_12.Task返回值和Task的异常处理之AggregateException_Handle异常处理的代码实践</RootNamespace>
+    <AssemblyName>12.Task返回值和Task的异常处理之AggregateException Handle异常处理的代码实践</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -49,8 +49,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="08Point.txt" />
-    <Content Include="whenall continueWith的含义.JPG" />
+    <Content Include="12point.txt" />
+    <Content Include="Task返回值案例\Task返回值案例1.JPG" />
+    <Content Include="Task返回值案例\Task返回值案例2.JPG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

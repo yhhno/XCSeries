@@ -171,6 +171,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "10.任务延续之使用Tas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "11.使用CancellationTokenSource解决多任务协作式取消和超时分析", "09多线程系列\11.使用CancellationTokenSource解决多任务协作式取消和超时分析\11.使用CancellationTokenSource解决多任务协作式取消和超时分析.csproj", "{625F8648-45EC-4188-BFC1-BF1CD9EE5708}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "12.Task返回值和Task的异常处理之AggregateException Handle异常处理的代码实践", "09多线程系列\12.Task返回值和Task的异常处理之AggregateException Handle异常处理的代码实践\12.Task返回值和Task的异常处理之AggregateException Handle异常处理的代码实践.csproj", "{F83C7C12-5022-4CEA-9E6B-738A69B6DE70}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -453,6 +455,10 @@ Global
 		{625F8648-45EC-4188-BFC1-BF1CD9EE5708}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{625F8648-45EC-4188-BFC1-BF1CD9EE5708}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{625F8648-45EC-4188-BFC1-BF1CD9EE5708}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F83C7C12-5022-4CEA-9E6B-738A69B6DE70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F83C7C12-5022-4CEA-9E6B-738A69B6DE70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F83C7C12-5022-4CEA-9E6B-738A69B6DE70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F83C7C12-5022-4CEA-9E6B-738A69B6DE70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -527,6 +533,7 @@ Global
 		{AF0D61B0-13AF-4044-80F6-C1792527C355} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{EB75EBEB-C48B-4857-9B56-A1EAB289BA54} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{625F8648-45EC-4188-BFC1-BF1CD9EE5708} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
+		{F83C7C12-5022-4CEA-9E6B-738A69B6DE70} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
