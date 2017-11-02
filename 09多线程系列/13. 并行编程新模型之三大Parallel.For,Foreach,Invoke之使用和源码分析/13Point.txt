@@ -1,0 +1,352 @@
+所有的都要记录下来. 边学边记. 抛弃深渊. 状态要预热呀. 还是要有激情的. 关注点要正确的. 体现各种形式上的"主动" , 用脑子学习思考.
+找出自己的不足?心理素质还是最关键的. 不要习以为常? 还是心中要有概念. 不懂的地方一定要深挖,深挖了就简单了.哈哈 
+效率啊  理解能力有待加强, 理论变成大白话, 一眼看本质,看透的能力要加强(核心竞争力呀)
+无论什么都是要有个模型的? 比如理解模型? 思考模型? 对比模型? 等等
+理解不够透彻? 大概了解就完成了,没有深入有逻辑,全过程推演.
+理解了大概? 在了解如何实现?  真正的了解大概(有大前提,基本流程,在扣关键点), 真正的如何去实现?=> 这是个全过程嘛,=>主动起来, 还是要主动起来.
+
+
+
+啥是并行编程呢?  如何实现并行呢? ==>理解了大概? 在了解如何实现?
+task的编程模型. 啥意思?
+一：.net framework中有一些模型对task进行了封装。。。模型是啥? 封装是如何存在? 为什么要有封装? 同理?武器为什么要升级?
+
+这些类封装了这个task。。。所以我们可以在实际task开发中 用这些封装task的类 来进行并行编程。。。 啥是并行编程呢?  如何实现并行呢?
+这些类有哪些呢? 归纳起来. Parallel
+
+二. Parallel  有哪些方法呢? F12下
+
+for，foreach invoke
+
+串行计算和并行计算都有for及foreach  有什么不同呢?
+1.For
+
+            //串行计算
+            for (int i = 0; i < 100; i++)
+            {
+                Console.WriteLine(i);
+            }
+
+            //并行计算
+            Parallel.For(0, 100, (item) =>
+            {
+                Console.WriteLine(item);
+            });
+			是不是很简单? 为啥之前没这感觉呢?
+
+for的基础: 从源码中看一下Parallel.For实现结构
+
+<1> 我们在并行的时候，可以指定当前有几个线程参与计算。。。
+    
+    不让所有的thread参与计算，不让cpu太凶猛了。。。
+
+<2> 	RangeManager rangeManager = new RangeManager((long)fromInclusive, (long)toExclusive, 1L, nNumExpectedWorkers);
+
+    
+
+分区函数 【0-100】 是啥呢?
+
+
+如果自己实现并行计算? 如何实现?
+8个thread去计算。 s
+
+100/8 =12   
+
+100 % 8 = 4
+
+
+t1 => 0-11
+
+t2 => 12-24
+
+t3 => 25-36
+
+。。。
+
+t10=> 8+4 共12个
+
+ParallelForReplicatingTask : Task
+
+最后会使用ParallelForReplicatingTask 进行处理
+
+
+既然是封装,肯定思路都一样的, 什么样的思路呢?  来来一探究竟
+1.public static ParallelLoopResult For(int fromInclusive, int toExclusive, Action<int> body)
+2.private static ParallelLoopResult ForWorker<TLocal>(int fromInclusive, int toExclusive, ParallelOptions parallelOptions, Action<int> body, 
+3.int nNumExpectedWorkers = (parallelOptions.EffectiveMaxConcurrencyLevel == -1) ? PlatformHelper.ProcessorCount : parallelOptions.EffectiveMaxConcurrencyLevel;
+4.	RangeManager rangeManager = new RangeManager((long)fromInclusive, (long)toExclusive, 1L, nNumExpectedWorkers);
+internal RangeManager(long nFromInclusive, long nToExclusive, long nStep, int nNumExpectedWorkers)
+		{
+			this.m_nCurrentIndexRangeToAssign = 0;
+			this.m_nStep = nStep;
+			if (nNumExpectedWorkers == 1)
+			{
+				nNumExpectedWorkers = 2;
+			}
+			ulong num = (ulong)(nToExclusive - nFromInclusive);
+			ulong num2 = num / (ulong)((long)nNumExpectedWorkers);
+			num2 -= num2 % (ulong)nStep;
+			if (num2 == 0uL)
+			{
+				num2 = (ulong)nStep;
+			}
+			int num3 = (int)(num / num2);
+			if (num % num2 != 0uL)
+			{
+				num3++;
+			}
+			long num4 = (long)num2;
+			this.m_indexRanges = new IndexRange[num3];
+			long num5 = nFromInclusive;
+			for (int i = 0; i < num3; i++)
+			{
+				this.m_indexRanges[i].m_nFromInclusive = num5;
+				this.m_indexRanges[i].m_nSharedCurrentIndexOffset = null;
+				this.m_indexRanges[i].m_bRangeFinished = 0;
+				num5 += num4;
+				if (num5 < num5 - num4 || num5 > nToExclusive)
+				{
+					num5 = nToExclusive;
+				}
+				this.m_indexRanges[i].m_nToExclusive = num5;
+			}
+		}
+5.	ParallelForReplicatingTask rootTask = null;  可以猜想下rootTask做了什么呢? 带着猜想去看内部的源码
+啥叫设计? 啥叫无所不能?  自己知道的那点只是皮毛. 看看人家是如何设计的?
+
+
+	while (true)  看到while,貌似是执行主要逻辑,其实不然, 是重载方法参数的判断? ===>说明什么呢?  大体的脉络没有梳理出来,大前提没有形成, 导致乱找个点当做关注点,                                                                             也说明查看时,没有仔细有逻辑的分析.
+				{
+					if (body != null)
+					{
+						for (int i = num2; i < num3; i++)
+						{
+							if (sharedPStateFlags.LoopStateFlags != ParallelLoopStateFlags.PLS_NONE && sharedPStateFlags.ShouldExitLoop())
+							{
+								break;
+							}
+							body(i);
+						}
+					}
+					else if (bodyWithState != null)
+					{
+						for (int j = num2; j < num3; j++)
+						{
+							if (sharedPStateFlags.LoopStateFlags != ParallelLoopStateFlags.PLS_NONE && sharedPStateFlags.ShouldExitLoop(j))
+							{
+								break;
+							}
+							parallelLoopState.CurrentIteration = j;
+							bodyWithState(j, parallelLoopState);
+						}
+					}
+					else
+					{
+						int num4 = num2;
+						while (num4 < num3 && (sharedPStateFlags.LoopStateFlags == ParallelLoopStateFlags.PLS_NONE || !sharedPStateFlags.ShouldExitLoop(num4)))
+						{
+							parallelLoopState.CurrentIteration = num4;
+							tLocal = bodyWithLocal(num4, parallelLoopState, tLocal);
+							num4++;
+						}
+					}
+					if (!flag && loopTimer.LimitExceeded())
+					{
+						break;
+					}
+					if (!rangeWorker.FindNewWork32(out num2, out num3) || (sharedPStateFlags.LoopStateFlags != ParallelLoopStateFlags.PLS_NONE && sharedPStateFlags.ShouldExitLoop(num2)))
+					{
+						goto IL_23F;
+					}
+				}
+				internalCurrent.SavedStateForNextReplica = rangeWorker;
+				IL_23F:;
+			}
+6.	rootTask.RunSynchronously(parallelOptions.EffectiveTaskScheduler);
+7.	rootTask.Wait();
+
+
+
+
+不要在Parallel.For中使用break或者stop，或许会给你引入一些不必要的bug。。。
+
+因为大家都是并行执行的，所以别的线程是刹不住车的。。。什么意思呢？ 因为是多个线程并行操作，break和break是影响的是全部线程，你在stop的时候,其他线程已经执行下.  刹不住是啥意思呢? 让你停 你还要跑一下.
+
+
+
+        static void Main()
+        {
+            ConcurrentStack<int> stack = new ConcurrentStack<int>();
+
+            //并行计算
+            Parallel.For(0, 100, (item, loop) =>
+            {
+                if (item == 10) //这个条件是嘛意思? 要有什么样的影响? 什么样的判断呢?
+                {
+				//告知 System.Threading.Tasks.Parallel 循环应在系统方便的时候尽早停止执行。 好模糊的话呢? 不确定因素大
+                    loop.Stop();  是对谁而言的呢? 影响谁的呢?
+                    return;
+                }
+
+                stack.Push(item);
+            });
+
+            Console.WriteLine(string.Join(",", stack));  输出集合
+        }
+
+windbg看一下开了多少个线程池线程
+0:000> .loadby sos clr
+0:000> 
+0:000> !threads
+*** Unable to resolve unqualified symbol in Bp expression '!threads'.
+ThreadCount:      5
+UnstartedThread:  0
+BackgroundThread: 4
+PendingThread:    0
+DeadThread:       0
+Hosted Runtime:   no
+                                                                         Lock  
+       ID OSID ThreadOBJ    State GC Mode     GC Alloc Context  Domain   Count Apt Exception
+   0    1 1668 00ece090   202a020 Preemptive  02DF477C:00000000 00ec21d8 0     MTA 
+   5    2  ac4 00ee03d0     2b220 Preemptive  00000000:00000000 00ec21d8 0     MTA (Finalizer) 
+   9    3  908 00ee13a8   1029220 Preemptive  02DF6384:00000000 00ec21d8 0     MTA (Threadpool Worker) 
+  10    4 3dec 00edf940   1029220 Preemptive  02DF81E4:00000000 00ec21d8 0     MTA (Threadpool Worker) 
+  11    5 33a8 00edf3f8   1029220 Preemptive  00000000:00000000 00ec21d8 0     MTA (Threadpool Worker) 
+0:000> !threadpool
+CPU utilization: 16%
+Worker Thread: Total: 3 Running: 0 Idle: 3 MaxLimit: 2047 MinLimit: 4
+Work Request in Queue: 0
+--------------------------------------
+Number of Timers: 0
+--------------------------------------
+Completion Port Thread:Total: 0 Free: 0 MaxFree: 8 CurrentLimit: 0 MaxLimit: 1000 MinLimit: 4
+
+
+
+
+
+
+    Console.WriteLine(string.Join(",", stack));  输出集合   说明了什么?
+    stack.Aggregate()                     集合的聚合计算   说明了什么?
+
+2.For的高级重载  高级?重载? 高级重载?   理解了大概? 在了解如何实现?
+
+
+        public static ParallelLoopResult For<TLocal>(int fromInclusive, int toExclusive, Func<TLocal> localInit, Func<int, ParallelLoopState, TLocal, TLocal> body, Action<TLocal> localFinally);
+
+聚合函数是一样的。。。 其实就是一个并行的聚合计算。  并行的? 并行的聚合计算? 啥是聚合? 分而治之的思想
+
+比如说：我想做一个并行的从 1-100的累积计算。。。
+
+
+1+2+3+4+5+。。。。+99  =4950 
+
+
+
+for与foreach的区别?
+
+应用场景:
+Parallel.For 可以实现一些数组的累计运算。。。 可以拿到数组的下标,下标是连续的  很重要的特性
+
+除了数组只能用foreach来解决了
+Parallel.ForEach 应对一些集合运算 【非数组】
+
+foreach的源码
+
+
+
+// System.Threading.Tasks.Parallel
+private static ParallelLoopResult ForEachWorker<TSource, TLocal>(IEnumerable<TSource> source, ParallelOptions parallelOptions, Action<TSource> body, Action<TSource, ParallelLoopState> bodyWithState, Action<TSource, ParallelLoopState, long> bodyWithStateAndIndex, Func<TSource, ParallelLoopState, TLocal, TLocal> bodyWithStateAndLocal, Func<TSource, ParallelLoopState, long, TLocal, TLocal> bodyWithEverything, Func<TLocal> localInit, Action<TLocal> localFinally)
+{
+	if (parallelOptions.CancellationToken.IsCancellationRequested)
+	{
+		throw new OperationCanceledException(parallelOptions.CancellationToken);
+	}
+	TSource[] array = source as TSource[];
+	if (array != null)
+	{
+		return Parallel.ForEachWorker<TSource, TLocal>(array, parallelOptions, body, bodyWithState, bodyWithStateAndIndex, bodyWithStateAndLocal, bodyWithEverything, localInit, localFinally);
+	}
+	IList<TSource> list = source as IList<TSource>;
+	if (list != null)
+	{
+		return Parallel.ForEachWorker<TSource, TLocal>(list, parallelOptions, body, bodyWithState, bodyWithStateAndIndex, bodyWithStateAndLocal, bodyWithEverything, localInit, localFinally);
+	}
+	return Parallel.PartitionerForEachWorker<TSource, TLocal>(Partitioner.Create<TSource>(source), parallelOptions, body, bodyWithState, bodyWithStateAndIndex, bodyWithStateAndLocal, bodyWithEverything, localInit, localFinally);
+}
+
+
+就是说Parallel函数，第一点就是要分区。。 因为分区了,才能做并行计算
+
+	internal InternalPartitionEnumerable(IEnumerator<TSource> sharedReader, bool useSingleChunking, bool isStaticPartitioning)
+	{
+		this.m_sharedReader = sharedReader;
+		this.m_sharedIndex = new Partitioner.SharedLong(-1L);
+		this.m_hasNoElementsLeft = new Partitioner.SharedBool(false);
+		this.m_sourceDepleted = new Partitioner.SharedBool(false);
+		this.m_sharedLock = new object();
+		this.m_useSingleChunking = useSingleChunking;
+		if (!this.m_useSingleChunking)
+		{
+			int num = (PlatformHelper.ProcessorCount > 4) ? 4 : 1;
+			this.m_FillBuffer = new KeyValuePair<long, TSource>[num * Partitioner.GetDefaultChunkSize<TSource>()];
+		}
+		if (isStaticPartitioning)
+		{
+			this.m_activePartitionCount = new Partitioner.SharedInt(0);
+			return;
+		}
+		this.m_activePartitionCount = null;
+	}
+
+字典的分区函数 。。。。
+
+Dictionary<int, int> dic = new Dictionary<int, int>()
+            {
+                {1,100},
+                {2,200 },
+                {3,300 }
+            };
+
+            Parallel.ForEach(dic, (item) =>
+            {
+                Console.WriteLine(item.Key);
+            });
+
+
+
+3.invoke 很简单
+
+ Parallel.Invoke(
+                () => { Console.WriteLine("我是并行计算1,tid={0}", System.Threading.Thread.CurrentThread.ManagedThreadId); }, 
+                () => { Console.WriteLine("我是并行计算2,tid={0}", System.Threading.Thread.CurrentThread.ManagedThreadId); },
+                () => { Console.WriteLine("我是并行计算3,tid={0}", System.Threading.Thread.CurrentThread.ManagedThreadId); }, 
+                () => { Console.WriteLine("我是并行计算4,tid={0}", System.Threading.Thread.CurrentThread.ManagedThreadId); }
+                );
+
+
+
+
+				1.Parallel类是啥? 有啥方法? for? foreach?invoke?
+2.并行计算的流程是啥?内部是如何操作的? 分区+多线程执行
+3.并行计算?编程模型?并行?串行? 模型? 封装(武器升级后的版本)?并行特性?串行特性?分区函数?
+借鉴如何实现并行?重载?string.join()?stack.aggregate()? 啥是聚合?TLocal?TSource?for与foreach的区别?数组与非数组的区别?集合?并行的三大方法for foreach invoke?
+
+
+
+					理解的标准:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.遇到错误了,该怎么办?
+		   6.遇到没效率的时候,该怎么办?
+		   5.关注负面的东西,着眼于美好的东西.
+		   6.不关注坏习惯,而是养成好习惯,关注点要正确?
+是否复习：
+  
+
+
+
