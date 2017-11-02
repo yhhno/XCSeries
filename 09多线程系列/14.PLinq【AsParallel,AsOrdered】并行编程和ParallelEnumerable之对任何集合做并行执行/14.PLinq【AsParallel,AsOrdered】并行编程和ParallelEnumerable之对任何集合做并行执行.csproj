@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E9729C14-5573-446C-BCCE-37FEA004C2BF}</ProjectGuid>
+    <ProjectGuid>{FAFF97CB-806C-4062-A35C-370CEECB49DD}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_13.并行编程新模型之三大Parallel.For_Foreach_Invoke之使用和源码分析</RootNamespace>
-    <AssemblyName>_13.并行编程新模型之三大Parallel.For_Foreach_Invoke之使用和源码分析</AssemblyName>
+    <RootNamespace>_14.PLinq_AsParallel_AsOrdered_并行编程和ParallelEnumerable之对任何集合做并行执行</RootNamespace>
+    <AssemblyName>14.PLinq【AsParallel,AsOrdered】并行编程和ParallelEnumerable之对任何集合做并行执行</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -49,10 +49,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Properties\QQ截图20170423174110%281%29.jpg" />
-    <Content Include="Properties\新建文本文档.txt" />
-    <Content Include="并行计算概念.jpg" />
-    <Content Include="13Point.txt" />
+    <Content Include="14Point.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

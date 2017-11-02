@@ -1,0 +1,176 @@
+所有的都要记录下来. 边学边记. 抛弃深渊. 状态要预热呀. 还是要有激情的. 关注点要正确的. 体现各种形式上的"主动" , 用脑子学习思考.
+找出自己的不足?心理素质还是最关键的. 不要习以为常? 还是心中要有概念. 不懂的地方一定要深挖,深挖了就简单了.哈哈 
+效率啊  理解能力有待加强, 理论变成大白话, 一眼看本质,看透的能力要加强(核心竞争力呀)
+无论什么都是要有个模型的? 比如理解模型? 思考模型? 对比模型? 等等
+理解不够透彻? 大概了解就完成了,没有深入有逻辑,全过程推演.
+理解了大概? 在了解如何实现?  真正的了解大概(有大前提,基本流程,在扣关键点), 真正的如何去实现?=> 这是个全过程嘛,=>主动起来, 还是要主动起来.
+万事不要沾上"懒"字? 遇到新的该咋办?
+
+
+
+串行的linq为要变成Plinq ,如果没有Plinq的话,我们会觉得并行编程很鸡肋,为了能达到更大的灵活度,我们在linq上加上并行
+一：Plinq => linq
+
+为了能够达到最大的灵活度，linq有了并行的版本。。。
+100行代码,有50句是linq,plinq是势在必行的
+
+二：如何将linq转换为plinq。。。
+4.0以后,task被微软大力推广,
+
+就像之前的linq to object,为了将object转换成集成查询语言去进行操作,它定义了很多的扩展方法
+同样的道理,Plinq是根据linq,定义很多扩展方法,来实现的  扩展在parallelEnumerable静态类中
+
+   Enumerable.Range(0, 10);//定义一个数组 说明什么？
+
+   演示下将linq转换为Plinq
+
+            //将linq装换为Plinq
+            var nums = Enumerable.Range(0, 10);//定义一个数组
+            var query = from n in nums.AsParallel()//转换为并行
+                        select new// select 投影
+                        {
+                            thread = Thread.CurrentThread.ManagedThreadId,
+                            nums = n
+                         };
+            foreach (var item in query)
+            {
+                Console.WriteLine(item);
+            }
+
+大前提是并行
+
+
+AsParallel() 可以将串行的代码转换为并行
+
+AsOrdered() 就是将并行结果还是按照 未排序的样子进行排序。。。  为何有这个方法呢? 因为这里是并行计算哦,顺序无法保证
+
+asOrdered 不等于 orderby 
+
+[10,1,2,3,4]  => 并行计算.asOrderrd => [10,1,2,3,4]
+
+[10,1,2,3,4]  => orderby             =>[1,2,3,4,10]
+
+
+AsUnordered()  不按照原始的顺序排序。。。  使用和不使用有啥区别呢? 肯定有用处的? 不理解是自己没想到 
+
+
+AsSequential()  <=> AsParallel() 是相对应的。。。。
+
+		前者将plinq转换为linq
+                后者将linq转换为plinq
+及时使用windbg
+
+
+调用堆栈怎么看？ 调用堆栈里如何塞数据呢?
+
+0:010> !clrstack //查看下调用堆栈,查看Plinq底层是否是task
+OS Thread Id: 0x579c (10)
+Child SP       IP Call Site
+053bf580 77c0e91c [HelperMethodFrame: 053bf580] System.Threading.Thread.SleepInternal(Int32)
+053bf604 7029daba System.Threading.Thread.Sleep(Int32)
+053bf60c 00ba18f4 *** WARNING: Unable to verify checksum for C:\1\ConsoleApplication2\ConsoleApplication2\bin\Debug\ConsoleApplication2.exe
+ConsoleApplication2.Program.GetThreadID() [C:\1\ConsoleApplication2\ConsoleApplication2\Program.cs @ 38]
+053bf620 00ba188d ConsoleApplication2.Program+c.b__0_0(Int32) [C:\1\ConsoleApplication2\ConsoleApplication2\Program.cs @ 22]
+053bf638 00ba184e System.Linq.Parallel.SelectQueryOperator`2+SelectQueryOperatorResults[[System.Int32, mscorlib],[System.__Canon, mscorlib]].GetElement(Int32)
+053bf644 68466a7d System.Linq.Parallel.QueryResults`1[[System.__Canon, mscorlib]].get_Item(Int32)
+053bf64c 6845712c System.Linq.Parallel.PartitionedDataSource`1+ListContiguousIndexRangeEnumerator[[System.__Canon, mscorlib]].MoveNext(System.__Canon ByRef, Int32 ByRef)
+053bf668 00ba17cf System.Linq.Parallel.PipelineSpoolingTask`2[[System.__Canon, mscorlib],[System.Int32, mscorlib]].SpoolingWork()
+053bf684 6846c222 System.Linq.Parallel.SpoolingTaskBase.Work()
+053bf6bc 6845a7e0 System.Linq.Parallel.QueryTask.BaseWork(System.Object)
+053bf6dc 6845aa42 System.Linq.Parallel.QueryTask+c.b__10_0(System.Object)
+053bf6e0 7028dcff System.Threading.Tasks.Task.InnerInvoke()
+053bf6ec 7028d934 System.Threading.Tasks.Task.Execute()
+053bf710 7028dcba System.Threading.Tasks.Task.ExecutionContextCallback(System.Object)
+053bf714 702e1512 System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object, Boolean)
+053bf780 702e1446 System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object, Boolean)
+053bf794 7028db38 System.Threading.Tasks.Task.ExecuteWithThreadLocal(System.Threading.Tasks.Task ByRef)
+053bf7f8 7028da4c System.Threading.Tasks.Task.ExecuteEntry(Boolean)
+053bf808 7028d98c System.Threading.Tasks.Task.System.Threading.IThreadPoolWorkItem.ExecuteWorkItem()
+053bf80c 7029b2d3 System.Threading.ThreadPoolWorkQueue.Dispatch()
+053bf85c 7029b17a System.Threading._ThreadPoolWaitCallback.PerformWaitCallback()
+053bfa80 7151ea96 [DebuggerU2MCatchHandlerFrame: 053bfa80] 
+
+
+最底层是ThreadPool,往上Task,往上linq.Parallel,往上program类
+
+
+plinq底层都是用task的。。。。  基于task的一些编程模型，让我们快速进行并行计算的。
+
+
+WithDegreeOfParallelism：
+
+WithDegreeOfParallelism(Environment.ProcessorCount) 告诉plinq当前8个线程都要参与。。。
+
+大前提是task,出现WithCancellation就不奇怪了
+WithCancellation： 如果执行之前被取消，,那就不要执行了。。。 以抛出异常的方式通知? 
+
+WithExecutionMode：此参数可以告诉系统当前是否强制并行。。。 为什么要存在强制?
+什么意思? 也就是说task中不一定都是并行,有时任务个数少,用task反而性能不高, 比如2个数据,8个线程,有6个是空闲的.系统会智能判断.串行还是并行.
+
+    public enum ParallelExecutionMode
+    {
+        Default = 0,
+        ForceParallelism = 1
+    }
+
+WithMergeOptions  缓冲区嘛意思? 
+
+ //
+    // 摘要:
+    //     指定首选的类型 输出合并 要在查询中使用。 换而言之，它指示 PLINQ 应如何将来自各个分区的结果合并回单个结果序列。 这只是一个提示，并且在对所有查询进行并行化时系统可能不会遵循此提示。
+    public enum ParallelMergeOptions
+    {
+        //
+        // 摘要:
+        //     使用默认合并类型，即 AutoBuffered。
+        Default = 0,
+        //
+        // 摘要:
+        //     使用合并而无需输出缓冲区。 计算结果元素时，就立即使该元素可供查询的使用者。
+        NotBuffered = 1,
+        //
+        // 摘要:
+        //     利用系统所选择的大小的输出缓冲区进行合并。 它们可供查询的使用者之前，结果将累计到输出缓冲区。
+        AutoBuffered = 2,
+        //
+        // 摘要:
+        //     利用其中包含完整的输出的缓冲区进行合并。 系统将累积的所有结果之前使其中的任何可供查询的使用者。
+        FullyBuffered = 3
+    }
+
+Plinq ：主要是划分区块，然后对区块进行聚合计算。。。从而达到分而治之。。。  如何理解对区块进行聚合计算？
+ 
+                            sum
+
+smallsum   smallsum               smallsum  smallsum
+
+      -> mergesum   <-              -> mergesum  <-
+
+ 
+                      ->  totalsum  <-
+
+
+如果大家为了更大灵活度,可以自己去封装task
+最灵活的东西莫过于自己去写业务逻辑。。封装的越厉害，灵活性越差，性能自然也越差。。。
+
+
+
+
+1.Plinq的出现？实现方式？新增的扩展方法？AsOrdered，AsParallel，AsSequential，并行与串行的选择？
+2.Linq使用很广的。
+3.大前提是并行，并行的大前提是task
+4.集成查询语言，linq，扩展方法， select投影，静态类，未排序的样子，并行的结果，并行转串行，windbg ，ClrStack调用堆栈。编程模型,WithDegreeOfParallelism,WithCancellation,WithExecutionMode强制并行,缓冲区.
+
+
+
+					理解的标准:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.遇到错误了,该怎么办?
+		   6.遇到没效率的时候,该怎么办?
+		   5.关注负面的东西,着眼于美好的东西.
+		   6.不

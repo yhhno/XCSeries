@@ -328,7 +328,7 @@ Dictionary<int, int> dic = new Dictionary<int, int>()
 
 
 				1.Parallel类是啥? 有啥方法? for? foreach?invoke?
-2.并行计算的流程是啥?内部是如何操作的? 分区+多线程执行
+2.并行计算的流程是啥?内部是如何操作的? 分区+多线程执行+聚合
 3.并行计算?编程模型?并行?串行? 模型? 封装(武器升级后的版本)?并行特性?串行特性?分区函数?
 借鉴如何实现并行?重载?string.join()?stack.aggregate()? 啥是聚合?TLocal?TSource?for与foreach的区别?数组与非数组的区别?集合?并行的三大方法for foreach invoke?
 
