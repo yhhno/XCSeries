@@ -177,6 +177,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "13. 并行编程新模型�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "14.PLinq【AsParallel,AsOrdered】并行编程和ParallelEnumerable之对任何集合做并行执行", "09多线程系列\14.PLinq【AsParallel,AsOrdered】并行编程和ParallelEnumerable之对任何集合做并行执行\14.PLinq【AsParallel,AsOrdered】并行编程和ParallelEnumerable之对任何集合做并行执行.csproj", "{FAFF97CB-806C-4062-A35C-370CEECB49DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "15.0Task核心调度器【TaskScheduler】之线程池任务和同步上下文任务介绍以及如何自定义TaskScheduler编码实践", "09多线程系列\15.Task核心调度器【TaskScheduler】之线程池任务和同步上下文任务介绍以及如何自定义TaskScheduler编码实践\15.0Task核心调度器【TaskScheduler】之线程池任务和同步上下文任务介绍以及如何自定义TaskScheduler编码实践.csproj", "{4652BF8E-0250-4E6F-80BC-F826194348B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "15.1Task核心调度器同步上下文任务介绍", "09多线程系列\15.1Task核心调度器同步上下文任务介绍\15.1Task核心调度器同步上下文任务介绍.csproj", "{C28963F5-8B0F-467F-8370-D905AC3469AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -471,6 +475,14 @@ Global
 		{FAFF97CB-806C-4062-A35C-370CEECB49DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAFF97CB-806C-4062-A35C-370CEECB49DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAFF97CB-806C-4062-A35C-370CEECB49DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4652BF8E-0250-4E6F-80BC-F826194348B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4652BF8E-0250-4E6F-80BC-F826194348B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4652BF8E-0250-4E6F-80BC-F826194348B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4652BF8E-0250-4E6F-80BC-F826194348B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C28963F5-8B0F-467F-8370-D905AC3469AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C28963F5-8B0F-467F-8370-D905AC3469AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C28963F5-8B0F-467F-8370-D905AC3469AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C28963F5-8B0F-467F-8370-D905AC3469AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -548,6 +560,8 @@ Global
 		{F83C7C12-5022-4CEA-9E6B-738A69B6DE70} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{E9729C14-5573-446C-BCCE-37FEA004C2BF} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{FAFF97CB-806C-4062-A35C-370CEECB49DD} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
+		{4652BF8E-0250-4E6F-80BC-F826194348B8} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
+		{C28963F5-8B0F-467F-8370-D905AC3469AF} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}

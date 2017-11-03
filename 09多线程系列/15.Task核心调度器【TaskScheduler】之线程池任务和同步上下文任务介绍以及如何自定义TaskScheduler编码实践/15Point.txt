@@ -1,0 +1,171 @@
+所有的都要记录下来. 边学边记. 抛弃深渊. 状态要预热呀. 还是要有激情的. 关注点要正确的. 体现各种形式上的"主动" , 用脑子学习思考.
+找出自己的不足?心理素质还是最关键的. 不要习以为常? 还是心中要有概念. 不懂的地方一定要深挖,深挖了就简单了.哈哈 
+效率啊  理解能力有待加强, 理论变成大白话, 一眼看本质,看透的能力要加强(核心竞争力呀)
+无论什么都是要有个模型的? 比如理解模型? 思考模型? 对比模型? 等等
+理解不够透彻? 大概了解就完成了,没有深入有逻辑,全过程推演.
+理解了大概? 在了解如何实现?  真正的了解大概(有大前提,基本流程,在扣关键点), 真正的如何去实现?=> 这是个全过程嘛,=>主动起来, 还是要主动起来.
+万事不要沾上"懒"字? 遇到新的该咋办?
+真正的了解大概(有大前提,基本流程,在扣关键点)+1
+
+task的大前提是什么?
+task是尽最大可能去压榨线程池中的工作线程 ,工作者线程是让async和await压榨的.  压榨? 为什么这么说? 为什么要压榨?
+一：taskSchedule  大前提是什么?
+
+taskSchedule是干嘛的？？？
+
+我们发现我们的任务执行都要经过Schedule。。。task的核心就是这个Schedule。。。因为他要把任务
+安排在线程或者线程池中。。。也就是调度.? 调度是如何发生的?
+taskSchedule根据自己的业务方法,将当前action放入到thread或threadpool去执行.
+
+
+RunLonging... 对应一个Thread。。。。 其他都是应用threadPool
+
+二：在.net framework中有两种taskschedule。。。
+
+1.ThreadPoolTaskScheduler
+
+也就是Task的默认调度形式。。。。ThreadPool
+
+protected internal override void QueueTask(Task task)
+		{
+			if ((task.Options & TaskCreationOptions.LongRunning) != TaskCreationOptions.None)
+			{
+				new Thread(ThreadPoolTaskScheduler.s_longRunningThreadWork)
+				{
+					IsBackground = true
+				}.Start(task);
+				return;
+			}
+			bool forceGlobal = (task.Options & TaskCreationOptions.PreferFairness) > TaskCreationOptions.None;
+			ThreadPool.UnsafeQueueCustomWorkItem(task, forceGlobal);
+		}
+
+2.SynchronizationContextTaskScheduler
+
+在wpf中的  大前提没有形成.
+在winform，或者wpf中如果给一个控件赋值，都是调用invoke方法。。。 为什么要调用invoke?因为要把语句塞给UI线程,给ui线程去排队,ui线程会从Action队列中去取数据,并执行操作.    语句是啥呢? 是其他线程的更新控件操作?
+
+
+ui线程创建的控件,其他线程是不能碰的, 一碰就出问题了
+《1》不要再UIThread做非常耗时的任务，否则会出问题。。。。
+进程间操作无效:从不是创建控件"label1"的线程访问它
+       Task task = new Task(() =>//新开的工作线程.  为什么要新开工作线程呢?
+            {
+                try
+                {
+                    label1.Text = "你好";//工作线程操作label1, 非ui线程
+                    MessageBox.Show(TaskScheduler.Current.ToString()); //方法体内的TaskScheduler为SynchronizationContextScheduler
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            });//此时的task相当于 invoke,会进入队列排队,ui线程会获取,并执行, 如果task是一个耗时任务,ui照样被卡死.
+
+            task.Start(TaskScheduler.FromCurrentSynchronizationContext());//此时要使用同步上下文的TaskScheduler
+            MessageBox.Show(TaskScheduler.Current.ToString());//方法体外的TaskScheduler为ThreadPoolScheduler
+上述代码有什么问题?
+
+《2》 耗时的操作我们要放到threadpool，更新操作放到同步上下文中。。。  如何理解这句话?  为什么没想到?
+
+                 var task = Task.Factory.StartNew(() =>
+            {
+                //默认耗时操作
+                Thread.Sleep(1000 * 10);//为啥没想到耗时与非耗时的区分?  没有区分咋又应对呢?
+            });//耗时的操作我们要放到threadpool
+
+            task.ContinueWith(t =>
+            {
+                label1.Text = "你好";
+            }, TaskScheduler.FromCurrentSynchronizationContext());//更新操作放到同步上下文中  同步上下文到底是啥呢?
+
+
+三：我可以自定义Scheduler吗？？？  为什么要自定义呢? 为什么想到自定义呢?
+
+我自定义的scheduler，需要将每一个task都委托到一个thread中去执行。。。
+
+PerThreadTaskScheduler
+
+通过windbg去查看是否真的使用Thread去执行的。。。
+
+
+0:000> .loadby sos clr
+0:000> !threads
+*** Unable to resolve unqualified symbol in Bp expression '!threads'.
+ThreadCount:      3
+UnstartedThread:  0
+BackgroundThread: 1
+PendingThread:    0
+DeadThread:       0
+Hosted Runtime:   no
+                                                                         Lock  
+       ID OSID ThreadOBJ    State GC Mode     GC Alloc Context  Domain   Count Apt Exception
+   0    1 21c8 00e996b8     2a020 Preemptive  02BD5D70:00000000 00e92e30 1     MTA 
+   5    2 1d78 00ea7aa0     2b220 Preemptive  00000000:00000000 00e92e30 0     MTA (Finalizer) 
+   9    3 1f9c 00ed8030   202b020 Preemptive  02BD605C:00000000 00e92e30 0     MTA    Thread线程
+0:000> !threadpool 此时没有使用线程池
+CPU utilization: 0%
+Worker Thread: Total: 0 Running: 0 Idle: 0 MaxLimit: 0 MinLimit: 0
+Work Request in Queue: 0
+--------------------------------------
+Number of Timers: 0
+--------------------------------------
+Completion Port Thread:Total: 0 Free: 0 MaxFree: 0 CurrentLimit: 0 MaxLimit: 1000 MinLimit: 0
+0:000> ~~[1f9c]s
+eax=00000000 ebx=054cf2f4 ecx=00000000 edx=00000000 esi=00000001 edi=00000001
+eip=77a1205c esp=054cf2b4 ebp=054cf318 iopl=0         nv up ei pl nz na pe nc
+cs=0023  ss=002b  ds=002b  es=002b  fs=0053  gs=002b             efl=00000206
+ntdll!NtDelayExecution+0xc:
+77a1205c c20800          ret     8
+0:009> !clrstack  查看thread线程的调用堆栈
+OS Thread Id: 0x1f9c (9)
+Child SP       IP Call Site
+054cf3c4 77a1205c [HelperMethodFrame: 054cf3c4] System.Threading.Thread.SleepInternal(Int32)  休眠中
+054cf448 7107e04a *** Unable to resolve unqualified symbol in Bp expression '!threads'.
+System.Threading.Thread.Sleep(Int32)
+054cf450 00c80750 *** WARNING: Unable to verify checksum for D:\src\XCDemo\XC集合\XC集合\09多线程系列\15.Task核心调度器【TaskScheduler】之线程池任务和同步上下文任务介绍以及如何自定义TaskScheduler编码实践\bin\Debug\15.Task核心调度器【TaskScheduler】之线程池任务和同步上下文任务介绍以及如何自定义TaskScheduler编码实践.exe
+*** Unable to resolve unqualified symbol in Bp expression '!threads'.
+_15.Task核心调度器_TaskScheduler_之线程池任务和同步上下文任务介绍以及如何自定义TaskScheduler编码实践.Program+c.b__0_0() [D:\src\XCDemo\XC集合\XC集合\09多线程系列\15.Task核心调度器【TaskScheduler】之线程池任务和同步上下文任务介绍以及如何自定义TaskScheduler编码实践\Program.cs @ 16]
+054cf45c 710b23ea System.Threading.Tasks.Task.InnerInvoke()
+054cf468 710b1f80 System.Threading.Tasks.Task.Execute()
+054cf48c 710b239a System.Threading.Tasks.Task.ExecutionContextCallback(System.Object)
+054cf490 711199fa System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object, Boolean)
+054cf500 71119906 System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object, Boolean)
+054cf514 710b2218 System.Threading.Tasks.Task.ExecuteWithThreadLocal(System.Threading.Tasks.Task ByRef)
+054cf578 710b20df System.Threading.Tasks.Task.ExecuteEntry(Boolean)
+054cf588 710dc0ca System.Threading.Tasks.TaskScheduler.TryExecuteTask(System.Threading.Tasks.Task)
+054cf594 00c80711 _15.Task核心调度器_TaskScheduler_之线程池任务和同步上下文任务介绍以及如何自定义TaskScheduler编码实践.PerThreadTaskScheduler+c__DisplayClass1_0.b__0() [D:\src\XCDemo\XC集合\XC集合\09多线程系列\15.Task核心调度器【TaskScheduler】之线程池任务和同步上下文任务介绍以及如何自定义TaskScheduler编码实践\Program.cs @ 42]
+054cf5a4 710a2b51 System.Threading.ThreadHelper.ThreadStart_Context(System.Object)
+054cf5b0 711199fa System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object, Boolean)
+054cf620 71119906 System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object, Boolean)
+054cf634 711198c1 System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object)
+054cf64c 710a2aac System.Threading.ThreadHelper.ThreadStart()
+054cf790 72d3eaf6 [GCFrame: 054cf790] 
+054cf974 72d3eaf6 [DebuggerU2MCatchHandlerFrame: 054cf974] 
+
+
+
+
+1.TaskScheduler的两种 线程池和同步上下文 两个分别是什么,有什么异同呢?
+2.task压榨线程池中工作线程,工作者线程让async和await压榨
+3.taskScheduler是如何调度 task的?
+4.如何更新ui操作? 流程是什么?
+5.耗时的操作我们要放到threadpool，更新操作放到同步上下文中
+6.自定义taskScheduler? 如何自定义? 对TaskScheduler本身了解吗?
+7.调度,同步上下文
+
+
+
+					理解的标准:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.遇到错误了,该怎么办?
+		   6.遇到没效率的时候,该怎么办?
+		   5.关注负面的东西,着眼于美好的东西.
+		   6.不关注坏习惯,而是养成好习惯,关注点要正确?
+是否复习：
+  
