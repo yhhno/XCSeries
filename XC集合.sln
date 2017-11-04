@@ -183,6 +183,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "15.1Task核心调度器同�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "16.CSharp多线程模型【APM,EAP,TAP】的演变历史以及Task.Factory.FromAsyc,包装类实践", "09多线程系列\16.CSharp多线程模型【APM,EAP,TAP】的演变历史以及Task.Factory.FromAsyc,包装类实践\16.CSharp多线程模型【APM,EAP,TAP】的演变历史以及Task.Factory.FromAsyc,包装类实践.csproj", "{4717FC11-65FC-422E-AA2E-ED15BA198D60}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "17.0透过编译器从IL层面看异步编程await,async整个关键词的本质【最大限度的压榨IO线程，解放Work线程】", "09多线程系列\17.透过编译器从IL层面看异步编程await,async整个关键词的本质【最大限度的压榨IO线程，解放Work线程】\17.0透过编译器从IL层面看异步编程await,async整个关键词的本质【最大限度的压榨IO线程，解放Work线程】.csproj", "{F48D406B-468D-4B88-8E5E-85195F30D992}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "17.1源码级别来剖析Async和Await", "09多线程系列\17.1源码级别来剖析Async和Await\17.1源码级别来剖析Async和Await.csproj", "{194A404A-14A8-4CDC-8677-4BCD0F164AFE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -489,6 +493,14 @@ Global
 		{4717FC11-65FC-422E-AA2E-ED15BA198D60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4717FC11-65FC-422E-AA2E-ED15BA198D60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4717FC11-65FC-422E-AA2E-ED15BA198D60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F48D406B-468D-4B88-8E5E-85195F30D992}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F48D406B-468D-4B88-8E5E-85195F30D992}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F48D406B-468D-4B88-8E5E-85195F30D992}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F48D406B-468D-4B88-8E5E-85195F30D992}.Release|Any CPU.Build.0 = Release|Any CPU
+		{194A404A-14A8-4CDC-8677-4BCD0F164AFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{194A404A-14A8-4CDC-8677-4BCD0F164AFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{194A404A-14A8-4CDC-8677-4BCD0F164AFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{194A404A-14A8-4CDC-8677-4BCD0F164AFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -569,6 +581,8 @@ Global
 		{4652BF8E-0250-4E6F-80BC-F826194348B8} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{C28963F5-8B0F-467F-8370-D905AC3469AF} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{4717FC11-65FC-422E-AA2E-ED15BA198D60} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
+		{F48D406B-468D-4B88-8E5E-85195F30D992} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
+		{194A404A-14A8-4CDC-8677-4BCD0F164AFE} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}

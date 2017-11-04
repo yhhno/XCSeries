@@ -6,7 +6,7 @@
 理解了大概? 在了解如何实现?  真正的了解大概(有大前提,基本流程,在扣关键点), 真正的如何去实现?=> 这是个全过程嘛,=>主动起来, 还是要主动起来.
 万事不要沾上"懒"字? 遇到新的该咋办?
 真正的了解大概(有大前提,基本流程,在扣关键点)+1
-
+为啥觉得很简单呢?
 
 
 16.带你一起看C#多线程模型【APM,EAP,TAP】的演变历史以及Task.Factory.FromAsyc,TaskCompletionSource包装类实践
@@ -83,6 +83,38 @@ C# 7.0
 
 2.用Task去包装 EAP
 
+0:000> .loadby sos clr
+0:000> !threads
+*** Unable to resolve unqualified symbol in Bp expression '!threads'.
+ThreadCount:      12
+UnstartedThread:  0
+BackgroundThread: 11
+PendingThread:    0
+DeadThread:       0
+Hosted Runtime:   no
+                                                                         Lock  
+       ID OSID ThreadOBJ    State GC Mode     GC Alloc Context  Domain   Count Apt Exception
+   0    1 11c8 0096e768     2a020 Preemptive  02A0C1E4:00000000 00967c10 1     MTA 
+   4    2 24e8 0097d358     2b220 Preemptive  00000000:00000000 00967c10 0     MTA (Finalizer) 
+   7    3  274 009d5fe8   202b220 Preemptive  02984124:00000000 00967c10 1     MTA 
+  10    4 3cac 009cda00   1020220 Preemptive  00000000:00000000 00967c10 0     Ukn (Threadpool Worker) 
+  12    5 1cc4 009cec30   8029220 Preemptive  029F8270:00000000 00967c10 0     MTA (Threadpool Completion Port) 
+  13    6 3aa0 009d94b8   8029220 Preemptive  029FB938:00000000 00967c10 0     MTA (Threadpool Completion Port) 
+  14    7  828 009da728   8029220 Preemptive  02A0B074:00000000 00967c10 0     MTA (Threadpool Completion Port) 
+  17    8 24d4 00a009d0   1029220 Preemptive  029F0C68:00000000 00967c10 0     MTA (Threadpool Worker) 
+  18    9 2c88 00a02db0   1029220 Preemptive  029F43F8:00000000 00967c10 0     MTA (Threadpool Worker) 
+  19   10  71c 009f23a8   1029220 Preemptive  00000000:00000000 00967c10 0     MTA (Threadpool Worker) 
+  20   11 35dc 00a04988   1029220 Preemptive  00000000:00000000 00967c10 0     MTA (Threadpool Worker) 
+  21   12 27b8 00a05f28   1029220 Preemptive  00000000:00000000 00967c10 0     MTA (Threadpool Worker) 
+0:000> !threadpool
+CPU utilization: 70%
+Worker Thread: Total: 5 Running: 0 Idle: 5 MaxLimit: 2047 MinLimit: 4
+Work Request in Queue: 0
+--------------------------------------
+Number of Timers: 0
+--------------------------------------
+Completion Port Thread:Total: 3 Free: 3 MaxFree: 8 CurrentLimit: 3 MaxLimit: 1000 MinLimit: 4
+
 
 包装EAP的话呢，我们需要用TaskCompletionSource包装器进行包装。。。
 
@@ -90,13 +122,45 @@ aysc await 本质也是用了一个包装器。。。
 
 
 webclient中的:DownloadDataTaskAsync： 看看这个是怎么用的。。  通过查看源码,它已经实现了task包装.
-
+public Task<byte[]> DownloadDataTaskAsync(Uri address)
+		{
+			TaskCompletionSource<byte[]> tcs = new TaskCompletionSource<byte[]>(address);
+			DownloadDataCompletedEventHandler handler = null;
+			handler = delegate(object sender, DownloadDataCompletedEventArgs e)
+			{
+				WebClient arg_51_0 = this;
+				TaskCompletionSource<byte[]> arg_51_1 = tcs;
+				Func<DownloadDataCompletedEventArgs, byte[]> arg_51_3;
+				if ((arg_51_3 = WebClient.<>c.<>9__231_1) == null)
+				{
+					arg_51_3 = (WebClient.<>c.<>9__231_1 = new Func<DownloadDataCompletedEventArgs, byte[]>(WebClient.<>c.<>9.<DownloadDataTaskAsync>b__231_1));
+				}
+				DownloadDataCompletedEventHandler arg_51_4 = handler;
+				Action<WebClient, DownloadDataCompletedEventHandler> arg_51_5;
+				if ((arg_51_5 = WebClient.<>c.<>9__231_2) == null)
+				{
+					arg_51_5 = (WebClient.<>c.<>9__231_2 = new Action<WebClient, DownloadDataCompletedEventHandler>(WebClient.<>c.<>9.<DownloadDataTaskAsync>b__231_2));
+				}
+				arg_51_0.HandleCompletion<DownloadDataCompletedEventArgs, DownloadDataCompletedEventHandler, byte[]>(arg_51_1, e, arg_51_3, arg_51_4, arg_51_5);
+			};
+			this.DownloadDataCompleted += handler;
+			try
+			{
+				this.DownloadDataAsync(address, tcs);
+			}
+			catch
+			{
+				this.DownloadDataCompleted -= handler;
+				throw;
+			}
+			return tcs.Task;
+		}
 
 用task解决了大一统的问题。。  手段,本质.
 
 
 
-1.多线程模型的变迁,APM,EAP,TAP
+1.多线程模型的变迁,APM,EAP,TAP  为什么变迁? 怎样变迁?
 2.同步编程模型,异步编程模型
 3.同步与异步的流程, 与异同
 4.APM 实现,背后原理,及Action委托

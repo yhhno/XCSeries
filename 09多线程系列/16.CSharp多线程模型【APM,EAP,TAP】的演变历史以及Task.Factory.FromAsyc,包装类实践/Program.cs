@@ -17,12 +17,12 @@ namespace _16.CSharp多线程模型_APM_EAP_TAP_的演变历史以及Task.Factor
             //var bytes = new byte[fs.Length];//数据读入的缓冲区。
             //fs.BeginRead(bytes, 0, bytes.Length, new AsyncCallback((async) =>
             //   {
-            //       var nums = fs.EndRead(async);
+            //       var nums = fs.EndRead(async);//获取返回值
             //       Console.WriteLine(nums);//为什么要在这里输出呢
             //   }), string.Empty);
 
 
-            ////Task包装 APM
+            ////Task包装 APM  fs.BeginRead异步部分
             //FileStream fs = new FileStream(Environment.CurrentDirectory + "//1.txt", FileMode.Open);
             //var bytes = new byte[fs.Length];//数据读入的缓冲区。
 
@@ -41,7 +41,7 @@ namespace _16.CSharp多线程模型_APM_EAP_TAP_的演变历史以及Task.Factor
 
             //var task = Task.Factory.FromAsync(aciton.BeginInvoke, aciton.EndInvoke, string.Empty);//包含了start功能.
 
-            
+
 
             //我不管gettask底层是如何实现的? 我只管传入一个url,它返回我个task, 我直接操作task即可.
             //是不是很简单,重点在包装器
@@ -75,7 +75,7 @@ namespace _16.CSharp多线程模型_APM_EAP_TAP_的演变历史以及Task.Factor
                 try
                 {
                     //如果下载完成了,将当前的byte[] 个数给task包装器
-                    source.TrySetResult(e.Result.Length);
+                    source.TrySetResult(e.Result.Length);//获取返回值
                 }
                 catch (Exception ex)
                 {
@@ -83,19 +83,19 @@ namespace _16.CSharp多线程模型_APM_EAP_TAP_的演变历史以及Task.Factor
                     source.TrySetException(ex);
                 }
             };
-            client.DownloadDataAsync(new Uri(url));
+            client.DownloadDataAsync(new Uri(url));//异步部分
 
             return source.Task;
         }
 
 
-        //DownloadDataTaskAsync  是啥意思? 已经实现了task包装
+        //DownloadDataTaskAsync  是啥意思? 已经实现了task包装  是不是给async和await使用.
         public static Task<byte[]> GetTaskAsync(string url)
         {
            
             WebClient client = new WebClient();
          
-            return client.DownloadDataTaskAsync(new Uri(url));
+            return client.DownloadDataTaskAsync(new Uri(url));//异步部分
 
            
         }

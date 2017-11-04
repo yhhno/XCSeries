@@ -1,0 +1,157 @@
+所有的都要记录下来. 边学边记. 抛弃深渊. 状态要预热呀. 还是要有激情的. 关注点要正确的. 体现各种形式上的"主动" , 用脑子学习思考.
+找出自己的不足?心理素质还是最关键的. 不要习以为常? 还是心中要有概念. 不懂的地方一定要深挖,深挖了就简单了.哈哈 
+效率啊  理解能力有待加强, 理论变成大白话, 一眼看本质,看透的能力要加强(核心竞争力呀)
+无论什么都是要有个模型的? 比如理解模型? 思考模型? 对比模型? 等等
+理解不够透彻? 大概了解就完成了,没有深入有逻辑,全过程推演.
+理解了大概? 在了解如何实现?  真正的了解大概(有大前提,基本流程,在扣关键点), 真正的如何去实现?=> 这是个全过程嘛,=>主动起来, 还是要主动起来.
+万事不要沾上"懒"字? 遇到新的该咋办?
+真正的了解大概(有大前提,基本流程,在扣关键点)+1
+为啥觉得很简答呢?
+
+
+
+一：async await 语法糖
+准备工作. 
+1. 这两个关键词适专用于处理一些文件IO。 【潜规则】  ThreadPool IOthread
+
+ netframework都已经增加:  网络IO，文件IO都有一些异步方法。  MemoryStream，FileStream。WebRequest
+ 都有配套的异步方法, 有了异步方法,就可以使用async await
+   
+2. Task 是最大限度的压榨 work thread。。。
+好像使用语法糖比使用task包装器更简单
+3. 好处： 1. 代码简洁，把异步的代码形式写成了同步方式。。。
+
+          2. 提到了开发效率
+
+   坏处： 如果你用同步的思维去理解，容易出问题。。。返回值对不上  为什么对不上?
+
+          我们在编译器层面看到的代码，不见得是真的代码。。。  为什么没想到?
+
+4. 通过ILSpy去反编译这段代码。
+[DebuggerStepThrough, AsyncStateMachine(typeof(Program.<GetString>d__1))]
+private static Task<string> GetString()
+{
+	Program.<GetString>d__1 <GetString>d__ = new Program.<GetString>d__1(); 这是个类 继承于状态机
+	<GetString>d__.<>t__builder = AsyncTaskMethodBuilder<string>.Create();
+	<GetString>d__.<>1__state = -1;
+	AsyncTaskMethodBuilder<string> <>t__builder = <GetString>d__.<>t__builder;
+	<>t__builder.Start<Program.<GetString>d__1>(ref <GetString>d__);
+	return <GetString>d__.<>t__builder.Task; 返回一个task
+}
+
+
+IL代码
+
+.method private hidebysig static 
+	class [mscorlib]System.Threading.Tasks.Task`1<string> GetString () cil managed 
+{
+	.custom instance void [mscorlib]System.Runtime.CompilerServices.AsyncStateMachineAttribute::.ctor(class [mscorlib]System.Type) = (
+		01 00 80 98 5f 31 37 2e e9 80 8f e8 bf 87 e7 bc
+		96 e8 af 91 e5 99 a8 e4 bb 8e 49 4c e5 b1 82 e9
+		9d a2 e7 9c 8b e5 bc 82 e6 ad a5 e7 bc 96 e7 a8
+		8b 61 77 61 69 74 5f 61 73 79 6e 63 e6 95 b4 e4
+		b8 aa e5 85 b3 e9 94 ae e8 af 8d e7 9a 84 e6 9c
+		ac e8 b4 a8 5f e6 9c 80 e5 a4 a7 e9 99 90 e5 ba
+		a6 e7 9a 84 e5 8e 8b e6 a6 a8 49 4f e7 ba bf e7
+		a8 8b 5f e8 a7 a3 e6 94 be 57 6f 72 6b e7 ba bf
+		e7 a8 8b 5f 2e 50 72 6f 67 72 61 6d 2b 3c 47 65
+		74 53 74 72 69 6e 67 3e 64 5f 5f 31 00 00
+	)
+	.custom instance void [mscorlib]System.Diagnostics.DebuggerStepThroughAttribute::.ctor() = (
+		01 00 00 00
+	)
+	// Method begins at RVA 0x2084
+	// Code size 52 (0x34)
+	.maxstack 2
+	.locals init (
+		[0] class _17.透过编译器从IL层面看异步编程await_async整个关键词的本质_最大限度的压榨IO线程_解放Work线程_.Program/'<GetString>d__1',
+		[1] valuetype [mscorlib]System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<string>
+	)
+
+	IL_0000: newobj instance void _17.透过编译器从IL层面看异步编程await_async整个关键词的本质_最大限度的压榨IO线程_解放Work线程_.Program/'<GetString>d__1'::.ctor()  构造函数
+	IL_0005: stloc.0
+	IL_0006: ldloc.0
+	IL_0007: call valuetype [mscorlib]System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<!0> valuetype [mscorlib]System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<string>::Create()
+	IL_000c: stfld valuetype [mscorlib]System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<string> _17.透过编译器从IL层面看异步编程await_async整个关键词的本质_最大限度的压榨IO线程_解放Work线程_.Program/'<GetString>d__1'::'<>t__builder'
+	IL_0011: ldloc.0
+	IL_0012: ldc.i4.m1
+	IL_0013: stfld int32 _17.透过编译器从IL层面看异步编程await_async整个关键词的本质_最大限度的压榨IO线程_解放Work线程_.Program/'<GetString>d__1'::'<>1__state'
+	IL_0018: ldloc.0
+	IL_0019: ldfld valuetype [mscorlib]System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<string> _17.透过编译器从IL层面看异步编程await_async整个关键词的本质_最大限度的压榨IO线程_解放Work线程_.Program/'<GetString>d__1'::'<>t__builder'
+	IL_001e: stloc.1
+	IL_001f: ldloca.s 1
+	IL_0021: ldloca.s 0
+	IL_0023: call instance void valuetype [mscorlib]System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<string>::Start<class _17.透过编译器从IL层面看异步编程await_async整个关键词的本质_最大限度的压榨IO线程_解放Work线程_.Program/'<GetString>d__1'>(!!0&)
+	IL_0028: ldloc.0
+	IL_0029: ldflda valuetype [mscorlib]System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<string> _17.透过编译器从IL层面看异步编程await_async整个关键词的本质_最大限度的压榨IO线程_解放Work线程_.Program/'<GetString>d__1'::'<>t__builder'
+	IL_002e: call instance class [mscorlib]System.Threading.Tasks.Task`1<!0> valuetype [mscorlib]System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<string>::get_Task()
+	IL_0033: ret
+} // end of method Program::GetString
+
+
+
+
+.class nested private auto ansi sealed beforefieldinit '<GetString>d__1'
+	extends [mscorlib]System.Object
+	implements [mscorlib]System.Runtime.CompilerServices.IAsyncStateMachine   继承于状态机
+
+
+   如果返回值都是Task，你都可以用await进行等待。。
+
+
+三：角色扮演  一定要通过现象看本质,   也就是个task包装器
+
+1. AsyncTaskMethodBuilder 扮演了一个TaskcomplationSource一个角色，就是做
+		          Task的包装器。
+
+2. state：扮演者状态机状态的角色
+
+3. AwaitUnsafeOnCompleted 这个函数是丢给线程池去执行的，当某一时刻执行
+			  结束，会调用Movenext。。。
+
+
+   	private static void InvokeMoveNext(object stateMachine)
+	{
+		((IAsyncStateMachine)stateMachine).MoveNext();
+	}
+
+四：异步IO处理的流程  压榨IOthread  如何理解压榨?
+
+驱动都是一个很智能的小电脑,或者智能的系统,一个cpu,智能的程序.
+如果task去执行一个异步任务,把任务丢给驱动程序,马上返回,此过程是工作线程完成,   驱动程序会把任务排队, 然后处理, 处理完成后,把结果打给io thread,
+通过io thread,返回给应用程序,执行callback,. iothread是由clr反向通知的, 工作线程是应用程序主动通知的,
+
+work thread:  是应用程序主动使用
+
+IO thread：   是clr反向通知的。。
+
+
+如果你用同步IO，会是什么样的呢？？？
+
+
+
+
+1.async和await语法糖, 用途,本质,好处,,评价
+2.语法糖是什么? 编译器为我们做了什么?如何去查看IL底层
+3.异步是如何演进的? 什么样的不足推动的? 什么样的底层?一步步演进? 做到心中有谱
+4.异步IO处理流程和同步IO处理流程
+5.语法糖,状态机,包装器,驱动, clr反向通知. 异步IO,同步IO
+
+
+
+						理解的标准:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.遇到错误了,该怎么办?
+		   6.遇到没效率的时候,该怎么办?
+		   5.关注负面的东西,着眼于美好的东西.
+		   6.不关注坏习惯,而是养成好习惯,关注点要正确?
+是否复习：
+
+         
+   
+
