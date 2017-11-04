@@ -181,6 +181,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "15.0Task核心调度器【T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "15.1Task核心调度器同步上下文任务介绍", "09多线程系列\15.1Task核心调度器同步上下文任务介绍\15.1Task核心调度器同步上下文任务介绍.csproj", "{C28963F5-8B0F-467F-8370-D905AC3469AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "16.CSharp多线程模型【APM,EAP,TAP】的演变历史以及Task.Factory.FromAsyc,包装类实践", "09多线程系列\16.CSharp多线程模型【APM,EAP,TAP】的演变历史以及Task.Factory.FromAsyc,包装类实践\16.CSharp多线程模型【APM,EAP,TAP】的演变历史以及Task.Factory.FromAsyc,包装类实践.csproj", "{4717FC11-65FC-422E-AA2E-ED15BA198D60}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -483,6 +485,10 @@ Global
 		{C28963F5-8B0F-467F-8370-D905AC3469AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C28963F5-8B0F-467F-8370-D905AC3469AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C28963F5-8B0F-467F-8370-D905AC3469AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4717FC11-65FC-422E-AA2E-ED15BA198D60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4717FC11-65FC-422E-AA2E-ED15BA198D60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4717FC11-65FC-422E-AA2E-ED15BA198D60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4717FC11-65FC-422E-AA2E-ED15BA198D60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -562,6 +568,7 @@ Global
 		{FAFF97CB-806C-4062-A35C-370CEECB49DD} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{4652BF8E-0250-4E6F-80BC-F826194348B8} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{C28963F5-8B0F-467F-8370-D905AC3469AF} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
+		{4717FC11-65FC-422E-AA2E-ED15BA198D60} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}

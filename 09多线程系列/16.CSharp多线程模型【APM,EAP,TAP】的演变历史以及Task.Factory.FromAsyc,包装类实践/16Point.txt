@@ -1,0 +1,120 @@
+所有的都要记录下来. 边学边记. 抛弃深渊. 状态要预热呀. 还是要有激情的. 关注点要正确的. 体现各种形式上的"主动" , 用脑子学习思考.
+找出自己的不足?心理素质还是最关键的. 不要习以为常? 还是心中要有概念. 不懂的地方一定要深挖,深挖了就简单了.哈哈 
+效率啊  理解能力有待加强, 理论变成大白话, 一眼看本质,看透的能力要加强(核心竞争力呀)
+无论什么都是要有个模型的? 比如理解模型? 思考模型? 对比模型? 等等
+理解不够透彻? 大概了解就完成了,没有深入有逻辑,全过程推演.
+理解了大概? 在了解如何实现?  真正的了解大概(有大前提,基本流程,在扣关键点), 真正的如何去实现?=> 这是个全过程嘛,=>主动起来, 还是要主动起来.
+万事不要沾上"懒"字? 遇到新的该咋办?
+真正的了解大概(有大前提,基本流程,在扣关键点)+1
+
+
+
+16.带你一起看C#多线程模型【APM,EAP,TAP】的演变历史以及Task.Factory.FromAsyc,TaskCompletionSource包装类实践
+C# 7.0
+
+大前提都要掌握.
+一：同步编程模式（SPM）
+
+二：异步编程模型（APM） 编程模型如何理解?
+
+    xxxbegin
+    xxxend
+    这么两个配对的经典方法。。。。 委托给线程池去执行的。。。
+   
+    FileStream  （ReadBegin, ReadEnd）配对方法  文件的驱动程序做配对
+
+    Action委托，都可以异步执行
+
+三：基于事件的编程模型（EAP）
+
+    xxxAsync这样的事件模型。。。。【WebClient】
+
+四：基于Task的编程模型（TAP）
+
+ 微软大力推广Task的时候，APM和EAP都能包装成Task使用。。。。微软想用Task来统治我们的异步编程领域。  为啥没想到?  为什么要推广呢?
+
+1. 用Task包装APM  如何包装呢? 如何包装的呢?
+
+   如果真的被大一统了，大家都可以使用Task的一切东西。。。 也就是说像操作task一样,操作apm 为啥没想到大一统?  为什么要大一统呢?
+
+        static void Main()
+        {
+           //Task包装 APM
+            FileStream fs = new FileStream(Environment.CurrentDirectory + "//1.txt", FileMode.Open);
+            var bytes = new byte[fs.Length];//数据读入的缓冲区。
+
+            var task = Task.Factory.FromAsync(fs.BeginRead, fs.EndRead, bytes, 0, bytes.Length, string.Empty);
+
+            var nums = task.Result;//代码少不说,还一目了然, 使用task更强大.
+            Console.WriteLine(nums);
+        }
+
+要有评价? 没有评价好与坏,咋做选择呢?
+《1》代码量比较小
+《2》使用task更方便，更强大。。。
+
+
+有个问题: 为什么看着他的apm,这么简洁明了, 也容易理解, 自己去看或者去看文章,,看下来 一头雾水, 蒙蒙的,  为什么呢?
+          自己一开始就把它想复杂了, 还是他讲的清晰明了,脉络清晰呢?
+            //APM  看文档 学知识能力?
+            FileStream fs = new FileStream(Environment.CurrentDirectory + "//1.txt", FileMode.Open);
+            var bytes = new byte[fs.Length];//数据读入的缓冲区。
+            fs.BeginRead(bytes, 0, bytes.Length, new AsyncCallback((async) =>
+               {
+                   var nums = fs.EndRead(async);
+                   Console.WriteLine(nums);//为什么要在这里输出呢
+               }), string.Empty);
+   
+
+   start may not be called  on a promise-style task  这句话如何翻译?
+
+
+  Task包装 Aciton
+   Action aciton = () =>
+            {
+              
+                Console.WriteLine("转换为void返回委托的匿名函数不能有返回值");
+            };
+
+            var task = Task.Factory.FromAsy
+
+此时通过windbg查看,使用的是线程池线程.
+
+
+2.用Task去包装 EAP
+
+
+包装EAP的话呢，我们需要用TaskCompletionSource包装器进行包装。。。
+
+aysc await 本质也是用了一个包装器。。。
+
+
+webclient中的:DownloadDataTaskAsync： 看看这个是怎么用的。。  通过查看源码,它已经实现了task包装.
+
+
+用task解决了大一统的问题。。  手段,本质.
+
+
+
+1.多线程模型的变迁,APM,EAP,TAP
+2.同步编程模型,异步编程模型
+3.同步与异步的流程, 与异同
+4.APM 实现,背后原理,及Action委托
+5.EAP实现,背后原理,
+6.TAP 实现,背后原理,
+7.趋势是用Task代替一切, Task可以操作之前的异步模型, 如何包装?
+8.为什么我不能说出,是不是很简单的.
+
+    
+						理解的标准:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.遇到错误了,该怎么办?
+		   6.遇到没效率的时候,该怎么办?
+		   5.关注负面的东西,着眼于美好的东西.
+		   6.不关注坏习惯,而是养成好习惯,关注点要正确?
+是否复习：
