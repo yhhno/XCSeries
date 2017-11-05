@@ -187,6 +187,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "17.0透过编译器从IL层
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "17.1源码级别来剖析Async和Await", "09多线程系列\17.1源码级别来剖析Async和Await\17.1源码级别来剖析Async和Await.csproj", "{194A404A-14A8-4CDC-8677-4BCD0F164AFE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "18.线程同步之用户模式和内核模式锁的区别及InterLocked,SpinLock的使用", "09多线程系列\18.线程同步之用户模式和内核模式锁的区别及InterLocked,SpinLock的使用\18.线程同步之用户模式和内核模式锁的区别及InterLocked,SpinLock的使用.csproj", "{2E3236B2-F11F-4DB4-98CD-24180FB82305}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -501,6 +503,10 @@ Global
 		{194A404A-14A8-4CDC-8677-4BCD0F164AFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{194A404A-14A8-4CDC-8677-4BCD0F164AFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{194A404A-14A8-4CDC-8677-4BCD0F164AFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E3236B2-F11F-4DB4-98CD-24180FB82305}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E3236B2-F11F-4DB4-98CD-24180FB82305}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E3236B2-F11F-4DB4-98CD-24180FB82305}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E3236B2-F11F-4DB4-98CD-24180FB82305}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -583,6 +589,7 @@ Global
 		{4717FC11-65FC-422E-AA2E-ED15BA198D60} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{F48D406B-468D-4B88-8E5E-85195F30D992} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{194A404A-14A8-4CDC-8677-4BCD0F164AFE} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
+		{2E3236B2-F11F-4DB4-98CD-24180FB82305} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
