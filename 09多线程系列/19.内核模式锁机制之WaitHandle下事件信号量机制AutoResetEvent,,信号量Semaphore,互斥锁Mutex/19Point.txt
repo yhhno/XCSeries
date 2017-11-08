@@ -1,0 +1,258 @@
+所有的都要记录下来. 边学边记. 抛弃深渊. 状态要预热呀. 还是要有激情的. 关注点要正确的. 体现各种形式上的"主动" , 用脑子学习思考.
+找出自己的不足?心理素质还是最关键的. 不要习以为常? 还是心中要有概念. 不懂的地方一定要深挖,深挖了就简单了.哈哈 
+效率啊  理解能力有待加强, 理论变成大白话, 一眼看本质,看透的能力要加强(核心竞争力呀)
+无论什么都是要有个模型的? 比如理解模型? 思考模型? 对比模型? 等等
+理解不够透彻? 大概了解就完成了,没有深入有逻辑,全过程推演.
+理解了大概? 在了解如何实现?  真正的了解大概(有大前提,基本流程,在扣关键点), 真正的如何去实现?=> 这是个全过程嘛,=>主动起来, 还是要主动起来.
+万事不要沾上"懒"字? 遇到新的该咋办?
+真正的了解大概(有大前提,基本流程,在扣关键点)+1
+为啥觉得很简答呢?=>很简单=>很好玩=>很有趣
+
+
+19.内核模式锁机制之WaitHandle下事件信号量机制AutoResetEvent,MuanualResetEventm,信号量Semaphore,互斥锁Mutex
+
+一：锁机制的内核模式
+声明,千万不要随便用,内核模式非常重量级  什么是重量级?
+
+在万不得已的情况下，不要使用内核模式的锁，因为代价太大。。。其实我们有更多的方式可以替代：
+
+   混合锁机制， lock
+
+1. 事件锁
+
+2. 信号量
+
+3. 互斥锁
+
+二：事件锁 【开关锁，true,false的变量来进行控制】  如何理解?  如何理解事件?
+事件锁就是一个开关锁,通过一个bool变量的true或者false来控制
+1. 自动事件锁 【AutoResetEvent类】  很特殊的特性?  如何理解自动?
+
+   《1》场景：可以用此锁实现多线程环境下某个变量的自增
+             
+             true：表示终止状态   false：表示非终止   注释不是很好理解? 也有可能并不是true都是表示开,都是表示好., 要结合事务的本身的状态.
+
+       现实中的场景来帮助理解： 进站火车闸机，我们用火车票来实现进站操作。  符合特殊的特性?==>有序,一个接一个通过
+  火车站闸机: 闸机是关的,闸机里是没有票的, 向闸机塞入火车票,闸机开,人过去,人过去后,取走票,完成基本过闸机过程.
+  基本情况: 如何表示闸机是关的? 闸机有票? 闸机开?闸机关?  =>也就是实质上,源码级别了.
+  使用流程: WaitOne,Set等                              =>也就是概念上,使用级别
+  特殊情况处理: 当闸机有火车票时不能再插入火车票? 此时必须等待.
+  
+ 特性与现实映射        true:      终止表示： 闸机中没有火车票，     终止状态也就是 初始状态    如何理解终止状态?如何理解初始状态? 初始状态不一定是0? 切记
+ 特性与现实映射        false:     非终止表示：闸机中此时有一张火车票
+
+
+		演示下
+        static AutoResetEvent areLock = new AutoResetEvent(false);
+
+        static void Main(string[] args)
+        {
+            areLock.WaitOne(); //塞一张火车票到闸机中，因为此时有票在闸机，所以我只能等待  =》 此时是当前线程mainthread来执行这个操作. 也就是阻塞线程,但此时被其他线程阻塞.
+
+            Console.WriteLine("火车票检验通过，可以通行");//模拟过人步骤
+
+            areLock.Set();   //从闸机中取火车票   也就是停止阻塞, 让其他人通过?
+        }
+
+WaitOne：用来将火车票塞入到闸机中
+
+Set：    从闸机中把票取出来
+两者不一定在某一块必须成对出现, 切勿死记案例                    
+
+        static AutoResetEvent areLock = new AutoResetEvent(true);
+
+        static void Main(string[] args)
+        {
+            areLock.WaitOne(); //塞一张火车票到闸机中,此时闸机没有票  =》 mainthread  也就是阻塞线程, 也就是阻止其他人过闸机,以实现过人步骤,
+
+            Console.WriteLine("火车票检验通过，可以通行");//模拟过人步骤
+
+            areLock.Set();   //从闸机中取火车票  也就是停止阻塞,让其他人开始过闸机.
+        }
+	      
+2. 手动事件锁  如何理解手动  特性? 现实世界是不同的,程序中一定要有不同特性对应,这样才是描述世界?
+
+   ManualResetEvent ：现实场景就是 => 有人看守的铁道栅栏  无序? 一堆人通过
+
+                       如果有火车马上要来了，这个栅栏会合围起来，阻止行人通过铁路。
+                       如果火车走了，这个栅栏就会从合围状态转为两侧。 行人就可以通过了
+                    
+	         true： 栅栏没有合围，没有阻止行人通过铁路
+                 false：栅栏合围了， 阻止行人通过   
+
+3.注意点
+
+两者 ManualResetEvent  和 AutoResetEvent  是不一样的，所以不能混用。。。 有序与无序?
+
+ class Program
+    {
+        //static AutoResetEvent areLock = new AutoResetEvent(true);
+        static ManualResetEvent mreLock = new ManualResetEvent(false);
+
+        static void Main(string[] args)
+        {
+            //比如开启5个task
+            for (int i = 0; i < 5; i++)
+            {
+                Task.Factory.StartNew(() =>
+                {
+                    Run();
+                });
+            }
+
+            Thread.Sleep(5000);  //5s中之后，火车开走了，这个时候就要撤销栅栏
+            mreLock.Set();
+
+            Console.Read();
+        }
+
+        static int nums = 0;
+
+        static void Run()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                try
+                {
+                    mreLock.WaitOne();
+                    Console.WriteLine(nums++);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                finally
+                {
+
+                }
+            }
+        }
+    }
+
+4. Semaphore 【他是通过int数值来控制线程个数】  也就是说一次让你通过几个?
+
+static Semaphore seLock = new Semaphore(1, 1);  我当前只能是一个线程通过。。 此时类似开关锁. 如何理解线程通过? 也就是过人步骤.
+
+ class Program
+    {
+        //static AutoResetEvent areLock = new AutoResetEvent(true);
+        //static ManualResetEvent mreLock = new ManualResetEvent(false);
+        static Semaphore seLock = new Semaphore(1, 10);
+
+        static void Main(string[] args)
+        {
+            //比如开启5个task
+            for (int i = 0; i < 5; i++)
+            {
+                Task.Factory.StartNew(() =>
+                {
+                    Run();
+                });
+            }
+
+            Console.Read();
+        }
+
+        static int nums = 0;
+
+        static void Run()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                try
+                {
+                    seLock.WaitOne();
+                    Console.WriteLine(nums++);
+                    seLock.Release();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                finally
+                {
+
+                }
+            }
+        }
+    }
+
+5. mutex 互斥锁  当前也是有序的? 有序的也就是说可以做线程同步,? 啥叫线程同步呢? 线程访问变量都是一致的? 不会出现不同的值.
+
+  class Program
+    {
+        //static AutoResetEvent areLock = new AutoResetEvent(true);
+        //static ManualResetEvent mreLock = new ManualResetEvent(false);
+        //static Semaphore seLock = new Semaphore(1, 10);
+        static Mutex mutex = new Mutex();
+
+        static void Main(string[] args)
+        {
+            //比如开启5个task
+            for (int i = 0; i < 5; i++)
+            {
+                Task.Factory.StartNew(() =>
+                {
+                    Run();
+                });
+            }
+
+            Console.Read();
+        }
+
+        static int nums = 0;
+
+        static void Run()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                try
+                {
+                    //seLock.WaitOne();
+                    mutex.WaitOne();
+                    Console.WriteLine(nums++);
+                    //seLock.Release();
+                    mutex.ReleaseMutex();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                finally
+                {
+
+                }
+            }
+        }
+    }
+
+6：这三种锁，我们发现都有一个WaitOne方法。。。因为他们都是继承于WaitHandle。。。
+
+   三种锁都是同根生，其实底层都是通过SafeWaitHandle来对win32api的一个引用。
+
+
+   不同的锁有不同的使用场景,不然就一种锁就可以了,为啥有这么多锁呢?
+
+
+1.锁机制的内核模式,弊端,有事件锁,信号量,互斥锁(归纳,分类)
+2.事件锁  如何理解事件?
+    1.自动事件锁
+    2.手动事件锁
+3.信号量
+4.互斥锁
+5.为毛都有一个waitone方法
+
+
+
+ 理解的标准:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.遇到错误了,该怎么办?
+		   6.遇到没效率的时候,该怎么办?
+		   5.关注负面的东西,着眼于美好的东西.
+		   6.不关注坏习惯,而是养成好习惯,关注点要正确?
+是否复习：
