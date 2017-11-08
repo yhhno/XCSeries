@@ -191,6 +191,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "18.线程同步之用户模
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "19.内核模式锁机制之WaitHandle下事件信号量机制AutoResetEvent,,信号量Semaphore,互斥锁Mutex", "09多线程系列\19.内核模式锁机制之WaitHandle下事件信号量机制AutoResetEvent,,信号量Semaphore,互斥锁Mutex\19.内核模式锁机制之WaitHandle下事件信号量机制AutoResetEvent,,信号量Semaphore,互斥锁Mutex.csproj", "{A0A588DF-E978-4095-9835-E75FA7688779}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20.内核模式锁之ReaderWriterLock读写锁和CountdownEvent动态锁编码分析", "09多线程系列\20.内核模式锁之ReaderWriterLock读写锁和CountdownEvent动态锁编码分析\20.内核模式锁之ReaderWriterLock读写锁和CountdownEvent动态锁编码分析.csproj", "{EACC55C3-A963-46BA-88F0-693BC3319D02}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -513,6 +515,10 @@ Global
 		{A0A588DF-E978-4095-9835-E75FA7688779}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0A588DF-E978-4095-9835-E75FA7688779}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0A588DF-E978-4095-9835-E75FA7688779}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EACC55C3-A963-46BA-88F0-693BC3319D02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EACC55C3-A963-46BA-88F0-693BC3319D02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EACC55C3-A963-46BA-88F0-693BC3319D02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EACC55C3-A963-46BA-88F0-693BC3319D02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -597,6 +603,7 @@ Global
 		{194A404A-14A8-4CDC-8677-4BCD0F164AFE} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{2E3236B2-F11F-4DB4-98CD-24180FB82305} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{A0A588DF-E978-4095-9835-E75FA7688779} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
+		{EACC55C3-A963-46BA-88F0-693BC3319D02} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}

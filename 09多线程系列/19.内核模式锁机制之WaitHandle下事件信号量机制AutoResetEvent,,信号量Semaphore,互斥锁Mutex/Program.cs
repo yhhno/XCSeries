@@ -10,7 +10,7 @@ namespace _19.内核模式锁机制之WaitHandle下事件信号量机制AutoRese
     class Program
     {
         static Mutex mutex = new Mutex();
-
+        static Semaphore seLock = new Semaphore(1, 1);
         static AutoResetEvent areLock = new AutoResetEvent(false);//初始状态为非终止状态,表示此时闸机有票
         static void Main(string[] args)
         {

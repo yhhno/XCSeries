@@ -1,0 +1,188 @@
+所有的都要记录下来. 边学边记. 抛弃深渊. 状态要预热呀. 还是要有激情的. 关注点要正确的. 体现各种形式上的"主动" , 用脑子学习思考.
+找出自己的不足?心理素质还是最关键的. 不要习以为常? 还是心中要有概念. 不懂的地方一定要深挖,深挖了就简单了.哈哈 
+效率啊  理解能力有待加强, 理论变成大白话, 一眼看本质,看透的能力要加强(核心竞争力呀)
+无论什么都是要有个模型的? 比如理解模型? 思考模型? 对比模型? 等等
+理解不够透彻? 大概了解就完成了,没有深入有逻辑,全过程推演.
+理解了大概? 在了解如何实现?  真正的了解大概(有大前提,基本流程,在扣关键点), 真正的如何去实现?=> 这是个全过程嘛,=>主动起来, 还是要主动起来.
+万事不要沾上"懒"字? 遇到新的该咋办?
+真正的了解大概(有大前提,基本流程,在扣关键点)+1
+为啥觉得很简答呢?=>很简单=>很好玩=>很有趣
+你是谁?你从哪里来?你到那里去?
+跨学科的应用?
+
+互斥锁: 
+	1.Mutex 
+	2.ReaderWriteLock 
+	3. CountdownEvent
+一：ReaderWriteLock  如何理解读写锁?  怎样的一个特性?  顾名思义,一个锁控制读写?
+
+不是从限定个数的角度出发。 而是按照读写的角度进行功能分区。。。。
+
+数据库就是读写锁,你不能说按照线程的个数去限定,一个db不能说只能10个线程进去.
+sqllite: 库锁
+
+sqlserver： 行锁 【我只锁住行】 非这个表的行是可以读或者写的,, ?
+
+
+读写锁:多个线程可以一起读， 只能让一个线程去写。。。 如何理解?   这个锁,可以控制读写的线程的执行.
+
+
+模拟：多个线程读，一个线程写，那么写的线程是否会阻止读取的线程。。。。  如何模拟?如何理解读写角度? 如何理解线程个数角度?
+
+如何把多线程和LINQ当做常用武器. 形成习惯.
+
+
+真实情况:读写 8/2 开。。。
+
+
+正常流程: 多个读和一个写都正常的完成(执行和等待),多个读一起读,一个写且阻塞读. 读写相互作用也正常.=>读和写都要有执行和等待两个部分.
+异常情况: 读写相互作用系统提供的,不会出现问题.  问题可能出现在读和写是否正常完成,也就是说执行是否正常完成,等待是否正常完成
+
+正常和异常情况的统一考虑, 才是正确的有逻辑,全过程.全范围, 符合哲学的方式.
+
+如果你的写入线程时间太久。。。比如说：10s/20s    为什么没想到?
+
+这个时候你的读线程会被卡死，从而超时。。。。  锁的同时,其他线程肯定是在等待的.  等待久了,肯定是会出错的.
+
+Ctrip。。。。。 机票db。。。 
+
+商旅事业部： orders,,,
+
+机票事业部： orders。。。
+
+给腾讯做对外接口【企业商旅】
+
+order1 join order2...join plane   读取时间太长，也导致write线程长时间进不来，
+                                  同样也导致了写入线程超时。。。
+
+
+模拟的案例:
+namespace ConsoleApplication1
+{
+     class Program
+    {
+        static ReaderWriterLock rwlock = new ReaderWriterLock();
+
+        static void Main(string[] args)
+        {
+            //比如开启5个task  为什么没想到
+            for (int i = 0; i < 5; i++)//模拟多个读
+            {
+                Task.Factory.StartNew(() =>
+                {
+                    Read();
+                });
+            }
+
+            Task.Factory.StartNew(() =>//模拟一个写
+            {
+                Write();
+            });
+
+            Console.Read();
+        }
+
+        static int nums = 0;
+
+        /// <summary>
+        /// 线程读
+        /// </summary>
+        static void Read()//模拟持续的读
+        {
+            while (true)//为什么要用while
+            {
+                Thread.Sleep(100);//10毫秒读一次
+
+                rwlock.AcquireReaderLock(int.MaxValue);//此时可以几个读? 如果多个,nums是有序的?   这里的多个是几个? 在哪里控制的?
+                
+                Thread.Sleep(100);//毕竟要读数据库,要走网络IO
+                Console.WriteLine("当前 t={0} 进行读取,num:{2} {1}", Thread.CurrentThread.ManagedThreadId, DateTime.Now,nums++);
+
+                rwlock.ReleaseReaderLock();
+            }
+        }
+
+        /// <summary>
+        /// 线程写
+        /// </summary>
+        static void Write()//模拟持续的写
+        {
+            while (true)//为什么要用while
+            {
+                //3s进行一次写操作
+                Thread.Sleep(3000);
+
+                rwlock.AcquireWriterLock(int.MaxValue);//此时只能一个读,如果是由nums的话,应该是有序的,当然此时所有的读都阻塞. 其他的写要排队.
+
+                Thread.Sleep(3000);//写操作.耗费3s
+                Console.WriteLine("当前 t={0} 进行写入。。。。。。。。。。。。。。。。。。。。。。。{1}", Thread.CurrentThread.ManagedThreadId, DateTime.Now);
+
+                rwlock.ReleaseWriterLock();
+            }
+        }
+    }
+}
+
+
+二：CountdownEvent  单个Reset,wait类似信号量  多个Reset,wait类似多个task的延续,,  如何没有快学科的应用,都不能算是好应用? 为什么呢? 没有形成本能习惯?
+
+限制线程数的一个机制。。。而且这个也非常实用。  如何理解?  多么特殊的特性?
+
+Shopex。。。。 
+如何用多线程从sqllite去读取数据 能快就快
+多个线程从某一张表中读取数据：   为什么没有想到多线程读取?
+
+比如说每个商家都有下面三张表：Orders   , Products ,Users
+针对三个表,如果通过一个select 去读取,有可能数据量太大了,导致sql超时,此时可以通过多个线程分批读取
+
+每张表我都希望通过多个线程去读取。。。。 如何理解多个线程读取?
+
+比如说：Orders表 10w： 10个线程读取，一个线程1w    如何理解开10个线程?
+        Products表：5w  5个线程     一个1w
+        Users  表 10w    2个线程      5w
+		需求就是这样: 如何实现.     如何形成需求,如何映射设计? 如何理解文档?
+10task,continuawith,5个task,continuewith,1个task.   为什么没有想到task
+task:
+    1.xxxx.continuewithcontinuewith....
+    2.continuewith +  TaskCreationOptions.AttachedToParent
+
+
+ CountdownEvent cdeLock = new CountdownEvent(10);
+
+初始化的时候设置一个 默认threadcount上线。。。
+
+当你使用一个thread。这个threacount就会--操作。。直到为0之后，继续下一步,,,如何正确的理解? 没有正确的应用? 有正确的理解吗?
+
+操作，相当于Task.Wait() 执行完成了。
+
+
+Reset： 重置当前的threadcount上线
+
+Signal：将当前的threadcount--操作
+
+Wait： 相当于我们的Task.WaitAll
+
+模拟一下?
+
+
+
+
+
+
+ 理解的标准:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.遇到错误了,该怎么办?
+		   6.遇到没效率的时候,该怎么办?
+		   5.关注负面的东西,着眼于美好的东西.
+		   6.不关注坏习惯,而是养成好习惯,关注点要正确?
+是否复习：
+
+
+
+
+
