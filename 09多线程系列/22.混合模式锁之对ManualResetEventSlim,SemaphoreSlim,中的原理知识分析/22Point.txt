@@ -338,6 +338,14 @@ public bool Wait(int millisecondsTimeout, CancellationToken cancellationToken)
 
 
 
+
+1.混合锁? 啥是混合锁? 概念上? 实质上都是咋回事,对比(混合锁肯定性能高)
+2.SemaphoreSlim：
+3.ManualResetEventSlim： 
+4.ReaderWriterLockSlim：
+5..各自锁的实现? 和使用? 以及各自的特性和可能组合使用得到的特性
+
+
  理解的标准:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
 掌握的方法:有逻辑的分析,有逻辑的理解.
 掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.

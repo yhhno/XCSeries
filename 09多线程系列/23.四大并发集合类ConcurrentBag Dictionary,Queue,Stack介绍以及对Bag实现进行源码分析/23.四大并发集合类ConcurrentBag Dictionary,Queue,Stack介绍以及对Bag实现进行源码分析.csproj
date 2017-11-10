@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5E5B3685-14C3-44D8-AF9A-836B81DAD95B}</ProjectGuid>
+    <ProjectGuid>{7DA7BD9F-B016-4FD9-906A-4D657BD53A2D}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_21.lock语法糖和Monitor的关系以及对对象同步块和CLR同步块索引的画图对其本质分析</RootNamespace>
-    <AssemblyName>21.lock语法糖和Monitor的关系以及对对象同步块和CLR同步块索引的画图对其本质分析</AssemblyName>
+    <RootNamespace>_23.四大并发集合类ConcurrentBag_Dictionary_Queue_Stack介绍以及对Bag实现进行源码分析</RootNamespace>
+    <AssemblyName>23.四大并发集合类ConcurrentBag Dictionary,Queue,Stack介绍以及对Bag实现进行源码分析</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -49,10 +49,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Properties\QQ截图20170426081636.jpg" />
-    <Content Include="Properties\新建文本文档.txt" />
-    <Content Include="Lock实现原理.jpg" />
-    <Content Include="21Point.txt" />
+    <Content Include="ConcurrentBag的结构图.jpg" />
+    <Content Include="23Point.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
