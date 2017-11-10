@@ -1,0 +1,352 @@
+所有的都要记录下来. 边学边记. 抛弃深渊. 状态要预热呀. 还是要有激情的. 关注点要正确的. 体现各种形式上的"主动" , 用脑子学习思考.
+找出自己的不足?心理素质还是最关键的. 不要习以为常? 还是心中要有概念. 不懂的地方一定要深挖,深挖了就简单了.哈哈 
+效率啊  理解能力有待加强, 理论变成大白话, 一眼看本质,看透的能力要加强(核心竞争力呀)
+无论什么都是要有个模型的? 比如理解模型? 思考模型? 对比模型? 等等
+理解不够透彻? 大概了解就完成了,没有深入有逻辑,全过程推演.
+理解了大概? 在了解如何实现?  真正的了解大概(有大前提,基本流程,在扣关键点), 真正的如何去实现?=> 这是个全过程嘛,=>主动起来, 还是要主动起来.
+万事不要沾上"懒"字? 遇到新的该咋办?
+真正的了解大概(有大前提,基本流程,在扣关键点)+1
+为啥觉得很简答呢?=>很简单=>很好玩=>很有趣
+你是谁?你从哪里来?你到那里去?
+跨学科的应用?
+精神头那里去了? 都没动力咋落实呀?
+
+
+22.混合模式锁之对ManualResetEventSlim,SemaphoreSlim,ReaderWriterLockSlim中的原理知识分析
+一：混合锁 = 用户模式锁  +  内核模式锁
+先进行一些用户模式锁的逻辑判断,再去调用win32函数
+
+0.. Thread.Sleep(1)  让线程休眠1s
+
+   Thread.Sleep(0)  让线程放弃当前的时间片，让本线程更高或者同等线程得到时间片运行。
+
+   Thread.Yield()   让线程立即放弃当前的时间片，可以让更低级别的线程得到运行，当其他
+                    thread时间片用完，本thread再度唤醒。。。
+
+  Yield < Sleep(0) < Sleep(1)   
+
+  一个时间片 = 30ms。。
+                    
+
+   通常会用到用户模式锁。。。也就是使用:while + 这些Thread。。。  也就是说用户模式锁是用while+Thread实现逻辑的。
+
+
+SemaphoreSlim：
+
+ManualResetEventSlim：  有人看守的火车轨道标志，栅栏是合围状态
+
+
+ReaderWriterLockSlim：
+
+出现在net4.0.不用说，他们比之前的内核版本，性能要高得多。。。
+
+具体使用，前面的课程已经和大家聊过了，这次只是看一下不同。。。
+
+
+一. ManualResetEventSlim：优化点
+
+
+《1》 构造函数中已经可以不提供默认状态，默认是false，表示合围状态。 public ManualResetEventSlim() : this(false)
+
+《2》 使用Wait来代替WaitOne（是由WaitHandle祖先类提供了一个方法）
+
+《3》 支持任务取消
+
+《4》 看一下Wait方法中的实现逻辑
+     
+
+<1> 原始的WaitOne函数调用方式  调用win32函数实现等待,, 句柄
+// System.Threading.WaitHandle
+[SecurityCritical]
+[MethodImpl(MethodImplOptions.InternalCall)]
+private static extern int WaitOneNative(SafeHandle waitableSafeHandle, uint millisecondsTimeout, bool hasThreadAffinity, bool exitContext);
+
+1.public sealed class ManualResetEvent : EventWaitHandle
+2.public class EventWaitHandle : WaitHandle
+3.public virtual bool WaitOne(TimeSpan timeout, bool exitContext)
+{
+	long num = (long)timeout.TotalMilliseconds;
+	if (-1L > num || 2147483647L < num)
+	{
+		throw new ArgumentOutOfRangeException("timeout", Environment.GetResourceString("ArgumentOutOfRange_NeedNonNegOrNegative1"));
+	}
+	return this.WaitOne(num, exitContext);
+}
+4.[SecuritySafeCritical]
+private bool WaitOne(long timeout, bool exitContext)
+{
+	return WaitHandle.InternalWaitOne(this.safeWaitHandle, timeout, this.hasThreadAffinity, exitContext);
+}
+5.
+[SecurityCritical]
+internal static bool InternalWaitOne(SafeHandle waitableSafeHandle, long millisecondsTimeout, bool hasThreadAffinity, bool exitContext)
+{
+	if (waitableSafeHandle == null)
+	{
+		throw new ObjectDisposedException(null, Environment.GetResourceString("ObjectDisposed_Generic"));
+	}
+	int num = WaitHandle.WaitOneNative(waitableSafeHandle, (uint)millisecondsTimeout, hasThreadAffinity, exitContext);
+	if (AppDomainPauseManager.IsPaused)
+	{
+		AppDomainPauseManager.ResumeEvent.WaitOneWithoutFAS();
+	}
+	if (num == 128)
+	{
+		WaitHandle.ThrowAbandonedMutexException();
+	}
+	return num != 258;
+}
+6.
+[SecurityCritical]
+[MethodImpl(MethodImplOptions.InternalCall)]
+private static extern int WaitOneNative(SafeHandle waitableSafeHandle, uint millisecondsTimeout, bool hasThreadAffinity, bool exitContext);
+
+
+
+<2> 新的Wait方式
+
+		for (int i = 0; i < spinCount; i++)
+		{
+			if (this.IsSet)
+			{
+				return true;
+			}
+			if (i < num2)
+			{
+				if (i == num2 / 2)
+				{
+					Thread.Yield();
+				}
+				else
+				{
+					Thread.SpinWait(PlatformHelper.ProcessorCount * (4 << i));
+				}
+			}
+			else
+			{
+				if (i % num4 == 0)
+				{
+					Thread.Sleep(1);
+				}
+				else
+				{
+					if (i % num3 == 0)
+					{
+						Thread.Sleep(0);
+					}
+					else
+					{
+						Thread.Yield();
+					}
+				}
+			}
+			if (i >= 100 && i % 10 == 0)
+			{
+				cancellationToken.ThrowIfCancellationRequested();
+			}
+		}
+
+0.	public class ManualResetEventSlim : IDisposable  继承自IDisposable  重新写的类
+1.[__DynamicallyInvokable]
+public bool Wait(TimeSpan timeout, CancellationToken cancellationToken)
+{
+	long num = (long)timeout.TotalMilliseconds;
+	if (num < -1L || num > 2147483647L)
+	{
+		throw new ArgumentOutOfRangeException("timeout");
+	}
+	return this.Wait((int)num, cancellationToken);
+}
+2.
+[__DynamicallyInvokable]
+public bool Wait(int millisecondsTimeout, CancellationToken cancellationToken)
+{
+	this.ThrowIfDisposed();
+	cancellationToken.ThrowIfCancellationRequested();
+	if (millisecondsTimeout < -1)
+	{
+		throw new ArgumentOutOfRangeException("millisecondsTimeout");
+	}
+	if (!this.IsSet)
+	{
+		if (millisecondsTimeout == 0)
+		{
+			return false;
+		}
+		uint startTime = 0u;
+		bool flag = false;
+		int num = millisecondsTimeout;
+		if (millisecondsTimeout != -1)
+		{
+			startTime = TimeoutHelper.GetTime();
+			flag = true;
+		}
+		int num2 = 10;
+		int num3 = 5;
+		int num4 = 20;
+		int spinCount = this.SpinCount;
+		for (int i = 0; i < spinCount; i++)
+		{
+			if (this.IsSet)
+			{
+				return true;
+			}
+			if (i < num2)
+			{
+				if (i == num2 / 2)
+				{
+					Thread.Yield();
+				}
+				else
+				{
+					Thread.SpinWait(PlatformHelper.ProcessorCount * (4 << i));
+				}
+			}
+			else if (i % num4 == 0)
+			{
+				Thread.Sleep(1);
+			}
+			else if (i % num3 == 0)
+			{
+				Thread.Sleep(0);
+			}
+			else
+			{
+				Thread.Yield();
+			}
+			if (i >= 100 && i % 10 == 0)
+			{
+				cancellationToken.ThrowIfCancellationRequested();
+			}
+		}
+		this.EnsureLockObjectCreated();
+		using (cancellationToken.InternalRegisterWithoutEC(ManualResetEventSlim.s_cancellationTokenCallback, this))
+		{
+			object @lock = this.m_lock;
+			lock (@lock)
+			{
+				while (!this.IsSet)
+				{
+					cancellationToken.ThrowIfCancellationRequested();
+					if (flag)
+					{
+						num = TimeoutHelper.UpdateTimeOut(startTime, millisecondsTimeout);
+						if (num <= 0)
+						{
+							bool result = false;
+							return result;
+						}
+					}
+					this.Waiters++;
+					if (this.IsSet)
+					{
+						int waiters = this.Waiters;
+						this.Waiters = waiters - 1;
+						bool result = true;
+						return result;
+					}
+					try
+					{
+						if (!Monitor.Wait(this.m_lock, num))
+						{
+							bool result = false;
+							return result;
+						}
+					}
+					finally
+					{
+						this.Waiters--;
+					}
+				}
+			}
+		}
+		return true;
+	}
+	return true;
+}
+
+
+其他的方式基本上和原来的内核版本保持一致。。。
+
+
+二：SemaphoreSlim
+
+  class Program
+    {
+        //默认1个线程同时运行，最大10个
+        static SemaphoreSlim slim = new SemaphoreSlim(1, 10);
+
+        static void Main(string[] args)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Task.Run(() =>
+                {
+                    Run();
+                });
+            }
+
+            //某一个时刻，我像改变默认的并行线程个数，从默认的1 改成10
+
+            System.Threading.Thread.Sleep(2000);
+            slim.Release(10);
+
+            Console.Read();
+        }
+
+        static void Run()
+        {
+            slim.Wait();
+
+            Thread.Sleep(1000 * 5);
+
+            Console.WriteLine("当前t1={0} 正在运行 {1}", Thread.CurrentThread.ManagedThreadId, DateTime.Now);
+
+            slim.Release();
+        }
+    }
+
+三：ReaderWriterLockSlim
+
+1. 用EnterReadLock 带代替AcquireReaderLock 方法，性能比内核版本要搞得多。。
+
+
+     ReaderWriterLockSlim slim = new ReaderWriterLockSlim();
+
+            slim.EnterReadLock();
+
+            slim.ExitReadLock();
+
+            slim.EnterWriteLock();
+
+            slim.ExitWriteLock();
+
+            ReaderWriterLock rwlock = new ReaderWriterLock();
+
+            //rwlock.AcquireReaderLock()
+
+            Console.Read();
+
+
+总结一下：
+
+混合锁：先在用户模式下内旋，如果超过一定的阈值，会切换到内核锁。。。
+
+       在内旋的情况下，我们会看到大量的Sleep(0),Sleep(1),Yield等语法。。。
+
+	   Sleep(0),Sleep(1),Yield+ while相当于内旋, 也就是说实现了等待
+
+
+
+ 理解的标准:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.遇到错误了,该怎么办?
+		   6.遇到没效率的时候,该怎么办?
+		   5.关注负面的东西,着眼于美好的东西.
+		   6.不关注坏习惯,而是养成好习惯,关注点要正确?
+是否复习：
