@@ -260,3 +260,4 @@ paket-files/
 __pycache__/
 *.pyc
 /09多线程系列/04.Thread静态方法介绍之通过经典releaseBug认识MemoryBarrier,等如何禁止编译器优化和Cache读取
+/09多线程系列/22.混合模式锁之对ManualResetEventSlim,SemaphoreSlim,中的原理知识分析

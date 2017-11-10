@@ -193,6 +193,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "19.内核模式锁机制之
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20.内核模式锁之ReaderWriterLock读写锁和CountdownEvent动态锁编码分析", "09多线程系列\20.内核模式锁之ReaderWriterLock读写锁和CountdownEvent动态锁编码分析\20.内核模式锁之ReaderWriterLock读写锁和CountdownEvent动态锁编码分析.csproj", "{EACC55C3-A963-46BA-88F0-693BC3319D02}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "21.lock语法糖和Monitor的关系以及对对象同步块和CLR同步块索引的画图对其本质分析", "09多线程系列\21.lock语法糖和Monitor的关系以及对对象同步块和CLR同步块索引的画图对其本质分析\21.lock语法糖和Monitor的关系以及对对象同步块和CLR同步块索引的画图对其本质分析.csproj", "{5E5B3685-14C3-44D8-AF9A-836B81DAD95B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "22.混合模式锁之对ManualResetEventSlim,SemaphoreSlim,中的原理知识分析", "09多线程系列\22.混合模式锁之对ManualResetEventSlim,SemaphoreSlim,中的原理知识分析\22.混合模式锁之对ManualResetEventSlim,SemaphoreSlim,中的原理知识分析.csproj", "{BE9E6472-7AD6-4582-AB8E-502DCDF0C59B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -519,6 +523,14 @@ Global
 		{EACC55C3-A963-46BA-88F0-693BC3319D02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EACC55C3-A963-46BA-88F0-693BC3319D02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EACC55C3-A963-46BA-88F0-693BC3319D02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E5B3685-14C3-44D8-AF9A-836B81DAD95B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E5B3685-14C3-44D8-AF9A-836B81DAD95B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E5B3685-14C3-44D8-AF9A-836B81DAD95B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E5B3685-14C3-44D8-AF9A-836B81DAD95B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE9E6472-7AD6-4582-AB8E-502DCDF0C59B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE9E6472-7AD6-4582-AB8E-502DCDF0C59B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE9E6472-7AD6-4582-AB8E-502DCDF0C59B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE9E6472-7AD6-4582-AB8E-502DCDF0C59B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -604,6 +616,8 @@ Global
 		{2E3236B2-F11F-4DB4-98CD-24180FB82305} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{A0A588DF-E978-4095-9835-E75FA7688779} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{EACC55C3-A963-46BA-88F0-693BC3319D02} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
+		{5E5B3685-14C3-44D8-AF9A-836B81DAD95B} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
+		{BE9E6472-7AD6-4582-AB8E-502DCDF0C59B} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}

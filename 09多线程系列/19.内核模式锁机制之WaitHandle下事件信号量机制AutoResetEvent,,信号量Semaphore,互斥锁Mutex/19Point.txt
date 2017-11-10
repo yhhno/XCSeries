@@ -101,7 +101,7 @@ Set：    从闸机中把票取出来
             }
 
             Thread.Sleep(5000);  //5s中之后，火车开走了，这个时候就要撤销栅栏
-            mreLock.Set();
+            mreLock.Set();//如何理解手动?
 
             Console.Read();
         }

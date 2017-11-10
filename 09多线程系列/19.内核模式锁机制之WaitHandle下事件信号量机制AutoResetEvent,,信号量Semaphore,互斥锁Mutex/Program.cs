@@ -18,7 +18,7 @@ namespace _19.内核模式锁机制之WaitHandle下事件信号量机制AutoRese
 
             Console.WriteLine("火车票检验通过，可以通行");
 
-            areLock.Set();   //从闸机中取火车票   也就是停止阻塞
+            areLock.Set();   //从闸机中取火车票   也就是停止阻塞  如何理解自动?
             
         }
     }
