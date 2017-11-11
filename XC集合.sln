@@ -201,6 +201,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "23.四大并发集合类Con
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "24.'CPU过高','死锁','内存爆满'之三大头疼问题之教你通过转储dump文件然后通过windbg分析技巧和提供宝贵经验", "09多线程系列\24.'CPU过高','死锁','内存爆满'之三大头疼问题之教你通过转储dump文件然后通过windbg分析技巧和提供宝贵经验\24.'CPU过高','死锁','内存爆满'之三大头疼问题之教你通过转储dump文件然后通过windbg分析技巧和提供宝贵经验.csproj", "{65C46CE2-D92F-4FF8-B27D-0925BA149394}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "25.从算法,多线程,设计模式全内存优化护肤类目Top1商家1500w数据从90s优化到5s的案例经验分享", "09多线程系列\25.从算法,多线程,设计模式全内存优化护肤类目Top1商家1500w数据从90s优化到5s的案例经验分享\25.从算法,多线程,设计模式全内存优化护肤类目Top1商家1500w数据从90s优化到5s的案例经验分享.csproj", "{89FACD2E-764A-4713-990C-138FA035C144}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -881,6 +883,14 @@ Global
 		{65C46CE2-D92F-4FF8-B27D-0925BA149394}.Release|Any CPU.Build.0 = Release|Any CPU
 		{65C46CE2-D92F-4FF8-B27D-0925BA149394}.Release|x64.ActiveCfg = Release|x64
 		{65C46CE2-D92F-4FF8-B27D-0925BA149394}.Release|x64.Build.0 = Release|x64
+		{89FACD2E-764A-4713-990C-138FA035C144}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89FACD2E-764A-4713-990C-138FA035C144}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89FACD2E-764A-4713-990C-138FA035C144}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{89FACD2E-764A-4713-990C-138FA035C144}.Debug|x64.Build.0 = Debug|Any CPU
+		{89FACD2E-764A-4713-990C-138FA035C144}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89FACD2E-764A-4713-990C-138FA035C144}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89FACD2E-764A-4713-990C-138FA035C144}.Release|x64.ActiveCfg = Release|Any CPU
+		{89FACD2E-764A-4713-990C-138FA035C144}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -970,6 +980,7 @@ Global
 		{BE9E6472-7AD6-4582-AB8E-502DCDF0C59B} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{7DA7BD9F-B016-4FD9-906A-4D657BD53A2D} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{65C46CE2-D92F-4FF8-B27D-0925BA149394} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
+		{89FACD2E-764A-4713-990C-138FA035C144} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}

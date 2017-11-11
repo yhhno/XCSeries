@@ -1,0 +1,208 @@
+所有的都要记录下来. 边学边记. 抛弃深渊. 状态要预热呀. 还是要有激情的. 关注点要正确的. 体现各种形式上的"主动" , 用脑子学习思考.
+找出自己的不足?心理素质还是最关键的. 不要习以为常? 还是心中要有概念. 不懂的地方一定要深挖,深挖了就简单了.哈哈 
+效率啊  理解能力有待加强, 理论变成大白话, 一眼看本质,看透的能力要加强(核心竞争力呀)
+无论什么都是要有个模型的? 比如理解模型? 思考模型? 对比模型? 等等
+理解不够透彻? 大概了解就完成了,没有深入有逻辑,全过程推演.
+理解了大概? 在了解如何实现?  真正的了解大概(有大前提,基本流程,在扣关键点), 真正的如何去实现?=> 这是个全过程嘛,=>主动起来, 还是要主动起来.
+万事不要沾上"懒"字? 遇到新的该咋办?
+真正的了解大概(有大前提,基本流程,在扣关键点)+1
+为啥觉得很简答呢?=>很简单=>很好玩=>很有趣
+你是谁?你从哪里来?你到那里去?
+跨学科的应用?
+精神头那里去了? 都没动力咋落实呀?
+大问题:task是啥? 没有认识清楚?  凡事都要认识清楚?  不然遇到 事情本身的运用和在事情本身上的封装,都理解不了.
+基础概念理解不深刻,心中没概念,没印象, 怎么能运用好,怎么能组合使用,怎么能理解和运用以此为基础的的封装, 更别说如何去分析和解决问题? 如何去排查问题?
+
+
+一:百雀羚
+
+场景： 1500w数据  800w会员，1500w的数据中快速检索,还是有点难度的.
+
+全内存跑(也就是说数据都在内存中)， 25G空间  为什么要都在内存中.
+
+需求来了: 让客户增加复购率.
+
+核心目的:多条件在1500w数据中做快速检索。。。。最终目的  所有的所有 都是为了筛选出数据
+
+最原始的时候，能够达到 90s -120s   阻碍业务发展, 怎么办,  内存也大,速度也提不起来.
+
+别让技术阻碍了业务发展。 【技术一定要领先于业务 eric】
+
+耗费内存不可怕，只要性能能提上去,可怕的是速度提不起来，别让技术阻碍了业务发展。
+
+
+2.性能优化的想法
+ 
+   <1> 能用简单类型就不要用复杂类型，毕竟是在托管堆中实例化。 【总交易个数dictionary】
+
+//1500w
+foreach(var item in list)
+{
+  new class(){tradecount=10 ,customerid=1}
+}
+
+            //tempCustomerEntityList : 1500w   30s  性能特别低
+            var query = from item in tempCustomerEntityList
+                        group item by item.CustomerId
+                      into grp
+                        select new { key = grp.Key, list = grp.Count() };
+
+
+1. 用dictionary 优化       15s
+
+   Dictionary<int,int> dic    
+
+    key: customerid
+    value： totalcount
+
+   因为dictionary本身底层实现就是通过数组的。。。
+
+   int num = this.comparer.GetHashCode(key) & 2147483647;  找个放置数据的槽位.   GetHashCode的时间复杂度接近与O(1), 1500w的数据,性能也有问题
+
+2. 数组优化： int[] nums=new int[100];   o(1)   1s
+
+             index: 0-99   是不是可以存放customerid=1 .。。。 99
+             value: totalcount
+   
+         foreach (var customerEntity in tempCustomerEntityList)
+                            {
+                                if (totalTradeCountArray[(int)customerEntity.CustomerId] == 0) 第一次添加数据
+                                {
+                                    totalTradeCountArray[(int)customerEntity.CustomerId] = 1;
+                                }
+                                else
+                                {
+                                    totalTradeCountArray[(int)customerEntity.CustomerId]++;第一次后的累加
+                                }
+                            }
+
+   数组天然就是一个hash。  如何理解?
+
+
+   <2> 大数据下字典的性能特别烂，因为每次的Add操作都要计算 hashcode,记得使用天然的hash 形式【数组】
+
+       比如：Array中，index=customerid，content=个数  总交易个数
+             BitArray中，index=customerid，content=true/false 是否包含    1s 【城市等级】         
+
+   <3> 重点优化总交易金额排名 【2-3天】
+
+       <1> 原始的方式：  dictionary + orderby【快排2/3】   20 - 30s
+
+	    	         key: customerid   value: payment  最后对字典进行orderby
+                        
+
+       <2> 改进1：       Array     + 小根堆     10s-12s  原因在于小跟堆 太大
+    
+                         TopN的问题。  100个大小的小根堆  1500w * 0.25 %  ~400w大小堆
+   
+       <3> 桶排序 + TopDictonary                   4s
+
+           payment： 81.12  =>  81.12 * 100 =8112 （array index）
+
+                     100w * 100 = 1个亿 （Array数组index 达到1个亿）
+
+                        使用payment * 100 作为index，保持payment在1.5w以内。=1500000
+                        大于1.5w的单独用dictionary存起来，这样的大客户毕竟不多
+
+                    100 -  5000 绝大多数人。。。
+
+          1.5w  => 0 - 1500000  
+
+                    0     1    2  3  4  5    6
+                   100  50             10   30
+
+          比如说前25%是40个人。。直接从后面往前找，扫到6，5就搞定了。。。
+                   
+
+
+  <4> 太漂亮的代码性能基本都不高,返朴归真的代码性能才是最高的，也是最难写的。 为什么呢? 实现漂亮是以什么为代价的.    因为你全是数组 bitarray 编程复杂度很高了
+
+
+2.多线程，在合理的地方使用多线程，尽可能的并发执行  Task<TResult>方式
+
+          Or       条件下的多线程
+          And      条件下的多线程
+          Customer 条件下的多线程
+
+            try
+            {
+                //多线程处理
+                Task<List<long>>[] tasks = new Task<List<long>>[fieldValueItemList.Count];
+
+                for (int i = 0; i < fieldValueItemList.Count; i++)
+                {
+                    tasks[i] = Task.Factory.StartNew((fieldValueItem) =>
+                    {
+                        using (SearchStopWatch watch = new SearchStopWatch(string.Format("或者条件：{0}", filterCore.GetType().Name)))
+                        {
+                            List<long> smallCustomerIDList = null;
+                            try
+                            {
+                                smallCustomerIDList = filterCore.Filter((FilterValueItem)fieldValueItem);
+                            }
+                            catch (Exception ex)
+                            {
+                                LogHelper.WriteLog(ex);
+                                throw;
+                            }
+                            return smallCustomerIDList;
+                        }
+
+                    }, fieldValueItemList[i]);
+                }
+
+                Task.WhenAll(tasks).ContinueWith(t =>
+                {
+                    using (SearchStopWatch watch = new SearchStopWatch(string.Format("或者条件 追加List时间： {0}", filterCore.GetType().Name)))
+                    {
+                        foreach (var task in tasks)
+                        {
+                            customerIDList.AddRange(task.Result);
+                        }
+                    }
+                }, TaskContinuationOptions.OnlyOnRanToCompletion).Wait();
+            }
+            catch (Exception ex)
+            {
+                LogHelper.WriteLog(ex);
+                throw;
+            }
+
+3. 设计模式板块的分享
+
+   简单工厂模式   客户分组，分析客户，分析模板
+
+
+   状态模式      状态链条 ，将class 进行了串联，避免了判断语句
+
+                 外面来条件，你需要判断到底有哪一个类来处理。。。
+
+                 如果你用普通的方式，那就是很多的swatch。。。if。
+
+             
+   过滤器模式
+
+                 每一个维度都是一些小条件，这些小条件都是用来筛选客户
+                 所以可以用过滤器模式。。
+
+用了设计模式之后，可以保证代码的简洁性，维护性，ADD，Remove都是很方便的。。。
+
+
+
+
+    
+
+
+
+ 理解的标准:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.遇到错误了,该怎么办?
+		   6.遇到没效率的时候,该怎么办?
+		   5.关注负面的东西,着眼于美好的东西.
+		   6.不关注坏习惯,而是养成好习惯,关注点要正确?
+是否复习：
