@@ -1,0 +1,296 @@
+所有的都要记录下来. 边学边记. 抛弃深渊. 状态要预热呀. 还是要有激情的. 关注点要正确的. 体现各种形式上的"主动" , 用脑子学习思考.
+找出自己的不足?心理素质还是最关键的. 不要习以为常? 还是心中要有概念. 不懂的地方一定要深挖,深挖了就简单了.哈哈 
+效率啊  理解能力有待加强, 理论变成大白话, 一眼看本质,看透的能力要加强(核心竞争力呀)
+无论什么都是要有个模型的? 比如理解模型? 思考模型? 对比模型? 等等
+理解不够透彻? 大概了解就完成了,没有深入有逻辑,全过程推演.
+理解了大概? 在了解如何实现?  真正的了解大概(有大前提,基本流程,在扣关键点), 真正的如何去实现?=> 这是个全过程嘛,=>主动起来, 还是要主动起来.
+万事不要沾上"懒"字? 遇到新的该咋办?
+真正的了解大概(有大前提,基本流程,在扣关键点)+1
+为啥觉得很简答呢?=>很简单=>很好玩=>很有趣
+你是谁?你从哪里来?你到那里去?
+跨学科的应用?
+精神头那里去了? 都没动力咋落实呀?
+大问题:task是啥? 没有认识清楚?  凡事都要认识清楚?  不然遇到 事情本身的运用和在事情本身上的封装,都理解不了.
+基础概念理解不深刻,心中没概念,没印象, 怎么能运用好,怎么能组合使用,怎么能理解和运用以此为基础的的封装, 更别说如何去分析和解决问题? 如何去排查问题?
+
+Task的大前提是啥? 异步? 多线程?  异步是啥意思恩?
+
+一：CPU过高的问题   也就是cpu长时间执行,不结束   有问题,分析不到位?  基础的cpu是如何工作的? 过高是啥意思? 正常是有个小山峰, 这就不正常了. 大概啥问题,一直执行没退出
+
+1.现象： 门票的首页之后，页面一直在loading中。。。。
+         
+         查下来是在一个while循环中做了一个 << >>操作，导致while条件一直都是true。。。
+
+         定义为“一级事件” => 上报董事会
+
+                 二级事件   => 事业部CEO
+
+while(true)
+{
+  i=i<<2。。。
+  
+  if(ddddd){
+  }
+}
+
+如何用windbg去找到。。。  去调试dump文件
+此时调试代码是搞不定的.  为啥调试搞不定?
+
+
+演示步骤：
+
+<1> 生成release x64
+
+<2> 在“任务管理器”中生成一个dump文件 
+
+<3> 需要用x64 的windbg。。。  x64的windbg要对应64位的dump文件
+
+哈哈cpu执行的 在概念上指的是啥 thread呗,  时间片呀, 肯定有个长时间占用cpu,没退出
+<4> !runaway  查看当前托管线程已执行时间  当线程少的时候,我们能一眼找个问题线程,但是当线程很多的时候,怎么办?
+
+  Thread       Time
+   9:5ca8      0 days 0:00:37.796  重点怀疑对象. 你既然是个死循环,肯定是某一个线程得不到休眠,长时间的运行
+   0:2a68      0 days 0:00:00.015
+   8:5600      0 days 0:00:00.000
+   7:46fc      0 days 0:00:00.000
+   6:33d4      0 days 0:00:00.000
+   5:3498      0 days 0:00:00.000
+   4:5644      0 days 0:00:00.000
+   3:398       0 days 0:00:00.000
+   2:2a60      0 days 0:00:00.000
+   1:63c0      0 days 0:00:00.000
+
+<5> 切换到指定的线程    ~~[5ca8]s
+
+<6> 查看当前线程的调用堆栈  !clrstack
+
+000000f4d63ff2a8 00007ff8d50405f7 *** WARNING: Unable to verify checksum for ConsoleApplication51.exe
+ConsoleApplication51.Program+c.b__1_0() [c:\users\hxc\documents\visual studio 2015\Projects\ConsoleApplication51\ConsoleApplication51\Program.cs @ 22]
+000000f4d63ff2b0 00007ff932b10937 System.Threading.Tasks.Task.Execute()
+000000f4d63ff2f0 00007ff932ac674e System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object, Boolean)
+000000f4d63ff3c0 00007ff932ac65e7 System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object, Boolean)
+000000f4d63ff3f0 00007ff932b10bdd System.Threading.Tasks.Task.ExecuteWithThreadLocal(System.Threading.Tasks.Task ByRef)
+000000f4d63ff4a0 00007ff932b10303 System.Threading.Tasks.Task.ExecuteEntry(Boolean)
+000000f4d63ff4e0 00007ff932acfa10 System.Threading.ThreadPoolWorkQueue.Dispatch()
+000000f4d63ff978 00007ff934626a53 [DebuggerU2MCatchHandlerFrame: 000000f4d63ff978] 
+
+从调用堆栈上来看，当前线程 在  Program+c.b__1_0() 方法之后就没有调用堆栈了，说明方法在这个地方
+停滞不前了。
+
+<7> 最后到指定的b__1_0方法去寻找一下是否有异常。。。
+
+<8> 也可以通过windbg自己生成dll   【!help】
+
+    !dumpdomain
+    !savemodule 00007ff8d4f350f0 c:\2\1.dll
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Run();
+
+            Console.Read();
+        }
+
+        static void Run()
+        {
+            var task = Task.Factory.StartNew(() =>
+            {
+                var i = true;
+                //这个地方是一个非常复杂的逻辑。导致死循环
+                while (true)
+                {
+                    i = !i;
+                }
+            });
+        }
+    }
+
+
+二：死锁问题   死锁死锁也就是锁出了问题 ,到底锁会出啥问题? 正常流程 获取锁,执行代码,释放锁? 单个顺序执行. 不正常肯定是 正常流程完成不了? 完成不了 都有那些可能?  看看那个线程拥有锁,退不出来. 那个获取锁获取不到?
+解决方法:有小难度的, 有笨方法,有巧妙的办法 . 
+
+
+=> 乱用lock语句，或者“锁机制”  [这是一种情况]
+
+1.  ~*e!clrstack  查看所有线程的堆栈
+2.  !threads      查看当前的托管线程
+3.  !syncblk     当前哪一个线程持有锁
+
+0:007> !syncblk
+Index SyncBlock MonitorHeld Recursion Owning Thread Info  SyncBlock Owner
+    7 0000020bf7522eb8            3         1 0000020bf74c7910 4e04   0   0000020b80007808 ConsoleApplication51.Program
+
+可以看得出“主线程”持有当前的同步锁
+
+说先通过syncblk找到了持有锁的线程，那么肯定有其他的线程在执行Monitor.Enter的时候
+
+进行不下去。。。也就是调用堆栈顶部到这个地方为止。。。。
+
+
+0000005cf5ffea98 00007ff949476c24 [GCFrame: 0000005cf5ffea98] 
+0000005cf5ffebd8 00007ff949476c24 [GCFrame: 0000005cf5ffebd8] 
+0000005cf5ffec18 00007ff949476c24 [HelperMethodFrame_1OBJ: 0000005cf5ffec18] System.Threading.Monitor.Enter(System.Object)
+0000005cf5ffed10 00007ff8d5030658 ConsoleApplication51.Program.Run2() [c:\users\hxc\documents\visual studio 2015\Projects\ConsoleApplication51\ConsoleApplication51\Program.cs @ 55]
+0000005cf5ffed50 00007ff8d50305ec ConsoleApplication51.Program.b__1_0() [c:\users\hxc\documents\visual studio 2015\Projects\ConsoleApplication51\ConsoleApplication51\Program.cs @ 44]
+0000005cf5ffed80 00007ff932b10937 System.Threading.Tasks.Task.Execute()
+0000005cf5ffedc0 00007ff932ac674e System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object, Boolean)
+0000005cf5ffee90 00007ff932ac65e7 System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object, Boolean)
+0000005cf5ffeec0 00007ff932b10bdd System.Threading.Tasks.Task.ExecuteWithThreadLocal(System.Threading.Tasks.Task ByRef)
+0000005cf5ffef70 00007ff932b10303 System.Threading.Tasks.Task.ExecuteEntry(Boolean)
+0000005cf5ffefb0 00007ff932acfa10 System.Threading.ThreadPoolWorkQueue.Dispatch()
+0000005cf5fff448 00007ff934626a53 [DebuggerU2MCatchHandlerFrame: 0000005cf5fff448] 
+
+
+
+
+
+
+
+0:000> .loadby sos clr
+0:000> !threads
+*** Unable to resolve unqualified symbol in Bp expression '!threads'.
+ThreadCount:      4
+UnstartedThread:  0
+BackgroundThread: 3
+PendingThread:    0
+DeadThread:       0
+Hosted Runtime:   no
+                                                                         Lock  
+       ID OSID ThreadOBJ    State GC Mode     GC Alloc Context  Domain   Count Apt Exception
+   0    1 34bc 00a5f210   202a020 Preemptive  027E46A0:00000000 00a594c8 1     MTA 
+   4    2 37d8 00a6de08     2b220 Preemptive  00000000:00000000 00a594c8 0     MTA (Finalizer) 
+   8    3  938 00a97c08   3029220 Preemptive  027E86AC:00000000 00a594c8 0     MTA (Threadpool Worker) 
+   9    4 2ab4 00a9da98   1029220 Preemptive  027EA1E4:00000000 00a594c8 0     MTA (Threadpool Worker) 
+0:000> ~*e!clrstack
+OS Thread Id: 0x34bc (0)  主线程的调用堆栈
+Child SP       IP Call Site
+0093f034 77a122cc [GCFrame: 0093f034] 
+0093f0e4 77a122cc [HelperMethodFrame_1OBJ: 0093f0e4] System.Threading.Monitor.ObjWait(Boolean, Int32, System.Object)
+0093f170 7107f597 *** Unable to resolve unqualified symbol in Bp expression '!threads'.
+System.Threading.Monitor.Wait(System.Object, Int32, Boolean)
+0093f180 71094214 System.Threading.Monitor.Wait(System.Object, Int32)
+0093f184 710b70a7 System.Threading.ManualResetEventSlim.Wait(Int32, System.Threading.CancellationToken)
+0093f1d8 710b27ac System.Threading.Tasks.Task.SpinThenBlockingWait(Int32, System.Threading.CancellationToken)
+0093f218 711496e5 System.Threading.Tasks.Task.InternalWait(Int32, System.Threading.CancellationToken)
+0093f27c 710b2665 System.Threading.Tasks.Task.Wait(Int32, System.Threading.CancellationToken)
+0093f28c 710b25c8 System.Threading.Tasks.Task.Wait()
+0093f290 00d50565 *** WARNING: Unable to verify checksum for D:\src\XCDemo\XC集合\XC集合\09多线程系列\24.'CPU过高','死锁','内存爆满'之三大头疼问题之教你通过转储dump文件然后通过windbg分析技巧和提供宝贵经验\bin\Debug\24.'CPU过高','死锁','内存爆满'之三大头疼问题之教你通过转储dump文件然后通过windbg分析技巧和提供宝贵经验.exe
+*** Unable to resolve unqualified symbol in Bp expression '!threads'.
+_24._CPU过高___死锁___内存爆满_之三大头疼问题之教你通过转储dump文件然后通过windbg分析技巧和提供宝贵经验.Program.Run() [D:\src\XCDemo\XC集合\XC集合\09多线程系列\24.'CPU过高','死锁','内存爆满'之三大头疼问题之教你通过转储dump文件然后通过windbg分析技巧和提供宝贵经验\Program.cs @ 51]
+0093f2cc 00d50484 _24._CPU过高___死锁___内存爆满_之三大头疼问题之教你通过转储dump文件然后通过windbg分析技巧和提供宝贵经验.Program.Main(System.String[]) [D:\src\XCDemo\XC集合\XC集合\09多线程系列\24.'CPU过高','死锁','内存爆满'之三大头疼问题之教你通过转储dump文件然后通过windbg分析技巧和提供宝贵经验\Program.cs @ 16]                                 调用顺序:   program=>main=>run()
+0093f448 72d3eaf6 [GCFrame: 0093f448] 
+OS Thread Id: 0x4d6c (1)
+Unable to walk the managed stack. The current thread is likely not a 
+managed thread. You can run !threads to get a list of managed threads in
+the process
+Failed to start stack walk: 80070057
+OS Thread Id: 0x4d30 (2)
+Unable to walk the managed stack. The current thread is likely not a 
+managed thread. You can run !threads to get a list of managed threads in
+the process
+Failed to start stack walk: 80070057
+OS Thread Id: 0x50e0 (3)
+Unable to walk the managed stack. The current thread is likely not a 
+managed thread. You can run !threads to get a list of managed threads in
+the process
+Failed to start stack walk: 80070057
+OS Thread Id: 0x37d8 (4)
+Child SP       IP Call Site
+049bfa70 77a122cc [DebuggerU2MCatchHandlerFrame: 049bfa70] 
+OS Thread Id: 0x9bc (5)
+Unable to walk the managed stack. The current thread is likely not a 
+managed thread. You can run !threads to get a list of managed threads in
+the process
+Failed to start stack walk: 80070057
+OS Thread Id: 0x245c (6)
+Unable to walk the managed stack. The current thread is likely not a 
+managed thread. You can run !threads to get a list of managed threads in
+the process
+Failed to start stack walk: 80070057
+OS Thread Id: 0x4828 (7)
+Unable to walk the managed stack. The current thread is likely not a 
+managed thread. You can run !threads to get a list of managed threads in
+the process
+Failed to start stack walk: 80070057
+OS Thread Id: 0x938 (8)
+Child SP       IP Call Site
+0525f108 77a122cc [GCFrame: 0525f108] 
+0525f1e8 77a122cc [GCFrame: 0525f1e8] 
+0525f204 77a122cc [HelperMethodFrame_1OBJ: 0525f204] System.Threading.Monitor.ReliableEnter(System.Object, Boolean ByRef)
+0525f280 71119837 System.Threading.Monitor.Enter(System.Object, Boolean ByRef)
+0525f290 00d50655 _24._CPU过高___死锁___内存爆满_之三大头疼问题之教你通过转储dump文件然后通过windbg分析技巧和提供宝贵经验.Program.Run2() [D:\src\XCDemo\XC集合\XC集合\09多线程系列\24.'CPU过高','死锁','内存爆满'之三大头疼问题之教你通过转储dump文件然后通过windbg分析技巧和提供宝贵经验\Program.cs @ 57]
+0525f2c0 00d505ee _24._CPU过高___死锁___内存爆满_之三大头疼问题之教你通过转储dump文件然后通过windbg分析技巧和提供宝贵经验.Program.b__1_0() [D:\src\XCDemo\XC集合\XC集合\09多线程系列\24.'CPU过高','死锁','内存爆满'之三大头疼问题之教你通过转储dump文件然后通过windbg分析技巧和提供宝贵经验\Program.cs @ 47]
+0525f2cc 710b23ea System.Threading.Tasks.Task.InnerInvoke()     调用顺序:  Program.b__1_0()=> run2()
+0525f2d8 710b1f80 System.Threading.Tasks.Task.Execute()
+0525f2fc 710b239a System.Threading.Tasks.Task.ExecutionContextCallback(System.Object)
+0525f300 711199fa System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object, Boolean)
+0525f370 71119906 System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object, Boolean)
+0525f384 710b2218 System.Threading.Tasks.Task.ExecuteWithThreadLocal(System.Threading.Tasks.Task ByRef)
+0525f3e8 710b20df System.Threading.Tasks.Task.ExecuteEntry(Boolean)
+0525f3f8 710b207c System.Threading.Tasks.Task.System.Threading.IThreadPoolWorkItem.ExecuteWorkItem()
+0525f3fc 71080bd2 System.Threading.ThreadPoolWorkQueue.Dispatch()
+0525f44c 71080a3a System.Threading._ThreadPoolWaitCallback.PerformWaitCallback()
+0525f670 72d3eaf6 [DebuggerU2MCatchHandlerFrame: 0525f670] 
+OS Thread Id: 0x2ab4 (9)
+Child SP       IP Call Site
+GetFrameContext failed: 1
+00000000 00000000 
+
+主线程执行main函数=> run函数=>获取锁=> 执行task =>匿名函数=>调用Run2函数=>获取锁,获取不到,假死.
+
+task是啥? 没有认识清楚?  凡事都要认识清楚?  不然遇到 事情本身的运用和在事情本身上的封装,都理解不了.
+
+三：内存爆满  内存被占满了,正常的是,使用完内存会释放,,占满要么是没释放,要么是占有的太多了.
+
+1.!dumpheap -stat 查看clr的托管堆中的各个类型的占用情况
+
+00007ff932cc2aa8       19         1296 System.String[]
+00007ff932cc3698       58         3248 System.RuntimeType
+00007ff932cc16b8      186         9218 System.String
+000001358b1503d0       57        12824      Free
+00007ff932cc1d30        6        35216 System.Object[]
+00007ff932cc5dc0    13762       660576 System.Text.StringBuilder
+00007ff932cc2860    13775    220334298 System.Char[]
+
+然后看到了有13775个char[]数组
+
+!DumpHeap /d -mt 00007ff932cc2860  //查看当前的方法表   方法表是啥意思? 那个方法用到 char[].
+
+!DumpObj /d 00000135978d5340       //查看当前char[]的内容   得到helloworld
+
+!gcroot 00000135a60f4940           //查看当前地址的Root。。。  得到  StringBuilder类型
+
+所以结合“StringBuilder”，结合 ”hello world“ 我们就找出了问题。。。
+
+
+
+总结： 救火的问题。。。。给公司挽回损失。。。。 这都是些简单的命令,   【深入推荐 .net高级调试 这本书.】
+
+
+
+1.多线程是啥? 为啥?能解决啥? 如何运用? 运用中是啥样?
+2.Thread Task 是啥? 异步是啥?  为啥要出现? 出现前是啥?    这些都是都是出现前的事务的补充,而不是替代,  历史的基础的都不理解, 咋能运用好 高级的呢?
+3.cpu过高  为什么会出现? 如何解决?
+4.死锁  为什么会出现? 如何解决?
+5.内存暴涨  为什么会出现? 如何解决?
+6.不能听到问题毫无头绪,看到新名字无动于衷,看到旧知识没概念,  你这是占了那一头呢?
+7.不管啥不要怕,往前冲,有头脑的分析,逐步演绎,
+
+
+
+
+
+ 理解的标准:理解了就不难,关键怎样算理解了? 如何去理解呢? 这样理解的程度好不? 看着整体逻辑图,清清楚楚知道过程细节?
+掌握的方法:有逻辑的分析,有逻辑的理解.
+掌握的标准:是否心中有概念?什么是心中有概念? 前因后果,有逻辑的推演整个过程.
+掌握的技巧: 1.不要太关注,难或易,不然就陷入被动了,任何事都要主动.(想到任何事的相应的主动状态.)
+           2.遇到新知识，大量不懂的概念？怎么办？ =》存在浏览式，完成任务？为什么呢？不懂的心理 驱使快速完成来安慰自己。
+		   3.遇到理解卡壳，怎么办？
+		   4.遇到不知所措，怎么办？
+		   5.遇到错误了,该怎么办?
+		   6.遇到没效率的时候,该怎么办?
+		   5.关注负面的东西,着眼于美好的东西.
+		   6.不关注坏习惯,而是养成好习惯,关注点要正确?
+是否复习：
