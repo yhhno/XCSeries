@@ -1,0 +1,141 @@
+设计模式,也就是设计过程中的解决问题,设计的套路总结? 怎么去设计?怎么去解决? 这是个问题? 是个核心能力?  需要训练?  要有大前提? 要有环境?
+思路一步一步都记下来.
+1.正确分析问题思路:没有查看类图=> 类图是什么?=>一个cd文件=>1.附加个现成的cd文件=>不识别=>2.看是否能添加cd文件=>发现没有=>通过方式1和方式2 应该可以判断出是template缺失?=>添加即可====> 最终定位为template
+2.错误的分析问题方式:流于表面的瞎百度, 根本没思考.就困在这里,毫无有用的瞎转悠=> 错误归错误,不要影响积极的情绪=====>最终定位为方式或思路错误,赶快调整.
+3.最重要的是方式错误时和情绪时的调整. 也就是心理素质.
+4.分析步骤:	类似于while?如何理解? while(true)  什么是true条件? 肯定不是console.writeline(). 那只能是movenext()=> while(movenext()){console.writeline(current).};    movenext如何实现的恩?  其实很简单了? 历史没有真相,只残存一个道理.. movenext的道理是什么?
+
+一：迭代器模式  用来遍历集合的。。。 foreach  C#,Java  java中语法糖少,可能知道迭代器
+
+ 
+
+foreach 一个集合，底层到底干了什么。。。  好奇?  什么样?
+有新名词或者新概念 先解释
+1.先写个小demo
+  static void Main(string[] args)
+        {
+            var list = new List<int>();
+            list.Add(2);
+            list.Add(22);
+            list.Add(333);
+            foreach (var item in list)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+2.foreach就是迭代器。。。  【这是一个语法糖】
+
+3.我们看一下IL  jvm中的中间文件
+	.try
+	{
+		IL_0028: br.s IL_003b
+		// loop start (head: IL_003b)
+			IL_002a: ldloca.s 1  加载变量
+			IL_002c: call instance !0 valuetype [mscorlib]System.Collections.Generic.List`1/Enumerator<int32>::get_Current() 调用 顺序List=>Enumerator=>get_Current()
+			IL_0031: stloc.2  存储到局部变量
+			IL_0032: nop
+			IL_0033: ldloc.2
+			IL_0034: call void [mscorlib]System.Console::WriteLine(int32)
+			IL_0039: nop
+			IL_003a: nop
+
+			IL_003b: ldloca.s 1
+			IL_003d: call instance bool valuetype [mscorlib]System.Collections.Generic.List`1/Enumerator<int32>::MoveNext()
+			调用 顺序List=>Enumerator=>MoveNext()
+			IL_0042: brtrue.s IL_002a 如果为true,跳到IL_002a,  类似于while   while是什么样的呢? 没深究呀.  这是个问题?
+		// end loop
+
+		IL_0044: leave.s IL_0055 如何false  跳出
+	} // end .try
+	finally
+	{
+		IL_0046: ldloca.s 1
+		IL_0048: constrained. valuetype [mscorlib]System.Collections.Generic.List`1/Enumerator<int32>
+		IL_004e: callvirt instance void [mscorlib]System.IDisposable::Dispose()
+		IL_0053: nop
+		IL_0054: endfinally
+	} // end handler
+
+分析步骤:	类似于while?如何理解? while(true)  什么是true条件? 肯定不是console.writeline(). 那只能是movenext()=> while(movenext()){console.writeline(current).};    movenext如何实现的恩?  其实很简单了? 历史没有真相,只残存一个道理.. movenext的道理是什么?
+
+4.对比下如何理解IL代码,,之前只是大概性猜想, 还不准确?  有时恢复下代码 能帮助准确的理解.
+  static void Main(string[] args)
+        {
+            var list = new List<int>();
+            list.Add(2);
+            list.Add(22);
+            list.Add(333);
+            //foreach (var item in list)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            //类似的效果 无语法糖
+            var enumerator = list.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                Console.WriteLine(enumerator.Current);
+            }
+        }
+
+5.Enumerator：迭代类 枚举类
+
+
+迭代类好处：
+
+1. 读写分离   为啥要读写分离   add在一个地方, read在另外一个地方, 读就是用迭代
+
+2. 封装了元数据，比如底层的array数组   为啥要封装
+如果你不用foreach,你怎么迭代呢,你肯定要拿到它的底层数据,不然没办法迭代,
+list<T>的底层就是 private T[] _items;
+
+3. 简化的业务逻辑
+
+   List 中我foreach 和for都可以循环。。。 好像for和foreach一样的,没什么区别
+
+
+  for(var i=0; list.count;i++)
+  {
+   console.writeline(list[i]); list中实现了索引器
+   }
+ for和foreach一样 此种情况,只针对list
+   
+  C#中还有很多聚合对象如:HashSet 
+
+如果你说for和foreach是一样的，你能用for循环hashset吗？？？ 可以是可以的,但要写很多业务逻辑, 因为底层都是数组
+
+hashset的底层也是array数组. hashcode是一个int值
+
+[hashcode] = 1
+[hashcode] =2
+[xxx]
+[hashcode]=4
+
+hashset 主要是一个哈希算法。。。
+
+
+注意事项：
+
+迭代器 = 一个聚合对象 + 一个枚举类。。。 枚举类是遍历聚合对象,既然你要遍历聚合对象,你肯定要有聚合对象的引用
+
+
+二模拟枚举类 迭代类
+1.首先肯定要有一个集合aggreatation类  类似于list或hashset
+2.定义一个IMyEnumerable接口
+3.定义一个MyEnumerable类  引用集合this，封装了底层数据
+4.修改集合类,添加MyEnumerable引用 
+5.集合添加索引器
+6。封装了length   封装。
+
+
+1.迭代器模式,就是为了遍历集合? 如何出现?
+2.foreach 底层  为什么没有好奇?
+3.语法糖
+4.IL有点接近二进制代码, 需要从地址获取数据,加载到局部变量
+5.迭代器好处 1.读写分离  2. 封装了元数据,3.简化的业务逻辑
+6.
+
+
+  1. 0是什么状态? 怎么演绎? 1是什么状态? 过程遇到什么问题? 有什么样的解决方案?  VS 有什么方案? 解决什么问题?   在正常的流程的大前提下,去看问题, 关注点不能本末倒置.  脱离环境 咋理解呢?
+  2.如何演绎的? 第一步是啥?新需求? 如何执行新需求? 有什么问题? 对应有什么解决办法? 解决方法有没新名词? 解释新名词? 执行接下来的一步 ... 重复执行? 这需要细节?
