@@ -4,6 +4,11 @@
 2.错误的分析问题方式:流于表面的瞎百度, 根本没思考.就困在这里,毫无有用的瞎转悠=> 错误归错误,不要影响积极的情绪=====>最终定位为方式或思路错误,赶快调整.
 3.最重要的是方式错误时和情绪时的调整. 也就是心理素质.
 4.分析步骤:	类似于while?如何理解? while(true)  什么是true条件? 肯定不是console.writeline(). 那只能是movenext()=> while(movenext()){console.writeline(current).};    movenext如何实现的恩?  其实很简单了? 历史没有真相,只残存一个道理.. movenext的道理是什么?
+5.有时关注点放错了,困在某个点,,有时是没深入分析,困在表面
+
+
+
+
 
 一：迭代器模式  用来遍历集合的。。。 foreach  C#,Java  java中语法糖少,可能知道迭代器
 
@@ -99,6 +104,7 @@ list<T>的底层就是 private T[] _items;
   {
    console.writeline(list[i]); list中实现了索引器
    }
+
  for和foreach一样 此种情况,只针对list
    
   C#中还有很多聚合对象如:HashSet 
@@ -107,7 +113,7 @@ list<T>的底层就是 private T[] _items;
 
 hashset的底层也是array数组. hashcode是一个int值
 
-[hashcode] = 1
+[hashcode] = 1  此时1为 value    hashcode为索引
 [hashcode] =2
 [xxx]
 [hashcode]=4
@@ -123,10 +129,11 @@ hashset 主要是一个哈希算法。。。
 二模拟枚举类 迭代类
 1.首先肯定要有一个集合aggreatation类  类似于list或hashset
 2.定义一个IMyEnumerable接口
-3.定义一个MyEnumerable类  引用集合this，封装了底层数据
+3.定义一个MyEnumerable类  引用集合this，封装了底层数据      有时为了性能封装成结构体
 4.修改集合类,添加MyEnumerable引用 
 5.集合添加索引器
 6。封装了length   封装。
+
 
 
 1.迭代器模式,就是为了遍历集合? 如何出现?
@@ -134,7 +141,9 @@ hashset 主要是一个哈希算法。。。
 3.语法糖
 4.IL有点接近二进制代码, 需要从地址获取数据,加载到局部变量
 5.迭代器好处 1.读写分离  2. 封装了元数据,3.简化的业务逻辑
-6.
+6.有时关注点放错了,困在某个点,,有时是没深入分析,困在表面
+
+
 
 
   1. 0是什么状态? 怎么演绎? 1是什么状态? 过程遇到什么问题? 有什么样的解决方案?  VS 有什么方案? 解决什么问题?   在正常的流程的大前提下,去看问题, 关注点不能本末倒置.  脱离环境 咋理解呢?

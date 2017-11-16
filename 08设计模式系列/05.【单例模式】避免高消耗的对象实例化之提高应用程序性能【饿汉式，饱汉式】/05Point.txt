@@ -1,0 +1,352 @@
+设计模式,也就是设计过程中的解决问题,设计的套路总结? 怎么去设计?怎么去解决? 这是个问题? 是个核心能力?  需要训练?  要有大前提? 要有环境?
+思路一步一步都记下来.
+1.正确分析问题思路:没有查看类图=> 类图是什么?=>一个cd文件=>1.附加个现成的cd文件=>不识别=>2.看是否能添加cd文件=>发现没有=>通过方式1和方式2 应该可以判断出是template缺失?=>添加即可====> 最终定位为template
+2.错误的分析问题方式:流于表面的瞎百度, 根本没思考.就困在这里,毫无有用的瞎转悠=> 错误归错误,不要影响积极的情绪=====>最终定位为方式或思路错误,赶快调整.
+3.最重要的是方式错误时和情绪时的调整. 也就是心理素质.
+4.分析步骤:	类似于while?如何理解? while(true)  什么是true条件? 肯定不是console.writeline(). 那只能是movenext()=> while(movenext()){console.writeline(current).};    movenext如何实现的恩?  其实很简单了? 历史没有真相,只残存一个道理.. movenext的道理是什么?
+5.有时关注点放错了,困在某个点,,有时是没深入分析,困在表面
+6.概念一知半解,流程不深究没概念. 逻辑推理分析没形成习惯. 也没有正确的模型.
+
+
+
+
+
+一：单例模式 创建型  为啥？ 因为它造些新东西出来 
+
+从名字上看,单个实例，通过new 来创造实例。。。
+
+用于什么的场景
+	1.connection db  涉及到非托管资源
+
+	2.read file  涉及到非托管资源
+
+	3.wcf 或 远程tcp端口。
+如果这些创建放在构造函数中，是不是很耗费时间？ 为什么耗费时间呢？
+
+现实中,会遇到很多类似消耗比较大的的问题?
+
+1.最开始情况: new了两次DB(),共消耗了10s,  new的代价太大
+    static void Main(string[] args)
+        {
+            //如果每次new的话,每次都需要5s
+            //so new一个db的代价很大,当实例化一个类时,必然调用构造函数,绕不开
+			//5s
+            var db = new DB();
+            db.Show();
+
+			//5s
+           db = new DB();//可能在项目的中其他地方需要调用db
+            db.Show();
+
+        }
+    }
+    public class DB
+    {
+        public DB()
+        {
+            //构造函数需要消耗5s
+             Thread.Sleep(1000 * 5);// 能想到如何模拟吗? 不能的话,就不能猜想出大概情况, 有可能会困在这里,卡住.   为什么不能理解这样模拟?
+        }
+        public void Show()
+        {
+            Console.WriteLine("执行当前时间为:{0}",DateTime.Now);
+        }
+    }
+
+2. 怎么办呢? new本身消耗大,没办法减少, 只能尽可能减少new的次数,能不能只new一次,第二次往后,都不用new了. 也就是说不执行构造函数
+3.想要第二次不new的话，我们需要使用缓存。。。怎么使用缓存呢?。 【这就是单例模式要解决的问题】
+4.单例模式,就是把实例缓存起来, 怎么缓存?
+5.既然是缓存,一定要开启一个自我保护机制,也就是构造函数为私有的,不让你new
+6.你不能new了,我一定要给你个全局访问点,也就是说我肯定是让你new,但不能通过构造函数new
+7.这时要在内部做一些事情了,
+  class Program
+    {
+        static void Main(string[] args)
+        {
+            // //如果每次new的话,每次都需要5s
+            // //so new一个db的代价很大,当实例化一个类时,必然调用构造函数,绕不开
+            // var db = new DB();
+            // db.Show();
+
+			////此时需5s
+            //db = new DB();//可能在项目的中其他地方需要调用db
+            // db.Show();
+
+			//此时秒执行
+            var db = DB.GetInstance();
+            db.Show();
+
+            db = DB.DBInstance;// 可能在项目的中其他地方需要调用db
+            db.Show();
+
+        }
+    }
+    public class DB
+    {
+        //static 就是一个小缓存。。。 只要类加载（在clr中进行了加载），它就加载。
+        private static readonly DB db = new DB();
+        private DB()//外界无法通过构造函数new, 也就是说构造函数不能被执行.
+        {
+            //构造函数需要消耗5s
+             Thread.Sleep(1000 * 5);// 能想到如何模拟吗? 不能的话,就不能猜想出大概情况, 有可能会困在这里,卡住.   为什么不能理解这样模拟?
+        }
+        public static DB GetInstance()//封装为方法
+        {
+            return db;
+        }
+        public  static DB DBInstance//封装为属性
+        {
+            get { return db; }
+        }
+
+          public int DBs { get; set;  }  
+
+        public void Show()
+        {
+            Console.WriteLine("执行当前时间为:{0}",DateTime.Now);
+        }
+    }
+
+8.static 就是一个小缓存。。。 只要类加载（在clr中进行了加载），它就加载。
+9.使用类加载方式,来保证单例  在多线程环境中,没毛病
+10. 类加载的方式,有个问题. 只要类被加载，所有的静态变量都会被 “静态构造函数” 所初始化。。。。也就是说会执行构造函数 (这是语言特性)
+11.饿汉式单例, 只要我使用了DB,就必然执行构造函数
+  class Program
+    {
+        static void Main(string[] args)
+        {
+            // //如果每次new的话,每次都需要5s
+            // //so new一个db的代价很大,当实例化一个类时,必然调用构造函数,绕不开
+            // var db = new DB();
+            // db.Show();
+
+            ////此时需要5s
+            //db = new DB();//可能在项目的中其他地方需要调用db
+            // db.Show();
+
+
+
+            //var db = DB.GetInstance();
+            //db.Show();
+
+            ////此时秒执行
+            //db = DB.DBInstance;// 可能在项目的中其他地方需要调用db
+            //db.Show();
+
+
+            Console.WriteLine("主线程当前时间为:{0}", DateTime.Now);
+            DB.Show2();//会执行构造函数.
+            DB.Show3();
+
+
+        }
+    }
+    public class DB
+    {
+        //static 就是一个小缓存。。。 只要类加载（在clr中进行了加载），它就加载。
+        private static readonly DB db = new DB();
+
+        ////clr中的等价代码 
+        //private static readonly DB db = null;
+        //static DB
+        //    {
+        //    db=new DB();
+        //    }
+
+        private DB()//外界无法通过构造函数new, 也就是说构造函数不能被执行.
+        {
+            //构造函数需要消耗5s
+             Thread.Sleep(1000 * 5);// 能想到如何模拟吗? 不能的话,就不能猜想出大概情况, 有可能会困在这里,卡住.   为什么不能理解这样模拟?
+        }
+        public static DB GetInstance()//封装为方法
+        {
+            return db;
+        }
+        public  static DB DBInstance//封装为属性
+        {
+            get { return db; }
+        }
+
+         
+
+        public void Show()
+        {
+            Console.WriteLine("执行当前时间为:{0}",DateTime.Now);
+        }
+
+
+        public static void Show2()
+        {
+            Console.WriteLine("执行当前时间为:{0}", DateTime.Now);
+        }
+        public static void Show3()
+        {
+            Console.WriteLine("执行当前时间为:{0}", DateTime.Now);
+        }
+    }
+12.既然有饿汉式,肯定有饱汉式单例  饱汉式单例。。。  你需要的时候才创建实例 【懒加载】
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // //如果每次new的话,每次都需要5s
+            // //so new一个db的代价很大,当实例化一个类时,必然调用构造函数,绕不开
+            // var db = new DB();
+            // db.Show();
+
+            ////此时需要5s
+            //db = new DB();//可能在项目的中其他地方需要调用db
+            // db.Show();
+
+
+
+            //var db = DB.GetInstance();
+            //db.Show();
+
+            ////此时秒执行
+            //db = DB.DBInstance;// 可能在项目的中其他地方需要调用db
+            //db.Show();
+
+            DB.Show2();//饱汉式单例,此时不创建构造函数,因为不需要
+            Console.WriteLine("主线程当前时间为:{0}", DateTime.Now);          
+            DB.Show3();
+
+
+        }
+    }
+    public class DB
+    {
+        //static 就是一个小缓存。。。 只要类加载（在clr中进行了加载），它就加载。
+        private static DB db = null;
+
+    
+
+        private DB()//外界无法通过构造函数new, 也就是说构造函数不能被执行.
+        {
+            //构造函数需要消耗5s
+             Thread.Sleep(1000 * 5);// 能想到如何模拟吗? 不能的话,就不能猜想出大概情况, 有可能会困在这里,卡住.   为什么不能理解这样模拟?
+        }
+        public static DB GetInstance()//封装为方法
+        {
+            if(db==null)
+            {
+                db = new DB();//需要的时候再加载
+            }
+            return db;
+        }
+        public  static DB DBInstance//封装为属性
+        {
+            get
+            {
+                if (db == null)//需要的时候再加载
+                {
+                    db = new DB();
+                }
+                return db;
+            }
+            
+        }
+
+        
+
+        public void Show()
+        {
+            Console.WriteLine("执行当前时间为:{0}",DateTime.Now);
+        }
+
+		//执行此方法,不要构造函数
+        public static void Show2()
+        {
+            Console.WriteLine("执行当前时间为:{0}", DateTime.Now);
+        }
+		//执行此方法,不要构造函数
+        public static void Show3()
+        {
+            Console.WriteLine("执行当前时间为:{0}", DateTime.Now);
+        }
+    }
+13.饱汉式单例,多线程中有问题. 我们本意是只new一次,,但此时会有多个线程想new
+
+public static DB GetInstance()//封装为方法
+        {
+		//逻辑推理
+		//第一个线程进来,判断为空,new,但构造函数需要5s
+		//第二个线程进来,第一个构造函数没有执行完成,判断为空,也执行new
+		//同理第三个,第四个
+            if(db==null)//需要的时候再加载
+            {
+                db = new DB();
+            }
+            return db;
+        }
+
+
+14.多线程的问题。。。  【双检锁】  如何理解双检锁? 两个检查,一个锁,  为什么没想到多线程问题?
+
+
+		//逻辑推理
+        public static DB GetInstance()//封装为方法
+        {
+            //1,如果没有if (db == null)此判断,貌似也可以,但每次都要锁住资源,性能不高.   为什么没想到?
+            //2.在第一个获取锁的线程的new,没有完成时,会进去几个线程,进行锁排队等待
+            //3.在第一个获取锁的线程的new,完成时,再后续的线程不执行if语句,直接return db.
+            
+            if (db == null)
+            {
+                //多线程下,什么情况会有多个线程锁排队,什么情况下没有线程锁排队        这说明什么问题?
+                //lock (lockme)//最开始的时候,所有的线程都判断db为null,此时争抢锁,获取锁的线程执行方法体内,其他线程排队的等待,重复争抢锁, 直至所有的线程都获取锁,也就是说都会执行中方法体内代码,此时都会执行new
+                //{
+                //    Console.WriteLine("线程id为{0},想new一下", Thread.CurrentThread.ManagedThreadId);
+                //    db = new DB();//需要的时候再加载
+                //}
+
+
+                //多线程下,什么情况会有多个线程锁排队,什么情况下没有线程锁排队      这说明什么问题?
+                lock (lockme)//最开始的时候,所有的线程都判断db为null,此时争抢锁,获取锁的线程执行方法体内,其他线程排队的等待,重复争抢锁, 直至所有的线程都获取锁,也就是说都会执行中方法体内代码,
+                {
+                    if (db == null)//只有第一个获取锁的线程执行new
+                    {
+                        Console.WriteLine("线程id为{0},想new一下", Thread.CurrentThread.ManagedThreadId);
+                        db = new DB();//需要的时候再加载
+                    }
+                    //else//第一个之后的其他线程, 执行else, 当没有else时,向上退出语句块
+                    //{
+                    //    Console.WriteLine("线程id为{0},db已经有数据", Thread.CurrentThread.ManagedThreadId);
+                    //}
+                }
+
+
+            }
+
+            //多调试下,看下代码执行的路径
+            //顺序执行, if执行完,肯定会执行接下来两句的
+            Console.WriteLine("线程id为{0},db已经有数据", Thread.CurrentThread.ManagedThreadId);
+            return db;
+
+        }
+
+
+1.多调试,看看顺序执行,分支,跳转,循环等执行路径  多重分支,多级分支, 
+2.同步,异步执行路径  特别是异步没有wait时.
+3.锁执行路径
+为什么要弄清楚呢? 大体情况要了解,避免处于盲区,或者关注点错误.或者没有大前提.
+
+
+redis,memcache,mongodb 底层都一个链接池，Cache。。。 提高性能都会用单例。
+
+
+
+1.单例模式  
+2.非托管资源,类加载,static,封装为方法,懒加载,双检锁,饱汉,饿汉
+
+
+
+  1. 0是什么状态? 怎么演绎? 1是什么状态? 过程遇到什么问题? 有什么样的解决方案?  VS 有什么方案? 解决什么问题?   在正常的流程的大前提下,去看问题, 关注点不能本末倒置.  脱离环境 咋理解呢?
+  2.如何演绎的? 第一步是啥?新需求? 如何执行新需求? 有什么问题? 对应有什么解决办法? 解决方法有没新名词? 解释新名词? 执行接下来的一步 ... 重复执行? 这需要细节?
+  3.要搞清楚的东西:
+		1.多调试,看看顺序执行,分支,跳转,循环等执行路径  多重分支,多级分支, 
+		2.同步,异步执行路径  特别是异步没有wait时.
+		3.锁执行路径
+		为什么要弄清楚呢? 大体情况要了解,避免处于盲区,或者关注点错误.或者没有大前提.
+
+
