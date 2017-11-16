@@ -1,0 +1,136 @@
+设计模式,也就是设计过程中的解决问题,设计的套路总结? 怎么去设计?怎么去解决? 这是个问题? 是个核心能力?  需要训练?  要有大前提? 要有环境?
+思路一步一步都记下来.
+1.正确分析问题思路:没有查看类图=> 类图是什么?=>一个cd文件=>1.附加个现成的cd文件=>不识别=>2.看是否能添加cd文件=>发现没有=>通过方式1和方式2 应该可以判断出是template缺失?=>添加即可====> 最终定位为template
+2.错误的分析问题方式:流于表面的瞎百度, 根本没思考.就困在这里,毫无有用的瞎转悠=> 错误归错误,不要影响积极的情绪=====>最终定位为方式或思路错误,赶快调整.
+3.最重要的是方式错误时和情绪时的调整.
+
+   
+一：简单工厂模式  属于创建型的设计模式 创建啥?  工厂是啥? 对应是单个? 为啥是简单?
+
+
+   思想在工厂里面：将类的创建放在一个工厂里面。 屏蔽了客户端和创建逻辑。 也就是解耦了? 屏蔽客户端咋理解? 如何理解屏蔽?
+    生产环境中: db的切换
+
+
+
+1.最开始的情况: 项目中有四个sqlserver实例代码
+        static void Main(string[] args)
+        {
+		    //Database   依赖倒转原则
+            Database server = new Sqlserver();
+
+            Database server2 = new Sqlserver();
+
+            Database server3 = new Sqlserver();
+
+            Database server4 = new Sqlserver();
+        }
+2. 需求来了:    SqlServer 太浪费资源了，我需要换成小型的Sqlite。。。
+
+ static void Main(string[] args)
+        {
+            Database server = new SqlLite();//修改代码
+
+            Database server2 = new SqlLite();//修改代码
+
+            Database server3 = new SqlLite();//修改代码
+
+            Database server4 = new SqlLite();//修改代码
+        }
+
+3.如果换数据库，我们需要改变4次实例化。。。   违背了“开闭原则”。
+
+4.如何解决这个问题呢?  我们应该封装? 如何理解封装? 什么是封装呢?
+	
+	public class Person{//C#代码中,有一个类,类中有字段
+	 private int age//字段
+
+	 public int Age{//属性
+	  get{ return age//属性本质上就是对字段的封装 }
+	  set{}
+	}
+
+5.类似,工厂就是对实例化对象的封装,也就是对实例化对象的一个保护
+6.理解了封装,我们就用一个工厂类,来封装实例化对象
+7.  public class Factory
+    {
+        //封装了 创建实例化对象的动作
+        public static Database CreateInstance(string datype)
+        {
+
+            switch (datype)//跳转语句, 分支互斥执行
+            {
+                case "sqlserver":
+                    return new Sqlserver();
+                case "sqlite":
+                    return new Sqlite();
+                default:
+                    break;
+            }
+            return null;
+
+        }
+    }
+8.   使用了工厂类.  疑问来了,你不还是修改四处吗? 照样不符合开闭原则  因为此处有硬编码
+            Database server = Factory.CreateInstance("sqlite");//照样修改代码
+
+            Database server2 = Factory.CreateInstance("sqlite");//照样修改代码
+
+            Database server3 = Factory.CreateInstance("sqlite");//照样修改代码
+
+            Database server4 = Factory.CreateInstance("sqlite");//照样修改代码
+
+9. 消除硬编码  1.配置文件, 2.数据库   符合开闭原则
+            var dbtype = System.Configuration.ConfigurationManager.AppSettings["dbtype"];
+            Database server = Factory.CreateInstance(dbtype);//不修改代码
+
+            Database server2 = Factory.CreateInstance(dbtype);//不修改代码
+
+            Database server3 = Factory.CreateInstance(dbtype);//不修改代码
+
+            Database server4 = Factory.CreateInstance(dbtype);//不修改代码
+10.实现了更方便的切换. 运用上，很完美
+11.但是如果新增Mysql实例时，违反了开闭原则，因为要修改工程类，新增case分支。 可以承受。
+
+二：总结
+
+
+优点：
+1. 方便切换db。。。 原理在于用 “string”来代替 (“new”的硬编码)。 new sqlserver();也是硬编码?  如何理解string代替 硬编码?
+  
+   string可以存放db，config。。
+
+2. 放到一起管理，可以省略了一些new的时候的构造函数。。。  如何理解呢? 如何理解方便管理? 如何理解统一化管理?  也就是如果你的实例化的类的构造函数有巨多的参数.  只有这一处创建,方便管理? 想想如果有多个? 管理起来是不是很麻烦? 修改一下? 巨多地方要修改?还保不齐有错一个地方? 少修改一个地方?  要疯了.
+
+             return new SqlServer()
+                    {
+                        Connection="asdfasdfasdfasdfasdfasd", 
+                        port="asddfd",
+                        aaa="",
+                        bbb=""
+                    };    
+     
+3. 屏蔽了创建逻辑。。。 将创建的逻辑从客户端中屏蔽开，专门由一个团队去处理。。。如何理解屏蔽？如何理解客户端？
+客户端不需要去new一个对象类,因为new一个对象类,有很多未知的东西,比如new耗时间,new的对不对,是否消耗资源,因为复杂一点我们还可以创建实例的时候加一些缓存.统一化管理
+
+缺点： 添加新实例的时候，会修改工程类， 违反开闭原则，因为需要修改代码。。。  但这种修改可以承受  【不将就绝对】
+
+
+三：真实项目
+
+事件式营销：   也是一种被动式
+
+0号营销    
+1号营销      MM:DD
+96号营销
+97号营销     1日 15日
+98号营销    每周的周一执行
+各种营销的触发时间不同
+
+eventmarketing表  也就是说string在数据库中   记录了eventtype: 97 or 96  每种事件的触发点不一样，获取的人自然也不一样。event子类event子类
+
+   
+
+
+  1. 0是什么状态? 怎么演绎? 1是什么状态? 过程遇到什么问题? 有什么样的解决方案?  VS 有什么方案? 解决什么问题?   在正常的流程的大前提下,去看问题, 关注点不能本末倒置.  脱离环境 咋理解呢?
+  2.如何演绎的? 第一步是啥?新需求? 如何执行新需求? 有什么问题? 对应有什么解决办法? 解决方法有没新名词? 解释新名词? 执行接下来的一步 ... 重复执行? 这需要细节?
