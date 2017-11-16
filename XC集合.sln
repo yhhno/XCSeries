@@ -111,6 +111,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01.学习设计模式必须
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.【简单工厂模式】之解决生产项目中的事件模型的选择及运用实战", "08设计模式系列\02.【简单工厂模式】之解决生产项目中的事件模型的选择及运用实战\02.【简单工厂模式】之解决生产项目中的事件模型的选择及运用实战.csproj", "{CAB5312B-4FA6-4E3C-B3E6-35D56C1F4265}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03.【模板方法模式】教你如何使用多态将可变部分延迟到子类之实际案例展示", "08设计模式系列\03.【模板方法模式】教你如何使用多态将可变部分延迟到子类之实际案例展示\03.【模板方法模式】教你如何使用多态将可变部分延迟到子类之实际案例展示.csproj", "{17608FB6-FCB5-46DE-9B98-CD9F39F545ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -471,6 +473,14 @@ Global
 		{CAB5312B-4FA6-4E3C-B3E6-35D56C1F4265}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CAB5312B-4FA6-4E3C-B3E6-35D56C1F4265}.Release|x64.ActiveCfg = Release|Any CPU
 		{CAB5312B-4FA6-4E3C-B3E6-35D56C1F4265}.Release|x64.Build.0 = Release|Any CPU
+		{17608FB6-FCB5-46DE-9B98-CD9F39F545ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17608FB6-FCB5-46DE-9B98-CD9F39F545ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17608FB6-FCB5-46DE-9B98-CD9F39F545ED}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{17608FB6-FCB5-46DE-9B98-CD9F39F545ED}.Debug|x64.Build.0 = Debug|Any CPU
+		{17608FB6-FCB5-46DE-9B98-CD9F39F545ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17608FB6-FCB5-46DE-9B98-CD9F39F545ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17608FB6-FCB5-46DE-9B98-CD9F39F545ED}.Release|x64.ActiveCfg = Release|Any CPU
+		{17608FB6-FCB5-46DE-9B98-CD9F39F545ED}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -520,6 +530,7 @@ Global
 		{89FACD2E-764A-4713-990C-138FA035C144} = {1AC55BD6-437A-4D6D-9D38-068766FF4F00}
 		{0AFD03F6-012D-417F-B05B-4C0E4FCE8044} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
 		{CAB5312B-4FA6-4E3C-B3E6-35D56C1F4265} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
+		{17608FB6-FCB5-46DE-9B98-CD9F39F545ED} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}

@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CAB5312B-4FA6-4E3C-B3E6-35D56C1F4265}</ProjectGuid>
+    <ProjectGuid>{17608FB6-FCB5-46DE-9B98-CD9F39F545ED}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_02._简单工厂模式_之解决生产项目中的事件模型的选择及运用实战</RootNamespace>
-    <AssemblyName>02.【简单工厂模式】之解决生产项目中的事件模型的选择及运用实战</AssemblyName>
+    <RootNamespace>_03._模板方法模式_教你如何使用多态将可变部分延迟到子类之实际案例展示</RootNamespace>
+    <AssemblyName>03.【模板方法模式】教你如何使用多态将可变部分延迟到子类之实际案例展示</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -33,7 +33,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,31 +42,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Database.cs" />
-    <Compile Include="Factory.cs" />
+    <Compile Include="Exam.cs" />
+    <Compile Include="LiSi.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sqlite.cs" />
-    <Compile Include="Sqlserver.cs" />
+    <Compile Include="ZhangSan.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="02Point.txt" />
-    <Content Include="QQ截图20170221092805.jpg" />
-    <Content Include="工厂模式案例\event97子类.JPG" />
-    <Content Include="工厂模式案例\event98子类.JPG" />
-    <Content Include="工厂模式案例\event子类96.JPG" />
-    <Content Include="工厂模式案例\event子类99.JPG" />
-    <Content Include="工厂模式案例\uml类图.JPG" />
-    <Content Include="工厂模式案例\子类重写父类虚方法.JPG" />
-    <Content Include="工厂模式案例\客户端调用工厂1.JPG" />
-    <Content Include="工厂模式案例\客户端调用工厂2.JPG" />
-    <Content Include="工厂模式案例\工厂类%28非switch,字段表%29.JPG" />
-    <Content Include="工厂模式案例\抽象类代码.JPG" />
-    <Content Include="工厂模式案例\抽象类虚函数.JPG" />
+    <Content Include="03Point.txt" />
+    <Content Include="模板方法案例\子类1.JPG" />
+    <Content Include="模板方法案例\子类2.JPG" />
+    <Content Include="模板方法案例\父类.JPG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
