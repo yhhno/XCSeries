@@ -35,21 +35,21 @@ namespace _05._单例模式_避免高消耗的对象实例化之提高应用程�
                 var db = DB.GetInstance();
                 db.Show();
             });
-            //Task.Factory.StartNew(() =>
-            //{
-            //    var db = DB.GetInstance();
-            //    db.Show();
-            //});
-            //Task.Factory.StartNew(() =>
-            //{
-            //    var db = DB.GetInstance();
-            //    db.Show();
-            //});
-            //Task.Factory.StartNew(() =>
-            //{
-            //    var db = DB.GetInstance();
-            //    db.Show();
-            //});
+            Task.Factory.StartNew(() =>
+            {
+                var db = DB.GetInstance();
+                db.Show();
+            });
+            Task.Factory.StartNew(() =>
+            {
+                var db = DB.GetInstance();
+                db.Show();
+            });
+            Task.Factory.StartNew(() =>
+            {
+                var db = DB.GetInstance();
+                db.Show();
+            });
 
 
             Console.WriteLine("主线程当前时间为:{0}", DateTime.Now);
