@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="_09._策略模式_之如何面对客户需求使用具体的策略的见风使驼法.Program" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_09._策略模式_之如何面对客户需求使用具体的策略的见风使驼法.AbstractLog">
+    <Position X="3" Y="0.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AbstractLog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_09._策略模式_之如何面对客户需求使用具体的策略的见风使驼法.FileLog">
+    <Position X="1.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FileLog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_09._策略模式_之如何面对客户需求使用具体的策略的见风使驼法.DBLog">
+    <Position X="4.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DBLog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_09._策略模式_之如何面对客户需求使用具体的策略的见风使驼法.StrategyContext">
+    <Position X="6.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>StrategyContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="微软雅黑" Size="9" />
+</ClassDiagram>
