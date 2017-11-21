@@ -125,7 +125,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07.0【代理模式】之�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07.1 WCF的代理模式之服务端", "08设计模式系列\07.1 WCF的代理模式之服务端\07.1 WCF的代理模式之服务端.csproj", "{7504E1AB-2FD8-4808-8887-1D92D3B33E98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07.2WCF的代理模式之客户端", "07.2WCF的代理模式之客户端\07.2WCF的代理模式之客户端.csproj", "{52F1B7B2-E210-4616-A650-8B26001E0645}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08.【过滤器模式】之如何从多维度对一个聚合对象进行过滤的真实案例解析", "08设计模式系列\08.【过滤器模式】之如何从多维度对一个聚合对象进行过滤的真实案例解析\08.【过滤器模式】之如何从多维度对一个聚合对象进行过滤的真实案例解析.csproj", "{CFC02BED-8E8B-4961-9407-10EA8D44C7ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07.2WCF的代理模式之客户端", "08设计模式系列\07.2WCF的代理模式之客户端\07.2WCF的代理模式之客户端.csproj", "{52F1B7B2-E210-4616-A650-8B26001E0645}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -543,6 +545,14 @@ Global
 		{7504E1AB-2FD8-4808-8887-1D92D3B33E98}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7504E1AB-2FD8-4808-8887-1D92D3B33E98}.Release|x64.ActiveCfg = Release|Any CPU
 		{7504E1AB-2FD8-4808-8887-1D92D3B33E98}.Release|x64.Build.0 = Release|Any CPU
+		{CFC02BED-8E8B-4961-9407-10EA8D44C7ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFC02BED-8E8B-4961-9407-10EA8D44C7ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFC02BED-8E8B-4961-9407-10EA8D44C7ED}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CFC02BED-8E8B-4961-9407-10EA8D44C7ED}.Debug|x64.Build.0 = Debug|Any CPU
+		{CFC02BED-8E8B-4961-9407-10EA8D44C7ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFC02BED-8E8B-4961-9407-10EA8D44C7ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFC02BED-8E8B-4961-9407-10EA8D44C7ED}.Release|x64.ActiveCfg = Release|Any CPU
+		{CFC02BED-8E8B-4961-9407-10EA8D44C7ED}.Release|x64.Build.0 = Release|Any CPU
 		{52F1B7B2-E210-4616-A650-8B26001E0645}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{52F1B7B2-E210-4616-A650-8B26001E0645}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52F1B7B2-E210-4616-A650-8B26001E0645}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -606,6 +616,7 @@ Global
 		{D710000C-2656-4C97-8F81-34673172B3CE} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
 		{B81B7CA5-F106-4345-94DC-60C5B52EF00E} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
 		{7504E1AB-2FD8-4808-8887-1D92D3B33E98} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
+		{CFC02BED-8E8B-4961-9407-10EA8D44C7ED} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
 		{52F1B7B2-E210-4616-A650-8B26001E0645} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
