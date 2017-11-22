@@ -7,7 +7,7 @@ namespace _11._建造者模式_之面对流程固定而部件内部逻辑必变�
 {
     public class BuilderDirector
     {
-        AbstractPerson person = null;
+        AbstractPerson person = null;//交互,才要保存引用
         public BuilderDirector(AbstractPerson  person)//构造函数中决定:当前要创建哪一种
         {
             this.person = person;

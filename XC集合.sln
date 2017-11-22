@@ -135,6 +135,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "10.【观察者模式】之
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "11.【建造者模式】之面对流程固定而部件内部逻辑必变的场景分析使用", "08设计模式系列\11.【建造者模式】之面对流程固定而部件内部逻辑必变的场景分析使用\11.【建造者模式】之面对流程固定而部件内部逻辑必变的场景分析使用.csproj", "{76D85792-D772-47B0-909B-BAF7383DDC27}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "12.【中介者模式】之如何将类通信中的网状结构变成形状结构之消息队列模型应用分析", "08设计模式系列\12.【中介者模式】之如何将类通信中的网状结构变成形状结构之消息队列模型应用分析\12.【中介者模式】之如何将类通信中的网状结构变成形状结构之消息队列模型应用分析.csproj", "{D2C892C6-F1C2-4BCC-A677-DFF671D7081B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -591,6 +593,14 @@ Global
 		{76D85792-D772-47B0-909B-BAF7383DDC27}.Release|Any CPU.Build.0 = Release|Any CPU
 		{76D85792-D772-47B0-909B-BAF7383DDC27}.Release|x64.ActiveCfg = Release|Any CPU
 		{76D85792-D772-47B0-909B-BAF7383DDC27}.Release|x64.Build.0 = Release|Any CPU
+		{D2C892C6-F1C2-4BCC-A677-DFF671D7081B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2C892C6-F1C2-4BCC-A677-DFF671D7081B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2C892C6-F1C2-4BCC-A677-DFF671D7081B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D2C892C6-F1C2-4BCC-A677-DFF671D7081B}.Debug|x64.Build.0 = Debug|Any CPU
+		{D2C892C6-F1C2-4BCC-A677-DFF671D7081B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2C892C6-F1C2-4BCC-A677-DFF671D7081B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2C892C6-F1C2-4BCC-A677-DFF671D7081B}.Release|x64.ActiveCfg = Release|Any CPU
+		{D2C892C6-F1C2-4BCC-A677-DFF671D7081B}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -651,6 +661,7 @@ Global
 		{B56C1689-DE25-4345-AD19-5F140E183F04} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
 		{B044D398-C8FD-459B-93BB-A637E71ACF4F} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
 		{76D85792-D772-47B0-909B-BAF7383DDC27} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
+		{D2C892C6-F1C2-4BCC-A677-DFF671D7081B} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
