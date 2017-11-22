@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="_11._建造者模式_之面对流程固定而部件内部逻辑必变的场景分析使用.Program" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_11._建造者模式_之面对流程固定而部件内部逻辑必变的场景分析使用.AbstractPerson">
+    <Position X="3" Y="0.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACgAAAACAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>AbstractPerson.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_11._建造者模式_之面对流程固定而部件内部逻辑必变的场景分析使用.FatPerson">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACgAAAACAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>FatPerson.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_11._建造者模式_之面对流程固定而部件内部逻辑必变的场景分析使用.ThinPerson">
+    <Position X="3.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACgAAAACAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>ThinPerson.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_11._建造者模式_之面对流程固定而部件内部逻辑必变的场景分析使用.BuilderDirector">
+    <Position X="5.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>BuilderDirector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="微软雅黑" Size="9" />
+</ClassDiagram>
