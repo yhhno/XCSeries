@@ -131,6 +131,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07.2WCF的代理模式之�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "09.【策略模式】之如何面对客户需求使用具体的策略的见风使驼法", "08设计模式系列\09.【策略模式】之如何面对客户需求使用具体的策略的见风使驼法\09.【策略模式】之如何面对客户需求使用具体的策略的见风使驼法.csproj", "{B56C1689-DE25-4345-AD19-5F140E183F04}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "10.【观察者模式】之使用MVVM模式实现的knockoutjs在观察者上运用", "08设计模式系列\10.【观察者模式】之使用MVVM模式实现的knockoutjs在观察者上运用\10.【观察者模式】之使用MVVM模式实现的knockoutjs在观察者上运用.csproj", "{B044D398-C8FD-459B-93BB-A637E71ACF4F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -571,6 +573,14 @@ Global
 		{B56C1689-DE25-4345-AD19-5F140E183F04}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B56C1689-DE25-4345-AD19-5F140E183F04}.Release|x64.ActiveCfg = Release|Any CPU
 		{B56C1689-DE25-4345-AD19-5F140E183F04}.Release|x64.Build.0 = Release|Any CPU
+		{B044D398-C8FD-459B-93BB-A637E71ACF4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B044D398-C8FD-459B-93BB-A637E71ACF4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B044D398-C8FD-459B-93BB-A637E71ACF4F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B044D398-C8FD-459B-93BB-A637E71ACF4F}.Debug|x64.Build.0 = Debug|Any CPU
+		{B044D398-C8FD-459B-93BB-A637E71ACF4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B044D398-C8FD-459B-93BB-A637E71ACF4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B044D398-C8FD-459B-93BB-A637E71ACF4F}.Release|x64.ActiveCfg = Release|Any CPU
+		{B044D398-C8FD-459B-93BB-A637E71ACF4F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -629,6 +639,7 @@ Global
 		{CFC02BED-8E8B-4961-9407-10EA8D44C7ED} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
 		{52F1B7B2-E210-4616-A650-8B26001E0645} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
 		{B56C1689-DE25-4345-AD19-5F140E183F04} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
+		{B044D398-C8FD-459B-93BB-A637E71ACF4F} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
