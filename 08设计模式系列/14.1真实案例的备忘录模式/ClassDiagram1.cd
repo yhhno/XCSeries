@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ConsoleApplication22.Program">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConsoleApplication22.Leaflet">
+    <Position X="1.25" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAQAAAAAAAAAAABAAAAAACQgAA=</HashCode>
+      <FileName>Leaflet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConsoleApplication22.Memento">
+    <Position X="3.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Memento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConsoleApplication22.Caretaker">
+    <Position X="5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Caretaker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

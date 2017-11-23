@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="_15._状态模式_之如何面对状态的变更更改相应的行为之高效消除ifelse条件判断.Program" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_15._状态模式_之如何面对状态的变更更改相应的行为之高效消除ifelse条件判断.AbstractState">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AbstractState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_15._状态模式_之如何面对状态的变更更改相应的行为之高效消除ifelse条件判断.ConcreateState1">
+    <Position X="5.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ConcreateState1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_15._状态模式_之如何面对状态的变更更改相应的行为之高效消除ifelse条件判断.ConcreteState2">
+    <Position X="7.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ConcreteState2.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_15._状态模式_之如何面对状态的变更更改相应的行为之高效消除ifelse条件判断.ConcreteState3">
+    <Position X="9.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ConcreteState3.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_15._状态模式_之如何面对状态的变更更改相应的行为之高效消除ifelse条件判断.Context">
+    <Position X="1.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAEAAAABAAAAAA=</HashCode>
+      <FileName>Context.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="微软雅黑" Size="9" />
+</ClassDiagram>

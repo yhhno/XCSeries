@@ -139,7 +139,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "12.【中介者模式】之
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "13.【工厂方法,抽象工厂】之如何在切换数据库是必须解决的开闭原则", "08设计模式系列\13.【工厂方法,抽象工厂】之如何在切换数据库是必须解决的开闭原则\13.【工厂方法,抽象工厂】之如何在切换数据库是必须解决的开闭原则.csproj", "{82A46845-2473-4EB5-8EA9-3BA346F8847F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "14.【备忘录模式】之如何恢复对象的某一时刻状态之真实项目中如何对一组对象进行过滤和撤销操作", "08设计模式系列\14.【备忘录模式】之如何恢复对象的某一时刻状态之真实项目中如何对一组对象进行过滤和撤销操作\14.【备忘录模式】之如何恢复对象的某一时刻状态之真实项目中如何对一组对象进行过滤和撤销操作.csproj", "{DF83B8CE-6877-4FBF-8987-BD0F466F0DF7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "14.0【备忘录模式】之如何恢复对象的某一时刻状态之真实项目中如何对一组对象进行过滤和撤销操作", "08设计模式系列\14.【备忘录模式】之如何恢复对象的某一时刻状态之真实项目中如何对一组对象进行过滤和撤销操作\14.0【备忘录模式】之如何恢复对象的某一时刻状态之真实项目中如何对一组对象进行过滤和撤销操作.csproj", "{DF83B8CE-6877-4FBF-8987-BD0F466F0DF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "15.0【状态模式】之如何面对状态的变更更改相应的行为之高效消除ifelse条件判断", "08设计模式系列\15.【状态模式】之如何面对状态的变更更改相应的行为之高效消除ifelse条件判断\15.0【状态模式】之如何面对状态的变更更改相应的行为之高效消除ifelse条件判断.csproj", "{28402CD9-84E4-4962-9395-719DC6E462D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "14.1真实案例的备忘录模式", "08设计模式系列\14.1真实案例的备忘录模式\14.1真实案例的备忘录模式.csproj", "{6EC900AF-ABA9-4077-A4C0-D030EBAB22E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "15.1真实案例的状态模式", "08设计模式系列\15.1真实案例的状态模式\15.1真实案例的状态模式.csproj", "{4A6FA700-5D40-4E7E-BF01-3F77FAEF4ECD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -621,6 +627,30 @@ Global
 		{DF83B8CE-6877-4FBF-8987-BD0F466F0DF7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DF83B8CE-6877-4FBF-8987-BD0F466F0DF7}.Release|x64.ActiveCfg = Release|Any CPU
 		{DF83B8CE-6877-4FBF-8987-BD0F466F0DF7}.Release|x64.Build.0 = Release|Any CPU
+		{28402CD9-84E4-4962-9395-719DC6E462D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28402CD9-84E4-4962-9395-719DC6E462D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28402CD9-84E4-4962-9395-719DC6E462D1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{28402CD9-84E4-4962-9395-719DC6E462D1}.Debug|x64.Build.0 = Debug|Any CPU
+		{28402CD9-84E4-4962-9395-719DC6E462D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28402CD9-84E4-4962-9395-719DC6E462D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28402CD9-84E4-4962-9395-719DC6E462D1}.Release|x64.ActiveCfg = Release|Any CPU
+		{28402CD9-84E4-4962-9395-719DC6E462D1}.Release|x64.Build.0 = Release|Any CPU
+		{6EC900AF-ABA9-4077-A4C0-D030EBAB22E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EC900AF-ABA9-4077-A4C0-D030EBAB22E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EC900AF-ABA9-4077-A4C0-D030EBAB22E8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6EC900AF-ABA9-4077-A4C0-D030EBAB22E8}.Debug|x64.Build.0 = Debug|Any CPU
+		{6EC900AF-ABA9-4077-A4C0-D030EBAB22E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EC900AF-ABA9-4077-A4C0-D030EBAB22E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EC900AF-ABA9-4077-A4C0-D030EBAB22E8}.Release|x64.ActiveCfg = Release|Any CPU
+		{6EC900AF-ABA9-4077-A4C0-D030EBAB22E8}.Release|x64.Build.0 = Release|Any CPU
+		{4A6FA700-5D40-4E7E-BF01-3F77FAEF4ECD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A6FA700-5D40-4E7E-BF01-3F77FAEF4ECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A6FA700-5D40-4E7E-BF01-3F77FAEF4ECD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4A6FA700-5D40-4E7E-BF01-3F77FAEF4ECD}.Debug|x64.Build.0 = Debug|Any CPU
+		{4A6FA700-5D40-4E7E-BF01-3F77FAEF4ECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A6FA700-5D40-4E7E-BF01-3F77FAEF4ECD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A6FA700-5D40-4E7E-BF01-3F77FAEF4ECD}.Release|x64.ActiveCfg = Release|Any CPU
+		{4A6FA700-5D40-4E7E-BF01-3F77FAEF4ECD}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -684,6 +714,9 @@ Global
 		{D2C892C6-F1C2-4BCC-A677-DFF671D7081B} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
 		{82A46845-2473-4EB5-8EA9-3BA346F8847F} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
 		{DF83B8CE-6877-4FBF-8987-BD0F466F0DF7} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
+		{28402CD9-84E4-4962-9395-719DC6E462D1} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
+		{6EC900AF-ABA9-4077-A4C0-D030EBAB22E8} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
+		{4A6FA700-5D40-4E7E-BF01-3F77FAEF4ECD} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
