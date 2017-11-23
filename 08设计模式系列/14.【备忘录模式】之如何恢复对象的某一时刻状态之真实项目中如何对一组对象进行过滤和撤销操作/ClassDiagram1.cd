@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="_14._备忘录模式_之如何恢复对象的某一时刻状态之真实项目中如何对一组对象进行过滤和撤销操作.Program" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_14._备忘录模式_之如何恢复对象的某一时刻状态之真实项目中如何对一组对象进行过滤和撤销操作.Originator">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFAAAAAACAAAA=</HashCode>
+      <FileName>Originator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_14._备忘录模式_之如何恢复对象的某一时刻状态之真实项目中如何对一组对象进行过滤和撤销操作.Memento">
+    <Position X="1.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Memento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_14._备忘录模式_之如何恢复对象的某一时刻状态之真实项目中如何对一组对象进行过滤和撤销操作.Caretaker">
+    <Position X="4" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Caretaker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="微软雅黑" Size="9" />
+</ClassDiagram>
