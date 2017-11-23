@@ -11,11 +11,11 @@ namespace ConsoleApplication25
         static void Main(string[] args)
         {
             Context context = new Context();
-
+            //初始状态
             context.State = new MorningState();
 
             context.Hours = 12;
-
+            //初始状态的行为的执行
             context.Request();
 
             Console.Read();
