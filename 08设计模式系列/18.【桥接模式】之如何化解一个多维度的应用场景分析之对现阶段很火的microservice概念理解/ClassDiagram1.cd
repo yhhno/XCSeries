@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="_18._桥接模式_之如何化解一个多维度的应用场景分析之对现阶段很火的microservice概念理解.Program" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_18._桥接模式_之如何化解一个多维度的应用场景分析之对现阶段很火的microservice概念理解.PhoneBrand">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>PhoneBrand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_18._桥接模式_之如何化解一个多维度的应用场景分析之对现阶段很火的microservice概念理解.PhoneTianyu">
+    <Position X="6" Y="2" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>PhoneTianyu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_18._桥接模式_之如何化解一个多维度的应用场景分析之对现阶段很火的microservice概念理解.PhoneBodao">
+    <Position X="10" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>PhoneBodao.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_18._桥接模式_之如何化解一个多维度的应用场景分析之对现阶段很火的microservice概念理解.TianyuAddress" Collapsed="true">
+    <Position X="4.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>TianyuAddress.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_18._桥接模式_之如何化解一个多维度的应用场景分析之对现阶段很火的microservice概念理解.TianyuGame">
+    <Position X="6.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>TianyuGame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_18._桥接模式_之如何化解一个多维度的应用场景分析之对现阶段很火的microservice概念理解.BodaoAddress">
+    <Position X="9.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>BodaoAddress.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_18._桥接模式_之如何化解一个多维度的应用场景分析之对现阶段很火的microservice概念理解.BodaoGame">
+    <Position X="12" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>BodaoGame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="微软雅黑" Size="9" />
+</ClassDiagram>

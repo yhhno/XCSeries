@@ -151,6 +151,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "16.【命令模式】之如
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "17.【责任链模式】之如何动态的组成处理链方便理解js冒泡机制原理", "08设计模式系列\17.【责任链模式】之如何动态的组成处理链方便理解js冒泡机制原理\17.【责任链模式】之如何动态的组成处理链方便理解js冒泡机制原理.csproj", "{7171DDC9-90B8-4B00-9859-B6530DC0180D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "18.0【桥接模式】之如何化解一个多维度的应用场景分析之对现阶段很火的microservice概念理解", "08设计模式系列\18.【桥接模式】之如何化解一个多维度的应用场景分析之对现阶段很火的microservice概念理解\18.0【桥接模式】之如何化解一个多维度的应用场景分析之对现阶段很火的microservice概念理解.csproj", "{5186049C-2622-4A1B-94E9-CC636A4C5F32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "18.1使用桥接模式进行解耦", "08设计模式系列\18.1使用桥接模式进行解耦\18.1使用桥接模式进行解耦.csproj", "{E0DD770C-21D3-453C-B5CF-236F0A345B05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -671,6 +675,22 @@ Global
 		{7171DDC9-90B8-4B00-9859-B6530DC0180D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7171DDC9-90B8-4B00-9859-B6530DC0180D}.Release|x64.ActiveCfg = Release|Any CPU
 		{7171DDC9-90B8-4B00-9859-B6530DC0180D}.Release|x64.Build.0 = Release|Any CPU
+		{5186049C-2622-4A1B-94E9-CC636A4C5F32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5186049C-2622-4A1B-94E9-CC636A4C5F32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5186049C-2622-4A1B-94E9-CC636A4C5F32}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5186049C-2622-4A1B-94E9-CC636A4C5F32}.Debug|x64.Build.0 = Debug|Any CPU
+		{5186049C-2622-4A1B-94E9-CC636A4C5F32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5186049C-2622-4A1B-94E9-CC636A4C5F32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5186049C-2622-4A1B-94E9-CC636A4C5F32}.Release|x64.ActiveCfg = Release|Any CPU
+		{5186049C-2622-4A1B-94E9-CC636A4C5F32}.Release|x64.Build.0 = Release|Any CPU
+		{E0DD770C-21D3-453C-B5CF-236F0A345B05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0DD770C-21D3-453C-B5CF-236F0A345B05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0DD770C-21D3-453C-B5CF-236F0A345B05}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E0DD770C-21D3-453C-B5CF-236F0A345B05}.Debug|x64.Build.0 = Debug|Any CPU
+		{E0DD770C-21D3-453C-B5CF-236F0A345B05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0DD770C-21D3-453C-B5CF-236F0A345B05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0DD770C-21D3-453C-B5CF-236F0A345B05}.Release|x64.ActiveCfg = Release|Any CPU
+		{E0DD770C-21D3-453C-B5CF-236F0A345B05}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -739,6 +759,8 @@ Global
 		{4A6FA700-5D40-4E7E-BF01-3F77FAEF4ECD} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
 		{CC9087FD-B3A9-4F4A-940B-60671C200D91} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
 		{7171DDC9-90B8-4B00-9859-B6530DC0180D} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
+		{5186049C-2622-4A1B-94E9-CC636A4C5F32} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
+		{E0DD770C-21D3-453C-B5CF-236F0A345B05} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
