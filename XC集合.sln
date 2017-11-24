@@ -155,6 +155,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "18.0【桥接模式】之�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "18.1使用桥接模式进行解耦", "08设计模式系列\18.1使用桥接模式进行解耦\18.1使用桥接模式进行解耦.csproj", "{E0DD770C-21D3-453C-B5CF-236F0A345B05}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "19.【装饰器模式】之如何动态化的对组件进行装饰之对Stream的理解", "08设计模式系列\19.【装饰器模式】之如何动态化的对组件进行装饰之对Stream的理解\19.【装饰器模式】之如何动态化的对组件进行装饰之对Stream的理解.csproj", "{79D7E642-598B-4BD1-9A15-E322471C144E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -691,6 +693,14 @@ Global
 		{E0DD770C-21D3-453C-B5CF-236F0A345B05}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E0DD770C-21D3-453C-B5CF-236F0A345B05}.Release|x64.ActiveCfg = Release|Any CPU
 		{E0DD770C-21D3-453C-B5CF-236F0A345B05}.Release|x64.Build.0 = Release|Any CPU
+		{79D7E642-598B-4BD1-9A15-E322471C144E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79D7E642-598B-4BD1-9A15-E322471C144E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79D7E642-598B-4BD1-9A15-E322471C144E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{79D7E642-598B-4BD1-9A15-E322471C144E}.Debug|x64.Build.0 = Debug|Any CPU
+		{79D7E642-598B-4BD1-9A15-E322471C144E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79D7E642-598B-4BD1-9A15-E322471C144E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79D7E642-598B-4BD1-9A15-E322471C144E}.Release|x64.ActiveCfg = Release|Any CPU
+		{79D7E642-598B-4BD1-9A15-E322471C144E}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -761,6 +771,7 @@ Global
 		{7171DDC9-90B8-4B00-9859-B6530DC0180D} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
 		{5186049C-2622-4A1B-94E9-CC636A4C5F32} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
 		{E0DD770C-21D3-453C-B5CF-236F0A345B05} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
+		{79D7E642-598B-4BD1-9A15-E322471C144E} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}

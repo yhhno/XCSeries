@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="_19._装饰器模式_之如何动态化的对组件进行装饰之对Stream的理解.Program" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_19._装饰器模式_之如何动态化的对组件进行装饰之对Stream的理解.Phone">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Phone.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_19._装饰器模式_之如何动态化的对组件进行装饰之对Stream的理解.ApplePhone">
+    <Position X="1.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>ApplePhone.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_19._装饰器模式_之如何动态化的对组件进行装饰之对Stream的理解.Decorate">
+    <Position X="4.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAgBAAAAAAAAAA=</HashCode>
+      <FileName>Decorate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_19._装饰器模式_之如何动态化的对组件进行装饰之对Stream的理解.Accessories">
+    <Position X="2.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Accessories.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_19._装饰器模式_之如何动态化的对组件进行装饰之对Stream的理解.Sticker">
+    <Position X="4.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Sticker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="微软雅黑" Size="9" />
+</ClassDiagram>
