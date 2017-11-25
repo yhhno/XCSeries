@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5277F8A0-E178-4C42-AFC9-FAEDB06B2A6D}</ProjectGuid>
+    <ProjectGuid>{9F91BF6E-186F-446B-9DF9-0C3F35D05C79}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_20._享元模式_之如何减少对象的状态提高性能之Razor模板转换实战场景分析</RootNamespace>
-    <AssemblyName>20.【享元模式】之如何减少对象的状态提高性能之Razor模板转换实战场景分析</AssemblyName>
+    <RootNamespace>_21._组合模式_之如何将poco格式的数据朔形为树形结构分析</RootNamespace>
+    <AssemblyName>21.【组合模式】之如何将poco格式的数据朔形为树形结构分析</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -42,22 +42,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConcreteFlyWeight.cs" />
-    <Compile Include="Factory.cs" />
-    <Compile Include="FlyWeight.cs" />
+    <Compile Include="Component.cs" />
+    <Compile Include="Composite.cs" />
+    <Compile Include="Leaf.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnSharedConcreteFlyWeight.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="20Point.txt" />
-    <Content Include="享元模式的案例\Razor中的享元模式.JPG" />
-    <Content Include="享元模式的案例\Razor中的享元模式中的线程安全字典.JPG" />
-    <Content Include="享元模式的案例\Razor模板引擎使用.JPG" />
+    <Content Include="21Point.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

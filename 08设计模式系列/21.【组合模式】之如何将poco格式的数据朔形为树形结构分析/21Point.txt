@@ -25,109 +25,71 @@
 23.以前存在一个问题, 啥啥都不知道,都不理解的情况下,没有该有的概念?没有该有的思维?没有该有的模型, 去看干巴巴的字,怎么可能去理解呢 去干好呢?比如:让一个乡下人去干金融,面对一大堆名词,死记硬背,硬理解, 然后去做事.
 
 
-一：享元模式   过程是什么? 设计模式针对特定的问题, 是一个点,但问题在过程中.
-
-1. 共享元数据的意思？？？  ok   如何实现呢?  如何共享? 怎样共享
-
- 目的:  减少内存开销，避免在内存中实例化众多相似或者相同的实例。。。。为什么要减少内存开销呢?  与单例(避免高消耗的new)区别.  与工厂模式区别
-
-
- 大白话: 做了十次的new ,其实都是一个类，，如果我们把这个new缓存起来，下次new的时候还是取这个缓存。。。【节省了内存】 为什么节省了内存?
-
- 你不能浪费内存,我们要做一个穷人.使用内存要省着用,不能你想怎么用就怎么用,用完之后,有个gc回收,这下就苦了gc,1000次同样的new, gc要累死了.同时还占用了内存
-
-类似于:  类似于,但真实情况不是这样的. 说明下共享在实际开发中的应用了.
-class Program
-    {
-        static void Main(string[] args)
-        {
-            Dictionary<int, Person> dic = new Dictionary<int, Person>();
-            for (int i = 0; i < 10; i++)//10次new,内存中就有10个person的实例.,还不如第一次就缓存下来.
-            {
-                Person p = new Person();
-                if (dic.ContainsKey(p.GetHashCode()))
-                {
-                    p = dic[p.GetHashCode()];
-                }
-                else
-                {
-                    dic.Add(p.GetHashCode(), p);//保存在内存中 如何理解?
-                }
-
-
-            }
-        }
-    }
-    class Person
-    {
 
 
 
 
-2. .net中有很多这样的案例  都是享元模式 应用很广泛, 但存在一个问题, 以为缓存就是享元模式? 倾向接收是什么? 而不深究为什么?
+一：组合模式  也就是 转换数据的 结构   
+
+外观模式 和 适配器模式    不是用于在设计初期用的模式。。。而是后期没办法如何去做封装。。。  类似BLL
+
+解释器模式： 写编译器可以用得到。。。
 
 
-string的驻留池 string是值类型中的引用类型.
- static void Main(string[] args)
-        {
-            string s1 = "你好";//你好是放在堆上的,也就是说值类型放在栈上的
-            string s2 = "你好";
-            var b = String.ReferenceEquals(s1, s2);
-            Console.WriteLine(b);//true, 说明s1和s2执行同一个引用
-        }
+在对象呈现树形结构的时候，如何去组织。。。如何理解组合? 【利用组合模式将数据组织成树形结构】
 
-redis,db 的连接池 
+比如说：菜单。。。
 
-线程池  而不是每次都是new thread。。。。
+家谱，部门组织架构
 
-Task =》 寄托在线程池上的线程，，，而且是做包装的。
-Task.Factory.StartNew()
+扁平的poco实体(当前数据库中的数据),转换成树形
 
-3. Razor    asp.net mvc 做模板引擎 都是享元模式   razor是干嘛呢?
+id   name       parent
 
-http://razorengine.codeplex.com/   
+1   net技术     null  结点
+2   net新手      1    结点
+3   C#           1    结点
+4   编程语言    null   结点
+5   Java         4      结点   把这些结点保存在树中， 如何表示父子关系  仔细思考下是如何转换的?  这也可以有助于思考现实映射代码?
+如何用树形结构,表示数据库中的这些数据=>用组合模式将数据进行转换
 
+最终组合好后的数据后,可以做什么呢?
+                 Root
+      net技术                编程语言
 
-Razor:    模板(缓存) + 商品  =>   一封邮件
-
-
-// RazorEngine.Templating.TemplateService
-internal ITemplate GetTemplate(string template, Type modelType, string name)
-{
-	if (!string.IsNullOrEmpty(name) && this.templateCache.ContainsKey(name))//templateCache是个线程安全的集合? 听到线程安全就懵逼了吗? 笨笨笨
-	{
-		return this.templateCache[name];//肯定要缓存,没缓存怎么提高性能? 那提高性能有啥方式恩?
-	}
-	ITemplate template2 = this.CreateTemplate(template, modelType);
-	if (!string.IsNullOrEmpty(name) && !this.templateCache.ContainsKey(name))//这个判断说明了什么?
-	{
-		this.templateCache.Add(name, template2);
-	}
-	return template2;
-}
+net新手    C#                    Java
 
 
-二：模型
-
-享元模式 样例 步骤
-1.定义一个抽象类FlyWeight,添加一个抽象方法Run
-2.定义一个ConcreteFlyWeigth类和UnSharedConcreteFlyWeight类,并继承抽象类FlyWeight,并实现各自的Run方法
-3.定义一个Factory类,添加CreateInstance方法,和用于缓存的 线程安全的字典CacheDic字段, 实现CreateInstance的逻辑
-4.在main函数中调用,比较第一次使用,和后续使用有啥不一样.  我们得到了相同的实例, 但可变的,肯定要通过参数串进去,达到相似的实例/
-5.模式涉及的是实例的共享, 1.首先有实例(FlyWeight),2.再有共享(Factory),3.再使用 Factory.CreateInstance 4.完整的过程.
+树形式，而不是二叉树。。。 前缀树有类似 (trie树)
 
 
-可变和不可变参数。。。  如何理解? 不可变的参数我们得到了相同的实例,可变的参数通过Run函数传入, 达到相似的实例.
+组合模式 跟 算法题一样    【也就是树的操作】换句话,输的操作在设计模式中叫做组合模式  树的操作是什么? 如何映射组合模式?  
+
+
+算法1： 如何遍历一棵树
+
+算法2： 如果求得指定节点的父节点或者子节点
+
+算法3：如果将这个树进行镜像
+
+算法4：。。。。
+ 
+
+ 组合模式 样例 步骤
+ 1.先定义一个抽象类Component,添加抽象方法Add和Remove和Display方法,添加Children字段,表示子节点
+ 2.定义一个Composite类和Leaf类,继承抽象类Component,Composite类实现完整的抽象方法, leaf类只实现Display方法(为什么)
+ 3.在main函数中调用,
 
 
 
-1.享元模式? 是啥? 相同或者相似的实例 共享问题?
-如何共享? 减少内存开销.
-2.过程.
+
+ 1.组合模式  组合啥呢? 也就是转换数据的形式
+2. 把这些结点保存在树中， 如何表示父子关系  仔细思考下是如何转换的?  这也可以有助于思考现实映射代码?
+3.
 
 
 
-   1. 0是什么状态? 怎么演绎? 1是什么状态? 过程遇到什么问题? 有什么样的解决方案?  VS 有什么方案? 解决什么问题?   在正常的流程的大前提下,去看问题, 关注点不能本末倒置.  脱离环境 咋理解呢?  目的是啥?
+    1. 0是什么状态? 怎么演绎? 1是什么状态? 过程遇到什么问题? 有什么样的解决方案?  VS 有什么方案? 解决什么问题?   在正常的流程的大前提下,去看问题, 关注点不能本末倒置.  脱离环境 咋理解呢?  目的是啥?
   2.如何演绎的? 第一步是啥?新需求? 如何执行新需求? 有什么问题? 对应有什么解决办法? 解决方法有没新名词? 解释新名词? 执行接下来的一步 ... 重复执行? 这需要细节?
   3.要搞清楚的东西:
 		1.多调试,看看顺序执行,分支,跳转,循环等执行路径  多重分支,多级分支, 

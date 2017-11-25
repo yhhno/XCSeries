@@ -247,6 +247,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20.使用Lua脚本实现对
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01Memcached系列", "01Memcached系列\Memcached系列\01Memcached系列.csproj", "{954C798A-0C24-4570-BCA6-91B4B7DBEFD6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "21.【组合模式】之如何将poco格式的数据朔形为树形结构分析", "08设计模式系列\21.【组合模式】之如何将poco格式的数据朔形为树形结构分析\21.【组合模式】之如何将poco格式的数据朔形为树形结构分析.csproj", "{9F91BF6E-186F-446B-9DF9-0C3F35D05C79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1135,6 +1137,14 @@ Global
 		{954C798A-0C24-4570-BCA6-91B4B7DBEFD6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{954C798A-0C24-4570-BCA6-91B4B7DBEFD6}.Release|x64.ActiveCfg = Release|Any CPU
 		{954C798A-0C24-4570-BCA6-91B4B7DBEFD6}.Release|x64.Build.0 = Release|Any CPU
+		{9F91BF6E-186F-446B-9DF9-0C3F35D05C79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F91BF6E-186F-446B-9DF9-0C3F35D05C79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F91BF6E-186F-446B-9DF9-0C3F35D05C79}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9F91BF6E-186F-446B-9DF9-0C3F35D05C79}.Debug|x64.Build.0 = Debug|Any CPU
+		{9F91BF6E-186F-446B-9DF9-0C3F35D05C79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F91BF6E-186F-446B-9DF9-0C3F35D05C79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F91BF6E-186F-446B-9DF9-0C3F35D05C79}.Release|x64.ActiveCfg = Release|Any CPU
+		{9F91BF6E-186F-446B-9DF9-0C3F35D05C79}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1249,6 +1259,7 @@ Global
 		{96AAD287-A377-4C3D-BA9C-D5CB99E64F9F} = {BBA0701F-F8B4-4C6F-B474-C10E86053340}
 		{EF1E8D26-5FB8-477B-98F4-87E7AC6B6888} = {BBA0701F-F8B4-4C6F-B474-C10E86053340}
 		{954C798A-0C24-4570-BCA6-91B4B7DBEFD6} = {5DAFB4F5-B482-44F0-BDC7-AEAF0A305800}
+		{9F91BF6E-186F-446B-9DF9-0C3F35D05C79} = {8CFD6937-10CC-4FB2-9B74-D2EB267ABE8B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
