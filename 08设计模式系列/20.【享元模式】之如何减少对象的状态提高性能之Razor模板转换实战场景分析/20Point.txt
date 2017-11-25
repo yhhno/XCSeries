@@ -19,53 +19,87 @@
 17.我以为撤销是在执行后撤销,第一感觉是这样, 说明什么? 对事情根本没有本质的认识? 或者很多认识都是错的,还有其实内心是阻止自己深入的,觉得做不到? 也不觉得做不到有什么不好? 深入都没深入,更别谈什么能不能了.==>我能,必须前进.
 18.容易懒惰,容易没激情,容易不积极,容易放弃,容易不调整.心态不乐观.容易没渴望
 19.无师自通是个什么情况?
+20.字典在容量比较小的情况下,也是很好的,但容量非常大的时候,也是内存抗不住的(为什么),也就是要借助redis===> 说明什么问题?  每次思考的都是理想情况下 和单独一个点.
+21.不好维护  ===> 说明什么问题? 每次思考的都是单独一个点
+22.过程是什么? 设计模式针对特定的问题, 是一个点,但问题在过程中.
+23.以前存在一个问题, 啥啥都不知道,都不理解的情况下,没有该有的概念?没有该有的思维?没有该有的模型, 去看干巴巴的字,怎么可能去理解呢 去干好呢?比如:让一个乡下人去干金融,面对一大堆名词,死记硬背,硬理解, 然后去做事.
+
+
+一：享元模式   过程是什么? 设计模式针对特定的问题, 是一个点,但问题在过程中.
+
+1. 共享元数据的意思？？？  ok   如何实现呢?  如何共享? 怎样共享
+
+ 目的:  减少内存开销，避免在内存中实例化众多相似或者相同的实例。。。。为什么要减少内存开销呢?  与单例(避免高消耗的new)区别.
+
+
+ 大白话: 做了十次的new ,其实都是一个类，，如果我们把这个new缓存起来，下次new的时候还是取这个缓存。。。【节省了内存】 为什么节省了内存?
+
+ 你不能浪费内存,我们要做一个穷人.使用内存要省着用,不能你想怎么用就怎么用,用完之后,有个gc回收,这下就苦了gc,1000次同样的new, gc要累死了.同时还占用了内存
+
+类似于:  类似于,但真实情况不是这样的. 说明下共享在实际开发中的应用了.
+class Program
+    {
+        static void Main(string[] args)
+        {
+            Dictionary<int, Person> dic = new Dictionary<int, Person>();
+            for (int i = 0; i < 10; i++)//10次new,内存中就有10个person的实例.,还不如第一次就缓存下来.
+            {
+                Person p = new Person();
+                if (dic.ContainsKey(p.GetHashCode()))
+                {
+                    p = dic[p.GetHashCode()];
+                }
+                else
+                {
+                    dic.Add(p.GetHashCode(), p);//保存在内存中 如何理解?
+                }
+
+
+            }
+        }
+    }
+    class Person
+    {
 
 
 
 
-
-一：享元模式
-
-1. 共享元数据的意思？？？  ok
-
-   减少内存开销，避免在内存中实例化众多相似或者相同的实例。。。。
+2. .net中有很多这样的案例  都是享元模式 应用很广泛, 但存在一个问题, 以为缓存就是享元模式? 倾向接收是什么? 而不深究为什么?
 
 
-  做了十次的new ,其实都是一个类，，如果我们把这个new缓存起来，下次new的时候还是取这个缓存。。。【节省了内存】
-
-
-  C# GC
-
-
-2. .net中有很多这样的案例
-
-
-string的驻留池
+string的驻留池 string是值类型中的引用类型.
+ static void Main(string[] args)
+        {
+            string s1 = "你好";//你好是放在堆上的,也就是说值类型放在栈上的
+            string s2 = "你好";
+            var b = String.ReferenceEquals(s1, s2);
+            Console.WriteLine(b);//true, 说明s1和s2执行同一个引用
+        }
 
 redis,db 的连接池 
 
 线程池  而不是每次都是new thread。。。。
 
-Task =》 寄托在线程池上的线程，，，而且是多包装的。
+Task =》 寄托在线程池上的线程，，，而且是做包装的。
+Task.Factory.StartNew()
 
-
-3. Razor    asp.net mvc 做模板引擎
+3. Razor    asp.net mvc 做模板引擎 都是享元模式   razor是干嘛呢?
 
 http://razorengine.codeplex.com/   
 
 
-Razor:    模板 + 商品  =>   一封邮件
+Razor:    模板(缓存) + 商品  =>   一封邮件
 
 
 // RazorEngine.Templating.TemplateService
 internal ITemplate GetTemplate(string template, Type modelType, string name)
 {
-	if (!string.IsNullOrEmpty(name) && this.templateCache.ContainsKey(name))
+	if (!string.IsNullOrEmpty(name) && this.templateCache.ContainsKey(name))//templateCache是个线程安全的集合? 听到线程安全就懵逼了吗? 笨笨笨
 	{
-		return this.templateCache[name];
+		return this.templateCache[name];//肯定要缓存,没缓存怎么提高性能? 那提高性能有啥方式恩?
 	}
 	ITemplate template2 = this.CreateTemplate(template, modelType);
-	if (!string.IsNullOrEmpty(name) && !this.templateCache.ContainsKey(name))
+	if (!string.IsNullOrEmpty(name) && !this.templateCache.ContainsKey(name))//这个判断说明了什么?
 	{
 		this.templateCache.Add(name, template2);
 	}
@@ -75,10 +109,21 @@ internal ITemplate GetTemplate(string template, Type modelType, string name)
 
 二：模型
 
+享元模式 样例 步骤
+1.定义一个抽象类FlyWeight,添加一个抽象方法Run
+2.定义一个ConcreteFlyWeigth类和UnSharedConcreteFlyWeight类,并继承抽象类FlyWeight,并实现各自的Run方法
+3.定义一个Factory类,添加CreateInstance方法,和用于缓存的 线程安全的字典CacheDic字段, 实现CreateInstance的逻辑
+4.在main函数中调用,比较第一次使用,和后续使用有啥不一样.  我们得到了相同的实例, 但可变的,肯定要通过参数串进去,达到相似的实例/
+5.模式涉及的是实例的共享, 1.首先有实例(FlyWeight),2.再有共享(Factory),3.再使用 Factory.CreateInstance 4.完整的过程.
 
-可变和不可变参数。。。
+
+可变和不可变参数。。。  如何理解? 不可变的参数我们得到了相同的实例,可变的参数通过Run函数传入, 达到相似的实例.
 
 
+
+1.享元模式? 是啥? 相同或者相似的实例 共享问题?
+如何共享? 减少内存开销.
+2.过程.
 
 
 
@@ -94,7 +139,7 @@ internal ITemplate GetTemplate(string template, Type modelType, string name)
 6.分析是如何分析的呢? 从oo角度分析, 无非一些类,然后交互. 还有流程的
 7.分解很重要.  如何分解呢?  映射其实就是分解? 设计算法也是分解? 但分解到底是啥呢?
 8. 抽象? 如何抽象?
-9.分析问题不够深入,不能猜想,不能逻辑推理,容易卡壳,特别是遇到新概念,不懂的名词,卡壳后不会调整,学习不够本质,不能活学活用,容易只记住案例,当遇到类似的时候,不能联想, 举一反三.
+9.分析问题不够深入,不能猜想,不能逻辑推理,容易卡壳,特别是遇到新概念,不懂的名词,卡壳后不会调整,学习不够本质,不能活学活用,容易只记住案例,当遇到类似的时候,不能联想, 举一反三.===>缘由倾向于接收是什么? 而不去了解为什么?   等级不一样,肯定不能拿着低等级的知识,去做高等级的事情吧.
 10.如何用oo的角度,来描述一个情景.
 					1.有哪些元素 也就是类
 					2.概念上的流程是什么? 也就是怎样的一个行为,接着一个行为?

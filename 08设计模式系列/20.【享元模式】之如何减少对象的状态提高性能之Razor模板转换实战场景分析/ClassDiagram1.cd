@@ -7,5 +7,36 @@
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="_20._享元模式_之如何减少对象的状态提高性能之Razor模板转换实战场景分析.FlyWeight">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>FlyWeight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_20._享元模式_之如何减少对象的状态提高性能之Razor模板转换实战场景分析.ConcreteFlyWeight">
+    <Position X="3.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>ConcreteFlyWeight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_20._享元模式_之如何减少对象的状态提高性能之Razor模板转换实战场景分析.UnSharedConcreteFlyWeight">
+    <Position X="6" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>UnSharedConcreteFlyWeight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_20._享元模式_之如何减少对象的状态提高性能之Razor模板转换实战场景分析.Factory">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Factory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Font Name="微软雅黑" Size="9" />
 </ClassDiagram>
