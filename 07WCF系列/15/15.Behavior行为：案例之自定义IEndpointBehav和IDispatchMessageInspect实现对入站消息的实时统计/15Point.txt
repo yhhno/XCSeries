@@ -1,0 +1,28 @@
+一：端点行为 EndpointBehavior
+
+這個有一點像asp.net mvc 的管道。。。 【AOP】 动态篡改message。。。
+
+二：service方法的实时调用量统计 【监控大屏】
+
+1. ModifyStudent  TotalCount
+
+2. GetStudent     TotalCount
+
+3. AddStudent    TotalCount
+
+服务降级  【一分钟之内（错误量）（IP） 某些函数调用量太大，我可以直接回绝此操作。。。】
+
+protoBuf 【google 一个序列化工具】 xml infoset 【DataContract】
+
+三：演示
+
+{<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Header>
+    <To s:mustUnderstand="1" xmlns="http://schemas.microsoft.com/ws/2005/05/addressing/none">http://192.168.23.1:8732/HomeService</To>
+    <Action s:mustUnderstand="1" xmlns="http://schemas.microsoft.com/ws/2005/05/addressing/none">http://tempuri.org/IStudent/AddStudent</Action>
+  </s:Header>
+  <s:Body>
+    <AddStudent xmlns="http://tempuri.org/" />
+  </s:Body>
+</s:Envelope>}
+

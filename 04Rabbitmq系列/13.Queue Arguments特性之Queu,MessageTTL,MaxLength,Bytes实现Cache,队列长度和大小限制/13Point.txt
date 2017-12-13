@@ -1,0 +1,73 @@
+一：queue的arguments。。
+
+1. 我们要知道到底有哪些参数属性。。。。
+
+    《1》 Message TTL   
+
+          <1> Queue TTL   =》 Per-Queue Message TTL   【给一个queue的所有message限定一个时间】
+							Cache的一个效果。。。
+ 
+          <2> Message TTL =》 单独指定。【定制化的】
+
+                              IBasicProperties basicProperties,
+
+其他信息: The AMQP operation was interrupted: AMQP close-reason, initiated by Peer, code=406, text="PRECONDITION_FAILED - inequivalent arg 'x-message-ttl' for queue 'mytest' in vhost '/': received none but current is the value '8000' of type 'signedint'", classId=50, methodId=10, cause=
+
+
+        static void Main(string[] args)
+        {
+            ConnectionFactory factory = new ConnectionFactory()
+            {
+                HostName = "192.168.23.148",
+                UserName = "datamip",
+                Password = "datamip",
+            };
+
+            //第一步：创建connection
+            var connection = factory.CreateConnection();
+
+            //第二步：创建一个channel
+            var channel = connection.CreateModel();
+
+            channel.QueueDeclare("mytest", false, false, false, new Dictionary<string, object>
+            {
+                //{"x-message-ttl", 1000*8 }   //queue中的所有message只能存活 8s。。。。
+            });
+
+            var properties = channel.CreateBasicProperties();
+            properties.Expiration = "8000";
+
+
+            channel.BasicPublish(string.Empty, "mytest", properties, Encoding.UTF8.GetBytes("你好"));
+
+            Console.WriteLine("发布完成");
+
+            Console.Read();
+        }
+
+
+2.Auto Expire  【自动删除】
+
+    《1》 当我们的queue在指定的时间未被访问，就会被删除。。。
+
+           consume，basicget，declare。。。。
+
+Expiry time can be set for a given queue by setting the x-expires argument to queue.declare,
+
+Unused means the queue has no consumers, the queue has not been redeclared, and basic.get has not been invoked for a duration of at least the expiration period
+
+
+3. Max Length  限定队列的最大长度。。。 limit =1000
+
+               How many (ready) messages a queue can contain before it starts to drop them from its head.
+
+	       redis,memcache。。。  LRU算法。。。淘汰机制。。。。
+
+               
+
+
+4. Max Length Bytes 限定队列的最大占用空间大小。。。    【一般来说受制于内存，disk的大小限定】
+
+Total body size for ready messages a queue can contain before it starts to drop them from its head.
+
+

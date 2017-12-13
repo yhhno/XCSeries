@@ -1,0 +1,34 @@
+一：message中的 CreateBasicProperties
+
+1. 一个非常神秘的属性  
+
+    在之前的文章中，我们至少用到了6个属性。。。包括我们的exchange header。。。这个模式。。。
+
+2. 遗留了一个非常大的问题。。。持久化。。。
+
+   exchange，queue的时候，都有一个持久化的概念。。。 mnesia。。。数据库中去。。。
+
+   message呢？ 它持久化了吗？？
+
+
+二：lazy Queue
+
+1. 懒队列。。。 C#代码中。	 【用到的时候才加载】  3.6.0 加载的。。	3.6.6了。。
+
+   Lazy Queue： 数据来了，我就将其放到disk中，而且。。。内存中不存放。。。。(Requested by Consumer )
+
+   Default Queue: (in-memory） 数据直接放到内存中。。。。
+
+   		  （on disk)   会将数据放到内存中，同时还会将message放到disk中。。。等到内存有压力
+		               获取gc需要回收内存等等情况，会将memory paged out 到disk中。。。
+
+
+可以将Queue插入int.maxvalue条数据。。。看看memory的情况。。。。
+
+1. Lazy Queue + inMemory  = 还会将message放到 disk中。。。    可以看到，只有几M的增长。。。
+
+2. Default Queue + InMemory = 如果你采用的是inmemory，在内存急缺的情况下还是会paged out。。。
+
+3. Lazy Queue + Disk  =    内存不会涨上去，而且会在restart之后message还会保存。。。
+
+4. Default Queue + Disk =  内存 + 磁盘 都会数据。。。。

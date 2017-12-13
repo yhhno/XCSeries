@@ -1,0 +1,38 @@
+一：headers exchange
+
+    很少对headers 这个exchange进行介绍。。。
+
+Headers Exchange
+A headers exchange is designed for routing on multiple attributes that are more easily expressed as message headers than a routing key. Headers exchanges ignore the routing key attribute. Instead, the attributes used for routing are taken from the headers attribute. A message is considered matching if the value of the header equals the value specified upon binding.
+
+It is possible to bind a queue to a headers exchange using more than one header for matching. In this case, the broker needs one more piece of information from the application developer, namely, should it consider messages with any of the headers matching, or all of them? This is what the "x-match" binding argument is for. When the "x-match" argument is set to "any", just one matching header value is sufficient. Alternatively, setting "x-match" to "all" mandates that all the values must match.
+
+Headers exchanges can be looked upon as "direct exchanges on steroids". Because they route based on header values, they can be used as direct exchanges where the routing key does not have to be a string; it could be an integer or a hash (dictionary) for example.
+
+
+headers 是采用 muliple attributes 代替 routing key。
+
+x-match  [all/any] all： 所有的header头信息必须匹配。。。
+
+                   any： 只要有一个匹配就ok了。。。。
+
+
+direct exchange: 只需要匹配一个routingkey就可以了。。。。
+
+而现在的headers匹配，必须是满足一个或者全部的条件。。。  【and /or】的关系。。。
+
+if(name=="jack" || age==20){
+ queue1.add(msg);
+}
+
+if(name=="jack" && age==20){
+  queue2.add(msg);
+}
+
+在webui上看一下：
+
+x-match: any
+
+x-match:all
+
+key，value的顺序没有特别大的关系，因为headers.erl中会将这些key按照字母进行排序。。。

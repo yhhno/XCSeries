@@ -1,0 +1,69 @@
+一：消息契约
+
+<?xml version="1.0" encoding="utf-8"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Header>
+       
+  </s:Header>
+  <s:Body>
+    <DoWork xmlns="http://tempuri.org/">
+      <msg>hello world!</msg>
+    </DoWork>
+  </s:Body>
+</s:Envelope>
+
+Operation => 两条（input，output） [RPC]
+
+DoWork  => DoWorkResponse
+
+
+CLR类型可以直接操控Message。。。【header，body】
+
+
+从上面一段Envelope中可以看到，数据契约怎么变更，影响都是在s:Body中，而消息契约，可以影响到s:Header....
+
+二：操作s:Header有什么好处？
+
+1.可以单独在header中增加信息，方便第三方组件进行拦截的时候对header进行独立的处理，
+
+   《1》保证消息防篡改的token参数。 【AppID，Appsecert】  AppID + param + Appsercert
+
+   《2》用户登录的用户名和密码的md5验签
+       
+
+
+三：如何通过代码实现？
+
+1.  [MessageContract] /  [MessageHeader] /  [MessageBodyMember] 实现soap和CLR的强类型映射。
+
+
+POST http://192.168.23.187:8732/ProductService HTTP/1.1
+Content-Type: text/xml; charset=utf-8
+VsDebuggerCausalityData: uIDPox1/9396GLVOvYbkgAze7bsAAAAAsfljyJaFl0aa0Ao5/+aXXXnMlO+4FJNFv2HtYy9+xaYACQAA
+SOAPAction: "http://tempuri.org/IProductService/Get"
+Host: 192.168.23.187:8732
+Content-Length: 499
+Expect: 100-continue
+Accept-Encoding: gzip, deflate
+Connection: Keep-Alive
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Header><h:MySystemParam xmlns:h="http://tempuri.org/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance"><MD5 xmlns="http://schemas.datacontract.org/2004/07/WcfService">abcdefg</MD5><Token xmlns="http://schemas.datacontract.org/2004/07/WcfService">12345</Token></h:MySystemParam></s:Header><s:Body><Product xmlns="http://tempuri.org/"><ProductID>10</ProductID><ProductName>夏季新装</ProductName></Product></s:Body></s:Envelope>
+
+
+HTTP/1.1 200 OK
+Content-Length: 378
+Content-Type: text/xml; charset=utf-8
+Server: Microsoft-HTTPAPI/2.0
+Date: Tue, 14 Nov 2017 01:43:16 GMT
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Header><h:MySystemParam i:nil="true" xmlns:h="http://tempuri.org/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance"/></s:Header><s:Body><Product xmlns="http://tempuri.org/"><ProductID>0</ProductID><ProductName i:nil="true" xmlns:i="http://www.w3.org/2001/XMLSchema-instance"/></Product></s:Body></s:Envelope>
+
+
+
+四：更大的灵活性之直接在参数中使用Message
+
+1. 更大的灵活性 【编程麻烦，实际使用比较少，大家知晓一下】
+
+2. 代码实现 
+
+直接使用message进行网络传输。。。。直接操控

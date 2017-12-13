@@ -1,0 +1,113 @@
+一：wcf服务托管
+
+1. windowservice 【windows服务】 做宿主环境 【大規模部署】
+  
+   topself 可以方便做服务部署 【生产环境第一选择】
+   
+   http://topshelf-project.com/
+
+   https://topshelf.readthedocs.io/en/latest/installation/install.html
+
+   https://topshelf.readthedocs.io/en/latest/configuration/quickstart.html
+
+
+   https://topshelf.readthedocs.io/en/latest/overview/commandline.html
+《1》 code topshelf的代码
+
+《2》 install
+
+powshell => xshell
+
+.\WcfService.exe install
+
+问题：安装好了能马上自启动吗？？？
+
+.\WcfService.exe install start
+
+
+MyService.exe install -username:DOMAINServiceAccount -password:itsASecret -servicename:AwesomeService –autostart
+
+我们可以用C#代码和powshell进行代码交互。。。。
+
+        static void Main(string[] args)
+        {
+            HostFactory.Run(x =>                                 //1
+            {
+                x.Service<ServiceHost>(s =>                        //2
+                {
+                    s.ConstructUsing(name => new ServiceHost(typeof(HomeService)));     //3
+                    s.WhenStarted(tc => tc.Open());              //4
+                    s.WhenStopped(tc => tc.Close());               //5
+                });
+
+                x.RunAsLocalSystem();                            //6
+
+                x.SetDescription("这是我的第一个wcf服务");        //7
+                x.SetDisplayName("HomeService");                       //8
+                x.SetServiceName("HomeService");                       //9
+            });
+        }
+
+2. console  【禁用关闭】【小规模部署】
+
+   容易调试，禁用关闭按钮，防止误操作 【早期的生产部署】
+
+   如果生产环境下，wcf个数在5个一下，使用wcf的console还是很方便的。。。。
+
+   
+3. iis 【svc】
+
+   w3wp进程
+
+  有一点像mvc网站、 ashx一般处理文件。
+
+  《1》 点击使用 “文件系统”的形式发布
+
+  《2》配置iis。。【应用程序域】
+
+
+4. winform / wpf
+  
+   可视化的一个界面 【交互起来比较方便】。
+
+windows服务 > console > iis > winform/wpf
+
+
+
+public class ConsoleBase
+    {
+        #region 禁用关闭按钮
+        [DllImport("User32.dll", EntryPoint = "FindWindow")]
+        static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+        [DllImport("user32.dll", EntryPoint = "GetSystemMenu")]
+        static extern IntPtr GetSystemMenu(IntPtr hWnd, IntPtr bRevert);
+
+        [DllImport("user32.dll", EntryPoint = "RemoveMenu")]
+        static extern IntPtr RemoveMenu(IntPtr hMenu, uint uPosition, uint uFlags);
+
+        ///<summary>
+        /// 禁用关闭按钮
+        ///</summary>
+        ///<param name="consoleName">控制台名字</param>
+        public static void DisableCloseButton(string title)
+        {
+            //线程睡眠，确保closebtn中能够正常FindWindow，否则有时会Find失败。。
+            System.Threading.Thread.Sleep(100);
+
+            IntPtr windowHandle = FindWindow(null, title);
+            IntPtr closeMenu = GetSystemMenu(windowHandle, IntPtr.Zero);
+            uint SC_CLOSE = 0xF060;
+            RemoveMenu(closeMenu, SC_CLOSE, 0x0);
+        }
+
+        public static bool IsExistsConsole(string title)
+        {
+            IntPtr windowHandle = FindWindow(null, title);
+            if (windowHandle.Equals(IntPtr.Zero)) return false;
+
+            return true;
+        }
+        #endregion
+    }
+

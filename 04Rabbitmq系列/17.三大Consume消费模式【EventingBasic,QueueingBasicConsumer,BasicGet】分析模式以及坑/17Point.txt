@@ -1,0 +1,38 @@
+一：consumer 
+
+1. 短链接：basicget  独自去获取message。。。 request 的方式去获取，断开式。。。
+
+
+
+2. 长连接：eventbasicconsumer。。。     【订阅式】
+
+	   queuebasicconsumer。。。
+
+
+1. eventbasicconsumer + noack....
+
+       consumer端处理一条数据需要耗费 1s钟。。。。
+
+  《1》 确认机制。。。   不管你是否却不确认，消息都会一股脑全部打入到你的consumer中去。。。
+
+  《2》 QOS  =》 服务质量。。。  【QOS + Ack】机制，解决这个问题。。。 
+		 我希望是一条一条从broke中打过来。。。
+		 
+                 解决办法就是在channel设置好通道。。。
+
+
+eventbasicconsumer :  noack=true， 直连  =》 会造成application内存暴涨 + 可能丢失数据【application挂了】
+
+		      noack=false, 直连  =》 造成【application】可能会挂掉。。
+
+		      noack + QOS  直连  =》  没问题。。。 【我们可以想象的】
+
+
+Queuebasicconsumer： 死循环的模式。。。
+
+
+BasicGet:            获取redis中的操作模式是一样的。。。。
+		     不利的地方，就是每次都会创建一个channel。。。。  【最安全 + 性能不算太差】
+
+                  
+有好处，必然有相应的代价。。。

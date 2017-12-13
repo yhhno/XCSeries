@@ -1,0 +1,90 @@
+一：Rabbitmq 运维化
+
+1. 搭建Rabbitmq集群
+
+  Rabbitmq =》 erlang node  =》 天生具有这个集群特性，【非常好搭建集群】
+
+node =》 erlang.cookie 的东西，也是一个标识符，，，，，
+
+
+1. 三台centos 的防火墙都是关闭的。。。。
+
+2. erlang节点名称：【host映射】 方便机器之间的互访。。。
+
+
+192.168.23.141 rabbitmq1
+192.168.23.144 rabbitmq2
+192.168.23.143 rabbitmq3
+
+3.修改cookie文件，都统一成一个key。。。。【每个erlang程序都有一个cookie】
+
+XODBLADBPEVLKSNJLNAJ
+
+
+On Unix systems, the cookie will be typically located in /var/lib/rabbitmq/.erlang.cookie or $HOME/.erlang.cookie.
+
+如果修改文件，rabbitmq不能启动，这个时候用这个命令修改一下cookie： chmod 400 .erlang.cookie
+
+4. 看一下集群的信息： rabbitmqctl cluster_status
+
+
+[root@rabbitmq1 Desktop]# rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbitmq1 ...
+[{nodes,[{disc,[rabbit@rabbitmq1]}]},
+ {running_nodes,[rabbit@rabbitmq1]},
+ {cluster_name,<<"rabbit@rabbitmq1">>},
+ {partitions,[]},
+ {alarms,[{rabbit@rabbitmq1,[]}]}]
+[root@rabbitmq1 Desktop]# 
+
+告诉我们当前只有一个节点在运行。。。。
+
+
+rabbitmqctl join_cluster rabbit@rabbitmq1
+
+
+
+rabbit2$ rabbitmqctl stop_app
+Stopping node rabbit@rabbit2 ...done.
+rabbit2$ rabbitmqctl join_cluster  rabbit@rabbitmq1
+Clustering node rabbit@rabbit2 with [rabbit@rabbit1] ...done.
+rabbit2$ rabbitmqctl start_app
+Starting node rabbit@rabbit2 ...done.
+
+
+
+[root@rabbitmq2 Desktop]# rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbitmq2 ...
+[{nodes,[{disc,[rabbit@rabbitmq1,rabbit@rabbitmq2]}]},
+ {running_nodes,[rabbit@rabbitmq1,rabbit@rabbitmq2]},
+ {cluster_name,<<"rabbit@rabbitmq1">>},
+ {partitions,[]},
+ {alarms,[{rabbit@rabbitmq1,[]},{rabbit@rabbitmq2,[]}]}]
+
+
+[root@rabbitmq3 Desktop]# rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbitmq3 ...
+[{nodes,[{disc,[rabbit@rabbitmq1,rabbit@rabbitmq2,rabbit@rabbitmq3]}]},
+ {running_nodes,[rabbit@rabbitmq1,rabbit@rabbitmq2,rabbit@rabbitmq3]},
+ {cluster_name,<<"rabbit@rabbitmq1">>},
+ {partitions,[]},
+ {alarms,[{rabbit@rabbitmq1,[]},{rabbit@rabbitmq2,[]},{rabbit@rabbitmq3,[]}]}]
+[root@rabbitmq3 Desktop]# 
+
+
+
+
+disk, ram
+如果在集群中添加节点，如果和集群中删除节点。。。。
+
+rabbitmqctl forget_cluster_node rabbit@rabbit1  删除节点
+
+Clusters with RAM nodes   =>  rabbitmqctl join_cluster --ram rabbit@rabbit1
+
+
+可以通过命令将disk 《=》 ram 
+
+rabbitmqctl change_cluster_node_type ram
+
+
+chmod 400 .erlang.cookie 

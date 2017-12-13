@@ -1,0 +1,37 @@
+一：Apollo 【携程】 集中化配置
+
+1. 分布式环境下的痛点
+
+10台wcf。。配置文件 是不是要修改十次？？？
+
+
+ 《1》配置分散，修改起来麻烦
+
+      ConnectionString. mysql
+      MongodbString.
+      RedisString.
+
+解决的痛点： 将分散的config配置集中化管理。。。
+
+https://github.com/ctripcorp/apollo/wiki/.Net%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97
+
+
+2. https://github.com/ctripcorp/apollo/wiki/Quick-Start
+
+前提： mysql
+       centos
+       java
+
+《1》 安装包： https://pan.baidu.com/s/1pL4wTx5  
+
+unzip apollo-quick-start.zip
+
+vim demo.sh [数据库连接串]
+
+《2》 ./demo.sh start
+
+
+《3》.net客户端：　https://github.com/ctripcorp/apollo.net
+
+
+1001+dev+application.json  这个Cache的目的，在于如果apollo挂掉了，，，那么程序执行不收影响。。。

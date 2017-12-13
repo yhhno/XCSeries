@@ -1,0 +1,244 @@
+一：传输数据量的坑。。【64k限制】
+
+1. maxReceivedMessageSize：默认65536， 可设置上线long.MaxValue
+
+			   int.MaxValue 大概21G
+
+Tranport => 64k  【maxReceivedMessageSize】
+
+演示：
+
+{"远程服务器返回了意外响应: (413) Request Entity Too Large。"}
+
+其他信息: 已超过传入消息(65536)的最大消息大小配额。若要增加配额，请使用相应绑定元素上的 MaxReceivedMessageSize 属性。
+
+<system.serviceModel>
+
+    <bindings>
+      <basicHttpBinding>
+        <binding name="mybasic" maxReceivedMessageSize="1000000000" />
+      </basicHttpBinding>
+    </bindings>
+    <behaviors>
+      <serviceBehaviors>
+        <behavior name="">
+          <serviceMetadata httpGetEnabled="true" httpsGetEnabled="true"/>
+          <serviceDebug includeExceptionDetailInFaults="false"/>
+        </behavior>
+      </serviceBehaviors>
+    </behaviors>
+    <services>
+      <service name="WcfService.HomeService">
+        <endpoint address="HomeService" binding="basicHttpBinding" bindingConfiguration="mybasic" contract="WcfService.IHomeService">
+          <identity>
+            <dns value="localhost"/>
+          </identity>
+        </endpoint>
+        <endpoint address="mex" binding="mexHttpBinding" contract="IMetadataExchange"/>
+        <host>
+          <baseAddresses>
+            <add baseAddress="http://192.168.23.194:8732"/>
+          </baseAddresses>
+        </host>
+      </service>
+    </services>
+  </system.serviceModel>
+
+
+二：超时问题 【默认一分钟】
+
+1. 网络抖动或者带宽很低的时候，默认为1分钟。
+
+     <basicHttpBinding>
+        <binding name="mybasic" 
+                 sendTimeout="00:10:00"
+                  receiveTimeout="00:10:00"
+                  openTimeout="00:10:00"
+                  closeTimeout="00:10:00"
+                 maxReceivedMessageSize="1000000000" />
+      </basicHttpBinding>
+
+默认时间到底是多少，怎么去看？？？ 【maxReceivedMessageSize】
+
+
+// System.ServiceModel.HttpBindingBase
+[__DynamicallyInvokable, DefaultValue(65536L)]
+public long MaxReceivedMessageSize
+{
+	[__DynamicallyInvokable]
+	get
+	{
+		return this.httpTransport.MaxReceivedMessageSize;
+	}
+	[__DynamicallyInvokable]
+	set
+	{
+		this.httpTransport.MaxReceivedMessageSize = value;
+		this.httpsTransport.MaxReceivedMessageSize = value;
+	}
+}
+
+// System.ServiceModel.Channels.Binding
+[__DynamicallyInvokable, DefaultValue(typeof(TimeSpan), "00:10:00")]
+public TimeSpan ReceiveTimeout
+{
+	[__DynamicallyInvokable]
+	get
+	{
+		return this.receiveTimeout;
+	}
+	[__DynamicallyInvokable]
+	set
+	{
+		if (value < TimeSpan.Zero)
+		{
+			throw DiagnosticUtility.ExceptionUtility.ThrowHelperError(new ArgumentOutOfRangeException("value", value, SR.GetString("SFxTimeoutOutOfRange0")));
+		}
+		if (TimeoutHelper.IsTooLarge(value))
+		{
+			throw DiagnosticUtility.ExceptionUtility.ThrowHelperError(new ArgumentOutOfRangeException("value", value, SR.GetString("SFxTimeoutOutOfRangeTooBig")));
+		}
+		this.receiveTimeout = value;
+	}
+}
+
+ILSpy查看源代码
+
+
+三：一个service配置多个endpoint（混合使用）
+
+1. 一个service开放多个混合端口 tcp + http + udp + msmq 等等。。。
+
+  HomeService  想给JAVA使用【ws规范】，又想给C#使用 [net binary]。。。。
+
+  我想使用所有的binding。。。
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <startup>
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.6.1"/>
+  </startup>
+  <system.serviceModel>
+
+    <bindings>
+      <basicHttpBinding>
+        <binding name="mybasic"
+                 sendTimeout="00:10:00"
+                  receiveTimeout="00:10:00"
+                  openTimeout="00:10:00"
+                  closeTimeout="00:10:00"
+                 maxReceivedMessageSize="1000000000" />
+      </basicHttpBinding>
+
+      <netTcpBinding>
+        <binding name="mytcp"  sendTimeout="00:10:00"
+                  receiveTimeout="00:10:00"
+                  openTimeout="00:10:00"
+                  closeTimeout="00:10:00"
+                 maxReceivedMessageSize="1000000000" >
+          <security mode="None"/>
+        </binding>
+      </netTcpBinding>
+    </bindings>
+    <behaviors>
+      <serviceBehaviors>
+        <behavior name="">
+          <serviceMetadata httpGetEnabled="true" httpsGetEnabled="true"/>
+          <serviceDebug includeExceptionDetailInFaults="false"/>
+        </behavior>
+      </serviceBehaviors>
+    </behaviors>
+    <services>
+      <service name="WcfService.HomeService">
+        
+        <endpoint address="HomeService" binding="basicHttpBinding" bindingConfiguration="mybasic" contract="WcfService.IHomeService">
+          <identity>
+            <dns value="localhost"/>
+          </identity>
+        </endpoint>
+
+        <endpoint address="net.tcp://192.168.23.194:8730" binding="netTcpBinding"
+                  bindingConfiguration="mytcp" contract="WcfService.IHomeService">
+          <identity>
+            <dns value="localhost"/>
+          </identity>
+        </endpoint>
+
+        <endpoint address="mex" binding="mexHttpBinding" contract="IMetadataExchange"/>
+        
+        <host>
+          <baseAddresses>
+            <add baseAddress="http://192.168.23.194:8732"/>
+          </baseAddresses>
+        </host>
+      </service>
+    </services>
+  </system.serviceModel>
+</configuration>
+
+
+
+四：WCF一些有用的工具
+
+在Microsoft SDKs下有一些非常好玩的工具包。  SvcConfigEditor.exe
+
+目录：C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6.1 Tools
+
+1. 可视化编辑config文件：SvcConfigEditor.exe
+
+
+ <system.serviceModel>
+
+    <bindings>
+      <basicHttpBinding>
+        <binding name="mybasic"
+                 sendTimeout="00:10:00"
+                  receiveTimeout="00:10:00"
+                  openTimeout="00:10:00"
+                  closeTimeout="00:10:00"
+                 maxReceivedMessageSize="1000000000" />
+      </basicHttpBinding>
+    </bindings>
+    <behaviors>
+      <serviceBehaviors>
+        <behavior name="">
+          <serviceMetadata httpGetEnabled="true" httpsGetEnabled="true"/>
+          <serviceDebug includeExceptionDetailInFaults="false"/>
+        </behavior>
+      </serviceBehaviors>
+    </behaviors>
+    <services>
+      <service name="WcfService.HomeService">
+        
+        <endpoint address="HomeService" binding="basicHttpBinding" bindingConfiguration="mybasic" contract="WcfService.IHomeService">
+          <identity>
+            <dns value="localhost"/>
+          </identity>
+        </endpoint>
+
+        <endpoint address="mex" binding="mexHttpBinding" contract="IMetadataExchange"/>
+        
+        <host>
+          <baseAddresses>
+            <add baseAddress="http://192.168.23.194:8732"/>
+          </baseAddresses>
+        </host>
+      </service>
+    </services>
+  </system.serviceModel>
+
+
+
+服务类型: WcfService.HomeService
+
+终结点设置:
+
+        约定: WcfService.IHomeService
+
+        绑定: basicHttpBinding
+
+        绑定配置: (Default)
+
+        终结点地址: http://192.168.23.194:8732/HomeService
+

@@ -1,0 +1,58 @@
+一： windows 环境下的下载
+
+1. rabbitmq是用erlang语言编写的，对吧，所以里让当然要下载erlang。。。   OTP 19.1 Windows 64-bit Binary File 
+
+2. rabbitmq应用程序。。。      rabbitmq-server-3.6.5 .exe  
+
+   在windows上安装时非常智能的。。。
+
+
+《1》 安装 opt 19.1
+
+《2》 RabbitMQ 3.6.5
+
+3. web监控插件  【可视化的去监视我们的rabbitmq】  http://127.0.0.1:15672/#/
+
+ 
+
+二：Centos安装
+
+
+1. erlang的centos版本：  http://www.erlang.org/download/otp_src_19.1.tar.gz
+
+2. rabbitmq的centos版本：	rabbitmq-server-generic-unix-3.6.5.tar.xz
+
+
+   在windows平台上是一个 service服务。
+
+
+《1》 安装各种驱动
+
+   yum -y install make gcc gcc-c++ kernel-devel m4 ncurses-devel openssl-devel unixODBC-devel
+
+《2》  ./configure --prefix=/usr/erlang --without-javac 
+
+《3》 make
+
+《4》 make install
+
+《5》 设置rabbitmq 的path路径
+
+
+http://www.erlang.org/downloads    官网
+
+
+
+#set erlang environment
+export PATH=$PATH:/usr/erlang/bin
+
+#set rabbitmq environment
+export PATH=$PATH:/usr/rabbitmq/sbin
+
+
+《6》 rabbitmq-server
+
+《7》 rabbitmq-plugins enable rabbitmq_management
+ 
+      console。。。
+

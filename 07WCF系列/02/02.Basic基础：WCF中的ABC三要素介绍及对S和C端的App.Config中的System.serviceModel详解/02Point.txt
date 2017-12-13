@@ -1,0 +1,41 @@
+一：ABC 【endpoint】
+
+1. A ?
+
+   Address 【你的家庭住地在哪，告诉我吧？】			 => 服务地址 http://localhost:8733/Design_Time_Addresses/ServiceLib/Service1/
+
+2. B ?
+   
+   Binding 【我该乘用什么交通工具呢？小黄车，mobike，11路车？】  => 服务通讯 【http，tcp，msmq, udp】
+
+
+3. C ?
+
+   Contract【去你家做什么？[魔兽争霸？王者农药？XBox？]】        => 服务边界
+   
+
+二：配置文件
+
+1. system.serviceModel  所有的wcf配置都在此节点上
+
+《1》services：对endpoint进行配置。
+《2》bindings: 对所有的B进行参数配置（打开时间，关闭时间，传输时间等等。。）
+《3》behaviors：对影响wcf运行时的一些方法进行配置 【服务线程数，服务实例，事务等等】
+
+
+
+address：为空的时候，默认就是BaseAddress
+
+概念：endpoint  address = BaseAddress+ endpoint address
+
+basicHttpBinding：wcf预定义的绑定。。。 【http】
+
+
+元数据交换终结点供相应的服务用于向客户端做自我介绍  IMetadataExchange
+
+http://localhost:8733/Service1/mex
+
+ <serviceMetadata httpGetEnabled="true" httpsGetEnabled="true"/>； 就是不让你通过http get访问。
+
+<serviceDebug includeExceptionDetailInFaults="False" />
+是否给client端抛出service 的clr异常。。

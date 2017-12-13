@@ -1,0 +1,73 @@
+一：WCF体系结构
+
+1. 协定
+
+2. 服务运行时
+
+3. 消息传递
+
+4. 激活和承载
+
+
+二：WCF 通讯图
+
+1. proxy
+
+Service1Client (Cache)=> ChannelFactory => IInputChannel / IOutputChannel.... [http] HttpWebRequest 
+
+
+2. Transaction
+
+   Encoding
+
+   Security
+
+   Transport
+
+《1》BasicHttpBinding [预定义的协议栈]  
+
+Encoding (binary,text) 
+
+Transport [Http tcp]
+
+{System.ServiceModel.Channels.TextMessageEncodingBindingElement} [和序列化不同的概念]
+{System.ServiceModel.Channels.HttpTransportBindingElement}
+
+编码的目的就是规定采用什么方式进行网络传输。。。
+
+《2》NetTcpBinding 
+
+{System.ServiceModel.Channels.TransactionFlowBindingElement}       【事务层】 tcp支持事务
+{System.ServiceModel.Channels.BinaryMessageEncodingBindingElement}  【二进制编码】
+{System.ServiceModel.Channels.WindowsStreamSecurityBindingElement}
+{System.ServiceModel.Channels.TcpTransportBindingElement}            【tcp方式传输】
+
+
+《3》NetMsmqBinding
+
+{System.ServiceModel.Channels.BinaryMessageEncodingBindingElement}
+{System.ServiceModel.Channels.MsmqTransportBindingElement}
+
+
+四：对比
+
+
+1. 监控 BinaryMessage  和 TextMessage   
+
+POST http://192.168.23.187:8733/Service1/ HTTP/1.1
+Content-Type: text/xml; charset=utf-8
+VsDebuggerCausalityData: uIDPo+8h1o/8A/pLh8yYLU3/NmEAAAAAQ5uZZKBaDEeVfaYgCDQfU+EycmyJAhdNisyQ5Nl526gACQAA
+SOAPAction: "http://tempuri.org/IService1/GetData"
+Host: 192.168.23.187:8733
+Content-Length: 160
+Expect: 100-continue
+Accept-Encoding: gzip, deflate
+Connection: Keep-Alive
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body><GetData xmlns="http://tempuri.org/"><value>1000</value></GetData></s:Body></s:Envelope>
+
+
+2. WindowsStreamSecurityBindingElement tcp默认自带的。。。
+
+
+

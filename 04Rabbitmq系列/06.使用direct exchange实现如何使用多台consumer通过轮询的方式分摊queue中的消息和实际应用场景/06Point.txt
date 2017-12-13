@@ -1,0 +1,23 @@
+一：exchange 【direct，fanout，headers，topic】
+
+direct： Work queues，routing
+
+BasicGet 主动的去拉取。 subscribe 和 publish
+
+
+EventingBasicConsumer ：多个consumer可以分摊我们的cpu计算压力。
+
+            //第三步：申明交换机【因为rabbitmq已经有了自定义的ampq default exchange】
+            channel.ExchangeDeclare("myexchange", ExchangeType.Direct, true, false, null);
+
+            //第四步：创建一个队列(queue)
+            channel.QueueDeclare("mytest", true, false, false, null);
+
+            channel.QueueBind("mytest", "myexchange", "mytest", null);
+
+
+这个一定要知道，一定要手工的去通过 queuebinding去绑定我们的数据
+
+
+
+

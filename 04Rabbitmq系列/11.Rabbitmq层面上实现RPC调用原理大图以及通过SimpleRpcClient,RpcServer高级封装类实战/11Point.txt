@@ -1,0 +1,21 @@
+一：RPC： Remote procedure call implementation
+
+
+web站点。web访问
+
+默认的wcf绑定，nettcpbinding, basichttpbinding。。。
+
+
+异步流程 =》 同步化。。。
+
+
+实现方式： 用两个队列实现
+
+
+
+
+SimpleRpcClient
+
+
+
+SimpleRpcServer

@@ -1,0 +1,135 @@
+一：配置文件
+
+1. 简简单单的一个程序，配置文件相比比较复杂。
+
+2. 优缺点：
+
+    《1》 只需要更改配置文件，重启应用程序就可以及时更新，不需要修改程序。
+    
+    《2》 当wcf集群规模增加到5台+的时候，配置文件的缺点就出来了。
+
+解决方案： 能进入代码的配置就进入代码。。。。
+  
+           config中心化。。。
+
+    《3》 缩减config配置文件，尽量能嵌入到code中。
+
+    《3》 实现一个config配置中心，基于zookeeper，apollo 【https://github.com/ctripcorp/apollo/wiki/Quick-Start 】
+
+
+二：Service端代码段配置
+
+  <!-- 部署服务库项目时，必须将配置文件的内容添加到
+ 主机的 app.config 文件中。System.Configuration 不支持库的配置文件。 -->
+  <system.serviceModel>
+    <services>
+      <service name="ServiceLib.Service1">
+        <host>
+          <baseAddresses>
+            <add baseAddress = "http://localhost:8733/Service1/" />
+          </baseAddresses>
+        </host>
+        <!-- Service Endpoints -->
+        <!-- 除非完全限定，否则地址相对于上面提供的基址-->
+        <endpoint address="" binding="netTcpBinding" contract="ServiceLib.IService1">
+          <!-- 
+              部署时，应删除或替换下列标识元素，以反映
+             用来运行所部署服务的标识。删除之后，WCF 将
+              自动推断相应标识。
+          -->
+          <identity>
+            <dns value="localhost"/>
+          </identity>
+        </endpoint>
+        <!-- Metadata Endpoints -->
+        <!-- 元数据交换终结点供相应的服务用于向客户端做自我介绍。 -->
+        <!-- 此终结点不使用安全绑定，应在部署前确保其安全或将其删除-->
+        <endpoint address="mex" binding="mexHttpBinding" contract="IMetadataExchange"/>
+      </service>
+    </services>
+    <behaviors>
+      <serviceBehaviors>
+        <behavior>
+          <!-- 为避免泄漏元数据信息，
+          请在部署前将以下值设置为 false -->
+          <serviceMetadata httpGetEnabled="true" httpsGetEnabled="true"/>
+          <!-- 要接收故障异常详细信息以进行调试，
+          请将以下值设置为 true。在部署前设置为 false 
+          以避免泄漏异常信息 -->
+          <serviceDebug includeExceptionDetailInFaults="False" />
+        </behavior>
+      </serviceBehaviors>
+    </behaviors>
+  </system.serviceModel>
+
+
+static void Main(string[] args)
+        {
+            //1. 配置baseAddress
+            ServiceHost host = new ServiceHost(typeof(Service1), new Uri("http://localhost:8733/Service1/"));
+
+            //2. 添加endpoint
+            host.AddServiceEndpoint(typeof(IService1), new BasicHttpBinding(), "");
+
+            //3.添加behaviors
+            var serviceMeta = new ServiceMetadataBehavior()
+            {
+                HttpGetEnabled = true,
+                HttpsGetEnabled = true
+            };
+
+            var serviceDebug = new ServiceDebugBehavior()
+            {
+                IncludeExceptionDetailInFaults = false
+            };
+
+            host.Description.Behaviors.Add(serviceMeta);
+            //host.Description.Behaviors.Add(serviceDebug);
+
+            //4. 添加mex端点
+            host.AddServiceEndpoint(typeof(IMetadataExchange), MetadataExchangeBindings.CreateMexHttpBinding(), "mex");
+
+            host.Open();
+
+            Console.WriteLine("开启成功");
+
+            Console.Read();
+        }
+
+
+三：Client代码配置
+
+    <system.serviceModel>
+        <bindings>
+            <basicHttpBinding>
+                <binding name="BasicHttpBinding_IService1" />
+            </basicHttpBinding>
+        </bindings>
+        <client>
+            <endpoint address="http://localhost:8733/Service1/" binding="basicHttpBinding"
+                bindingConfiguration="BasicHttpBinding_IService1" contract="ServiceReference1.IService1"
+                name="BasicHttpBinding_IService1" />
+        </client>
+    </system.serviceModel>
+
+
+代码模式1：
+            ServiceReference1.Service1Client client = new ServiceReference1.Service1Client(new BasicHttpBinding(),
+                new EndpointAddress("http://localhost:8733/Service1/"));
+
+            var result = client.GetData(1000);
+
+            Console.WriteLine(result);
+
+            Console.Read();
+
+代码模式2：  Service1Client => 底层使用了ChannelFactory。。。
+
+            var channel = channelFactory.CreateChannel();
+
+            var result = channel.GetData(1000);
+
+            Console.WriteLine(result);
+
+            Console.Read();
+

@@ -1,0 +1,59 @@
+一：WCF安全验证
+
+
+安全：任何人都可以调用。。。
+
+消息级 和 线路级。。。 SSL证书   4000多/年
+
+【IOS】  webapi
+
+1. 所有的wcf服务，不要使用证书。。。一个证书很贵的。。。划不来。
+
+2. 非证书使用方式。
+
+如果你的wcf需要对外，那么增加验证是必须的。。
+
+1. 如果对方是C#程序，可以在client和service端在header中增加参数再使用消息拦截，这样两边都不需要额外代码。
+  
+   header 【用户名和密码】
+
+   java程序，使用用户名和密码，获取token，以后每个接口中都传输一个token参数进去。
+
+
+
+2. 如果对方是非C#程序，可以使用一个登陆接口，获取token参数之后，client在以后的每个调用中都需要传递token参数。
+
+
+
+  public class MyEndpointBehavior : IEndpointBehavior
+    {
+        public void AddBindingParameters(ServiceEndpoint endpoint, BindingParameterCollection bindingParameters)
+        {
+        }
+
+        /// <summary>
+        /// 这个是在 client 端实现的
+        /// </summary>
+        /// <param name="endpoint"></param>
+        /// <param name="clientRuntime"></param>
+        public void ApplyClientBehavior(ServiceEndpoint endpoint, ClientRuntime clientRuntime)
+        {
+            clientRuntime.ClientMessageInspectors.Add(new MyClientMessageInspector());
+        }
+
+        /// <summary>
+        /// 这个是 service 端实现的
+        /// </summary>
+        /// <param name="endpoint"></param>
+        /// <param name="endpointDispatcher"></param>
+        public void ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
+        {
+            endpointDispatcher.DispatchRuntime.MessageInspectors.Add(new MyDispatchMessageInspector());
+        }
+
+        public void Validate(ServiceEndpoint endpoint)
+        {
+
+        }
+    }
+}

@@ -1,0 +1,51 @@
+一. 认识wcf支持的预定义绑定
+
+binding就是提前定制好的协议栈  【transport + encoding】
+
+《1》 ws*开头的绑定。。【用于跨语言互通的】
+
+       第一种： webservice模式  【BasicHttpBinding,WSHttpBinding】
+       第二种： restful模式     【WebHttpBinding】
+
+《2》 net开头的绑定。。【用于.net程序间的互通】
+  
+       第一种：直连式的访问 【netTcpBinding,NetNamedPipedBinding】
+       第二种：断开时的访问 【netMSMQBinding】
+
+《3》 两种绑定的性能
+  
+  NetNamedPiped> netTcp > MsmqBinding > basic > WS
+  
+《4》 遗憾
+  
+   和现代的一些语言，一些组件脱节了。。
+
+  WCF最大的遗憾就是tcp模式不支持跨语言互通，google开源的thrift就支持了这种模式，当然没人牵头做这种事情。
+  不像webservice有的ws标准。
+
+
+  java不会实现这样的tcp协议栈标准。。。 导致wcf 和java 不能进行tcp互通。。。
+
+  thrift 代替 wcf。。。 ，它可是现实不同语言的tcp模式互通。。。
+
+
+二：使用basicHttpBinding 实现跨语言互通  【java】
+
+    public static void main( String[] args ) throws RemoteException
+    {
+    	IHomeServiceProxy proxy=new IHomeServiceProxy();
+    	
+    	String result= proxy.doWork("i'm java");
+    	
+    	System.out.println(result);
+    }
+
+三：tcp通讯 ，netNamedPipeBinding通讯
+
+命名管道 是和 windows内核进行互通。。。
+
+
+
+
+
+

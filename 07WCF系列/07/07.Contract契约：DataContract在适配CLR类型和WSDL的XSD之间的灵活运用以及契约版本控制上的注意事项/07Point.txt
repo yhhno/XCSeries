@@ -1,0 +1,114 @@
+ .net   XSD    java
+
+       python
+
+ 不同的语言都是根据XSD生成各自平台下的强类型。。
+
+.net ,   svcutil
+
+java  wsimport
+
+的程序最终生成的数据契约都是根据XSD的。。。
+
+
+一：WCF在消息交换中，可能会遇到的哪些复杂类型
+
+1. 普通的类【Class】
+
+<xs:complexType name="Student">
+<xs:sequence>
+<xs:element minOccurs="0" name="StudentID" type="xs:int"/>
+<xs:element minOccurs="0" name="StudentName" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+2. 集合对象   Array => List
+
+<xs:complexType name="Student">
+<xs:sequence>
+<xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AddressList" nillable="true" type="q1:ArrayOfstring"/>
+<xs:element minOccurs="0" name="StudentID" type="xs:int"/>
+<xs:element minOccurs="0" name="StudentName" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+3. 字典类型   public System.Collections.Generic.Dictionary<int, int> MySortedDictionary 
+
+<xs:complexType name="Student">
+<xs:sequence>
+<xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AddressList" nillable="true" type="q1:ArrayOfstring"/>
+<xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="MySortedDictionary" nillable="true" type="q2:ArrayOfKeyValueOfintint"/>
+<xs:element minOccurs="0" name="StudentID" type="xs:int"/>
+<xs:element minOccurs="0" name="StudentName" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+4. 枚举
+
+<xs:simpleType name="SexEnum">
+<xs:restriction base="xs:string">
+<xs:enumeration value="Male"/>
+<xs:enumeration value="Female"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:element name="SexEnum" nillable="true" type="tns:SexEnum"/>
+</xs:schema>
+
+二：对集合和枚举类型，需要解决的坑
+
+1. 对服务引用重新认识
+
+《1》对集合类型进行重新组装
+
+     如果将 Array => List
+
+     只能要求svcutil 进行强制转化。。。 【服务引用上做手脚了】
+
+     public System.Collections.Generic.List<string> AddressList
+
+《2》对字典进行重新组装
+
+     Dictionary => SortedDictionary
+
+        public System.Collections.Generic.SortedDictionary<int, int> MySortedDictionary {
+            get {
+                return this.MySortedDictionaryField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MySortedDictionaryField, value) != true)) {
+                    this.MySortedDictionaryField = value;
+                    this.RaisePropertyChanged("MySortedDictionary");
+                }
+            }
+        }
+
+三：最后的方案
+
+1.如果是.net程序互通，尽量遵守同一份Entity，但是现实上，很难这样做到，尤其是跨语言互通。
+
+  可以将Student封装到Lib中，这样各自的平台引用同一份Lib，这样就没有问题了。。。
+  也不会有服务引用时新生成的Student。
+
+  大家公用同一份Lib，就不存在各种对应问题了。。
+
+四：DataContract,DataMember,EnumMember 对wsdl中的xsd进行可视化定制
+
+1. 默认全部可以进行DataContractSerializer序列化
+
+2. 指定不需要在xsd中显示的字段
+
+  《1》某些字段不显示，需要自己强制指定IgnoreDataMember
+  《2》显式进行DataContract，DataMember声明
+
+一个是正向的忽略，一个是反向的忽略 【场景就是根据字段的忽略个数而定】
+
+
+3.其他方面的改造
+《1》 DataMember改名对真实字段保护
+
+        [DataMember(Name ="asddddddddddddddddddddddddddddddddddddddddddddddddddddddd")]
+        public int StudentID { get; set; }
+
+《2》 调整Field顺序【Order】
+
+如果将xsd的顺序和class中的字段顺序保持一致。。。

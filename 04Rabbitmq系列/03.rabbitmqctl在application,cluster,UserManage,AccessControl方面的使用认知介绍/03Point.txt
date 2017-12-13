@@ -1,0 +1,84 @@
+http://www.rabbitmq.com/man/rabbitmqctl.1.man.html 
+
+一：rabbitmq control  【rabbitmqctl】  可以管理rabbitmq的方方面面。。。
+
+UI工具可以观看这个rabbitmq的实时状况， http api的方式也可以查看。。。。
+
+ui 和 命令行 的一个子集。
+
+
+二：usr/rabbitmq/sbin/rabbitmqctl
+
+rabbitmqctl [-n node] [-t timeout] [-q] {command} [command options...]
+
+
+1. 应用程序和集群的管理 Application and Cluster Management 
+
+   erlang  和 rabbitmq 有区别的。。  
+
+   C#[CLR]     和  Ctrip 的网站
+
+  stop  	erlang node
+
+  stop_app      rabbitmq application
+
+  start_app     
+
+  reset         Return a RabbitMQ node to its virgin state.  【格式化】
+
+                queues / exchanges 。。。。
+
+  force_reset   无条件的设置
+
+
+2. 集群配置 【Cluster management】  
+
+   RAM 和 DISK。。。
+   
+   purge_queue [-p vhost] {queue}   用于清空某一个队列
+
+
+3. 用户管理 User management
+
+    add_user {username} {password}
+
+    set_user_tags {username} {tag ...}   设置users的角色
+
+    authenticate_user {username} {password}  验证用户名，密码是否正确
+
+
+4. Access control
+   
+   set_permissions [-p vhost] {user} {conf} {write} {read}
+
+
+5. Parameter Management  【第三方插件比较多】
+
+6. 政策的管理 		【Policy Management】   对queue的全局设置用的上这个“政策“，
+						队列的镜像也是用这个命令。
+7.服务器状态 【Server Status】
+
+  《1》 list_queues [-p vhost] [queueinfoitem ...]
+
+        rabbitmqctl list_queues name durable exclusive
+
+  《2》 list_exchanges [-p vhost] [exchangeinfoitem ...]
+
+  《3》 list_bindings [-p vhost] [bindinginfoitem ...]
+
+  《4》 list_connections [connectioninfoitem ...]
+
+  《5》 list_channels [channelinfoitem ...]
+
+        connections =》 channels   建立connections是长连接 ，channels是挂在connection之上的。。
+
+   《6》 status
+
+   《7》 environment
+
+   《8》 Miscellaneous 【混合一些命令】 
+
+     
+
+  
+

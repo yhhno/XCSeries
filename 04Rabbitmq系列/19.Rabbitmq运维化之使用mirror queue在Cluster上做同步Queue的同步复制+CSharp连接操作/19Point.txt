@@ -1,0 +1,77 @@
+一：queue存放问题
+
+queue有两种模式：  默认         default
+	           镜像		mirror
+
+queue mirror =>   master / slave 
+
+mongodb master [oplog] -> slave 
+
+
+这样就做到了一个队列的高可用。。。
+
+Each mirrored queue consists of one master and one or more slaves,
+Messages published to the queue are replicated to all slaves.
+
+
+Configuring Mirroring
+
+Queues have mirroring enabled via policy.
+
+
+rabbitmqctl	
+
+rabbitmqctl set_policy ha-all "^test" '{"ha-mode":"all"}'
+
+
+在所有的node中进行同步
+
+master => all slaves 进行同步。
+
+如果其中某一个节点挂掉了，，，，再重启的时候，node的数据是不会再同步的。。。。
+
+
+如何让node在 restart的时候能够进行数据同步。。。
+
+
+rabbitmqctl set_policy ha-two "^two" \'{"ha-mode":"exactly","ha-params":2,"ha-sync-mode":"automatic"}'
+
+rabbitmqctl sync_queue name
+
+
+
+3 slaves
+
+
+	
+rabbitmqctl set_policy ha-nodes "^test" \'{"ha-mode":"nodes","ha-params":["rabbit@nodeA", "rabbit@nodeB"]}'
+
+
+
+
+Features
+
+
+durable:
+true 
+ 
+
+Policy
+ha-all 
+
+Node
+rabbitmq1 
+
+Slaves
+rabbitmq3 
+ rabbitmq2  
+
+
+二：通过C#代码去链接我们的Rabbitmq集群
+
+AutomaticRecoveryEnabled：如果链接断开，底层会尝试去重连rabbitmq集群。。。
+
+TopologyRecoveryEnabled：当connection链接成功了，里面的exchange,queue，binding都要恢复原样。。。
+
+保证高可用。。。
+

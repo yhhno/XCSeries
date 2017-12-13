@@ -1,0 +1,81 @@
+
+一：操作行为（OperationBehavior） 【AOP编程】
+
+《1》作用域：
+
+public class HomeService
+{
+  [OperationBehavior]
+  public void DoWork(string username,int age)
+  {
+
+  }
+}
+
+mvc: Route("home/index/{id:int}").
+
+webget,webInvoke。
+
+
+1. 参数检查器  ParameterInspectors
+
+ [OperationBehavior] > Dowork  > [OperationBehavior]
+
+
+比如说：可空检查，正则检查，范围检查。。。
+
+二：实现
+
+HomeService 如果有10个work函数，但是有一些基础验证，怎么办？？？？ 【都不能为空】
+
+1. Attribute
+
+2. 硬编码
+
+所有的特性都会在servicehost中进行了一个添加操作。。。
+
+所有的behavior 都在 host.Description.Endpoints[0].Contract.Operations 中体现。。
+
+        [MyOperationBehavior(5)]
+        public void DoWork(string username)
+        {
+            Console.WriteLine(username);
+        }
+
+
+    public class MyParameterInspector : IParameterInspector
+    {
+        private int maxLength = 0;
+
+        public MyParameterInspector(int maxLength)
+        {
+            this.maxLength = maxLength;
+        }
+        public void AfterCall(string operationName, object[] outputs, object returnValue, object correlationState)
+        {
+
+        }
+
+        public object BeforeCall(string operationName, object[] inputs)
+        {
+            //operationName：方法名
+            if (operationName == "DoWork")
+            {
+                //inputs: 就是方法中的参数
+                var username = Convert.ToString(inputs[0]);
+
+                if (string.IsNullOrEmpty(username))
+                {
+                    throw new Exception("当前的username不可为空。。。。");
+                }
+
+                if (username.Length > maxLength)
+                {
+                    throw new Exception(string.Format("当前的username不可大于{0}。。。。", maxLength));
+                }
+            }
+
+            return null;
+        }
+    }
+

@@ -1,0 +1,60 @@
+MQ的一个产品。。。 【消息队列】
+
+1. MSMQ   windows自带的一个服务。。。 【petshop】，message存放在文件系统中。
+
+          最原始的消息队列。。。
+          
+  【集群，消息确认，内存化，高可用，镜像】
+
+2. ActiveMQ，ZeroMQ，RabbitMQ
+
+
+3. Rabbitmq本质是一个什么东西？？？？
+
+   《1》 rabbitmq是用什么语言写的  => erlang
+
+   《2》 rabbitmq其实是遵循 amqp协议 的一个erlang代码实现。。。
+
+
+4. amqp协议:  高级消息队列协议。。。
+
+   http协议，  【request，response】
+   telnet协议： 经常用来查看某一台ip上指定端口是否是ping通的。。【远程登陆协议】
+   
+   
+5： AMQP 0-9-1 Complete Reference Guide  rabbitmq实现的ampq协议的版本号。。。
+
+   《1》 connection     => open,use,close   [open-ok,close,une-ok]
+
+   《2》 channel        => open,flow,close  [构建在connection之上，在amqp中常作为长连接。。。]
+
+   《3》 exchange       => 
+
+   《4》 queue
+
+   《5》 basic          =》发布 和 获取 message中的一些设置
+
+   《6》 tx             =》 事务处理
+
+   《7》 confirm        =》发布确认机制
+
+   详细设计书一样。。。
+
+   C#实现一个amqp协议产品。。。C#rabbitmq。。。
+
+   Java实现
+
+   Erlang实现了一个amqp产品  => Rabbitmq。。。
+
+
+6. 画一张设计图了解rabbitmq的元素。。。
+
+
+vhost： 避免了大家的命名冲突。
+
+
+
+
+
+
+

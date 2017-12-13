@@ -1,0 +1,33 @@
+一：双工通讯
+
+双工可以延伸到发布订阅模式。
+
+1. 作用： 能够让client - service 之间进行相互通讯
+
+2. 原理： 就是两个OneWay方式。。。。
+
+          其实client 和 service 都有一个属于自己的endpoint
+
+3. 代码实现
+
+  <1> 在ServiceContract中指定当前Client的契约。
+
+  <2> binding必须支持双工通讯。。。。  【wsDualHttpBinding】
+
+  <3> ICallBack实现必须在Client端。。。
+   
+  <4> 在client调用的时候，获取client的通道。。。
+
+
+2. 模式： 发布订阅模式  【观察者模式】
+
+   js：react ，knockjs
+
+   wpf mvvm 【观察者模式】
+
+   redis，rabbitmq 【观察者模式】
+
+
+
+4. 原理： 通过两个IsOneWay进行实现。 fiddler可查看，可画图
+

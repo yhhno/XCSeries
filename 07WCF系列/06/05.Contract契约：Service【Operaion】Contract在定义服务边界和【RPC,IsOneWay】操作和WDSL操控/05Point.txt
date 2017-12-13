@@ -1,0 +1,118 @@
+一：契约【ABC中的C】 => 服务，操作契约  【Service，Operation】
+
+1. 作用：用于定义服务边界，也就是定制wsdl，这样就可以让客户端根据wsdl生成不同的代码。。。
+
+2. WSDL可以找到的东西：
+
+           《1》 服务地址：soap:address  <soap:address location="http://192.168.23.187:8732/HomeService"/>
+
+			  java wsimport 由它来解析这个wsdl （生成硬编码）
+		          C#   svcutil  由它解析。。
+
+	   《2》 传输协议：soap:binding  [http://schemas.xmlsoap.org/soap/http ] [http://schemas.xmlsoap.org/soap/tcp ]
+		           <soap12:binding transport="http://schemas.microsoft.com/soap/tcp"/>
+	   《3》 绑定类型：BasicHttpBinding
+	   《4》 Operation 和 message 的对应关系 （一对一，一对二？）
+                 
+-<wsdl:operation name="DoWork">
+	<wsdl:input message="tns:IHomeService_DoWork_InputMessage" wsaw:Action="http://tempuri.org/IHomeService/DoWork"/>
+	<wsdl:output message="tns:IHomeService_DoWork_OutputMessage" wsaw:Action="http://tempuri.org/IHomeService/DoWorkResponse"/>
+</wsdl:operation>
+
+[System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHomeService/DoWork", ReplyAction="http://tempuri.org/IHomeService/DoWorkResponse")]
+void DoWork(string msg);
+
+最后都会通过硬编码到Dowork函数中。。。
+
+
+二：三种模式
+
+平时开发常用的三种通讯模式：[RPC,OneWay(在线(online)和离线(offline))，publish/subscribe(双工)]
+
+1. RPC模式 [input / output]
+
+   默认是请求响应模式，那么一个soap在网络往返传输中，如果区别是此方法的传出还是接收？？？
+
+《1》对应关系
+
+     Operation => Message
+
+     从WSDL中可以看到，一个operation对应着两条message的action。
+
+-<wsdl:operation name="DoWork">
+	<wsdl:input message="tns:IHomeService_DoWork_InputMessage" wsaw:Action="http://tempuri.org/IHomeService/DoWork"/>
+	<wsdl:output message="tns:IHomeService_DoWork_OutputMessage" wsaw:Action="http://tempuri.org/IHomeService/DoWorkResponse"/>
+</wsdl:operation>
+
+      在Client的服务引用上也是可以看出来的。。。
+
+[System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHomeService/DoWork", ReplyAction="http://tempuri.org/IHomeService/DoWorkResponse")]
+WcfClient.ServiceReference1.DoWorkResponse DoWork(WcfClient.ServiceReference1.DoWorkRequest request);
+
+	  DoWork
+DoWork
+	  DoWorkResponse
+
+
+2. 单向模式(isOneWay) 
+   
+   场景：不需要service及时给他消息，或者说不需要service返回消息。。。
+
+         【日志系统】
+
+	 logstash [log4net]   => es  mongodb
+
+	 wcf  =>  elasticSearch  [UDP]
+
+	 适合少量的丢失数据。。。
+  
+        发短信，发邮件 【下单成功。。。。】
+
+  WSDL：
+
+  <wsdl:operation name="DoWork">
+<wsdl:input wsaw:Action="http://tempuri.org/IHomeService/DoWork" message="tns:IHomeService_DoWork_InputMessage"/>
+</wsdl:operation>
+
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IHomeService/DoWork")]
+        void DoWork(string msg);
+
+   使用：
+
+
+
+   《1》 fiddler监控：HTTP/1.1 202 Accepted，了解http 202 状态码
+
+202 Accepted
+服务器已接受请求，但尚未处理。正如它可能被拒绝一样，最终该请求可能会也可能不会被执行。在异步操作的场合下，没有比发送这个状态码更方便的做法了。
+
+
+POST http://192.168.23.187:8732/HomeService HTTP/1.1
+Content-Type: text/xml; charset=utf-8
+SOAPAction: "http://tempuri.org/IHomeService/DoWork"
+Host: 192.168.23.187:8732
+Content-Length: 388
+Expect: 100-continue
+Accept-Encoding: gzip, deflate
+Connection: Keep-Alive
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Header><VsDebuggerCausalityData xmlns="http://schemas.microsoft.com/vstudio/diagnostics/servicemodelsink">uIDPo+lgxh460HVMqbxtg6cC2RoAAAAAGKntfOnxLkOBHJbxt5A+tXhIgdzO7GNHh0osTEN33dcACQAA</VsDebuggerCausalityData></s:Header><s:Body><DoWork xmlns="http://tempuri.org/"><msg>hello world!</msg></DoWork></s:Body></s:Envelope>
+
+HTTP/1.1 202 Accepted
+Content-Length: 0
+Server: Microsoft-HTTPAPI/2.0
+Date: Sun, 12 Nov 2017 02:35:19 GMT
+
+
+   《2》 应用场景：不需要service的逻辑响应，适合不需要等待结果的业务场景。
+
+
+
+3. 双向通讯【发布订阅】 {下节课去说}
+
+
+三：其他方式的定制
+
+1. 修改ServiceContract的Name 和 Namespace。
+
+2. 修改OperationContract 的 Name 和 ReplyAction。

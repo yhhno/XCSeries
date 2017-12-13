@@ -1,0 +1,46 @@
+一：WCF新功能
+
+1. websocket通信  NetHttpBinding
+
+ html5
+
+websocket协议
+
+http协议
+
+websocket 和 http 是一个交集关系。。。 【长连接】
+
+双工【两个oneway操作】
+
+始终(Always) - 强制使用 WebSocket。
+从不(Never) - 阻止使用 WebSocket。 尝试使用具有此设置的双工协定将导致异常。
+双工时(WhenDuplex) - 这是默认值。
+
+《1》 使用NetHttpBinding
+
+《2》 websocket是基于双工模式的代码。。。
+
+2. Binding中到底协议栈是什么样的？？？
+
+http + binary 【伤筋动骨的东西】
+
+<endpoint address="ws://192.168.23.1:8732/HomeService" binding="netHttpBinding"
+        bindingConfiguration="NetHttpBinding_ILogin" contract="ServiceReference1.ILogin"
+        name="NetHttpBinding_ILogin">
+        <identity>
+          <dns value="localhost" />
+        </identity>
+      </endpoint>
+
+nodejs  sockect.io
+
+2. udp通信  UdpBinding  【tcp】
+
+   cctv5 足球 【卡机，丢失数据】
+
+udp地址怎么写？      string serviceAddress = "soap.udp://224.0.0.1:40000";
+
+https://msdn.microsoft.com/zh-cn/library/hh556229(v=vs.110).aspx
+
+binary + udp 模式进行传输。。。。
+

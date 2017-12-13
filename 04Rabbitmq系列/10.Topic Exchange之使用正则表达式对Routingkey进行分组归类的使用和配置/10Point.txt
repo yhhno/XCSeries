@@ -1,0 +1,20 @@
+一：topic exchange
+
+1.direct：   提前预知性的binding....  info,eror,debug => exchange
+
+2.fanout:    群发性的binding.....
+
+3.headers:   and / or性的binding。。。 x-match 
+
+4.topic:     归类性的binding...  【天生带有正则】
+
+	queue1    *.com, 
+        queue2    *.cn 	=> exchange
+        queue3    *.net 
+
+            publish: www.ctrip.com  =>  queue1
+
+                      *.*.com   => * [0-x]个字符
+
+
+       

@@ -1,0 +1,61 @@
+一：负载均衡器 haproxy
+
+F5, A10
+
+
+nginx： 七层负载
+
+lvs
+
+haproxy： 四层 和 七层  传输层，应用层
+
+
+一： haproxy安装
+
+
+1.下载http://www.haproxy.org/#down  下载网址
+
+2. make安装。
+
+ make TARGET=linux26 PREFIX=/usr/local/haproxy           #将haproxy安装到/usr/local/haproxy
+
+ make install PREFIX=/usr/local/haproxy
+
+3. 指定配置文件
+
+listen rabbitmq_local_cluster 0.0.0.0:25672
+	#配置TCP模式
+	mode tcp
+	option tcplog
+	#简单的轮询
+	balance roundrobin
+	#rabbitmq集群节点配置
+	server rabbitmq1 192.168.23.145:5672 check inter 5000 rise 2 fall 2
+	server rabbitmq2 192.168.23.146:5672 check inter 5000 rise 2 fall 2
+	server rabbitmq3 192.168.23.147:5672 check inter 5000 rise 2 fall 2
+##服务器定义(check指健康状况检查，inter 2000指检测频率;rise 2指从离线状态转换至正常状态需要成功检查的次数；fall 2指失败2次即认为服务器不可用)
+
+#配置haproxy web监控，查看统计信息
+	listen private_monitoring :8100
+	mode http
+	option httplog
+	stats enable
+	#设置haproxy监控地址为http://localhost:8100/stats
+	stats uri /stats
+	stats refresh 30s
+	#添加用户名密码认证
+	stats auth admin:1234
+
+
+4. 运行
+
+ ./haproxy -f /usr/local/haproxy/sbin/haproxy.cfg
+
+
+5.如果通过C#代码去连接
+
+ haproxy 192.168.23.151:25672 
+
+ http://192.168.23.151:8100/stats
+
+ haproxy + keepalive 【监控机器是否挂掉】

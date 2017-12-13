@@ -1,0 +1,29 @@
+一：日志级别
+ 
+   %% Log levels (currently just used for connection logging).
+   %% One of 'debug', 'info', 'warning', 'error' or 'none', in decreasing
+   %% order of verbosity. Defaults to 'info'.
+   %%
+    {log_levels, [{connection, error}, {channel, error}]}
+
+    日志系统。（实现一个日志系统）
+
+
+
+debug,info,warning 这些级别可以专门用一个队列来存放。。。 处理慢没有关系，只是供我们去查看而已。。。
+
+
+error：这个需要立即得到相应，发送相关短信通知各处责任人。。。。
+
+
+从图中可以看出，我们根据不需要在自己的application去实现这样的分配逻辑。。。
+
+
+在发布端做这个逻辑的绑定，是不是不和常理。。。？？？？
+
+
+
+
+
+
+

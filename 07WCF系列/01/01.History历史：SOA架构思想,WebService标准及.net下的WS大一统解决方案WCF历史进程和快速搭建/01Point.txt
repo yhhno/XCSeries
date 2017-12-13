@@ -1,0 +1,92 @@
+
+一：SOA的概念
+soa首先是一个概念,是面向服务架构?面向服务架构的目的是什么? 解决一个什么样的问题? 解决IT企业的信息孤岛问题。如何体现?
+soa只是一个架构并没有实现.
+1. 历史进程
+
+    面向对象： 解决代码维护性问题 【设计模式】
+    面向组件： 解决复用性问题     【react】 html => 一个页面分成了各个组件 【es6 jsx,scss】 让js成了一个面向对象的语言。
+    面向服务： 解决多系统互通问题  【跨平台，跨语言】
+
+              否则辛辛苦苦写的系统，不能被别的系统调用。
+
+2. 概念：
+
+    Service-Oriented Architecture，面向服务架构
+
+3. 目的：
+    
+    解决IT企业的信息孤岛问题。
+
+	状况:
+    java [2000-2005] 孤岛1
+    
+    asp  [2000]   孤岛2
+
+    asp.net [2000-2005]  孤岛3
+	方法:
+    SOA思想去解决 各自语言互通的问题。(各个语言互通)
+
+	延伸:
+    OA，ERP， CRM。。。(各个系统互通)
+
+4. WCF在SOA中是一个什么地位？？？
+
+   WCF本质上是一个Asp.Net Web Service。。。
+
+   WCF出现的时候是WS标准盛行的时候，后来为了兼容restful模式，不得已才适配的。。。
+
+   .net core 
+
+5. 实现途径
+  
+    WebService标准：
+
+		      WSDL：公布服务内容			      [才能进行服务引用] svcutil.exe
+                      SOAP：简单对象访问协议【基于xml的文本格式】
+		      XSD： 将各自系统的强类型转成XSD规范进行互通     【XML序列化用的】
+		            .net		 xsd            java
+			    System.String	x:string     Java.Lang.String
+
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Header>
+    <Action s:mustUnderstand="1" xmlns="http://schemas.microsoft.com/ws/2005/05/addressing/none">http://tempuri.org/IService1/GetData</Action>
+  </s:Header>
+  <s:Body>
+    <GetData xmlns="http://tempuri.org/">
+      <value>10</value>
+    </GetData>
+  </s:Body>
+</s:Envelope>
+
+<xs:element name="string" nillable="true" type="xs:string"/>
+
+
+		      WS产品： 微软的asp.net webService  
+				=> WSE [安全,性能，序列化，托管]  
+				=> WCF 【 
+				         按照WS的模式整合所有的微软分布式技术
+					 （
+					   Enterprise Sevices(COM+)
+					   .Net Remoting、
+					   Web Service(ASMX)、
+					   WSE,
+					   MSMQ
+					  ）
+					 】
+			       
+			       Java的Axis
+
+   Restful：         Asp.net webApi 【基于http的internet应用（最大化节省网络带宽）】
+
+   各自产品：	     EJB            企业级JavaBean 
+		     Dubbo	    阿里的SOA服务治理框架
+		     Spring Cloud   Spring社区的一个微服务框架【从属SOA思想的】
+    
+二：WCF搭建
+
+
+svcutil.exe http://192.168.23.188:8733/Service?wsdl
+
+

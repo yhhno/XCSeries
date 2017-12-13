@@ -1,0 +1,72 @@
+何为Dead letter
+
+max-length: queue长度限制。。。 【mongodg oplog】 就是一个固定集合。。。
+
+	    queue中的message过期时间。
+
+	    basicreject...basicnack等等。。。
+
+	   这三种情况一般会drop这些message。。。
+
+
+一： Dead letter exchange 
+
+     有时候我们不希望message被drop掉，而是走到另一个队列中，又或者是保存起来。。。
+
+
+二： Dead letter routing key 
+
+     打到exchange中去的时候，他的routingkey是什么，，
+
+
+和普通定义方式没什么两样。。。
+
+
+用max-length 给大家做一个演示。。。
+
+        static void Main(string[] args)
+        {
+            ConnectionFactory factory = new ConnectionFactory()
+            {
+                HostName = "192.168.23.149",
+                UserName = "datamip",
+                Password = "datamip",
+            };
+
+            //第一步：创建connection
+            var connection = factory.CreateConnection();
+
+            //第二步：创建一个channel
+            var channel = connection.CreateModel();
+
+            channel.QueueDeclare("mytest", false, false, false, new Dictionary<string, object>
+            {
+                {"x-max-length",10 },
+                {"x-dead-letter-exchange","mydead_exchange" },
+                { "x-dead-letter-routing-key","mydead_queue"}
+            });
+            
+            for (int i = 0; i < 11; i++)
+            {
+                channel.BasicPublish(string.Empty, "mytest", null, Encoding.UTF8.GetBytes(string.Format("你好 {0}", i)));
+            }
+
+            Console.WriteLine("发布完成");
+
+            Console.Read();
+        }
+
+
+三： Maximum priority  
+
+     优先级加到队列上，就是一个优先级队列，，， 【堆，大根堆，小根堆】
+
+1. 给队列贴上一个优先级的标签。。。   x-max-priority =10, 这个值不要设置的太大。。。  节点更多。。 sortset。。。
+
+							 不管你用什么语言实现，都是一个tree结构。。。。
+
+2. 给message打上具体的优先级的value。。。  value<=10
+
+   MSMQ的message级别一般也就4，5中。。。low/normal/high/higher//........
+
+   我们通过“优先级”特性，，将一个queue 变成了 stack。。。。

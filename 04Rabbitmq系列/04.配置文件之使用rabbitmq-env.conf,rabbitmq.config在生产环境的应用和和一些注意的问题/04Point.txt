@@ -1,0 +1,59 @@
+1. rabbitmq-env.conf【环境变量】的配置文件。。。
+
+   measia【erlang的分布式数据库】，config配置文件，log日志 的存放路径的配置。。。。
+
+
+Config file 	/usr/rabbitmq/etc/rabbitmq/rabbitmq.config (not found)
+Database directory 	/usr/rabbitmq/var/lib/rabbitmq/mnesia/rabbit@localhost
+Log file 	/usr/rabbitmq/var/log/rabbitmq/rabbit@localhost.log
+SASL log file 	/usr/rabbitmq/var/log/rabbitmq/rabbit@localhost-sasl.log
+
+
+在哪里进行的配置文件，build-in 
+
+CONFIG_FILE=${SYS_PREFIX}/etc/rabbitmq/rabbitmq 
+
+rabbitmq 最后这个名字，系统会给你加上一个文件。。。。
+
+
+CONFIG_FILE=${SYS_PREFIX}/etc/rabbitmq/rabbitmq
+
+LOG_BASE=${SYS_PREFIX}/var/log/rabbitmq
+MNESIA_BASE=${SYS_PREFIX}/var/lib/rabbitmq/mnesia
+ENABLED_PLUGINS_FILE=${SYS_PREFIX}/etc/rabbitmq/enabled_plugins
+
+PLUGINS_DIR="${RABBITMQ_HOME}/plugins"
+
+CONF_ENV_FILE=${SYS_PREFIX}/etc/rabbitmq/rabbitmq-env.conf
+
+
+<1> 找一个rabbitmq.config文件
+
+https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/rabbitmq.config.example
+
+
+《2》 修改confile_file的存放路径
+
+
+
+2. config文件。。。 【mongodb，redis。。。。】
+
+   1. 知道端口：5673 
+
+   2. log信息   默认打出来的格式是info格式。。。 【log_levels】
+
+   %% Log levels (currently just used for connection logging).
+   %% One of 'debug', 'info', 'warning', 'error' or 'none', in decreasing
+   %% order of verbosity. Defaults to 'info'.
+   %%
+   %% {log_levels, [{connection, info}, {channel, info}]}, 
+
+   日志特别大，以及对磁盘造成特别大的压力。。。
+  
+   3. {vm_memory_high_watermark, 0.4},   
+
+       比如你的RAM是100G  那么rabbitmq默认是40G， connection的blocked。。。【报警】 让你管道流
+       变小。。。
+
+   4.  {disk_free_limit, 50000000}, 【报警机制】  connection的blocked。。。
+				 

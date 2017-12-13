@@ -1,0 +1,54 @@
+一：queue
+
+http://www.rabbitmq.com/releases/rabbitmq-dotnet-client/v3.6.6/rabbitmq-dotnet-client-3.6.6-client-htmldoc/html/type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.BasicConsume(System.String,System.Collections.IDictionary,RabbitMQ.Client.IBasicConsumer)
+
+
+Name
+Durable (the queue will survive a broker restart)
+Exclusive (used by only one connection and the queue will be deleted when that connection closes)
+Auto-delete (queue is deleted when last consumer unsubscribes)
+Arguments (some brokers use it to implement additional features like message TTL)
+
+
+connection 【高成本，tcp的链接】：=> 可以创建无数多的channel。。。。 【低成本】
+
+
+1. QueueDeclare  申明队列 
+
+        public static QueueDeclareOk QueueDeclare(this IModel model, string queue = "", bool durable = false, bool exclusive = true, bool autoDelete = true, IDictionary<string, object> arguments = null);
+     
+
+durable：持久化   
+
+         mnesia：数据库 【有专门的表去保存我们的队列申明】 如果被保存，就被持久化了。。。
+         
+
+exclusive ：排外   1. 当前定义的队列是connection中的channel是共享的，其他的connection是访问不到的。。。
+                   2. 当connection.close 的时候，queue被删除。。。
+
+
+其他信息: The AMQP operation was interrupted: AMQP close-reason, initiated by Peer, code=405, text="RESOURCE_LOCKED - cannot obtain exclusive access to locked queue 'mytest' in vhost '/'", classId=60, methodId=70, cause=
+                 
+
+autoDelete：自动删除: [当前最后一个consumer断开之后，autodelete被触发。。。]
+
+passive：消极
+
+arguments： 参数【功能非常强大】 基本上是ampq中没有的，，rabbitmq的一个扩展
+
+
+this.QueueDeclare(queue, false, durable, exclusive, autoDelete, arguments);
+
+2. QueueDeclareNoWait 队列申明无需等待 【async】 异步流程
+
+
+3. QueueDeclarePassive  消极的队列申明
+
+
+this.QueueDeclare(queue, true, false, false, false, null);
+
+
+=》 only check if it exists.   
+
+如果队列不存在，抛出异常，  
+如果队列存在，不做任何操作。。。

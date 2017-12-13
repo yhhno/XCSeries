@@ -1,0 +1,110 @@
+一：Basic的一些属性，一些方法
+
+AMQP协议：是一个金融级的消息队列协议。。。可靠性不强。。
+
+
+1. 消费端的确认
+
+	         自动确认：  message出队列的时候就自动确认【broke】  basicget。。。
+
+		 手工确认：  message出队列之后，要应用程序自己去确认是否已经消费完毕。。。
+
+                             如果consumer拿到message之后，没有手工确认，这个时候message不会被丢失。。。
+			  
+void BasicAck(ulong deliveryTag, bool multiple);
+
+multiple: true =》   x< deliveryTag 的所有message都会被确认。。。。
+                         
+
+                  手工拒绝： consumer拒绝服务器发送过来的消息。。。
+
+			     《1》 直接扔了。。。
+ 			     
+                             《2》 给快递师傅。。。
+                  
+                  重新递送：  【商家补发】 快递丢单。。。商家只能重新发一次。。。
+		
+  
+basicRecover
+AMQP.Basic.RecoverOk basicRecover(boolean requeue)
+                           throws IOException
+Ask the broker to resend unacknowledged messages. In 0-8 basic.recover is asynchronous; in 0-9-1 it is synchronous, and the new, deprecated method basic.recover_async is asynchronous.
+Parameters:
+requeue - If true, messages will be requeued and possibly delivered to a different consumer. If false, messages will be redelivered to the same consumer.
+
+
+   Basic提供了那些方法来做到这些事情。
+
+
+        static void Main(string[] args)
+        {
+            ConnectionFactory factory = new ConnectionFactory()
+            {
+                HostName = "192.168.23.149",
+                UserName = "datamip",
+                Password = "datamip",
+            };
+
+            //第一步：创建connection 
+            var connection = factory.CreateConnection();
+
+            //第二步：创建一个channel
+            var channel = connection.CreateModel();
+
+            BasicGetResult result = channel.BasicGet("mytest", false);
+
+            //doing....
+
+            channel.BasicRecover(true);
+
+            result = channel.BasicGet("mytest", false);
+
+            //直接扔了
+            //channel.BasicReject(result.DeliveryTag, true);
+
+            //channel.BasicNack()
+
+
+
+
+            //手工确认
+            //channel.BasicAck(result.DeliveryTag, false);
+
+            //EventingBasicConsumer consumer = new EventingBasicConsumer(channel);
+
+            //consumer.Received += (sender, e) =>
+            //{
+            //    var msg = Encoding.UTF8.GetString(e.Body);
+
+            //    Console.WriteLine(msg);
+            //};
+
+            //channel.BasicConsume("mytest", true, consumer);
+
+            Console.WriteLine("consumer1 端启动完毕！！！");
+
+            Console.Read();
+        }
+
+
+2. 发布端的确认  手工确认消息是否已经发送到了broke。。。。
+
+   confirm机制。。。
+
+   tx机制： 【事务控制】
+
+	     publish 送message到rabbitmq中，我们一定要知道，这个消息已经发送成功了。。。。 也就是，rabbitmq
+	     一定要告诉publish，这条消息已经被确认收到。。。
+
+   影响性能的，，， confirm机制 <  tx机制【最耗费性能】
+
+
+            //发布确认
+            channel.ConfirmSelect();
+
+            for (int i = 0; i < 10; i++)
+            {
+                channel.BasicPublish(string.Empty, "mytest", null, Encoding.UTF8.GetBytes(string.Format("{0} 你好", i)));
+            }
+
+            var isallpublished = channel.WaitForConfirms();

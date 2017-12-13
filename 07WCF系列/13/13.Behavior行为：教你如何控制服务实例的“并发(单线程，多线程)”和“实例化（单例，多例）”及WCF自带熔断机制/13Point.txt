@@ -1,0 +1,70 @@
+一：WCF的Behavior【运行时改变wcf的行为】
+
+常用的behavior
+
+服务行为 【ServiceBehavior】 　　　 实例行为　＋　事务行为　＋　并发行为　＋　限制行为
+端点行为：【EndPointBehavior】　　　消息检查　＋　调度行为
+操作行为：【OperationBehavior】　　　参数筛选
+
+1. 服务行为 【ServiceBehavior】
+
+   控制实例化+ 并发+ 事务
+
+2. 场景： 【实例行为 + 并发行为】
+
+  call 一次  new HomeService 吗？ 还是只new一次？？？【single模式】 =》【构造函数重量级】
+
+  new HomeService() 是如何接受Thread的？？？ 一个线程访问还是让多个线程访问？？？
+  
+
+默认情况下： Single + PerCall  （来一个请求new一次homeService，一个new接受单线程）
+
+<1> Single + Single  看看请求是不是串行的？？？  【安全 + 性能差】
+
+可以发现，serviceHost启动的时候，就已经给我new出了一个HomeService实例。。。
+
+            Parallel.For(1, 100, (item) =>
+            {
+                Console.WriteLine(item);
+
+                HomeServiceClient client = new HomeServiceClient();
+
+                client.DoWork("hello world!");
+            });
+
+<2> Single + Multi  单实例（多线程） => 风险（自己控制同步） 【不安全 + 性能优】 
+
+<3> PreCall + Single（Multi） 【默认】
+
+[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
+
+
+<4> 如果过大的call，会导致机器奔溃。。。
+
+
+3. 在构造函数中配置的‘安全阈值’，提前评估机器负载 和 处理能力
+
+   当然这个是死值，其实你还可以根据分钟数，cpu当前利用率来动态拒绝客户端请求，这个档次才高。
+
+    <behaviors>
+      <serviceBehaviors>
+        <behavior name="">
+          <serviceMetadata httpGetEnabled="true" httpsGetEnabled="true"/>
+          <serviceDebug includeExceptionDetailInFaults="false"/>
+          <serviceThrottling maxConcurrentCalls="1"/>
+        </behavior>
+      </serviceBehaviors>
+    </behaviors>
+
+MaxConcurrentInstances : 设置同一时刻服务上下文实例的最大数量。（疑问）【perSession 和perCall 起作用】【对Single不起作用】
+MaxConcurrentSessions : 设置同一时刻可以接受的最大会话数量。
+MaxConcurrentCalls : 设置 ServiceHost 消息并发处理的最大值。（疑问）【Single 和 Multiple 控制线程的数量】【对Single也起作用】
+		     每个实例来了，都用一个线程池线程，那最多控制在多少个线程忙碌中。
+
+Percall + Single  
+
+MaxConcurrentInstances：1 （同一时刻只能有一个实例存在）
+
+
+Single + Multi  +MaxConcurrentCalls：1 （同一时刻 是能一个线程跑）  = Single + Single
+
