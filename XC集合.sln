@@ -260,11 +260,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "计算机基础", "计算�
 		20Files系列\计算机基础\05计算机操作系统.pptx = 20Files系列\计算机基础\05计算机操作系统.pptx
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01", "01", "{94D10FD7-9F29-4EE7-A99D-B02B92DD34A7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01.History历史：SOA架构思想,WebService标准及.net下的WS大一统解决方案WCF历史进程和快速搭建", "01.History历史：SOA架构思想,WebService标准及.net下的WS大一统解决方案WCF历史进程和快速搭建", "{94D10FD7-9F29-4EE7-A99D-B02B92DD34A7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01.History历史：SOA架构思想,WebService标准及.net下的WS大一统解决方案WCF历史进程和快速搭建", "07WCF系列\01\01.History历史：SOA架构思想,WebService标准及.net下的WS大一统解决方案WCF历史进程和快速搭建\01.History历史：SOA架构思想,WebService标准及.net下的WS大一统解决方案WCF历史进程和快速搭建.csproj", "{D7A3DE15-64B6-496D-B49A-0A26B1CEF1B6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02", "02", "{BA92944E-8D64-4399-A93D-E736F525076B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.Basic基础：WCF中的ABC三要素介绍及对S和C端的App.Config中的System.serviceModel详解", "02.Basic基础：WCF中的ABC三要素介绍及对S和C端的App.Config中的System.serviceModel详解", "{BA92944E-8D64-4399-A93D-E736F525076B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03", "03", "{0D65C81D-A9FF-4A9A-B967-E0B2B87F83E2}"
 EndProject
