@@ -1,3 +1,8 @@
+用十进制举例二进制的原理，演示二进制加法 存储单位mb gb tb
+正数 负数 整数 浮点数的表示
+灭国信息交换标准代码 ascii 用来表示字符
+UNICode 1992年诞生 是字符编码标准 解决ascii不够表达所有语言的问题
+
 Hi I'm Carrie Anne, this is Crash Course Computer Science
 嗨，我是 Carrie Anne，欢迎收看计算机科学速成课！
 
@@ -16,8 +21,10 @@ Every single one of you already knows exactly what you need to know to follow al
 So, last episode we talked about how transistors can be used to build logic gates,
 上集我们讲了，怎么用晶体管做逻辑门
 
+@@@@
 which can evaluate boolean statements.
 逻辑门可以判断布尔语句
+@@@@
 
 And in boolean algebra, there are only two, binary values: true and false.
 布尔代数只有两个值：True 和 False
@@ -28,8 +35,10 @@ But if we only have two values,
 how in the world do we represent information beyond just these two values?
 但如果只有两个值，我们怎么表达更多东西？
 
+@@@@
 That's where the Math comes in.
 这就需要数学了
+@@@@
 
 So, as we mentioned last episode, a single binary value can be used to represent a number.
 上集提到，1 个二进制值可以代表 1 个数

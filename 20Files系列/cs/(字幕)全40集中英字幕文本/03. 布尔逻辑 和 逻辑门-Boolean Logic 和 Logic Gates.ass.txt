@@ -1,3 +1,8 @@
+什么是二进制 为什么用二进制 布尔逻辑
+3个基本操作 not  and or
+解释3个基本操作
+xor 异或
+
 Hi, I'm Carrie Anne and welcome to Crash Course Computer Science!
 嗨，我是 Carrie Anne，欢迎收看计算机科学速成课！
 
@@ -451,8 +456,12 @@ or the transistors that make up those gates,
 or how electrons are flowing through a semiconductor.
 或电子是怎么流过半导体的
 
+
+
 Moving up another layer of abstraction.
 再次向上抽象
+
+
 
 When computer engineers are designing processors, they rarely work at the transistor level,
 工程师设计处理器时，很少在晶体管的层面上思考，

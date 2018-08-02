@@ -1,14 +1,29 @@
+问题1:情绪不高呀，没啥激情，有点丧失主动。
+问题2:虽然不用字字记录，但是要把所有的关键的都记录下来。
 
+soa概念
+soa是啥？解决啥
+wcf是啥？解决啥
+webservice是啥？
+restfull是啥？
+面向对象
+面向组件
+面型服务
+
+思想 标准 实现
+
+
+说到wcf，不得不提soa
 一：SOA的概念
 soa首先是一个概念,是面向服务架构?面向服务架构的目的是什么? 解决一个什么样的问题? 解决IT企业的信息孤岛问题。如何体现?
 soa只是一个架构并没有实现.
 1. 历史进程
 
     面向对象： 解决代码维护性问题 【设计模式】
-    面向组件： 解决复用性问题     【react】 html => 一个页面分成了各个组件 【es6 jsx,scss】 让js成了一个面向对象的语言。
+    面向组件： 解决复用性问题     【react】 html => 一个页面分成了各个组件 【es6 jsx,scss】 让js成了一个面向对象的语言。 这样前端代码和后端一样了。
     面向服务： 解决多系统互通问题  【跨平台，跨语言】
 
-              否则辛辛苦苦写的系统，不能被别的系统调用。
+              否则辛辛苦苦写的系统，不能被别的系统调用。 不然要重写
 
 2. 概念：
 
@@ -30,25 +45,26 @@ soa只是一个架构并没有实现.
 	延伸:
     OA，ERP， CRM。。。(各个系统互通)
 
-4. WCF在SOA中是一个什么地位？？？
+4. WCF在SOA中是一个什么地位？？？ 一图胜千言  有图一下子就很清晰了。
 
    WCF本质上是一个Asp.Net Web Service。。。
 
    WCF出现的时候是WS标准盛行的时候，后来为了兼容restful模式，不得已才适配的。。。
 
-   .net core 
+   .net core 的出现也是为了兼容时代的进步。
 
-5. 实现途径
+5. soa实现途径
   
     WebService标准：
 
-		      WSDL：公布服务内容			      [才能进行服务引用] svcutil.exe
-                      SOAP：简单对象访问协议【基于xml的文本格式】
+		      WSDL：公布服务内容		（公布元数据）	      [才能进行服务引用] svcutil.exe
+              SOAP：简单对象访问协议【基于xml的文本格式】
 		      XSD： 将各自系统的强类型转成XSD规范进行互通     【XML序列化用的】
 		            .net		 xsd            java
 			    System.String	x:string     Java.Lang.String
 
 
+soap例子
 <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
   <s:Header>
     <Action s:mustUnderstand="1" xmlns="http://schemas.microsoft.com/ws/2005/05/addressing/none">http://tempuri.org/IService1/GetData</Action>
@@ -78,15 +94,44 @@ soa只是一个架构并没有实现.
 			       
 			       Java的Axis
 
-   Restful：         Asp.net webApi 【基于http的internet应用（最大化节省网络带宽）】
+   Restful标准：         Asp.net webApi 【基于http的internet应用（最大化节省网络带宽）】
 
-   各自产品：	     EJB            企业级JavaBean 
-		     Dubbo	    阿里的SOA服务治理框架
-		     Spring Cloud   Spring社区的一个微服务框架【从属SOA思想的】
+   各自产品标准： EJB            企业级JavaBean 
+		        Dubbo	    阿里的SOA服务治理框架
+		        Spring Cloud   Spring社区的一个微服务框架【从属SOA思想的】
     
 二：WCF搭建
+新建下wcf项目 wcf服务库，快捷的一个模板
+运行起来
+发现有一个WcfsvcHost， 调试，
+正常生产环境，新建个控制台程序来承载服务，添加servicelib引用。和system.servicemodel
+添加引用代码
+static void Main(string[] args)
+        {
+            ServiceHost host = new ServiceHost(typeof(Service1));//host承载Service1
+            host.Open();
+            Console.WriteLine("wcf启动成功");
+        }
+这时候我们可以把虚拟机打开
+我们引用了sevicelib类库，我们也要把它的配置文件app.config拉过来，如果你是在测试环境 可以直接去运行它，是没有问题的额，真实中我们不是这么玩 的，
+编译客户端程序，成功之后，把bin/debug文件夹下的文件拷贝到虚拟机上，
+把配置文件中的ip地址改成本地ip地址
+启动服务。
+启动之后做什么呢？
+浏览器中访问公布的地址 http://192.168.23.188:8733/Service
+
+第一种你可以使用svcutil.exe来引用 http://192.168.23.188:8733/Service?wsdl
+或者 http://192.168.23.188:8733/Service?singleWsdl  元数据给java或者net客户端使用  解析由谁来解析呢 svcutil.exe，它是如何去解析的呢？这个工具首先在哪里 C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6.1 Tools 目录下
+
+解析有两种一种是，新建一个控制台程序，添加服务引用个，这个地址http://192.168.23.188:8733/Service，然后调用getdata方法
+
+调试的时候，WcfsvcHost总是弹出来很烦， 实际上可以新建一个控制台引用几个dll就可以了，这个东西主要是给大家调试用的额，
+
+wcf是webservice的实现，既然是实现， 必然要遵循了协议，就是你wcf对外公布的话，必须包括这些东西，这些东西就是协议
 
 
-svcutil.exe http://192.168.23.188:8733/Service?wsdl
+wsdl是干嘛的，
+它是给你 不同的语言进行互通，包括net，wcf作为一个大一统的存在，整合了net下所有的分布式技术
+
 
 

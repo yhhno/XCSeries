@@ -1,3 +1,18 @@
+简单介绍ALU 英特尔74181
+ALU有两个单元 一个算术单元一个逻辑单元
+算术单元
+半加器 处理一个bit 2个输入
+全加器 处理一个bit  3个输入
+8bit加法  一个半加器 7个全加器
+溢出的概念，吃豆人的例子
+乘法除法
+
+逻辑单元
+检查数字是否为0的电路  一堆or门 最后加个not门
+ALU抽象成一个v符号
+Flag标识  是否相等 是否小于 是否溢出等等 、
+
+
 Hi, I'm Carrie Ann and this is Crash Course Computer Science.
 嗨，我是 Carrie Anne，欢迎收看计算机科学速成课
 
@@ -106,8 +121,11 @@ but that would get confusing really fast.
 So instead as we talked about in Episode 3
 所以与其用晶体管，我们会像第 3 集
 
+
+@@@@
 - we can use a high-level of abstraction and build our components out of logic gates,
 - 用更高层的抽象，用逻辑门来做
+@@@@  
 
 in this case: AND, OR, NOT and XOR gates.
 我们会用到 AND，OR，NOT 和 XOR 逻辑门
