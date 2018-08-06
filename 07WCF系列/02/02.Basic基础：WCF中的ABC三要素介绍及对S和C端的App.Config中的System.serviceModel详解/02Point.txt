@@ -1,8 +1,11 @@
 
+情绪上怎么样?
+我是来学学习能力的，不仅仅是知识？
+
 上节课soa概念和wcf的快速创建，本节课就比较深入的介绍wcf，对嘛，到了把控细节的时候了
 
 问题来了，细节怎么把控呢？有没有一个模式呢？
-
+问题：代理，生成代理，元数据，
 一：ABC 【endpoint】
 
 1. A ? 地址
@@ -24,7 +27,7 @@
    问题1：理解细节，如何生动形象，一看就懂。并且清楚准确， 以前看起来，稀里糊涂的
 
    这就是所谓的abc概念，然后呢来看下配置文件。（必要的流程描述是要有的。）
-二：配置文件  层次图
+二：配置文件  层次图 一图胜千言
 
 services，bindings，behaviors 主要是解决哪方面的问题，
 默认的生成的配置文件只有services，behaviors ，bindings是没有的，才有默认配置
@@ -103,7 +106,7 @@ basicHttpBinding：wcf预定义的绑定。。。 【基于http】
 
 客户端添加了服务引用之后，客户端配置文件也会生成system.servicemodel节点一个binding一个client 客户端没什么好说的，和service端对应，
 
-bindings
+bindings 默认是没有的额，下面是自定义的
 
 配置好bindings
  <bindings>

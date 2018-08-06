@@ -266,7 +266,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01.History历史：SOA架�
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.Basic基础：WCF中的ABC三要素介绍及对S和C端的App.Config中的System.serviceModel详解", "02.Basic基础：WCF中的ABC三要素介绍及对S和C端的App.Config中的System.serviceModel详解", "{BA92944E-8D64-4399-A93D-E736F525076B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03", "03", "{0D65C81D-A9FF-4A9A-B967-E0B2B87F83E2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03.Basic基础：配置文件缺点分析之如何通过在Service和Client端通过硬编码的方式抛弃配置文件提高代码灵活性", "03.Basic基础：配置文件缺点分析之如何通过在Service和Client端通过硬编码的方式抛弃配置文件提高代码灵活性", "{0D65C81D-A9FF-4A9A-B967-E0B2B87F83E2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04", "04", "{FD4BDCE0-EAB1-47EF-9A06-8AEE7E90E567}"
 EndProject
@@ -395,6 +395,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "crash-course-computer-science-chinese", "crash-course-computer-science-chinese", "{77D3A445-C55C-4369-B62D-FCF4AB558701}"
 	ProjectSection(SolutionItems) = preProject
 		20Files系列\cs\(字幕)全40集中英字幕文本.txt = 20Files系列\cs\(字幕)全40集中英字幕文本.txt
+		计算机科学速成.md = 计算机科学速成.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "image", "image", "{170C618F-35BF-4847-84A2-21F7696078B3}"
