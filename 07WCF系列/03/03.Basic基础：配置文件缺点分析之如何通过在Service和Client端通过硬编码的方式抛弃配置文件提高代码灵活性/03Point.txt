@@ -1,6 +1,126 @@
-情绪上怎么样?
+情绪上怎么样? 小事情，搞的定，一步一步来，不要有过多的任务压在心头，与完事开头难的矛盾，
 我是来学学习能力的，不仅仅是知识？
 这个点没有评价好坏，未来的预期也没有评价好坏？
+
+问题1；灵活性
+问题2；代码的封装，抽象下
+问题3；技术方案的升级，
+问题4；就是方案的选择标准
+问题：数量的增加，导致要考虑的问题
+
+上节课讲到配置文件的简单的介绍，这节课给大家讲下配置文件的优缺点，首先看下这个项目，简单的案例的话，我们可以看到，他其实一个模板性的wcf的创建，这个创建的话，我们发现他的配置文件还是特别多的 ，对不对，简单的也有50行，配置文件，我们应该对它，有一个简单的认识，那么配置文件有什么好处？那么好处的话，我们可以想的到，它呢 修改下配置文件，不要修改代码，重启下，就可以及时生效，
+
+比如我们现在有5个wcf集群，如果你想修改config文件，我们5份都需要修改的，对不对，这时候我们该怎么处理呢？通常来说，我们处理有几种方式，第一种方式的话，
+解决方案： 1能进入代码的配置就进入代码。。。。
+           2config中心化。。 长连接
+接下来，如何将配置文件代码化，
+首先要做的是server端的无配置，既然是无配置的话，我们先把servicemodel节点移除，我们不要配置，照样可以重启，我们看下怎么样去实现，
+所谓中心化，就是config一个机器，所有的wcf的配置信息都从config这个中心获取，长连接
+写配置servicehost代码，
+  static void Main(string[] args)
+        {
+            //1.配置baseAddress
+            ServiceHost host = new ServiceHost(typeof(Service1), new Uri("http://localhost:8733/Service1"));//类库方法的选择。
+            //2.添加endpoint
+            host.AddServiceEndpoint(typeof(IService1), new BasicHttpBinding(), "");//""为配置endpoint节点上的address，为相对地址，
+            //3.添加mex端点
+            host.AddServiceEndpoint(typeof(IMetadataExchange), MetadataExchangeBindings.CreateMexHttpBinding(), "mex");
+            //4.添加behavior
+            var servicemeta = new ServiceMetadataBehavior {
+                HttpGetEnabled=true,
+                HttpsGetEnabled=true
+            };
+            var servicedebug = new ServiceDebugBehavior
+            {
+                IncludeExceptionDetailInFaults = false
+            };
+            host.Description.Behaviors.Add(servicedebug);
+            host.Description.Behaviors.Add(servicemeta);
+
+            host.Open();
+
+            Console.WriteLine("wcf 启动成功");
+            Console.ReadLine();
+
+        }
+
+至此，所有的配置通过代码进行了一个实现。 也就是说最终还是要用代码读取配置文件去执行的额，
+然后，下个f9,调试下，
+出现错误，修改，
+
+ static void Main(string[] args)
+        {
+            //1.配置baseAddress
+            ServiceHost host = new ServiceHost(typeof(Service1), new Uri("http://localhost:8733/Service1"));
+            //2.添加endpoint
+            host.AddServiceEndpoint(typeof(IService1), new BasicHttpBinding(), "");//""为配置endpoint节点上的address，为相对地址，
+
+            //3.添加behavior
+            var servicemeta = new ServiceMetadataBehavior
+            {
+                HttpGetEnabled = true,
+                HttpsGetEnabled = true
+            };
+            var servicedebug = new ServiceDebugBehavior
+            {
+                IncludeExceptionDetailInFaults = false
+            };
+            //host.Description.Behaviors.Add(servicedebug);//默认已经存在
+            host.Description.Behaviors.Add(servicemeta);
+
+            //4.添加mex端点
+            host.AddServiceEndpoint(typeof(IMetadataExchange), MetadataExchangeBindings.CreateMexHttpBinding(), "mex");
+        
+
+            host.Open();
+
+            Console.WriteLine("wcf 启动成功");
+            Console.ReadLine();
+
+        }
+
+
+此时serverhost完成，然后添加client端代码
+之前是，在client添加服务引用，地址，client添加service的配置信心，然后，调用代理，调用service的方法，
+现在，service配置信息删除，client也没有配置文件，通过代码完成
+
+代码模式1：
+            ServiceReference1.Service1Client client = new ServiceReference1.Service1Client(new BasicHttpBinding(),
+                new EndpointAddress("http://localhost:8733/Service1/"));
+
+            var result = client.GetData(1000);
+
+            Console.WriteLine(result);
+
+            Console.Read();
+断点，调试下，
+
+还有一种，也是无配置的的
+代码模式2：  Service1Client => 底层使用了ChannelFactory。。。因此我们也可以使用ChannelFactory直接写，这时候有个什么好处呢 连服务引用都不要了，我们要servicelib类库
+         ChannelFactory<IService1> channelFactory=new ChannelFactory<IService1>(new BasicHttpBinding(),
+                new EndpointAddress("http://localhost:8733/Service1/"));
+            var channel = channelFactory.CreateChannel();//创建一个协议栈
+
+            var result = channel.GetData(1000);
+
+            Console.WriteLine(result);
+
+            Console.Read();
+
+问题1；灵活性
+调试下，此时我们连服务引用都没有了，这样的话 它的灵活性是不是非常强呢，大家可以想一想，这个灵活性是不是，比我们使用配置文件灵活的多。
+
+问题2；代码的封装，抽象下
+server端这么多配置文件，最终我们只用这些代码就能搞定，当然我们这些代码都能够进行封装，封装成一个函数，我们直接把这个address塞进去，然后他就给你返回了 把host address传进去，公布函数适配好，然后直接host。open就可以了，
+
+所以从这段代码 看到了什么呢  其实我们可以配置的地方呢，第一个是他的服务地址， 我们可以配置，banding也可以配置，
+
+问题3；技术方案的升级，
+好的，这个的话就是代码的好处，当然的话，如果说你在升级的话，就是config中心化，的设计了额，
+
+问题4；就是方案的选择标准
+当然配置文件和非配置文件，大家要结合自己的场景，，也就是说wcf的集群是5台一下，用配置文件还是蛮好的，因为毕竟项目规模在这里，采用中心化，复杂度也起来了，，所以具体用那种，取决于大家实际情况
+
 
 一：配置文件
 
@@ -10,17 +130,18 @@
 
     《1》 只需要更改配置文件，重启应用程序就可以及时更新，不需要修改程序。
     
-    《2》 当wcf集群规模增加到5台+的时候，配置文件的缺点就出来了。
+	问题：数量的增加，导致要考虑的问题
+    《2》 当wcf集群规模增加到5台+的时候，配置文件的缺点就出来了。 相当于有5个备份，需要修改5次，容易导致错误
 
-解决方案： 能进入代码的配置就进入代码。。。。
+解决方案： 1能进入代码的配置就进入代码。。。。
   
-           config中心化。。。
+           2config中心化。。。 长连接
 
-    《3》 缩减config配置文件，尽量能嵌入到code中。
+    《3》 缩减config配置文件，尽量能嵌入到code中。 也就是说不需要配置的东西我们硬编码就可以了，
 
-    《3》 实现一个config配置中心，基于zookeeper，apollo 【https://github.com/ctripcorp/apollo/wiki/Quick-Start 】
+    《3》 实现一个config配置中心，基于zookeeper，apollo 【https://github.com/ctripcorp/apollo/wiki/Quick-Start 】 课后自己研究下，如何讲config中心化，
 
-
+	接下来，如何将配置文件代码化，
 二：Service端代码段配置
 
   <!-- 部署服务库项目时，必须将配置文件的内容添加到
@@ -127,7 +248,9 @@ static void Main(string[] args)
 
             Console.Read();
 
-代码模式2：  Service1Client => 底层使用了ChannelFactory。。。
+代码模式2：    ChannelFactory<IService1> channelFactory=new ChannelFactory<IService1>(new BasicHttpBinding(),
+                new EndpointAddress("http://localhost:8733/Service1/"));
+                Service1Client => 底层使用了ChannelFactory。。。
 
             var channel = channelFactory.CreateChannel();
 

@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,6 +52,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="03Point.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\03Servicelib\03Servicelib.csproj">
+      <Project>{f4365d9a-2e73-449f-9485-48d821f9dc1c}</Project>
+      <Name>03Servicelib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
