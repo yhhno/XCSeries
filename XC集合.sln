@@ -268,7 +268,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.Basic基础：WCF中的A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03.Basic基础：配置文件缺点分析之如何通过在Service和Client端通过硬编码的方式抛弃配置文件提高代码灵活性", "03.Basic基础：配置文件缺点分析之如何通过在Service和Client端通过硬编码的方式抛弃配置文件提高代码灵活性", "{0D65C81D-A9FF-4A9A-B967-E0B2B87F83E2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04", "04", "{FD4BDCE0-EAB1-47EF-9A06-8AEE7E90E567}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04.Basic基础：梳理wcf分层式通讯架构图【M,encoding,transport】及通过wireshark和fiddler详细分析", "04.Basic基础：梳理wcf分层式通讯架构图【M,encoding,transport】及通过wireshark和fiddler详细分析", "{FD4BDCE0-EAB1-47EF-9A06-8AEE7E90E567}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05", "05", "{5759329A-2052-4FFD-8900-B8D9E65FB053}"
 EndProject
@@ -447,6 +447,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceLib", "07WCF系列\01\ServiceLib\ServiceLib.csproj", "{A569479F-3D77-403E-ADA3-0043BC72F3A9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03Servicelib", "07WCF系列\03\03Servicelib\03Servicelib.csproj", "{F4365D9A-2E73-449F-9485-48D821F9DC1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04servicelib", "07WCF系列\04\04servicelib\04servicelib.csproj", "{480CCC67-1AFF-4EE0-B16C-2E6DF231626D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04serverclient", "07WCF系列\04\04serverclient\04serverclient.csproj", "{A2785FD9-E385-4C00-9365-435353EA3A67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1704,6 +1708,22 @@ Global
 		{F4365D9A-2E73-449F-9485-48D821F9DC1C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F4365D9A-2E73-449F-9485-48D821F9DC1C}.Release|x64.ActiveCfg = Release|Any CPU
 		{F4365D9A-2E73-449F-9485-48D821F9DC1C}.Release|x64.Build.0 = Release|Any CPU
+		{480CCC67-1AFF-4EE0-B16C-2E6DF231626D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{480CCC67-1AFF-4EE0-B16C-2E6DF231626D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{480CCC67-1AFF-4EE0-B16C-2E6DF231626D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{480CCC67-1AFF-4EE0-B16C-2E6DF231626D}.Debug|x64.Build.0 = Debug|Any CPU
+		{480CCC67-1AFF-4EE0-B16C-2E6DF231626D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{480CCC67-1AFF-4EE0-B16C-2E6DF231626D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{480CCC67-1AFF-4EE0-B16C-2E6DF231626D}.Release|x64.ActiveCfg = Release|Any CPU
+		{480CCC67-1AFF-4EE0-B16C-2E6DF231626D}.Release|x64.Build.0 = Release|Any CPU
+		{A2785FD9-E385-4C00-9365-435353EA3A67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2785FD9-E385-4C00-9365-435353EA3A67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2785FD9-E385-4C00-9365-435353EA3A67}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A2785FD9-E385-4C00-9365-435353EA3A67}.Debug|x64.Build.0 = Debug|Any CPU
+		{A2785FD9-E385-4C00-9365-435353EA3A67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2785FD9-E385-4C00-9365-435353EA3A67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2785FD9-E385-4C00-9365-435353EA3A67}.Release|x64.ActiveCfg = Release|Any CPU
+		{A2785FD9-E385-4C00-9365-435353EA3A67}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1891,6 +1911,8 @@ Global
 		{092255FB-76AF-49E0-9FCD-CAD7A0CA9D48} = {77D3A445-C55C-4369-B62D-FCF4AB558701}
 		{A569479F-3D77-403E-ADA3-0043BC72F3A9} = {94D10FD7-9F29-4EE7-A99D-B02B92DD34A7}
 		{F4365D9A-2E73-449F-9485-48D821F9DC1C} = {0D65C81D-A9FF-4A9A-B967-E0B2B87F83E2}
+		{480CCC67-1AFF-4EE0-B16C-2E6DF231626D} = {FD4BDCE0-EAB1-47EF-9A06-8AEE7E90E567}
+		{A2785FD9-E385-4C00-9365-435353EA3A67} = {FD4BDCE0-EAB1-47EF-9A06-8AEE7E90E567}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}

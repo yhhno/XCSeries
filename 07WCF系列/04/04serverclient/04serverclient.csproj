@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2B5B580D-E3B1-43B9-A364-D368A9E2DC9D}</ProjectGuid>
+    <ProjectGuid>{A2785FD9-E385-4C00-9365-435353EA3A67}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_04.Basic基础_梳理wcf分层式通讯架构图_M_encoding_transport_及通过wireshark和fiddler详细分析</RootNamespace>
-    <AssemblyName>04.Basic基础：梳理wcf分层式通讯架构图【M,encoding,transport】及通过wireshark和fiddler详细分析</AssemblyName>
+    <RootNamespace>_04serverclient</RootNamespace>
+    <AssemblyName>04serverclient</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -34,7 +34,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,18 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="1.jpg" />
-    <Content Include="04Point.txt" />
-    <Content Include="wireshark监控图.jpg" />
-    <Content Include="搜狗截图20171213174004.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\04servicelib\04servicelib.csproj">
-      <Project>{480ccc67-1aff-4ee0-b16c-2e6df231626d}</Project>
-      <Name>04servicelib</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
