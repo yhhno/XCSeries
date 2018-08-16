@@ -1,0 +1,270 @@
+情绪上怎么样? 小事情，搞的定，一步一步来，不要有过多的任务压在心头，与完事开头难的矛盾， 退缩是不存在额，没有在怕的。
+我是来学学习能力的，学习方法论的，不仅仅是知识？ 不是学完就万事大吉了，
+这个点没有评价好坏，未来的预期也没有评价好坏？
+每个东西，都要深挖，不能只是了解它的作用，
+每个新东西，旧东西， 其实都不难，调整好状态，跨出第一步，步步踏实，有啥难的，一多半都是自己吓自己。
+既然心理作用这么大，我们可以怎么做呢？  之前用代入感，现在用成功者，也就是未来者（儿子清华，女儿北大），
+来句革命性的，这些东西真的有那么重要的吗？遇到它我不想学，产生退缩，我的一切都完了吗？ 当然不是的，我当然不是整天要面对不是这些事情，这些都是实现方式之一，人需要有哲学的角度，出一套指导思想，把一切都简略的画出来，然后去填空，而目前呢，只是在做填空的那一步，就像一个没有思想的人，那就是一个不知道为什么这么做的人在做事情，此时积极的发挥不出来，消极的全部放大，导致进展不下去。 
+我们是思考抽象的高层次东西，怎么可以困在低层次的范围内呢？ 对不对？
+
+必须要有整体上的认识，才可以去理解其中的概念，名词，底层的流程，抽象的流程，抽象的概念 大局观
+各个点的知识知道了，但流程是什么呢？ 如何联系在一起呢？逻辑呢？
+##note###重大问题，基础知识不系统，不全面，有缺失，而且还不清晰牢固
+
+之前总结，反思了很多东西，为什么效果平平呢？ 很大可能是激情没有涉及，（我一定杀20个人呢，）
+
+
+问题2：学习一种元数据格式
+问题3：注意这些都是预定义，或者说有一套默认的，那么我们可以自定义呢。
+问题1：   [ServiceContract]和   [OperationContract]是抽象的东西，底层是以wsdl为基础的操作东西
+
+
+这节课就给大家讲下契约
+那么契约它是能直接影响wsdl的，他也就是abc中的c，本节课主要是将服务契约和操作契约，这两个契约的修改，可以反映到wsdl上，这个是大家一定要注意的地方，
+契约有三种模式，一种是rpc模式，一种是单向模式，然后是双工通讯，，然后我们可以做一些定制，这就是本节课主要的知识点，
+那么首先的话呢，我们看第一个（列的文档），既然说我们所有的东西，都反映到wsdl上， 契约也是做这种事情的，定义服务边界，所以说的话，我们先把wsdl拉出来，给大家看下，
+新建项目，把wcf的声明和host放在一个控制台程序上，
+编译后，把debug文件夹下的文件copy到虚拟机上，修改配置文件，启动，启动成功
+然后在浏览器上输入 服务地址，可以看到wsdl。
+http://localhost:8733/service?wsdl
+ <wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="HomeService" targetNamespace="http://tempuri.org/">
+<wsdl:types>
+<xsd:schema targetNamespace="http://tempuri.org/Imports">
+<xsd:import schemaLocation="http://localhost:8733/service?xsd=xsd0" namespace="http://tempuri.org/"/>
+<xsd:import schemaLocation="http://localhost:8733/service?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/"/>
+</xsd:schema>
+</wsdl:types>
+<wsdl:message name="IHomeService_DoWork_InputMessage">
+<wsdl:part name="parameters" element="tns:DoWork"/>
+</wsdl:message>
+<wsdl:message name="IHomeService_DoWork_OutputMessage">
+<wsdl:part name="parameters" element="tns:DoWorkResponse"/>
+</wsdl:message>
+<wsdl:portType name="IHomeService">
+<wsdl:operation name="DoWork">
+<wsdl:input wsaw:Action="http://tempuri.org/IHomeService/DoWork" message="tns:IHomeService_DoWork_InputMessage"/>
+<wsdl:output wsaw:Action="http://tempuri.org/IHomeService/DoWorkResponse" message="tns:IHomeService_DoWork_OutputMessage"/>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:binding name="BasicHttpBinding_IHomeService" type="tns:IHomeService">
+<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsdl:operation name="DoWork">
+<soap:operation soapAction="http://tempuri.org/IHomeService/DoWork" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="HomeService">
+<wsdl:port name="BasicHttpBinding_IHomeService" binding="tns:BasicHttpBinding_IHomeService">
+<soap:address location="http://localhost:8733/service"/>
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>
+
+问题2：学习一种元数据格式
+
+  我们来看下这个wsdl，先全部都折叠下，
+  我们发现它的服务叫HomeService，这个服务的地址在哪里，首先它是一个basichttpbinding，然后这个服务地址是8732，，拿到这个地址之后，比如说java的客户端，net客户端，java中工具叫wsimport，由它来解析这个wsdl。生成硬编码，也就是强类型，在net中通过svcutil，来解析，
+  然后我们再看binding，第一个我们可以看到它的transport是什么，是http://schemas.xmlsoap.org/soap/http.也就是说，我当前的soap信息通过http传输，ok这个的话呢，，又告诉了wsimport或者svcutil，当前的传输是采用http的，，当然如果你是tcp的话，又不一样了，是http://schemas.xmlsoap.org/soap/tcp，这个之后再验证，ok然后的haul，可以看到soap的operation它的soapaciton是dowork，也就是说，当前你这个service下面有一个dowork的一个函数，那是不是呢？我们看到 确实是的，ok ，然后的话呢我们发现这个dowork的话，它是由一个input和一个output，这个是它的一个通讯模式， 什么意思？就是说我当前是采用rpc的一个通讯，因为你rpc必然有一个input和output，对不对，大家想一想对不对，
+  ok，我们往上走，这个dowork有一个input一个output input的action在哪里？，也就是说 什么意思？这个就相当于我们的soap和operation的对应关系，这个dowork在soap中有两条消息，有两个action，一个叫http://tempuri.org/IHomeService/DoWork。一个叫http://tempuri.org/IHomeService/DoWorkResponse，（最终都会通过硬编码反映到dowork函数上去），那这个是什么意思? operation和message的对应关系，大家一定要清楚， 这是默认的rpc模式， 其实operation如果你有两条message的话，那我就知道你当前采用的是rpc模式，如果说你只有一条，我就认为你是单向通信，，不知道大家懂没懂我说的意思，
+  ok这就是它的一个通讯模式的介绍，rpc模式，单工模式，双工通讯我们放到下节课讲，因为它的内容相对来说还是蛮多的额，
+  后面的是message的一些参数了，
+  因为它涉及到operation和message的对应关系，我们怎么看的到，其实的话，我们在client端的代理代码上 attibute特性上，
+  [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHomeService/DoWork", ReplyAction="http://tempuri.org/IHomeService/DoWorkResponse")]
+void DoWork(string msg);
+  刚才留了一个问题，来验证http和tcp是不是反映到wsdl上去了。
+  接下来我们要把当前部署的配置文件修改，修改binding 然后启动下，主要tcp的通信地址，不使用基地址，但公布元数据地址使用基地址，
+  在浏览器上输入公布元数据机制，查看wsdl，这个tcp它就复杂多了。可以看到transport确实是tcp，
+
+  ok这就是wsdl简单的一个介绍吧啊，
+
+  接下来我们重点来说下通讯，三种通讯，其实三种通讯 也就是我们日常做开发中，使用到的三种模式，对不对，我们做开发，无非三种模式，第一种rpc通讯，单向通讯，还有一种是双工通讯，或者叫做发布订阅（它的基础就是双工通讯）， 这就是我们做通讯的三种，当然这个oneway分在线和离线，或者online和offline，offline就是消息队列，
+  接下来我们说下rpc通讯， 它反映在wsdl是两个消息，相当于两个message对应一个operation，也就是这个一个wsdl节点
+  <wsdl:operation name="DoWork">
+	<wsdl:input message="tns:IHomeService_DoWork_InputMessage" wsaw:Action="http://tempuri.org/IHomeService/DoWork"/>
+	<wsdl:output message="tns:IHomeService_DoWork_OutputMessage" wsaw:Action="http://tempuri.org/IHomeService/DoWorkResponse"/>
+</wsdl:operation>
+它会被wsimport或者svcutil解析，解析完了，它就知道怎么去适配了，对不对，就比如
+在客户端代理代码中的两个适配
+[System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHomeService/DoWork", ReplyAction="http://tempuri.org/IHomeService/DoWorkResponse")]
+void DoWork(string msg);
+也就是说一个dowork就是一对请求与响应，对应	  DoWork和DoWorkResponse，他两个完成一个dowork，
+重点：画个图，
+重点：ok接下来就给大家演示下吧，既然是请求响应，应该是可以检测得到的，两个http嘛，
+这个就是简单的双向通讯，
+
+
+接下来我们再来说下单向通讯，其实就是一个rpc通讯的一个简版，为什么这么说？我们就要说下它的场景，大家可以想下，它的这个场景是那些？首先它的运作模式是什么呢。不需要service及时给它消息，或者说不需要service返回消息，，比如说，做日志系统，日志系统的话，logstash采集log4net写的数据，采集后丢给es或者mongodb其实这就是一个简单的单向通讯，，那么我们也可以通过wcf把日志直接写到elasticsearch中去，，相当有这是一个单向通讯，我把日志写到es上去，我不需要关心成功或者失败，这个相当于我们通讯中的udp通讯，我丢了一些数据没关系，，我日志真的丢了一条两条 因为网络的抖动对不对，这个没关系，适合少量的丢失数据，没关系的额， 其他常见场景，发短信，发邮件，比如说你下单成功了我会给你发短信发邮件，如果说真的有一条两条没发出去，比如说某个人下单了，没有给他发短信，真的没发出去也没关心，用户也不会抱怨，
+我们来看下单向通讯如何来使用，使用其实也是非常简单的，我们稍微修改下就可以了，
+    [ServiceContract]
+    public interface IHomeService
+    {
+        [OperationContract]
+        //[OperationContract(IsOneWay =true)]
+        void DoWork(string msg);
+        
+    }
+重新编译， 这样的话就搞定了，，拷贝到虚拟机上去，然后启动，
+此时我们重点来看wsdl有什么不同，
+此时dowork只有input，operation对应一个message，
+此时更新client服务引用，
+      [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IHomeService/DoWork")]
+        void DoWork(string msg);
+只有一个特性，并且多了个IsOneWay=true
+这说它wsdl也对应到代码上去了，
+运行下client端，fiddler监控，
+首先我们发现他的状态码变了（202），然后我们再来看下之前的额，（200）
+发送是一样的额，回应不一样，
+重点：我们查下202是什么意思？ 非常适合异步场景，
+这个就是单向通讯的概念了，
+
+问题3：注意这些都是预定义，或者说有一套默认的，那么我们可以自定义呢。
+然后我们还可以 修改ServiceContract的Name 和 Namespace。以及修改OperationContract 的 Name 和 ReplyAction。
+ok，我们现在是单向通讯，
+修改代码
+ // 注意: 使用“重构”菜单上的“重命名”命令，可以同时更改代码和配置文件中的接口名“IService1”。
+    [ServiceContract]
+    //[ServiceContract(Name ="SSSSSSSSSSSSS")]
+    public interface IHomeService
+    {
+        [OperationContract]
+        //[OperationContract(Name ="OOOOOOOO",ReplyAction = "http://tempuri.org/IHomeService/AAAAAAAResponse")]
+        //[OperationContract(IsOneWay =true)]
+        void DoWork(string msg);
+        
+    }
+编译，copy到虚拟机，部署
+然后再查看wsdl
+然后出现很多sssssssss和OOOOOOOO，也就是说，服务名称和operation名称都已经修改了，
+此时client添加服务引用，也全部改变了。
+
+然后还有一个东西，没有改，就是命名空间，命名空间我们可以看到，它默认的是http://tempuri.org/，我们可以把它的命名空间也改了，
+一般情况下，我们修改的是服务名和operation名称，命名空间一般不修改，replyaction也是遵循默认的额，
+这说明你是可以改的，但改不改，看你真实的场景了，
+
+
+这些就是本节课给大家讲的内容，还是非常简单的的，下节课，给大家讲双工通讯，
+
+一：契约【ABC中的C】 => 服务，操作契约  【Service，Operation】
+
+1. 作用：用于定义服务边界，也就是定制wsdl，这样就可以让客户端根据wsdl生成不同的代码。。。
+
+2. WSDL可以找到的东西：
+
+           《1》 服务地址：soap:address  <soap:address location="http://192.168.23.187:8732/HomeService"/>
+
+			  java wsimport 由它来解析这个wsdl （生成硬编码）
+		          C#   svcutil  由它解析。。
+
+	   《2》 传输协议：soap:binding  [http://schemas.xmlsoap.org/soap/http ] [http://schemas.xmlsoap.org/soap/tcp ]
+		           <soap12:binding transport="http://schemas.microsoft.com/soap/tcp"/>
+	   《3》 绑定类型：BasicHttpBinding
+	   《4》 Operation 和 message 的对应关系 （一对一，一对二？）
+                 
+-<wsdl:operation name="DoWork">
+	<wsdl:input message="tns:IHomeService_DoWork_InputMessage" wsaw:Action="http://tempuri.org/IHomeService/DoWork"/>
+	<wsdl:output message="tns:IHomeService_DoWork_OutputMessage" wsaw:Action="http://tempuri.org/IHomeService/DoWorkResponse"/>
+</wsdl:operation>
+
+[System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHomeService/DoWork", ReplyAction="http://tempuri.org/IHomeService/DoWorkResponse")]
+void DoWork(string msg);
+
+最后都会通过硬编码到Dowork函数中。。。
+
+问题3：也就是一种抽象层面的概念，之前想不明白就是它太抽象了，必须要理解它的底层，也能明白他是如何运作额，不然想不不明白
+二：三种模式  
+
+平时开发常用的三种通讯模式：[RPC,OneWay(在线(online)和离线(offline))，publish/subscribe(双工)]
+
+1. RPC模式 [input / output]
+
+   默认是请求响应模式，那么一个soap在网络往返传输中，如果区别是此方法的传出还是接收？？？
+
+《1》对应关系
+
+     Operation => Message
+
+     从WSDL中可以看到，一个operation对应着两条message的action。
+
+-<wsdl:operation name="DoWork">
+	<wsdl:input message="tns:IHomeService_DoWork_InputMessage" wsaw:Action="http://tempuri.org/IHomeService/DoWork"/>
+	<wsdl:output message="tns:IHomeService_DoWork_OutputMessage" wsaw:Action="http://tempuri.org/IHomeService/DoWorkResponse"/>
+</wsdl:operation>
+
+      在Client的服务引用上也是可以看出来的。。。
+
+[System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHomeService/DoWork", ReplyAction="http://tempuri.org/IHomeService/DoWorkResponse")]
+WcfClient.ServiceReference1.DoWorkResponse DoWork(WcfClient.ServiceReference1.DoWorkRequest request);
+
+	  DoWork
+DoWork
+	  DoWorkResponse
+
+
+2. 单向模式(isOneWay) 
+   
+   场景：不需要service及时给他消息，或者说不需要service返回消息。。。
+
+         【日志系统】
+
+	 logstash [log4net]   => es  mongodb
+
+	 wcf  =>  elasticSearch  [UDP]
+
+	 适合少量的丢失数据。。。
+  
+        发短信，发邮件 【下单成功。。。。】
+
+  WSDL：
+
+  <wsdl:operation name="DoWork">
+<wsdl:input wsaw:Action="http://tempuri.org/IHomeService/DoWork" message="tns:IHomeService_DoWork_InputMessage"/>
+</wsdl:operation>
+
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IHomeService/DoWork")]
+        void DoWork(string msg);
+
+   使用：
+
+
+
+   《1》 fiddler监控：HTTP/1.1 202 Accepted，了解http 202 状态码
+
+202 Accepted
+服务器已接受请求，但尚未处理。正如它可能被拒绝一样，最终该请求可能会也可能不会被执行。在异步操作的场合下，没有比发送这个状态码更方便的做法了。
+
+请求
+POST http://192.168.23.187:8732/HomeService HTTP/1.1
+Content-Type: text/xml; charset=utf-8
+SOAPAction: "http://tempuri.org/IHomeService/DoWork"
+Host: 192.168.23.187:8732
+Content-Length: 388
+Expect: 100-continue
+Accept-Encoding: gzip, deflate
+Connection: Keep-Alive
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Header><VsDebuggerCausalityData xmlns="http://schemas.microsoft.com/vstudio/diagnostics/servicemodelsink">uIDPo+lgxh460HVMqbxtg6cC2RoAAAAAGKntfOnxLkOBHJbxt5A+tXhIgdzO7GNHh0osTEN33dcACQAA</VsDebuggerCausalityData></s:Header><s:Body><DoWork xmlns="http://tempuri.org/"><msg>hello world!</msg></DoWork></s:Body></s:Envelope>
+
+响应
+HTTP/1.1 202 Accepted
+Content-Length: 0
+Server: Microsoft-HTTPAPI/2.0
+Date: Sun, 12 Nov 2017 02:35:19 GMT
+
+
+   《2》 应用场景：不需要service的逻辑响应，适合不需要等待结果的业务场景。
+
+
+
+3. 双向通讯【发布订阅】 {下节课去说}
+
+
+三：其他方式的定制
+
+1. 修改ServiceContract的Name 和 Namespace。
+
+2. 修改OperationContract 的 Name 和 ReplyAction。

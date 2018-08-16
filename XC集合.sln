@@ -270,7 +270,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03.Basic基础：配置文�
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04.Basic基础：梳理wcf分层式通讯架构图【M,encoding,transport】及通过wireshark和fiddler详细分析", "04.Basic基础：梳理wcf分层式通讯架构图【M,encoding,transport】及通过wireshark和fiddler详细分析", "{FD4BDCE0-EAB1-47EF-9A06-8AEE7E90E567}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05", "05", "{5759329A-2052-4FFD-8900-B8D9E65FB053}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05.Contract契约：Service【Operaion】Contract在定义服务边界和【RPC,IsOneWay】操作和WDSL操控", "05.Contract契约：Service【Operaion】Contract在定义服务边界和【RPC,IsOneWay】操作和WDSL操控", "{5759329A-2052-4FFD-8900-B8D9E65FB053}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06", "06", "{2FF2CAC3-84C7-4AE1-807F-255C164ABB1D}"
 EndProject
@@ -313,8 +313,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03.Basic基础：配置文件缺点分析之如何通过在Service和Client端通过硬编码的方式抛弃配置文件提高代码灵活性", "07WCF系列\03\03.Basic基础：配置文件缺点分析之如何通过在Service和Client端通过硬编码的方式抛弃配置文件提高代码灵活性\03.Basic基础：配置文件缺点分析之如何通过在Service和Client端通过硬编码的方式抛弃配置文件提高代码灵活性.csproj", "{F45B1BF2-671D-42F1-B3BA-F7ECFD00DFA1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04.Basic基础：梳理wcf分层式通讯架构图【M,encoding,transport】及通过wireshark和fiddler详细分析", "07WCF系列\04\04.Basic基础：梳理wcf分层式通讯架构图【M,encoding,transport】及通过wireshark和fiddler详细分析\04.Basic基础：梳理wcf分层式通讯架构图【M,encoding,transport】及通过wireshark和fiddler详细分析.csproj", "{2B5B580D-E3B1-43B9-A364-D368A9E2DC9D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05.Contract契约：Service【Operaion】Contract在定义服务边界和【RPC,IsOneWay】操作和WDSL操控", "07WCF系列\06\05.Contract契约：Service【Operaion】Contract在定义服务边界和【RPC,IsOneWay】操作和WDSL操控\05.Contract契约：Service【Operaion】Contract在定义服务边界和【RPC,IsOneWay】操作和WDSL操控.csproj", "{BBF12051-0B00-43CA-B4F1-0CFD6FDE6209}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06.Contract契约：理解WCF双工通讯中所体现的发布订阅模式思想及代码实践和xmind图分析", "07WCF系列\06\06.Contract契约：理解WCF双工通讯中所体现的发布订阅模式思想及代码实践和xmind图分析\06.Contract契约：理解WCF双工通讯中所体现的发布订阅模式思想及代码实践和xmind图分析.csproj", "{6FD84C87-7DCF-4721-B623-86460FCBFCAD}"
 EndProject
@@ -451,6 +449,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04servicelib", "07WCF系列\04\04servicelib\04servicelib.csproj", "{480CCC67-1AFF-4EE0-B16C-2E6DF231626D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04serverclient", "07WCF系列\04\04serverclient\04serverclient.csproj", "{A2785FD9-E385-4C00-9365-435353EA3A67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05wcfservice", "07WCF系列\05\05servicelib\05wcfservice.csproj", "{F7022D4D-DFBD-4807-9343-B8767C63A44B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05.Contract契约：Service【Operaion】Contract在定义服务边界和【RPC,IsOneWay】操作和WDSL操控", "07WCF系列\05\05.Contract契约：Service【Operaion】Contract在定义服务边界和【RPC,IsOneWay】操作和WDSL操控\05.Contract契约：Service【Operaion】Contract在定义服务边界和【RPC,IsOneWay】操作和WDSL操控.csproj", "{BBF12051-0B00-43CA-B4F1-0CFD6FDE6209}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1380,14 +1382,6 @@ Global
 		{2B5B580D-E3B1-43B9-A364-D368A9E2DC9D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2B5B580D-E3B1-43B9-A364-D368A9E2DC9D}.Release|x64.ActiveCfg = Release|Any CPU
 		{2B5B580D-E3B1-43B9-A364-D368A9E2DC9D}.Release|x64.Build.0 = Release|Any CPU
-		{BBF12051-0B00-43CA-B4F1-0CFD6FDE6209}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BBF12051-0B00-43CA-B4F1-0CFD6FDE6209}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BBF12051-0B00-43CA-B4F1-0CFD6FDE6209}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{BBF12051-0B00-43CA-B4F1-0CFD6FDE6209}.Debug|x64.Build.0 = Debug|Any CPU
-		{BBF12051-0B00-43CA-B4F1-0CFD6FDE6209}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BBF12051-0B00-43CA-B4F1-0CFD6FDE6209}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BBF12051-0B00-43CA-B4F1-0CFD6FDE6209}.Release|x64.ActiveCfg = Release|Any CPU
-		{BBF12051-0B00-43CA-B4F1-0CFD6FDE6209}.Release|x64.Build.0 = Release|Any CPU
 		{6FD84C87-7DCF-4721-B623-86460FCBFCAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6FD84C87-7DCF-4721-B623-86460FCBFCAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FD84C87-7DCF-4721-B623-86460FCBFCAD}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -1724,6 +1718,22 @@ Global
 		{A2785FD9-E385-4C00-9365-435353EA3A67}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A2785FD9-E385-4C00-9365-435353EA3A67}.Release|x64.ActiveCfg = Release|Any CPU
 		{A2785FD9-E385-4C00-9365-435353EA3A67}.Release|x64.Build.0 = Release|Any CPU
+		{F7022D4D-DFBD-4807-9343-B8767C63A44B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7022D4D-DFBD-4807-9343-B8767C63A44B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7022D4D-DFBD-4807-9343-B8767C63A44B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F7022D4D-DFBD-4807-9343-B8767C63A44B}.Debug|x64.Build.0 = Debug|Any CPU
+		{F7022D4D-DFBD-4807-9343-B8767C63A44B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7022D4D-DFBD-4807-9343-B8767C63A44B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7022D4D-DFBD-4807-9343-B8767C63A44B}.Release|x64.ActiveCfg = Release|Any CPU
+		{F7022D4D-DFBD-4807-9343-B8767C63A44B}.Release|x64.Build.0 = Release|Any CPU
+		{BBF12051-0B00-43CA-B4F1-0CFD6FDE6209}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBF12051-0B00-43CA-B4F1-0CFD6FDE6209}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBF12051-0B00-43CA-B4F1-0CFD6FDE6209}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BBF12051-0B00-43CA-B4F1-0CFD6FDE6209}.Debug|x64.Build.0 = Debug|Any CPU
+		{BBF12051-0B00-43CA-B4F1-0CFD6FDE6209}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBF12051-0B00-43CA-B4F1-0CFD6FDE6209}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBF12051-0B00-43CA-B4F1-0CFD6FDE6209}.Release|x64.ActiveCfg = Release|Any CPU
+		{BBF12051-0B00-43CA-B4F1-0CFD6FDE6209}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1867,7 +1877,6 @@ Global
 		{D0BEE2EB-E709-40BE-A587-C3BAA0D038CE} = {BA92944E-8D64-4399-A93D-E736F525076B}
 		{F45B1BF2-671D-42F1-B3BA-F7ECFD00DFA1} = {0D65C81D-A9FF-4A9A-B967-E0B2B87F83E2}
 		{2B5B580D-E3B1-43B9-A364-D368A9E2DC9D} = {FD4BDCE0-EAB1-47EF-9A06-8AEE7E90E567}
-		{BBF12051-0B00-43CA-B4F1-0CFD6FDE6209} = {5759329A-2052-4FFD-8900-B8D9E65FB053}
 		{6FD84C87-7DCF-4721-B623-86460FCBFCAD} = {2FF2CAC3-84C7-4AE1-807F-255C164ABB1D}
 		{0857A219-09CC-4758-8857-3BA8B8C470B9} = {FCA21696-6046-4412-BA57-0AE5B5C6DD04}
 		{748603A9-4E0A-4398-9C49-FCE84606E7A9} = {849EFE7C-93DD-4CC4-B1FD-25A191DAD912}
@@ -1913,6 +1922,8 @@ Global
 		{F4365D9A-2E73-449F-9485-48D821F9DC1C} = {0D65C81D-A9FF-4A9A-B967-E0B2B87F83E2}
 		{480CCC67-1AFF-4EE0-B16C-2E6DF231626D} = {FD4BDCE0-EAB1-47EF-9A06-8AEE7E90E567}
 		{A2785FD9-E385-4C00-9365-435353EA3A67} = {FD4BDCE0-EAB1-47EF-9A06-8AEE7E90E567}
+		{F7022D4D-DFBD-4807-9343-B8767C63A44B} = {5759329A-2052-4FFD-8900-B8D9E65FB053}
+		{BBF12051-0B00-43CA-B4F1-0CFD6FDE6209} = {5759329A-2052-4FFD-8900-B8D9E65FB053}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}

@@ -49,6 +49,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="05wcf的rpc通讯监测（请求响应）.png" />
     <Content Include="1.jpg" />
     <Content Include="2.JPG" />
     <Content Include="05Point.txt" />

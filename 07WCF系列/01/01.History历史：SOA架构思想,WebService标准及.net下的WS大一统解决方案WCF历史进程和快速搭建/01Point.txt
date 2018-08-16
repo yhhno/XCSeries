@@ -12,9 +12,9 @@ restfullÊÇÉ¶£¿
 
 Ë¼Ïë ±ê×¼ ÊµÏÖ Ò»´óÕÅÍ¼¶¼¸ø´®ÁªÆðÀ´£¬ÉÏÏÂ×óÓÒ¹ØÏµÒ»Ä¿ÁËÈ»¡£  ¶Ô±ÈÒÔÇ°¶¼ÊÇÒ»¸öµã£¬»¹Ï¡ÀïºýÍ¿µÄ¶î£¬ÈçwcfºÍwebservice¶¼ÄÖ²»Ã÷°×¡££¨»ù´¡ÖªÊ¶Ì«²îÁË£¬ºÍÃ»ÓÐ´ÓÕûÌåÉÏ»òÈ«¾ÖÉÏÈ¥¿´Õâ¸öÖªÊ¶µã¡££©
 Õâ¾ÍÊÇÎÒÃÇÓ¦¸ÃÓÐµÄÑ§Ï°±ê×¼¡£ÇåÎú°¡
-ÓÐÁË³öÏÖµÄÆõ»ú£¬ÓÐÁËÄ¿µÄ£¬ÓÐÁËÊµÏÖ£¬ÓÐÁËÊµ¼ù¡£  Äã¿´¿´Ïë²»Ã÷°×¶¼ÄÑÅ¶¡£ ºÙºÙ ¾ÍÕÕÕâÑùµÄÀ´£¨ÕâÐèÒªÍ¨¹ý×Ô¼ºÑ§Ï°µÃµ½¡£²»ÄÜÈ«¿¿±ðÈËµÄ£©
+ÓÐÁË³öÏÖµÄÆõ»ú£¬ÓÐÁËÄ¿µÄ£¬ÓÐÁËÊµÏÖ£¬ÓÐÁËÊµ¼ù¡£  Äã¿´¿´Ïë²»Ã÷°×¶¼ÄÑÅ¶¡£ ºÙºÙ ¾ÍÕÕÕâÑùµÄÀ´£¨ÕâÐèÒªÍ¨¹ý×Ô¼ºÑ§Ï°µÃµ½£¬²¢ÕûÀí³öÀ´¡£²»ÄÜÈ«¿¿±ðÈËµÄ£©
 
-ÎÊÌâ£º¸ÅÄîÉÏµÄ°Ñ¿Ø? ÓÐÃ»Ä£Ê½£¿£º
+ÎÊÌâ£º¸ÅÄîÉÏµÄ°Ñ¿Ø? ÓÐÃ»Ä£Ê½£¿£º ±ØÐëÒªÓÐÕûÌåÉÏµÄÈÏÊ¶£¬²Å¿ÉÒÔÈ¥Àí½âÆäÖÐµÄ¸ÅÄî£¬Ãû´Ê£¬ ´ó¾Ö¹Û
 
 
 Ëµµ½wcf£¬²»µÃ²»Ìásoa
@@ -59,11 +59,12 @@ soaÖ»ÊÇÒ»¸ö¼Ü¹¹²¢Ã»ÓÐÊµÏÖ.
 
 5. soaÊµÏÖÍ¾¾¶
   
+  ÎÊÌâ1£ºd¸÷¸öµãµÄÖªÊ¶ÖªµÀÁË£¬µ«Á÷³ÌÊÇÊ²Ã´ÄØ£¿ ÈçºÎÁªÏµÔÚÒ»ÆðÄØ£¿Âß¼­ÄØ£¿
     WebService±ê×¼£º
 
-		      WSDL£º¹«²¼·þÎñÄÚÈÝ		£¨¹«²¼ÔªÊý¾Ý£©	      [²ÅÄÜ½øÐÐ·þÎñÒýÓÃ] svcutil.exe
+		      WSDL£º¹«²¼·þÎñÄÚÈÝ		£¨¹«²¼ÔªÊý¾Ý£©	      [²ÅÄÜ½øÐÐ·þÎñÒýÓÃ] svcutil.exe   ÎÊÌâ:¹«²¼ÁËÔªÊý¾Ý£¬ÈçºÎÀûÓÃÄØ?
               SOAP£º¼òµ¥¶ÔÏó·ÃÎÊÐ­Òé¡¾»ùÓÚxmlµÄÎÄ±¾¸ñÊ½¡¿
-		      XSD£º ½«¸÷×ÔÏµÍ³µÄÇ¿ÀàÐÍ×ª³ÉXSD¹æ·¶½øÐÐ»¥Í¨     ¡¾XMLÐòÁÐ»¯ÓÃµÄ¡¿
+		      XSD£º ½«¸÷×ÔÏµÍ³µÄÇ¿ÀàÐÍ×ª³ÉXSD¹æ·¶½øÐÐ»¥Í¨     ¡¾XMLÐòÁÐ»¯ÓÃµÄ¡¿ Àà¶ÔÏóÐòÁÐ»¯³É¶þ½øÖÆ£¬£¬¶þ½øÖÆ·´ÐòÁÐ»¯ÎªÀà¶ÔÏó¡£
 		            .net		 xsd            java
 			    System.String	x:string     Java.Lang.String
 
@@ -135,7 +136,8 @@ wcfÊÇwebserviceµÄÊµÏÖ£¬¼ÈÈ»ÊÇÊµÏÖ£¬ ±ØÈ»Òª×ñÑ­ÁËÐ­Òé£¬¾ÍÊÇÄãwcf¶ÔÍâ¹«²¼µÄ»°£¬±ØÐ
 
 
 wsdlÊÇ¸ÉÂïµÄ£¬
-ËüÊÇ¸øÄã ²»Í¬µÄÓïÑÔ½øÐÐ»¥Í¨£¬°üÀ¨net£¬wcf×÷ÎªÒ»¸ö´óÒ»Í³µÄ´æÔÚ£¬ÕûºÏÁËnetÏÂËùÓÐµÄ·Ö²¼Ê½¼¼Êõ
+ËüÊÇ¸øÄã ²»Í¬µÄÓïÑÔ½øÐÐ»¥Í¨£¬°üÀ¨net£¬
+wcf×÷ÎªÒ»¸ö´óÒ»Í³µÄ´æÔÚ£¬ÕûºÏÁËnetÏÂËùÓÐµÄ·Ö²¼Ê½¼¼Êõ
 
 
 
