@@ -10,6 +10,9 @@ namespace _05.Contract契约_Service_Operaion_Contract在定义服务边界和_R
     {
         static void Main(string[] args)
         {
+            ServiceReference1.HomeServiceClient host = new ServiceReference1.HomeServiceClient();
+            host.DoWork("hello");
+            Console.Read();
         }
     }
 }

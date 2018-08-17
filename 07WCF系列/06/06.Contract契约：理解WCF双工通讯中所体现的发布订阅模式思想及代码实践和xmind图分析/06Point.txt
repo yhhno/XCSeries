@@ -1,3 +1,291 @@
+情绪上怎么样? 小事情，搞的定，一步一步来，不要有过多的任务压在心头，与完事开头难的矛盾， 退缩是不存在额，没有在怕的。
+我是来学学习能力的，学习方法论的，不仅仅是知识？ 不是学完就万事大吉了，
+这个点没有评价好坏，未来的预期也没有评价好坏？
+每个东西，都要深挖，不能只是了解它的作用，
+每个新东西，旧东西， 其实都不难，调整好状态，跨出第一步，步步踏实，有啥难的，一多半都是自己吓自己。
+既然心理作用这么大，我们可以怎么做呢？  之前用代入感，现在用成功者，也就是未来者（儿子清华，女儿北大），
+来句革命性的，这些东西真的有那么重要的吗？遇到它我不想学，产生退缩，我的一切都完了吗？ 当然不是的，我当然不是整天要面对不是这些事情，这些都是实现方式之一，人需要有哲学的角度，出一套指导思想，把一切都简略的画出来，然后去填空，而目前呢，只是在做填空的那一步，就像一个没有思想的人，那就是一个不知道为什么这么做的人在做事情，此时积极的发挥不出来，消极的全部放大，导致进展不下去。 
+我们是思考抽象的高层次东西，怎么可以困在低层次的范围内呢？ 对不对？
+
+必须要有整体上的认识，才可以去理解其中的概念，名词，底层的流程，抽象的流程，抽象的概念 大局观
+各个点的知识知道了，但流程是什么呢？ 如何联系在一起呢？逻辑呢？  如何才算是理解透彻？概念的透彻，流程的透彻
+##note###重大问题，基础知识不系统，不全面，有缺失，而且还不清晰牢固
+
+之前总结，反思了很多东西，为什么效果平平呢？ 很大可能是激情没有涉及，（我一定杀20个人呢，）
+我就是要知道，既然是学习知识，首先先学到知识，然后在学到学习方法，如何实现呢？
+
+
+
+问题1：画图
+问题3：双工通讯，到底是怎么一个流程呢？只知道概念，没进一步关注流程 这属于抽象层面的钙奶和流程
+问题2：延伸
+问题3：就算是抽象的，或者组合的，也是要知道底层是怎么样的一个流程，这算是看到本质，不要存在双工由两个单项组成，就结束了，这很不深入，算不上掌握，这只能算是看到表面
+问题3.1又犯了错误，双工的流程是什么呢？是client给service发一下，server必须回一下吗？ 还是server不必须回。
+问题3.2又犯了错误，契约实现在哪里呢？
+问题3.3 以上是什么的情况呢？ 逻辑思考的步骤
+问题5： 服务实例   上下文是信息
+问题6： 如何理解通道
+问题9： 发现问题，思路不能乱。
+问题6:好现象，能提问题了，还注意到了Modify函数没有调用的情况，说明用心呀。
+####重点###问题7：经常把演示，当做概念去理解，所以遇到其他情况，就不能应用了， 大大的问题。
+问题7.1 同样是不是学了计算机基础，再去学高级语言的话，理解高级语言更容易，不然光理解抽象层面的东西，加上一点最底层的二进制，和tcp http，中间的部分不知道，造成很难理解。很难理解就很难运用。
+问题9： 小伙子不错，不满足于，抽象层面的东西的使用了，抽象层面的东西，再运用，在抽象 都是一种能力（此地方的发布订阅)
+问题10：看到想象不深究，不深究就不能发现问题，不能发现问题，就不能理解本质， 以前就是看到就是看到了，
+问题11： 没有理解双工由连个oneway组成是什么意思？ 如何才算是理解透彻？
+
+
+
+
+我们接着上节课来讲，上节课我们讲到了三种通讯中的rpc和单向，本节课我们给大家说下双工通讯，双工通讯，它是一个什么样的东西呢？client可以连接到server，server也可以连接到client，
+问题1：画图
+重点，我们来画一张图
+问题3：双工通讯，到底是怎么一个流程呢？只知道概念，没进一步关注流程  这属于抽象层面的钙奶和流程
+client和service两者之间的通讯，是类似这样的，我client可以通知到service反向的话呢，我service也可以通知到client，对吧，那这个的话呢，其实就是一个所谓的双工，也就是双向，，
+问题2：延伸
+由他可以延伸到什么呢？延伸到发布订阅模式，而发布订阅模式还是实际还是那个使用比较多的一种模式，，ok，我们先不管发布订阅，我们先把双工通讯代码搭起来，
+原理大家都知道，client和server可以相互发送消息，以此实现一种双工，
+ok，我们首先来看下，怎么用代码来实现，
+第一点的话，ServiceContract 有一个callback属性，获取或设置当协定为双工协定时的回调协定类型，也就是什么意思，也就是说， 我刚才也讲到了，你client向server通信，server也向client通讯，那么必然的话呢，
+
+问题3：就算是抽象的，或者组合的，也是要知道底层是怎么样的一个流程，这算是看到本质，不要存在双工由两个单项组成，就结束了，这很不深入，算不上掌握，这只能算是看到表面
+它的原理是什么样子呢，它的原理就是两个单向的，或者说连个oneway的方式，单向通讯，client向server发消息，没有回应，client有一个endpoint，记录server的abc，同样server向client发消息，同样要知道client的abc，至此才算是双工，，
+问题3.1又犯了错误，双工的流程是什么呢？是client给service发一下，server必须回一下吗？ 还是server不必须回。
+两个endpoint，表明server端要一个契约，client也要一个契约，so，server端的契约在server定义，但是client端的契约在哪里定义呢？不太可能是在client定义的把，因为client端的代码是在添加服务引用后，生成的， so所以只能在server端定义，
+问题3.2又犯了错误，契约实现在哪里呢？
+此时在重温这句话，获取或设置当协定为双工协定时的回调协定类型， 回调（理解下回调，按道理是server的东西执行完了，执行这个回调，但是client的东西执行完了，要不要有回调呢？），双工，协定就是契约
+
+namespace _06wcfservice
+{
+
+     /// <summary>
+     /// server端的契约，此契约实现当然在server端
+     /// </summary>
+    [ServiceContract(CallbackContract =typeof(ICallback))]
+
+    public interface ILoginService
+    {
+        [OperationContract]
+        void Login(string msg); 
+    }
+
+
+
+   /// <summary>
+   /// 这里相当于“client”的契约，此契约实现当然在client端
+   /// </summary>
+    [ServiceContract]
+    public interface ICallback
+    {
+        [OperationContract]
+        void Notify(string msg);
+    }
+
+}
+
+契约写完了，契约实现，
+然后要修改配置文件，因为我们添加的项目是个库，所以会帮助我们生成配置文件，此时我们修改，也一定要修改配置文件
+双工的abc的b必须支持双工通讯。如wsDualHttpBinding，当然tcp也可以
+
+然后编译下server代码，然后部署到虚拟机上， 启动下，启动成功，
+然后client端，添加服务引用，
+此时，相当于server端的endpoint建立好了，，那client端的endpoint呢？ 怎么建立呢
+我们发现client端的代理代码多了个IloginServiceCallback接口，这就是在server端注册了一个ICallback的回调接口，它的名字叫IloginServiceCallback，本来只有一个ILoginService接口，
+我们就要做IloginServiceCallback接口的客户端的实现，相当于你在客户端定义了一个契约，你要实现客户端契约 ，也是你在server定义了client端的契约，客户端实现自己的契约
+ public class MyLoginServiceCallback : LoginServiceReference.ILoginServiceCallback
+    {
+        public void Notify(string msg)
+        {
+            Console.WriteLine(msg);
+        }
+    }
+
+接下来我们要做什么呢？
+
+
+问题5： 服务实例   上下文是信息
+添加客户端代码
+  static void Main(string[] args)
+        {
+
+            var instanceContext = new InstanceContext(new MyLoginServiceCallback());//如何实现的？  如何理解相当于一个数组
+            LoginServiceReference.LoginServiceClient loginServiceClient = new LoginServiceReference.LoginServiceClient(instanceContext);//InstanceContext类，表示服务实例的上下文信息，  理解系服务实例，实例 什么样的实例 服务的  那个服务的， 然后是上下文信息， 如何构建上下文信息呢，什么是上下文信息呢/ InstanceContext如何实现的？ 有什么好处？ 如何借鉴？
+            loginServiceClient.Login("jack");
+            Console.Read();
+        }
+
+源码
+上下文实例构造函数？ 可以说明什么是实例上下文类，
+internal InstanceContext(ServiceHostBase host, object implementation, bool wellKnown, bool isUserCreated)
+		{
+			this.host = host;
+			if (implementation != null)
+			{
+				this.userObject = implementation;
+				this.wellKnown = wellKnown;
+			}
+			this.autoClose = false;
+			this.channels = new ServiceChannelManager(this);
+			this.isUserCreated = isUserCreated;
+		}
+
+问题6： 如何理解通道
+客户端代码写完之后，我们在捋下代码，
+首先第一步，是我client向service 发消息，
+如果是service收到了消息，完成自己的逻辑处理，
+完成后，service端怎么完成client的调用呢，就是向client端发消息，
+获取当前client的对象或者channel 或者说通道
+
+            //获取当前client的对象或者channel或者通道
+            var callback = OperationContext.Current.GetCallbackChannel<ICallback>();
+也可以把这个callback保存到一个静态的字典，
+  public static Dictionary<string, ICallback> channelDic = new Dictionary<string, ICallback>();
+ 修改服务端契约
+     [ServiceContract(CallbackContract =typeof(ICallback))]
+
+    public interface ILoginService
+    {
+        //[OperationContract]
+        //[OperationContract(Name ="OOOOOOOO",ReplyAction = "http://tempuri.org/IHomeService/AAAAAAAResponse")]
+        //[OperationContract(IsOneWay =true)]
+
+        [OperationContract]
+        //void Login(string msg);
+        //void Login(string username);
+        void Login(string username);
+
+    }
+这样更准确点。
+接下来，比如说我们把当前的username作为key，channel当做value存起来，
+
+            channelDic[username] = callback;
+接下来我们再写一个简单的回调函数 Modify，向所有的通道发消息，也就是说可以批量的发消息，
+这样吧，我么写一个死循环，简单一点
+ public void Modify()
+        {
+            while (true)
+            {
+                var input = Console.ReadLine();//从控制台读东西
+                if (string.IsNullOrEmpty(input))//起到过滤回调操作的东西，因为猜想中，是执行完，就调用回调函数，一对一的，是一来一回的，其实不是的，只是，你可以调用我，我可以调用你，也就是说我调用了你，你不一定必须要紧接着调用我，
+                {
+                    foreach (var item in channelDic)
+                    {
+                        item.Value.Notify(input);
+                    }
+                }
+            }
+        }
+
+回调函数写好了，什么时候调用呢？ service启动的时候，调用回调函数.
+
+编译service代码，重新部署，然后client端更新服务，
+启动service端，启动client端，保存， 身份验证，因为双工通讯带有身份验证，
+如果不要身份验证，此时该怎么做？ 修改binding嘛。
+    <bindings>
+      <wsDualHttpBinding>
+        <binding name="mydual">
+          <security mode="None"/>
+        </binding>
+      </wsDualHttpBinding>
+    </bindings>
+
+      <service name="_06wcfservice.LoginService">
+        <endpoint address="" binding="wsDualHttpBinding"  contract="_06wcfservice.ILoginService" bindingConfiguration="mydual">
+          <identity>
+            <dns value="localhost" />
+          </identity>
+        </endpoint>
+        <endpoint address="mex" binding="mexHttpBinding" contract="IMetadataExchange" />
+        <host>
+          <baseAddresses>
+            <add baseAddress="http://localhost:8733/loginservice" />
+          </baseAddresses>
+        </host>
+      </service>
+然后仅需要把修改后的配置信息，copy到service端既可。
+接下来，重新启动，
+client重新引用下
+启动client端
+此时看到service端显示，jack登录成功，此时说明client和service两个endpoint已经建立好了，
+接下来我要做什么操作呢？ 在service端的控制台输入消息
+发现输入不进去，
+因为回调函数没有 调用？ 我早就察觉到这个问题了。
+ class Program
+    {
+        static void Main(string[] args)
+        {
+            ServiceHost host = new ServiceHost(typeof(LoginService));
+            host.Open();
+            Console.WriteLine("wcf启动成功！");
+
+            Task.Run(() => LoginService.Modify());//为什么要用task呢，直接写LoginService.Modify() 不好吗？
+            //Console.Read();
+            System.Threading.Thread.Sleep(int.MaxValue);//死等待，
+
+        }
+    }
+
+	重新编译，部署，启动，client端更新引用。
+	在service端的控制台上输入信息，
+	发现client端的控制台没有显示任何消息。
+
+	问题9： 发现问题，思路不能乱。
+	ok，我们来看下业务逻辑的代码。
+	     if (!string.IsNullOrEmpty(input))Modify函数的这句代码有问题
+此时client端有消息显示了，可以看到service端随便输入的消息，都会在client端显示，
+这个就是client端和service端的双向通讯一个操作，，
+这个也就是我刚才说的 演化的发布订阅模式
+你client段可以想service端登记，登记完了之后，我就可以 主题的改变 可以实时通知各个client端，，不知道大家有没懂我这个意思。
+
+问题6:好现象，能提问题了，还注意到了Modify函数没有调用的情况，说明用心呀。
+此时有个问题呀，client想service只能发一次呢，client每次发消息，都需要注册一次吗？
+ok，我可以画一张图，来简单的讲解下，
+
+问题7：经常把演示，当做概念去理解，所以遇到其他情况，就不能应用了， 大大的问题。
+问题7.1 同样是不是学了计算机基础，再去学高级语言的话，理解高级语言更容易，不然光理解抽象层面的东西，加上一点最底层的二进制，和tcp http，中间的部分不知道，造成很难理解。很难理解就很难运用。
+发布订阅模式，一个subject 多个subscribe，我们都订阅了主题，如果你主题有修改的话，它会反向的通知，有一个notify通知，大家都能收的到通知， （大家要注意个问题，演示不等于概念。）
+其实这个就是设计模式中的观察者模式， 观察者有什么用处？ 场景在哪里额？
+
+比如说我们现在很流行的的js中的react，其实它就是一个观察者模式的实现，还有一个knockjs
+  包括wpf中的mvvm，也是观察者模式，
+
+  所以就不需要举一个所谓的例子，
+  redis支持发布订阅模式，rabbitmq也支持，
+ 所以说这个例子太多太多了。
+
+ 其实我们使用wcf的双工通讯，也是可以实现观察者模式的。
+
+ 问题9： 小伙子不错，不满足于，抽象层面的东西的使用了，抽象层面的东西，再运用，在抽象 都是一种能力（此地方的发布订阅)
+ 但知道现在，我们也只是用了预定义好的双工通讯，完全不知道他底层如何实现的，更别说，以双工为基础的实现的发布订阅
+
+
+
+ 好，之前是jack登录，相当于一个观察者，
+ 我们在拷贝一份，实现marry登录，相当于第二个观察者， 但是此时此刻的client可不可以实现jack和marry在一个client登录， 还是这个想法有问题》
+ 此时有两个观察者，，连个都启动时，在service都显示出来，
+ 然后在service上输入消息，两个client都能收到消息。
+ 这个就是一个观察者模式， 我subject改变了，实时通知各个subscribe
+
+ ok，这就是双工，和以双工为基础的实现的发布订阅模式。
+
+ 好接下来，再来看一个问题， 我刚才反复的说，双工是由两个Isoneway实现的，，那么我可以在fiddler中查看下，
+ 启动service和多个client端，
+ 然后client打开fiddler， 监控下，
+  然后service也打开fiddler， 监控下，
+  然后在service端，做个简单的操作，输入 hello
+
+
+  问题10：看到想象不深究，不深究就不能发现问题，不能发现问题，就不能理解本质， 以前就是看到就是看到了，
+  结果显示，比如client向service端发消息，service可以监控到，这次通讯，但是在client可以收到loginresponse的通讯，怎么回事? 同样service向client发消息，也是这样
+  不对呀，单向是没有response的
+
+  我们画个图
+
+  一个notify一个202 完整的一次通讯
+
+  问题11： 没有理解双工由连个oneway组成是什么意思？
+  此时的理解还有欠缺，看最后一张图。
+
+
 一：双工通讯
 
 双工可以延伸到发布订阅模式。
@@ -19,7 +307,7 @@
   <4> 在client调用的时候，获取client的通道。。。
 
 
-2. 模式： 发布订阅模式  【观察者模式】
+2. 模式： 发布订阅模式  【也就是观察者模式】
 
    js：react ，knockjs
 
