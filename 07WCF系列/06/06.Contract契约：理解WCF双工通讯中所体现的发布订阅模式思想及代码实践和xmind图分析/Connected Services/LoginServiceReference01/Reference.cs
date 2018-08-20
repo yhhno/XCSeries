@@ -8,11 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace _06.Contract契约_理解WCF双工通讯中所体现的发布订阅模式思想及代码实践和xmind图分析.LoginServiceReference {
+namespace _06.Contract契约_理解WCF双工通讯中所体现的发布订阅模式思想及代码实践和xmind图分析.LoginServiceReference01 {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="LoginServiceReference.ILoginService", CallbackContract=typeof(_06.Contract契约_理解WCF双工通讯中所体现的发布订阅模式思想及代码实践和xmind图分析.LoginServiceReference.ILoginServiceCallback))]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="LoginServiceReference01.ILoginService", CallbackContract=typeof(_06.Contract契约_理解WCF双工通讯中所体现的发布订阅模式思想及代码实践和xmind图分析.LoginServiceReference01.ILoginServiceCallback))]
     public interface ILoginService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILoginService/Login", ReplyAction="http://tempuri.org/ILoginService/LoginResponse")]
@@ -30,12 +30,12 @@ namespace _06.Contract契约_理解WCF双工通讯中所体现的发布订阅模
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface ILoginServiceChannel : _06.Contract契约_理解WCF双工通讯中所体现的发布订阅模式思想及代码实践和xmind图分析.LoginServiceReference.ILoginService, System.ServiceModel.IClientChannel {
+    public interface ILoginServiceChannel : _06.Contract契约_理解WCF双工通讯中所体现的发布订阅模式思想及代码实践和xmind图分析.LoginServiceReference01.ILoginService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class LoginServiceClient : System.ServiceModel.DuplexClientBase<_06.Contract契约_理解WCF双工通讯中所体现的发布订阅模式思想及代码实践和xmind图分析.LoginServiceReference.ILoginService>, _06.Contract契约_理解WCF双工通讯中所体现的发布订阅模式思想及代码实践和xmind图分析.LoginServiceReference.ILoginService {
+    public partial class LoginServiceClient : System.ServiceModel.DuplexClientBase<_06.Contract契约_理解WCF双工通讯中所体现的发布订阅模式思想及代码实践和xmind图分析.LoginServiceReference01.ILoginService>, _06.Contract契约_理解WCF双工通讯中所体现的发布订阅模式思想及代码实践和xmind图分析.LoginServiceReference01.ILoginService {
         
         public LoginServiceClient(System.ServiceModel.InstanceContext callbackInstance) : 
                 base(callbackInstance) {

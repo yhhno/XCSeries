@@ -1,3 +1,333 @@
+情绪上怎么样? 小事情，搞的定，一步一步来，不要有过多的任务压在心头，与完事开头难的矛盾， 退缩是不存在额，没有在怕的。
+我是来学学习能力的，学习方法论的，不仅仅是知识？ 不是学完就万事大吉了，
+这个点没有评价好坏，未来的预期也没有评价好坏？
+每个东西，都要深挖，不能只是了解它的作用，
+每个新东西，旧东西， 其实都不难，调整好状态，跨出第一步，步步踏实，有啥难的，一多半都是自己吓自己。
+既然心理作用这么大，我们可以怎么做呢？  之前用代入感，现在用成功者，也就是未来者（儿子清华，女儿北大），
+来句革命性的，这些东西真的有那么重要的吗？遇到它我不想学，产生退缩，我的一切都完了吗？ 当然不是的，我当然不是整天要面对不是这些事情，这些都是实现方式之一，人需要有哲学的角度，出一套指导思想，把一切都简略的画出来，然后去填空，而目前呢，只是在做填空的那一步，就像一个没有思想的人，那就是一个不知道为什么这么做的人在做事情，此时积极的发挥不出来，消极的全部放大，导致进展不下去。 
+我们是思考抽象的高层次东西，怎么可以困在低层次的范围内呢？ 对不对？
+
+必须要有整体上的认识，才可以去理解其中的概念，名词，底层的流程，抽象的流程，抽象的概念 大局观
+各个点的知识知道了，但流程是什么呢？ 如何联系在一起呢？逻辑呢？  如何才算是理解透彻？概念的透彻，流程的透彻
+##note###重大问题，基础知识不系统，不全面，有缺失，而且还不清晰牢固
+
+之前总结，反思了很多东西，为什么效果平平呢？ 很大可能是激情没有涉及，（我一定杀20个人呢，）
+我就是要知道，既然是学习知识，首先先学到知识，然后在学到学习方法，如何实现呢？
+
+
+
+
+
+其实就是数据契约如何操作？还有跨程序，跨语言互通的的原理。
+
+
+问题0：之前很大可能是，了解下xsd是怎么个意思？就完事了，根本就不会这么深入。但深入才算是掌握了，还有可能有借鉴呢
+问题1: 如何通讯在之前没有设想，
+大家好上节课主要介绍了operation和service的Contract，这些是定义服务的一些功能，这节课呢，我们就要来讲下，在这些函数中如何通讯， 也就是说它们传输的数据的话呢，可能是非常多的一些类型， 不光是简单的string，还有类啊，集合，字典，，枚举对吧
+
+那首先大家要理解下，我们讲到的数据契约，它主要是用来定义xsd的，因为不管你net程序还是java程序，最后在那个生成的数据契约（强类型）都是根据xsd的，
+所以说这个xsd是特别重要的，
+ok，我们用一个例子给大家演示下，
+
+问题2：service端要把他的所有的东西都公布出来，通过wsdl，包括服务契约，operation契约，也当然包括数据契约（类，集合等，包括基础的int，string），
+问题3：契约，契约，啥是契约呢？ 不要被一个困住了，不能前行了
+比如说我们来看下普通的类，如何反映到xsd上去，也就是说一个类用xsd如何表示？
+先定义一个类Student类，
+public class Student
+    {
+        public int StudentId { get; set; }
+        public string  StudentName { get; set; }
+    }
+
+问题4：出现了复杂类型，至少说明两个问题 1,对复杂和简单没有概念，2.把实例当做概念了
+ok,这就是一个复杂类型了，对吧
+
+修改操作契约，
+    /// <summary>
+    /// server端的契约，此契约实现当然在server端
+    /// </summary>
+    [ServiceContract(CallbackContract =typeof(ICallback))]
+
+    public interface ILoginService
+    {
+        //[OperationContract]
+        //[OperationContract(Name ="OOOOOOOO",ReplyAction = "http://tempuri.org/IHomeService/AAAAAAAResponse")]
+        //[OperationContract(IsOneWay =true)]
+
+        [OperationContract]
+        //void Login(string msg);
+        //void Login(string username);
+        //void Login(string username);//如果有返回参数，在fiddler中如何显示。
+
+        void Login(Student student);//如果有返回参数，在fiddler中如何显示。
+
+    }
+
+	编译，部署，启动，启动完之后，我们看他的wsdl，里面有xsd
+
+
+	This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="LoginService" targetNamespace="http://tempuri.org/">
+<wsp:Policy wsu:Id="WSDualHttpBinding_ILoginService_policy">
+<wsp:ExactlyOne>
+<wsp:All>
+<wsrm:RMAssertion xmlns:wsrm="http://schemas.xmlsoap.org/ws/2005/02/rm/policy">
+<wsrm:InactivityTimeout Milliseconds="600000"/>
+<wsrm:AcknowledgementInterval Milliseconds="200"/>
+</wsrm:RMAssertion>
+<cdp:CompositeDuplex xmlns:cdp="http://schemas.microsoft.com/net/2006/06/duplex"/>
+<ow:OneWay xmlns:ow="http://schemas.microsoft.com/ws/2005/05/routing/policy"/>
+<wsaw:UsingAddressing/>
+</wsp:All>
+</wsp:ExactlyOne>
+</wsp:Policy>
+<wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+<xs:import namespace="http://schemas.datacontract.org/2004/07/_07wcfservice"/>
+<xs:element name="Login">
+<xs:complexType>
+<xs:sequence>
+<xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/_07wcfservice" minOccurs="0" name="student" nillable="true" type="q1:Student"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="LoginResponse">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="Notify">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="msg" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="NotifyResponse">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+</xs:schema>
+
+#####xsd定义#######
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/">
+#####xsd定义-基元类型#######
+<xs:element name="anyType" nillable="true" type="xs:anyType"/>
+<xs:element name="anyURI" nillable="true" type="xs:anyURI"/>
+<xs:element name="base64Binary" nillable="true" type="xs:base64Binary"/>
+<xs:element name="boolean" nillable="true" type="xs:boolean"/>
+<xs:element name="byte" nillable="true" type="xs:byte"/>
+<xs:element name="dateTime" nillable="true" type="xs:dateTime"/>
+<xs:element name="decimal" nillable="true" type="xs:decimal"/>
+<xs:element name="double" nillable="true" type="xs:double"/>
+<xs:element name="float" nillable="true" type="xs:float"/>
+<xs:element name="int" nillable="true" type="xs:int"/>
+<xs:element name="long" nillable="true" type="xs:long"/>
+<xs:element name="QName" nillable="true" type="xs:QName"/>
+<xs:element name="short" nillable="true" type="xs:short"/>
+<xs:element name="string" nillable="true" type="xs:string"/>
+<xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte"/>
+<xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt"/>
+<xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong"/>
+<xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort"/>
+<xs:element name="char" nillable="true" type="tns:char"/>
+
+#####xsd定义--简单类型#######
+<xs:simpleType name="char">
+<xs:restriction base="xs:int"/>
+</xs:simpleType>
+<xs:element name="duration" nillable="true" type="tns:duration"/>
+<xs:simpleType name="duration">
+<xs:restriction base="xs:duration">
+<xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?"/>
+<xs:minInclusive value="-P10675199DT2H48M5.4775808S"/>
+<xs:maxInclusive value="P10675199DT2H48M5.4775807S"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:element name="guid" nillable="true" type="tns:guid"/>
+<xs:simpleType name="guid">
+<xs:restriction base="xs:string">
+<xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:attribute name="FactoryType" type="xs:QName"/>
+<xs:attribute name="Id" type="xs:ID"/>
+<xs:attribute name="Ref" type="xs:IDREF"/>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/_07wcfservice" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/_07wcfservice">
+
+#####xsd定义--复杂类型#######
+<xs:complexType name="Student">
+<xs:sequence>
+<xs:element minOccurs="0" name="StudentId" type="xs:int"/>
+<xs:element minOccurs="0" name="StudentName" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Student" nillable="true" type="tns:Student"/>
+</xs:schema>
+</wsdl:types>
+
+
+<wsdl:message name="ILoginService_Login_InputMessage">
+<wsdl:part name="parameters" element="tns:Login"/>
+</wsdl:message>
+<wsdl:message name="ILoginService_Login_OutputMessage">
+<wsdl:part name="parameters" element="tns:LoginResponse"/>
+</wsdl:message>
+<wsdl:message name="ILoginService_Notify_OutputCallbackMessage">
+<wsdl:part name="parameters" element="tns:Notify"/>
+</wsdl:message>
+<wsdl:message name="ILoginService_Notify_InputCallbackMessage">
+<wsdl:part name="parameters" element="tns:NotifyResponse"/>
+</wsdl:message>
+
+
+
+<wsdl:portType name="ILoginService">
+<wsdl:operation name="Login">
+<wsdl:input wsaw:Action="http://tempuri.org/ILoginService/Login" message="tns:ILoginService_Login_InputMessage"/>
+<wsdl:output wsaw:Action="http://tempuri.org/ILoginService/LoginResponse" message="tns:ILoginService_Login_OutputMessage"/>
+</wsdl:operation>
+<wsdl:operation name="Notify">
+<wsdl:output wsaw:Action="http://tempuri.org/ILoginService/Notify" message="tns:ILoginService_Notify_OutputCallbackMessage"/>
+<wsdl:input wsaw:Action="http://tempuri.org/ILoginService/NotifyResponse" message="tns:ILoginService_Notify_InputCallbackMessage"/>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:binding name="WSDualHttpBinding_ILoginService" type="tns:ILoginService">
+<wsp:PolicyReference URI="#WSDualHttpBinding_ILoginService_policy"/>
+<soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsdl:operation name="Login">
+<soap12:operation soapAction="http://tempuri.org/ILoginService/Login" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="Notify">
+<soap12:operation soapAction="http://tempuri.org/ILoginService/Notify" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="LoginService">
+<wsdl:port name="WSDualHttpBinding_ILoginService" binding="tns:WSDualHttpBinding_ILoginService">
+<soap12:address location="http://localhost:8753/loginservice01"/>
+<wsa10:EndpointReference>
+<wsa10:Address>http://localhost:8753/loginservice01</wsa10:Address>
+<Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+<Dns>localhost</Dns>
+</Identity>
+</wsa10:EndpointReference>
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>
+
+
+net解析工具 svcutil
+java解析工具  wsimport
+他们只要看到这个复杂类型的xsd描述，就知道，o，原来这么解析， 原来你类下，有两个属性，两个属性的类型，一个是int一个是string，它就知道怎么去构建这个强类型了，不知道，大家有没有懂？
+ok，我们在在client端，就服务引用下，
+成功后，我们就可以看下生成的代理代码，有student类
+
+这就是普通的类的xsd， 因为在xsd中，已经描述书student类的信息，所以我就知道怎么生成对应的强类型了，
+
+问题3：数据传输是啥？ 不能困在这个词上
+还有一个是集合类型，那么集合类型，也是我们做数据传输中用的，还是特别多的，
+比如说
+修改student类
+public class Student
+    {
+        public int StudentId { get; set; }
+        public string  StudentName { get; set; }
+
+        public List<string> AddressList { get; set; }
+    }
+编译，启动，再查看下wsdl，
+在student节点，发现三个元素 其中就有 addresslist，
+同时我们发现，addresslist引用了array，，我在net的service端定义的是list<string>类型，但在xsd中是array， 那这会不会有问题，
+我们来试下，client更新服务引用，我们再来看下它的生成的代理代码，它是string数组，
+有问题？
+其实很正常，不管net还是java，最终都是根据xsd的定义，来生成各自环境下的强类型。每个语言都有自己的集合类型，对不对，比如说list，java中是用arraylist，其实和net中的list是一样的，，
+ok，比如说python，python它也会根据xsd生成自己平台的强类型，
+那必然就存在着，不同平台的强类型是不一样的额，那这时候该怎么来处理呢？ 等一下，再给大家去讲，
+
+问题4：xsd是啥？
+此处暂存一个问题，他把list变成了数组，因为xsd根本就没有一个list的概念，
+
+还有其他的类型，比如书说字典，这个也是我们实体类用的特别多的，
+修改student类，
+ public class Student
+    {
+        public int StudentId { get; set; }
+        public string  StudentName { get; set; }
+
+        public List<string> AddressList { get; set; }
+
+        public SortedDictionary<int,int> MySortedDictionary { get; set; }
+    }
+
+重新编译下，启动，查看wsdl，
+其实大家可以想象得到，其实在xsd中根本就没有所谓的SortedDictionary类型，对吧，那我们来看下，他最终转换的是什么东西。？ 也采用的是array，
+这就说明了什么？说明了中间语言xsd，他根本就没有你net平台下所谓的list等概念，它只有简单的一个array，然后的话呢，它是采用arrayofkeyvalueofintint，这是个定义的复杂类型，这表示一个什么情况呢？ 对于所有的类型，他都可以采用基本类型array来实现一个复杂类型，来表示list等概念，
+
+
+接下来，还有一个枚举，枚举在我们的应用中也是比较多的，
+
+public class Student
+    {
+        public int StudentId { get; set; }
+        public string  StudentName { get; set; }
+
+        public List<string> AddressList { get; set; }
+
+        public SortedDictionary<int,int> MySortedDictionary { get; set; }
+        public SexEnum MySexEnum { get; set; }
+    }
+    public enum SexEnum
+    {
+        Male,
+        Female
+    }
+
+编译下，启动，查看wsdl，
+枚举是定义了一个简单类型，他没有引用，说明它是一个简单类型， type是tns，而不是q1
+
+
+这样，复杂类型在xsd中的表示，清楚了，
+
+接下来，刚才有两个问题，还没解决
+第一次.集合类型，他将array变成了list，还有一个是字典类型，变成了dictionary，为什么会变成字典，等一下再来讲，
+我们要解决那些坑，第一个坑是如何将array变成list ，其实这时候我们只能在哪里解决呢，因为xsd中，他只能用array形式展示，这时候只能要求svcutil进行强制转换，这个时候我们只能在服务引用上做手脚了（来做到强制转换），对不对， 就是在配置服务引用时，强制把集合类型就是array转换成泛型list。然后更新服务引用，student对应的addresslist就变成了list类型，而非string数组，
+
+还有一个坑就是字典，也就是如何将dictionary变成sorteddicitonary，同样的道理，服务引用时做手脚，更新服务引用，查看代理代码，
+
+这是一种解决方案，但是遇到多个类型的字典呢？
+
+
+当然我们除了在服务引用上做手脚，我们还有一个什么样的手段呢，
+如果你是net程序互通，尽量用一份entity，现实上是很难做到的，尤其是跨语言互通，就是什么意思呢，我们不是添加了student类嘛，对不对，我们可以把它单独放到一个类库里面，比如说我新建一个library。  
+如果说你没有共用一份liarary的话，我们发现代理代码中的类，它是通过代理自动生成的，就不是和原来定义的student源码，，不知道大家有没有懂，也就是说可以讲student封装到lib中，这样各自的平台，引用同一份lib，这样就没有问题了，也不会有服务引用时新生成的student类，
+ok来演示下吧，
+首先新建一个lib，添加一个student类，编译，
+然后再service中，添加lib引用，在client中添加lib引用，
+编译service端，部署，启动，
+client端，添加服务引用。
+我们发现service端和client端的用到的student类，都是lib类库的，这样client和service端都一致了，不会要转换集合和字典类型了，
+
+接下来，我们再来说下，数据契约的特性，是这样的，  如果你的类什么特性都没加的话，它默认会使用datacontract 或者enummeber，它自动给你加上去，当然有的时候，我们不希望有些字典展示在xsd上，，比如说我现在不希望studentname展示在xsd上，怎么处理呢？
+使用IgnoreDataMember特性，在studentname字段上，
+
+
+
+
+
  .net   XSD    java
 
        python
@@ -91,14 +421,15 @@ java  wsimport
 
   大家公用同一份Lib，就不存在各种对应问题了。。
 
-四：DataContract,DataMember,EnumMember 对wsdl中的xsd进行可视化定制
+  问题5：看到新名词第一反应还有有点不低，
+四：DataContract,DataMember,EnumMember（顾名思义） 对wsdl中的xsd进行可视化定制
 
 1. 默认全部可以进行DataContractSerializer序列化
 
 2. 指定不需要在xsd中显示的字段
 
   《1》某些字段不显示，需要自己强制指定IgnoreDataMember
-  《2》显式进行DataContract，DataMember声明
+  《2》显式进行DataContract，DataMember声明（显式就是明明白白的给你写出来，）
 
 一个是正向的忽略，一个是反向的忽略 【场景就是根据字段的忽略个数而定】
 

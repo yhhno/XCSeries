@@ -65,9 +65,9 @@
   </wsdl:binding>
   <wsdl:service name="LoginService">
     <wsdl:port name="WSDualHttpBinding_ILoginService" binding="tns:WSDualHttpBinding_ILoginService">
-      <soap12:address location="http://localhost:8753/loginservice" />
+      <soap12:address location="http://localhost:8753/loginservice01" />
       <wsa10:EndpointReference>
-        <wsa10:Address>http://localhost:8753/loginservice</wsa10:Address>
+        <wsa10:Address>http://localhost:8753/loginservice01</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
           <Dns>localhost</Dns>
         </Identity>

@@ -274,7 +274,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05.Contract契约：Service
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06.Contract契约：理解WCF双工通讯中所体现的发布订阅模式思想及代码实践和xmind图分析", "06.Contract契约：理解WCF双工通讯中所体现的发布订阅模式思想及代码实践和xmind图分析", "{2FF2CAC3-84C7-4AE1-807F-255C164ABB1D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07", "07", "{FCA21696-6046-4412-BA57-0AE5B5C6DD04}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07.Contract契约：DataContract在适配CLR类型和WSDL的XSD之间的灵活运用以及契约版本控制上的注意事项", "07.Contract契约：DataContract在适配CLR类型和WSDL的XSD之间的灵活运用以及契约版本控制上的注意事项", "{FCA21696-6046-4412-BA57-0AE5B5C6DD04}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "08", "08", "{849EFE7C-93DD-4CC4-B1FD-25A191DAD912}"
 EndProject
@@ -461,6 +461,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05.Contract契约：Service
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06wcfservice", "07WCF系列\06\06servicelib\06wcfservice.csproj", "{FAF795BD-828E-4915-8A42-47D3FB313298}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07wcfservice", "07WCF系列\07\07servicelib\07wcfservice.csproj", "{25C88286-6EAB-4BCF-966A-8F5522F5644B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1750,6 +1752,14 @@ Global
 		{FAF795BD-828E-4915-8A42-47D3FB313298}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FAF795BD-828E-4915-8A42-47D3FB313298}.Release|x64.ActiveCfg = Release|Any CPU
 		{FAF795BD-828E-4915-8A42-47D3FB313298}.Release|x64.Build.0 = Release|Any CPU
+		{25C88286-6EAB-4BCF-966A-8F5522F5644B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25C88286-6EAB-4BCF-966A-8F5522F5644B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25C88286-6EAB-4BCF-966A-8F5522F5644B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{25C88286-6EAB-4BCF-966A-8F5522F5644B}.Debug|x64.Build.0 = Debug|Any CPU
+		{25C88286-6EAB-4BCF-966A-8F5522F5644B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25C88286-6EAB-4BCF-966A-8F5522F5644B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25C88286-6EAB-4BCF-966A-8F5522F5644B}.Release|x64.ActiveCfg = Release|Any CPU
+		{25C88286-6EAB-4BCF-966A-8F5522F5644B}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1941,6 +1951,7 @@ Global
 		{F7022D4D-DFBD-4807-9343-B8767C63A44B} = {5759329A-2052-4FFD-8900-B8D9E65FB053}
 		{BBF12051-0B00-43CA-B4F1-0CFD6FDE6209} = {5759329A-2052-4FFD-8900-B8D9E65FB053}
 		{FAF795BD-828E-4915-8A42-47D3FB313298} = {2FF2CAC3-84C7-4AE1-807F-255C164ABB1D}
+		{25C88286-6EAB-4BCF-966A-8F5522F5644B} = {FCA21696-6046-4412-BA57-0AE5B5C6DD04}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
