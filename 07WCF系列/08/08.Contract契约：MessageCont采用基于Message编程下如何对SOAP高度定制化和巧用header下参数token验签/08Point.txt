@@ -1,10 +1,127 @@
+情绪上怎么样? 小事情，搞的定，一步一步来，不要有过多的任务压在心头，与完事开头难的矛盾， 退缩是不存在额，没有在怕的。
+我是来学学习能力的，学习方法论的，不仅仅是知识？ 不是学完就万事大吉了，
+这个点没有评价好坏，未来的预期也没有评价好坏？
+每个东西，都要深挖，不能只是了解它的作用，
+每个新东西，旧东西， 其实都不难，调整好状态，跨出第一步，步步踏实，有啥难的，一多半都是自己吓自己。
+既然心理作用这么大，我们可以怎么做呢？  之前用代入感，现在用成功者，也就是未来者（儿子清华，女儿北大），
+来句革命性的，这些东西真的有那么重要的吗？遇到它我不想学，产生退缩，我的一切都完了吗？ 当然不是的，我当然不是整天要面对不是这些事情，这些都是实现方式之一，人需要有哲学的角度，出一套指导思想，把一切都简略的画出来，然后去填空，而目前呢，只是在做填空的那一步，就像一个没有思想的人，那就是一个不知道为什么这么做的人在做事情，此时积极的发挥不出来，消极的全部放大，导致进展不下去。 
+我们是思考抽象的高层次东西，怎么可以困在低层次的范围内呢？ 对不对？
+
+必须要有整体上的认识，才可以去理解其中的概念，名词，底层的流程，抽象的流程，抽象的概念 大局观
+各个点的知识知道了，但流程是什么呢？ 如何联系在一起呢？逻辑呢？  如何才算是理解透彻？概念的透彻，流程的透彻
+##note###重大问题，基础知识不系统，不全面，有缺失，而且还不清晰牢固
+
+之前总结，反思了很多东西，为什么效果平平呢？ 很大可能是激情没有涉及，（我一定杀20个人呢，）
+我就是要知道，既然是学习知识，首先先学到知识，然后在学到学习方法，如何实现呢？
+感觉越学越简单，越容易
+
+问题2：不懂装懂，应付完事，但至少没有消极情绪。
+问题1：之前在用fiddler捕获网络时，只是简单的验证自己的目的，没有深入，如总结出两个节点，
+感觉越学越简单，越容易
+
+
+问题1：之前在用fiddler捕获网络时，只是简单的验证自己的目的，没有深入，如两个节点，
+本节课给大家讲下消息契约，讲消息契约之前呢，  大家可以来想一想，我们在之前的课程中，给大家讲的，或者在fiddler中获取的都是xml结构，对不对，
+<?xml version="1.0" encoding="utf-8"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Header>
+       
+  </s:Header> 
+  <s:Body>
+    <DoWork xmlns="http://tempuri.org/">
+      <msg>hello world!</msg>
+    </DoWork>
+  </s:Body>
+</s:Envelope>
+
+我们发现它的结构体，分两个节点，第一个是header，第二个是body， 我们的数据契约，所有修改，他其实都只能在body节点下，变更， 对不对，而我们现在要讲的消息契约，它是直接面对，就是什么意思呢？clr类型可以直接操控message，，也就是什么意思呢？也就是说，它可以操控header和body，，而数据契约他只能操控body，，ok这就是消息契约的一个点吧，和数据契约不一样的地方， 
+可以操控header节点有什么好处呢？大家可以想一想，比如说我们都知道信封它是在网络上进行传输的，对不对， 比如说，我画一张简单的图，
+一个client端一个service端，你在网络上传输的是envelope（信封），但是你这个信封的话呢，可能会在路上被人劫持，或者说中间有个插件，比如说负载均衡，负载均衡，他可能会拿到信封，对不对，他拿到这个信封之后呢，他可能会，截获header节点，，那这个可能就是我们要使用到header的一个好处了，如果你都放到body里面，那这个负载均衡可能就不好来劫持，所以说header适合放一些什么样的数据呢，大家可以像下，header适合放一些什么数据，比如说token，有什么好处，，比如说，保证消息防篡改的token参数，这是什么意思呢？就是说，我可以把body下面的这些参数都通过，合在一起，然后排序呀，然后加上appid，加上一个appsecert，这个相当于是一个不对称的加密，大家都看这个appid，appsecert只有在客户端和服务端私有的额，因为在这个网络上传输是看不到的嘛，所以说appid加上参数加上appsecert， 加上这些，我们就可以做一个验签了吧，，这个时候我们就可以防止这个消息有没被篡改，
+okheader除了放一个token参数，还可以放一个什么呢？我们还可以放一个md5的验签，什么意思？用户名和密码我们也可以放在header上面，对不对，那这个 如果说我这个负载均衡拿到你这个header中的一个md5值，对吧，我拿到这个md5值，我可以判断你这个当前的登录是有效登录还是无效登录，无效登录的话，我就不会转发到service端去了，可能就直接抛掉了，或者说直接返回给client，这样的话，相当于一个截流的作用，对不对，把那些恶意的流量给屏蔽掉，
+
+
+问题2：不懂装懂，应付完事，但至少没有消极情绪。
+ok，这就是给大家介绍的两个，第一个是防篡改，然后是md5的一个加密，
+接下来就看用代码如何来实现，
+[MessageContract] 消息契约
+/  [MessageHeader] 某一个字段打上这个标识，他就会出现在header
+/  [MessageBodyMember] 某一个字段打上这个标识，他就会出现在body
+
+我们定义一个类
+ public class SystemParm
+    {
+        public string Token { get; set; }
+        public string Md5 { get; set; }
+    }
+    public class Product
+    {
+        //系统参数
+        public SystemParm MySystemParam { get; set; }
+
+        //应用参数
+        public int ProductId { get; set; }
+        public string ProductName { get; set; }
+    }
+类定义好了，我们怎么来加这个标识呢？
+  [MessageContract]
+    public class Product
+    {
+        //系统参数
+        [MessageHeader]
+        public SystemParm MySystemParam { get; set; }
+
+        //应用参数
+        [MessageBodyMember]
+        public int ProductId { get; set; }
+        [MessageBodyMember]
+        public string ProductName { get; set; }
+    }
+然后修改下，operation参数，
+   // 注意: 使用“重构”菜单上的“重命名”命令，可以同时更改代码和配置文件中的接口名“IService1”。
+    [ServiceContract]
+    //[ServiceContract(Name ="SSSSSSSSSSSSS")]
+    public interface IProductService
+    {
+        [OperationContract]
+        //[OperationContract(Name ="OOOOOOOO",ReplyAction = "http://tempuri.org/IHomeService/AAAAAAAResponse")]
+        //[OperationContract(IsOneWay =true)]
+        int Get(Product product);
+        
+    }
+
+编译，启动，然后用fiddler抓一下参数，
+出错了额，
+
+   [ServiceContract]
+    //[ServiceContract(Name ="SSSSSSSSSSSSS")]
+    public interface IProductService
+    {
+        [OperationContract]
+        //[OperationContract(Name ="OOOOOOOO",ReplyAction = "http://tempuri.org/IHomeService/AAAAAAAResponse")]
+        //[OperationContract(IsOneWay =true)]
+        Product Get(Product product);
+        
+    }
+
+启动，
+client添加服务引用，添加调用代码
+开启fiddler
+启动client
+
+这就是给大家讲的消息契约，当然实际使用中，不多，平时使用中不多，我们一般都使用数据契约，在这上面加一些token，pwd 我么也可以通过其他方式来处理。
+比如说通过，以后在讲
+
+ok，我们消息契约还有一种，就是直接写message。，那这种方式是更加灵活，但是用的还是比较少，因为我们可以直接操控message'
+代码，我这里有一份，大家可以自己去看一看，
+
+
 一：消息契约
 
 <?xml version="1.0" encoding="utf-8"?>
 <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
   <s:Header>
        
-  </s:Header>
+  </s:Header> 
   <s:Body>
     <DoWork xmlns="http://tempuri.org/">
       <msg>hello world!</msg>

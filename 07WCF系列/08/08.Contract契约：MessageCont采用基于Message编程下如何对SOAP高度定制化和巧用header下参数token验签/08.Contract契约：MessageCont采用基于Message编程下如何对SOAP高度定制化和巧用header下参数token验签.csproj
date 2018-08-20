@@ -50,8 +50,14 @@
     <None Include="中心主题.xmind" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="08消息契约之messages的clientr端.png" />
+    <Content Include="08消息契约之message的server端.png" />
+    <Content Include="08消息契约调试.png" />
     <Content Include="1.jpg" />
     <Content Include="08Point.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
