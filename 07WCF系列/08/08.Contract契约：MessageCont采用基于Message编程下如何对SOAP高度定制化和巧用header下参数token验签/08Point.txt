@@ -20,6 +20,8 @@
 ¸Ð¾õÔ½Ñ§Ô½¼òµ¥£¬Ô½ÈÝÒ×
 
 
+ÏûÏ¢ºÜÖØÒªµÄ£¬clientºÍserverÊÇÍ¨¹ýÏûÏ¢½øÐÐÊý¾Ý´«µÝµÄ
+
 ÎÊÌâ1£ºÖ®Ç°ÔÚÓÃfiddler²¶»ñÍøÂçÊ±£¬Ö»ÊÇ¼òµ¥µÄÑéÖ¤×Ô¼ºµÄÄ¿µÄ£¬Ã»ÓÐÉîÈë£¬ÈçÁ½¸ö½Úµã£¬
 ±¾½Ú¿Î¸ø´ó¼Ò½²ÏÂÏûÏ¢ÆõÔ¼£¬½²ÏûÏ¢ÆõÔ¼Ö®Ç°ÄØ£¬  ´ó¼Ò¿ÉÒÔÀ´ÏëÒ»Ïë£¬ÎÒÃÇÔÚÖ®Ç°µÄ¿Î³ÌÖÐ£¬¸ø´ó¼Ò½²µÄ£¬»òÕßÔÚfiddlerÖÐ»ñÈ¡µÄ¶¼ÊÇxml½á¹¹£¬¶Ô²»¶Ô£¬
 <?xml version="1.0" encoding="utf-8"?>
@@ -129,7 +131,7 @@ ok£¬ÎÒÃÇÏûÏ¢ÆõÔ¼»¹ÓÐÒ»ÖÖ£¬¾ÍÊÇÖ±½ÓÐ´message¡££¬ÄÇÕâÖÖ·½Ê½ÊÇ¸ü¼ÓÁé»î£¬µ«ÊÇÓÃµÄ»¹Ê
   </s:Body>
 </s:Envelope>
 
-Operation => Á½Ìõ£¨input£¬output£© [RPC]
+Operation => Á½Ìõ£¨input£¬output£© [RPC]   ÖØµãÑ½
 
 DoWork  => DoWorkResponse
 

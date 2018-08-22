@@ -278,7 +278,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07.Contract契约：DataCon
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "08.Contract契约：MessageCont采用基于Message编程下如何对SOAP高度定制化和巧用header下参数token验签", "08.Contract契约：MessageCont采用基于Message编程下如何对SOAP高度定制化和巧用header下参数token验签", "{849EFE7C-93DD-4CC4-B1FD-25A191DAD912}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "09", "09", "{C1315757-482D-4189-92FF-46238EFCEC99}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "09.Binding绑定：高频使用之basicHttpBind和java和netTcpB实现和.net程序进行同语言下跨机器互通代码实践", "09.Binding绑定：高频使用之basicHttpBind和java和netTcpB实现和.net程序进行同语言下跨机器互通代码实践", "{C1315757-482D-4189-92FF-46238EFCEC99}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10", "10", "{60DD3F15-4F49-44DB-B563-7C7DDBBF89C5}"
 EndProject
