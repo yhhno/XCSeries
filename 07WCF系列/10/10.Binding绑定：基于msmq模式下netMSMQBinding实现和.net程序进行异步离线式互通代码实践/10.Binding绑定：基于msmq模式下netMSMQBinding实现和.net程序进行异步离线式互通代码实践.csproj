@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="10Point.txt" />
+    <Content Include="10新建私有队列.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -280,7 +280,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "08.Contract契约：Message
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "09.Binding绑定：高频使用之basicHttpBind和java和netTcpB实现和.net程序进行同语言下跨机器互通代码实践", "09.Binding绑定：高频使用之basicHttpBind和java和netTcpB实现和.net程序进行同语言下跨机器互通代码实践", "{C1315757-482D-4189-92FF-46238EFCEC99}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10", "10", "{60DD3F15-4F49-44DB-B563-7C7DDBBF89C5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10.Binding绑定：基于msmq模式下netMSMQBinding实现和.net程序进行异步离线式互通代码实践", "10.Binding绑定：基于msmq模式下netMSMQBinding实现和.net程序进行异步离线式互通代码实践", "{60DD3F15-4F49-44DB-B563-7C7DDBBF89C5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "11", "11", "{3F9B9EBF-D364-4A50-A905-6858F4D3F6B1}"
 EndProject
@@ -465,6 +465,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07wcfservice", "07WCF系列\07\07servicelib\07wcfservice.csproj", "{25C88286-6EAB-4BCF-966A-8F5522F5644B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08wcfservice", "07WCF系列\08\08servicelib\08wcfservice.csproj", "{FD8CDC58-A8A4-46D1-BD89-C7DD5CDEF01C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "10WcfService", "07WCF系列\10\10WcfService\10WcfService.csproj", "{69B08503-AAFD-4498-8285-0BFD26C379CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1770,6 +1772,14 @@ Global
 		{FD8CDC58-A8A4-46D1-BD89-C7DD5CDEF01C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FD8CDC58-A8A4-46D1-BD89-C7DD5CDEF01C}.Release|x64.ActiveCfg = Release|Any CPU
 		{FD8CDC58-A8A4-46D1-BD89-C7DD5CDEF01C}.Release|x64.Build.0 = Release|Any CPU
+		{69B08503-AAFD-4498-8285-0BFD26C379CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69B08503-AAFD-4498-8285-0BFD26C379CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69B08503-AAFD-4498-8285-0BFD26C379CD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{69B08503-AAFD-4498-8285-0BFD26C379CD}.Debug|x64.Build.0 = Debug|Any CPU
+		{69B08503-AAFD-4498-8285-0BFD26C379CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69B08503-AAFD-4498-8285-0BFD26C379CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69B08503-AAFD-4498-8285-0BFD26C379CD}.Release|x64.ActiveCfg = Release|Any CPU
+		{69B08503-AAFD-4498-8285-0BFD26C379CD}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1963,6 +1973,7 @@ Global
 		{FAF795BD-828E-4915-8A42-47D3FB313298} = {2FF2CAC3-84C7-4AE1-807F-255C164ABB1D}
 		{25C88286-6EAB-4BCF-966A-8F5522F5644B} = {FCA21696-6046-4412-BA57-0AE5B5C6DD04}
 		{FD8CDC58-A8A4-46D1-BD89-C7DD5CDEF01C} = {849EFE7C-93DD-4CC4-B1FD-25A191DAD912}
+		{69B08503-AAFD-4498-8285-0BFD26C379CD} = {60DD3F15-4F49-44DB-B563-7C7DDBBF89C5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
