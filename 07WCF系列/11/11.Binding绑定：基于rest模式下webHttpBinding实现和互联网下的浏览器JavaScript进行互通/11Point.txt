@@ -1,3 +1,262 @@
+情绪上怎么样? 小事情，搞的定，一步一步来，不要有过多的任务压在心头，与完事开头难的矛盾， 退缩是不存在额，没有在怕的。=》  主动的话，这些问题就可能不存在，反而有其他更好地东西出现
+我是来学学习能力的，学习方法论的，不仅仅是知识？ 不是学完就万事大吉了，=》本质
+这个点没有评价好坏，未来的预期也没有评价好坏？
+每个东西，都要深挖，不能只是了解它的作用，
+每个新东西，旧东西， 其实都不难，调整好状态，跨出第一步，步步踏实，有啥难的，一多半都是自己吓自己。
+既然心理作用这么大，我们可以怎么做呢？  之前用代入感，现在用成功者，也就是未来者（儿子清华，女儿北大）， =》积极主动
+来句革命性的，这些东西真的有那么重要的吗？遇到它我不想学，产生退缩，我的一切都完了吗？ 当然不是的，我当然不是整天要面对不是这些事情，这些都是实现方式之一，人需要有哲学的角度，出一套指导思想，把一切都简略的画出来，然后去填空，而目前呢，只是在做填空的那一步，就像一个没有思想的人，那就是一个不知道为什么这么做的人在做事情，此时积极的发挥不出来，消极的全部放大，导致进展不下去。 
+我们是思考抽象的高层次东西，怎么可以困在低层次的范围内呢？ 对不对？
+
+必须要有整体上的认识，才可以去理解其中的概念，名词，底层的流程，抽象的流程，抽象的概念 大局观
+各个点的知识知道了，但流程是什么呢？ 如何联系在一起呢？逻辑呢？  如何才算是理解透彻？概念的透彻，流程的透彻
+什么是理解透彻呢？ 就是画一张图来概括，一定要学会这种方式， 知识点都串起来了，形象生动。记忆深刻
+##note###重大问题，基础知识不系统，不全面，有缺失，而且还不清晰牢固
+
+之前总结，反思了很多东西，为什么效果平平呢？ 很大可能是激情没有涉及，（我一定杀20个人呢，）=>起势的东西没有。
+我就是要知道，既然是学习知识，首先先学到知识，然后在学到学习方法，如何实现呢？
+感觉越学越简单，越容易，他妈的就是很简单嘛。
+我相信只要我持续的思考，学习，我一定能掌握一套东西，然后学任何的东西都得心应手，都透彻，然后都应用的很好《=《精神层面最重要，不然就没有行动上的启动了，更别说方法的改进了和知识点的累积了》=>有一个方针，或者标准 如成才四标准和人际关系三种关系
+ 解决IT企业的信息孤岛问题。=》根本就没理解这句话的含义，，不够聪明。不够，缺点啥呢 另外，我们往往仅仅着眼于运用，更进一步是实现，但是都不是从0开始，演变也不清楚，当然更别谈什么导致了演变，环境的变化，（这是基本情况的梳理） 更别谈了，种种的归类，总结，对比（这是提炼出理论，抽象的东西）
+ 他学习得到东西和我学习得到的东西，为啥不一样？ 是由什么造成的呢？ 我也来对比下，（当然分自学和别人教授两种情况了）
+问题的出现，都是能力的欠缺或者是不足造成的额， 此时的重点是补全能力，而不是关注表面的东西，======》》》》总结能力，必须总结，这是最终的关键地方
+如果我没有了学习视频，自我学习一个技术，一个领域咋办呢？
+
+
+问题1:没有总结，这样总结必须要，简明扼要，一目了然。
+首先是为了解决企业系统互通，（当然有同语言系统，不同语言的系统），才有的soa。当然最开始是在企业网内部的，既然有个思想，实现下吧，有ws标准，和restful标准和其他标准，有了标准就有了实现，
+问题2：xml和json的性能， 以及为什么要注重这个性能呢， 欠缺一个上面的敏感关注点，
+问题3：眼中只有wcf的ws标准，此时都换了restful标准，还没有意识到
+问题4：<webHttp />
+问题5： 不能之前只关注mvc，就眼中只有httppost，不同的东西，应该是不同的东西，另外看到新的东西，心态要端正。 另外注意对比，
+问题6：这说明了什么？ 最开始可能是乱写的， 但是就是有能力修改成正确的。
+
+问题7：谁有什么？ 一定要搞清楚，不能乱套用，都不清晰，当然稀里糊涂的，一定要界定清楚，说明学习时方式有问题，或者总结时有问题=》引申个大问题，你遇到的各种问题是因为你不具备某种能力，如果你具备了能力，这就不是问题，而是做事的步骤而已，它就不会拦着你，此时就不知道怎么办？心态也变得不好，（为什么有了问题就心态不好呢，长久的不能解决问题造成的），出现的次数多了，当你再遇到问题时，就是一个扭曲的心态了， 扩散到一个的方方面面，那这个人就出了问题， 就在你出了问题后，你也不知道该怎么做？ 去纠正也不知道怎么做？只能头疼医头，脚疼医脚，一个问题接着一个问题，貌似解决了问题，但是心态一点都没有改变，更有可能因为问题的不断出现，导致心态越来越差
+
+大家好本节课，就给大家说最后一个binding，他叫做webhttpbindng，这种binding，它是遵从restful架构模式，就一种标准
+ok，首先我们要了解下，restful的本质是什么？
+本质的话，用两句话来概括，
+1.用url定位唯一资源 
+2。用http动态 描述 对该“资源”的操作（curd）
+
+从这个名字上我们可以看到这个binding是基于http的， 对吧
+什么叫唯一资源，比如说 www.baidu.com,这个网址，它是一个资源，对不对，我们输入这个网址，就可以拿得到这个url的资源，对不对，如果说你想对这个url进行操作，向这个网址进行一些curd的操作，那么这些操作我们是通过http的谓语动词，来实现的， 也就相应的是什么呢？
+get相当于是从www.baidu.com获取数据
+post相当于向www.baidu.com提交数据
+put相当于 modify的操作
+delete相当于delete操作。
+相当于什么呢？ 相当于 你不管做什么操作，无非就是curd操作，对不对， 一个是资源的定位符，一个是对这个资源的操作，
+restful，它盛行在那个地方呢？ 盛行于移动互联网大发展的背景下，大家提出了一个restful的架构，在restful之前有一个什么的架构呢，有一个ws标准，ws标准第一节课，已经讲过了，第一节课讲soa的时候，曾经讲到，在很久之前的话，首先是一个webservice标准，后来有了wcf，有了wcf之后呢，restful盛行了 这个盛行了之后，wcf肯定不能坐以待毙，它要想办法支持这个restful标准，这样的话呢，它就 相当于它是一个大一统的，既可以遵从ws标准，又可以遵从restful标准， ok，所以说的话呢，也就导致了wcf有点不伦不类的，对吧，
+ok，第一个是本质，（目录）
+第二是背景  最重要的是从http层面实现了多语言的互通。 
+第三个我们再来说下，这个restful和传统的http或者说soap，它有什么不同？
+毕竟一个东西出来，它肯定是解决某一个问题， 对吧，ok，大家可以想一下，传统的话，如果说我是http这种模式的话，比如说我对student表进行操作，那我可能写在url上是什么样子呢？是这样的 http://localhost:80/Student/Get/1  如果说我对student进行add操作 是这样的  http://localhost:80/Student/Add， 其他操作类似 ，那这种方式有什么不好的地方嗯？弊端在哪里？当然的话，你也不能说弊端，restful不是说反对以前的，它是有自己的一套规范，  ok，这种也不能说弊端，这个的话，我们可以看到一个什么样的现象，我们发现url中，有动词出现，对不对， 不是说你这个动词出现就不好，因为你这是一种规范，restful它有自己的规范，  ok，我们可以看到，我们的url中有谓语动词，比如说get，add，modify，delete 对不对，那restful，他遵从什么样的呢 ，它是说你所有的curd操作，基本上都是一个url， 比如说，我们发现除了get，其他的url都是一样的， 但是你对这个url进行什么操作呢》 是通过http谓语动词来实现的，对不对， 而传统的这种，它是通过url来表现的，对吧，下面是通过这个http谓语动词来实现的， 这个就是他们一个不一样的地方，
+可以看到restful中，url中不出现任何动词，除了get之外，其他类型的url保持一致，这就是restful实现的状态的转移，  restful的标准就是在url中不可以出现动词。。。【这就是它的标准】
+ok接下来，就要给大家去演示一下了，
+演示之前，我们再来说下它第二点不同，
+那么传统的话呢，比如说soap，他其实是起源于这个企业内部网的，比如说呢，第一节课给大家讲到了额，如erp，和oa的互通， 这些企业内部服务系统，他们的话呢，是更关注安全，事务等细节，比如说我保持分布式的一致性，他对性能啊，以及网络带宽不关心，
+
+问题2：xml和json的性能， 以及为什么要注重这个性能呢， 欠缺一个上面的敏感关注点，
+那么restful的话，我刚才也讲到了，它是盛行于这个移动互联网时代，那么这时候呢，都是是互联网上进行传输， 那么这个传输的话呢，是一定要节省带宽的，大家也知道，soap的话，它占用的带宽还是特别大的，对吧，毕竟你是xml，什么东西都是一个标签对，如果说你用restful的话，它的网络带宽就更加的小， 这个大家应该明白，
+
+接下来给大家演示一下了，如何做到restful，之前的http模式，大家应该都明白，大家写mvc的时候，经常这么写
+ok，我们来看下 restful如何做到自己的标准
+
+问题3：眼中只有wcf的ws标准，此时都换了restful标准，还没有意识到
+我一开始还以为很简单，修改下binding就可以了额，
+
+第一个修改binding，
+ <!-- 1. 修改binding为 webhttpbinding -->
+        <endpoint address="HomeService" binding="webHttpBinding"
+                  behaviorConfiguration="mybehavior"
+          contract="WcfService.IHomeService">
+          <identity>
+            <dns value="localhost"/>
+          </identity>
+        </endpoint>
+
+第二个添加一个endpoint的behavior，用来开启httpweb，这样才可以启动
+
+
+问题4：<webHttp />
+    <behaviors>
+
+      <!--2. 添加一个endpointbehavior，用来开启httpweb-->
+      <endpointBehaviors>
+        <behavior name="mybehavior">
+
+          <webHttp />//就这样就开启了， 不符合常理，妈的，刚才不认真。
+        </behavior>
+      </endpointBehaviors>
+然后配置endpoint， behaviorConfiguration="mybehavior"
+ok这样的话，第二步就做完了，
+第三步的话呢，修改承载代码
+using System.ServiceModel.Web;//WebServiceHost
+
+static void Main(string[] args)
+        {
+            //3. 修改servicehost 为 WebServiceHost   有什么不同？
+           //ServiceHost host = new ServiceHost(typeof(HomeService));
+            WebServiceHost host = new WebServiceHost(typeof(HomeService));
+
+            host.Open();
+
+            Console.WriteLine("wcf启动成功！");
+            Console.Read();
+        }
+ok，第四步，该做什么呢/ 我刚才给大家讲到了， restful的话，它无非把所有的操作都归类成了curd， url是一样的，谓语动词不一样，ok
+我们该怎么处理呢？
+首先我们定义一个类把，
+ public class Student
+    {
+        public string Action { get; set; }//什么用途呢.主要是返回我当前是什么样的操作， 只是说明下，并不是真的这样的作用，
+    } 
+
+然后定义服务契约和操作契约，
+  [ServiceContract]
+    public interface IHomeService
+    {
+	      
+        Student DoGet(string id);
+        Student DoPost(Student student);
+        Student DoPut(Student student);
+        Student DoDelete(int id);
+    }
+
+
+接下来，添加操作契约
+  [ServiceContract]
+    public interface IHomeService
+    {
+	         [OperationContract]
+        Student DoGet(string id);
+        Student DoPost(Student student);
+        Student DoPut(Student student);
+        Student DoDelete(int id);
+    }
+
+问题5： 不能之前只关注mvc，就眼中只有httppost，不同的东西，应该是不同的东西，另外看到新的东西，心态要端正。 另外注意对比，
+注意此时是没有HttpPost的，
+WebInvoke，WebGet 相当于MVC的Route。。。【定义路由】
+然后加一个webget标签，请求是json，返回的也是json， restful采用的是json的格式， 网络传输带宽特别小，uriTemplate， WebMessageBodyStyle.Bare 不包装,
+        [WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json,
+               UriTemplate = "Student/{id}", BodyStyle = WebMessageBodyStyle.Bare)]
+			       Student DoGet(string id);
+get搞定了，接下来看post  比webget多了个 Method = "POST"
+    [OperationContract]
+        [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json,
+       UriTemplate = "Student", BodyStyle = WebMessageBodyStyle.Bare)]
+        Student DoPost(Student student);
+
+搞定了post，接下俩put和delete一样的
+
+接下来实现这个契约，
+ public class HomeService : IHomeService
+    {
+
+        public Student DoGet(string id)
+        {
+            return new Student()
+            {
+                Action = "DoGet"
+            };
+        }
+
+        public Student DoPost(Student student)
+        {
+            return new Student()
+            {
+                Action = "DoPost"
+            };
+        }
+
+        public Student DoPut(Student student)
+        {
+            return new Student()
+            {
+                Action = "DoPut"
+            };
+        }
+
+        public Student DoDelete(int id)
+        {
+            return new Student()
+            {
+                Action = "DoDelete"
+            };
+        }
+    }
+
+问题6：这说明了什么？ 最开始可能是乱写的， 但是就是有能力修改成正确的。
+修改下DoGet方法， Student DoGet(string msg) 为 Student DoGet(int id)
+public Student DoPost(string msg)          为 public Student DoPost(Student student)  
+public Student DoPut(string msg)           为 public Student DoPut(Student student)
+   public Student DoDelete(string msg)      为 public Student DoDelete(int id)
+
+    UriTemplate = "Student"     为  UriTemplate = "Student/{id}"
+
+
+此时，我们就基本写好了，  我们来检查下，  基本上没什么了 
+有问题，我们再调，
+启动下，报错， 
+修改 Student DoGet(int id)  为Student DoGet(string  id)
+启动，没有问题，
+
+问题7：谁有什么？ 一定要搞清楚，不能乱套用，都不清晰，当然稀里糊涂的，一定要界定清楚，说明学习时方式有问题，或者总结时有问题=》引申个大问题，你遇到的各种问题是因为你不具备某种能力，如果你具备了能力，这就不是问题，而是做事的步骤而已，它就不会拦着你，此时就不知道怎么办？心态也变得不好，（为什么有了问题就心态不好呢，长久的不能解决问题造成的），出现的次数多了，当你再遇到问题时，就是一个扭曲的心态了， 扩散到一个的方方面面，那这个人就出了问题， 就在你出了问题后，你也不知道该怎么做？ 去纠正也不知道怎么做？只能头疼医头，脚疼医脚，一个问题接着一个问题，貌似解决了问题，但是心态一点都没有改变，更有可能因为问题的不断出现，导致心态越来越差
+我们看下wsdl 是没有的的  这就相当于非ws标准了，当前它的哪些东西都没有了，
+然后呢，到client端  client端怎么处理，  我们事先准备了一段 模拟请求的代码，
+第一个是get操作， student是uri地址
+我们基地址是http://localhost:8732/HomeService/student/1  地址栏输入此地址就返回消息，出现返回json  验证成功
+第二个是post操作
+地址是    http://localhost:8732/HomeService/Student  并做post提交[Post]
+
+class Program
+    {
+        static void Main(string[] args)
+        {
+            //var info = WebPostUtils.DoPost("http://localhost:8732/HomeService/Student", "{\"Action\":\"info\"}", "POST");
+			//var info = WebPostUtils.DoPost("http://localhost:8732/HomeService/Student", "{\"Action\":\"info\"}", "Put");
+
+            var info = WebPostUtils.DoPost("http://192.168.23.187:8732/HomeService/Student", "1", "DELETE");
+
+            Console.WriteLine(info);
+
+            Console.Read();
+        }
+    }
+WebPostUtils.DoPost 第二个参数是一个json，wcf会转换成对应的实体类，
+
+既然是http操作，我们可以用fiddler来查看 通信情况
+http请求详情
+DELETE http://192.168.23.187:8732/HomeService/Student HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Accept: */*
+User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)
+Keep-Alive: TRUE
+Host: 192.168.23.187:8732
+Content-Length: 1
+Expect: 100-continue
+Connection: Keep-Alive
+
+1
+
+
+http返回详情
+HTTP/1.1 200 OK
+Content-Length: 21
+Content-Type: application/json; charset=utf-8
+Server: Microsoft-HTTPAPI/2.0
+Date: Mon, 13 Nov 2017 14:31:58 GMT
+
+{"Action":"DoDelete"}
+
+从上面可以看出来，和wcf一点关系都没有，
+所以说wcf为了应对时代的潮流，它支持了它本该不属于它的标准，它支持了， 后来的话呢，微软觉得，这个wcf确实做的不伦不类，所以后来就出现了一个 asp.net webapi专门来做restful标准，，所以说wcf的话呢，在restful这块是有意的被遗弃了，
+
+好，这就是   本节课的所有内容了，主要是给大家讲了，restful思想，特征，以及用wcf简单的去实现了下，  
+还是非常简单的， 对吧  
+主要的的话，大家要理解一个所谓的url资源定位符，一个是所有的curd操作，都是通过谓语动词来实现的， 这个和原始模式的差别大家要清楚， 
+
+
 一：Restful  【webhttpbinding】+ http （json）
 
 1. 本质
@@ -53,6 +312,7 @@
    
    Restful 更加关注于internet上的网络传输，所以比soap更加的节省带宽。
 
+http请求详情
 DELETE http://192.168.23.187:8732/HomeService/Student HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: */*
@@ -66,7 +326,7 @@ Connection: Keep-Alive
 1
 
 
-
+http返回详情
 HTTP/1.1 200 OK
 Content-Length: 21
 Content-Type: application/json; charset=utf-8
