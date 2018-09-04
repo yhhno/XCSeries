@@ -10,7 +10,8 @@ namespace test
     {
         static void Main(string[] args)
         {
-
+            Console.WriteLine("你好");
+            Console.ReadLine();
             
         }
     }
