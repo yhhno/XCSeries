@@ -286,7 +286,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "11.Binding绑定：基于re
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "12.Host托管：实践WCF的四种托管环境IIS,WinForm,控制台,Window 服务 (topself)部署和优缺点分析", "12.Host托管：实践WCF的四种托管环境IIS,WinForm,控制台,Window 服务 (topself)部署和优缺点分析", "{E20A60A4-344F-45CE-85C2-ADA9BE2BF62A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "13", "13", "{528DAC19-7470-4BB3-A598-888341225699}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "13.Behavior行为：教你如何控制服务实例的“并发(单线程，多线程)”和“实例化（单例，多例）”及WCF自带熔断机制", "13.Behavior行为：教你如何控制服务实例的“并发(单线程，多线程)”和“实例化（单例，多例）”及WCF自带熔断机制", "{528DAC19-7470-4BB3-A598-888341225699}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "14", "14", "{AF2384CB-D1CF-4E1C-B860-03ED39A15015}"
 EndProject
@@ -475,6 +475,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfService1", "07WCF系列\12\WcfService1\WcfService1.csproj", "{B0B84D4E-3545-473B-A0E2-64918980EEE5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApplication1", "07WCF系列\12\WindowsFormsApplication1\WindowsFormsApplication1.csproj", "{59165017-2C24-4308-9411-0B69932508A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfService", "07WCF系列\13\WcfService\WcfService.csproj", "{4255D0F7-5684-4EA3-B9BF-9A94A1EDB966}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1820,6 +1822,14 @@ Global
 		{59165017-2C24-4308-9411-0B69932508A6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{59165017-2C24-4308-9411-0B69932508A6}.Release|x64.ActiveCfg = Release|Any CPU
 		{59165017-2C24-4308-9411-0B69932508A6}.Release|x64.Build.0 = Release|Any CPU
+		{4255D0F7-5684-4EA3-B9BF-9A94A1EDB966}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4255D0F7-5684-4EA3-B9BF-9A94A1EDB966}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4255D0F7-5684-4EA3-B9BF-9A94A1EDB966}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4255D0F7-5684-4EA3-B9BF-9A94A1EDB966}.Debug|x64.Build.0 = Debug|Any CPU
+		{4255D0F7-5684-4EA3-B9BF-9A94A1EDB966}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4255D0F7-5684-4EA3-B9BF-9A94A1EDB966}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4255D0F7-5684-4EA3-B9BF-9A94A1EDB966}.Release|x64.ActiveCfg = Release|Any CPU
+		{4255D0F7-5684-4EA3-B9BF-9A94A1EDB966}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2018,6 +2028,7 @@ Global
 		{EFDC8D13-7FDF-4674-A5E1-281BA0629C02} = {E20A60A4-344F-45CE-85C2-ADA9BE2BF62A}
 		{B0B84D4E-3545-473B-A0E2-64918980EEE5} = {E20A60A4-344F-45CE-85C2-ADA9BE2BF62A}
 		{59165017-2C24-4308-9411-0B69932508A6} = {E20A60A4-344F-45CE-85C2-ADA9BE2BF62A}
+		{4255D0F7-5684-4EA3-B9BF-9A94A1EDB966} = {528DAC19-7470-4BB3-A598-888341225699}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}

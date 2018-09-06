@@ -10,6 +10,16 @@ namespace _13.Behavior行为_教你如何控制服务实例的_并发_单线程_
     {
         static void Main(string[] args)
         {
+            Parallel.For(1, 100, (item) =>
+            {
+                Console.WriteLine(item);//item就是个索引
+
+                ServiceReference1.HomeServiceClient client = new ServiceReference1.HomeServiceClient();
+
+                client.DoWork(item.ToString());
+            });
+
+            Console.Read();
         }
     }
 }
