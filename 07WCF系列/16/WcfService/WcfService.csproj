@@ -1,16 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B7E48800-445D-4871-859F-14FB0A3A4FF2}</ProjectGuid>
+    <ProjectGuid>{0F5726CC-DBC5-451B-B261-969286C86A48}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_16.Behavior行为_自定义OperationBehavi通过IParameterInspecto实现对方法参数进行注入检查和代码实战</RootNamespace>
-    <AssemblyName>16.Behavior行为：自定义OperationBehavi通过IParameterInspecto实现对方法参数进行注入检查和代码实战</AssemblyName>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WcfService</RootNamespace>
+    <AssemblyName>WcfService</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,6 +37,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,22 +48,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HomeService.cs" />
+    <Compile Include="IHomeService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="16Point.txt" />
-    <Content Include="16自定义OperationBehavi通过IParameterInspecto实现对方法参数之fiddler监控.png" />
-    <Content Include="16自定义OperationBehavi通过IParameterInspecto实现对方法参数之fiddler监控开启错误信息返回.png" />
-    <Content Include="16自定义OperationBehavi通过IParameterInspecto实现案例演示01.png" />
-    <Content Include="16自定义OperationBehavi通过IParameterInspecto实现案例演示02.png" />
-    <Content Include="16自定义OperationBehavi通过IParameterInspecto实现案例演示03.png" />
-    <Content Include="16自定义OperationBehavi通过IParameterInspecto实现案例演示04.png" />
-    <Content Include="16自定义OperationBehavi通过IParameterInspecto实现案例演示05.png" />
-    <Content Include="16自定义OperationBehavi通过IParameterInspecto实现案例演示06.png" />
+    <ProjectReference Include="..\Lib\Lib.csproj">
+      <Project>{1643eb50-af67-4fa6-832c-e160cde5794f}</Project>
+      <Name>Lib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
 </Project>

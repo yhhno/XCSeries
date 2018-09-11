@@ -1,3 +1,334 @@
+wcf,rabbitmq,asp.net core 分布式视频，鬼谷子，麻宁这么好的东西，我怎么能忍受它放在那里睡大觉呢？ 不赶快吸收吸收，就算装装逼也好呀，是不是？
+
+情绪上怎么样? 小事情，搞的定，一步一步来，不要有过多的任务压在心头，与完事开头难的矛盾， 退缩是不存在额，没有在怕的。=》  主动的话，这些问题就可能不存在，反而有其他更好地东西出现
+我是来学学习能力的，学习方法论的，不仅仅是知识？ 不是学完就万事大吉了，=》本质
+这个点没有评价好坏，未来的预期也没有评价好坏？
+每个东西，都要深挖，不能只是了解它的作用，
+每个新东西，旧东西， 其实都不难，调整好状态，跨出第一步，步步踏实，有啥难的，一多半都是自己吓自己。
+既然心理作用这么大，我们可以怎么做呢？  之前用代入感，现在用成功者，也就是未来者（儿子清华，女儿北大）， =》积极主动
+来句革命性的，这些东西真的有那么重要的吗？遇到它我不想学，产生退缩，我的一切都完了吗？ 当然不是的，我当然不是整天要面对不是这些事情，这些都是实现方式之一，人需要有哲学的角度，出一套指导思想，把一切都简略的画出来，然后去填空，而目前呢，只是在做填空的那一步，就像一个没有思想的人，那就是一个不知道为什么这么做的人在做事情，此时积极的发挥不出来，消极的全部放大，导致进展不下去。 
+我们是思考抽象的高层次东西，怎么可以困在低层次的范围内呢？ 对不对？
+
+必须要有整体上的认识，才可以去理解其中的概念，名词，底层的流程，抽象的流程，抽象的概念 大局观
+各个点的知识知道了，但流程是什么呢？ 如何联系在一起呢？逻辑呢？  如何才算是理解透彻？概念的透彻，流程的透彻
+什么是理解透彻呢？ 就是画一张图来概括，一定要学会这种方式， 知识点都串起来了，形象生动。记忆深刻  
+##note###重大问题，基础知识不系统，不全面，有缺失，而且还不清晰牢固
+
+之前总结，反思了很多东西，为什么效果平平呢？ 很大可能是激情没有涉及，（我一定杀20个人呢，）=>起势的东西没有。=》有了起势的结果是什么？=》遇到新东西一定搞明白，事情一定要完成，还有呢？
+我就是要知道，既然是学习知识，首先先学到知识，然后在学到学习方法，如何实现呢？
+感觉越学越简单，越容易，他妈的就是很简单嘛。
+我相信只要我持续的思考，学习，我一定能掌握一套东西，然后学任何的东西都得心应手，都透彻，然后都应用的很好《=《精神层面最重要，不然就没有行动上的启动了，更别说方法的改进了和知识点的累积了》=>有一个方针，或者标准 如成才四标准和人际关系三种关系
+
+ 解决IT企业的信息孤岛问题。=》根本就没理解这句话的含义，，不够聪明。不够，缺点啥呢 另外，我们往往仅仅着眼于运用，更进一步是实现，但是都不是从0开始，演变也不清楚，当然更别谈什么导致了演变，环境的变化，（这是基本情况的梳理） 更别谈了，种种的归类，总结，对比（这是提炼出理论，抽象的东西）
+
+ 他学习得到东西和我学习得到的东西，为啥不一样？ 是由什么造成的呢？ 我也来对比下，（当然分自学和别人教授两种情况了）
+问题的出现，都是能力的欠缺或者是不足造成的额， 此时的重点是补全能力，而不是关注表面的东西，======》》》》总结能力，必须总结，这是最终的关键地方
+如果我没有了学习视频，自我学习一个技术，一个领域咋办呢？
+
+问题7：谁有什么？ 一定要搞清楚，不能乱套用，都不清晰，当然稀里糊涂的，一定要界定清楚，说明学习时方式有问题，或者总结时有问题=》引申个大问题，你遇到的各种问题是因为你不具备某种能力，如果你具备了能力，这就不是问题，而是做事的步骤而已，它就不会拦着你，此时就不知道怎么办？心态也变得不好，（为什么有了问题就心态不好呢，长久的不能解决问题造成的），出现的次数多了，当你再遇到问题时，就是一个扭曲的心态了， 扩散到一个的方方面面，那这个人就出了问题， 就在你出了问题后，你也不知道该怎么做？ 去纠正也不知道怎么做？只能头疼医头，脚疼医脚，一个问题接着一个问题，貌似解决了问题，但是心态一点都没有改变，更有可能因为问题的不断出现，导致心态越来越差
+问题2：交互，只想到在powshell中去操作，而且还有可能困在这个操作中，觉得好难哦，根本就没想到交互，用C#代码交互， 这说明知识面不够，仅仅满足于当前，没有更进一步的思考。
+问题8：都是承载wcf，iis中有什么不同呢？=》环境变了，其他的东西变了吗？=》要察觉到环境变了，=》然后看到底细节有哪些不同，=》webconfig有什么不同？ 我们们发现
+问题9: 对哦，既然这个项目不是部署到iis上的，所有当你调试的时候，能够启动成功，说明就是运行在iis环境上，=》察觉
+问题10：很多情况就是我们对整个流程不清楚的情况下，去看概念，去应用，这样是不正确的
+
+
+
+能力的总结
+1.轻松的的心态，把所有的经历都专注在你要做的事情上，其他的任何东西都不要，本身要搞清楚，搞透彻，(关键是找准主方向)，然后延伸，发散，优化，总结等（满足于当前，没有更进一步的思考。）=》发散与集中，战略上发散，战术上集中
+2.一个大的工具如wcf，一个小的方面，如wcf中behavior，都需要了解知识点，概念，运作机制，然后再一步一步的走下去，这样才算是理解透彻，甚至还包括修改参数带来的影响。=》这是学习知识的问题
+3.找准主方向，一切都会迎刃而解的，关键如何找到主方向呢？ =》主方向是脉络清晰的升级，更进一步。
+4.要开心快乐。
+5.逻辑过程+运行机制+主方向
+
+
+开始本节课前，应该思考这些东西 0.积极的心态 1,这节课讲的是什么，大概概况，解决的问题，2。新知识还是旧知识 3.旧的话自己的本身的认识是什么？用到饿了那些什么样的基础知识 4.新知识的话，该怎么办？5.根据用途猜想下它的实现 6.
+结束本节课后，应该思考这些东西 1.学到的知识是什么？心中是否清晰？2.自己独立思考下 3.和自己预想的有什么不一样？ 4.有什么方法或者思维或者见识可以借鉴 5.总结下
+
+
+
+问题1： 类比，联想 举例子  其实就是attribute
+ 问题1：多一些这种程度的理解，流程了解下
+ 问题2：调度器是啥
+ 问题3：逻辑过程了解清楚 那这个值从哪里来呢，从构造函数注入，
+ 问题5:错误呀，惯性行为，认为endpointbehavior是在main函数中，去添加的额，而认为 MyOperationBehavior也是这样的额， MyOperationBehavior只是一个自定义的attribute， 情况不同呀，又一次犯重大错误=》逻辑情况没弄清楚
+问题2： 这个Attribute 应该可以想到  主方向  没有
+问题4：基础验证是通用的额，那基础组件的，基础设施呢？
+问题3：察觉大于5这种检查，有问题，也就是它提醒的不通用，，要学会总结，归纳，
+问题3.1并一步一步思考，不能不动脑筋，拿来就用，  不经过逻辑思考，一步一步去落实，是掌握不了的，同样也做不出正确判断。
+问题6.要思考如何实现，要尝试独立去解决，不能老是依靠别人， 我就是追求这个呀，如果能独自得到下面的思考，就是极好，
+问题6.1.host.Description.Endpoints[0]  说明一个啥问题，[MyOperationBehavior(5)]也是同样的问题，
+问题6.2 主方向 给方法加attribute，一个是在方法体上，一个是代码， 不能只看到方法体就意味了一切， 缺少主方向
+问题6.3在方法体上添加的attribute，最后都添加到了operations[0].OperationBehhaviors 中去，那我也可以直接通过代码添加到这个集合里面去，
+问题6.4 快速监视，即时窗口，说明了什么问题？
+
+
+本节课给大家说最后一个behavior。
+这个behavior 叫做operationbehavior
+这个behavior它的应用场景在哪里，
+ok，我们首先要知道第一个问题它的作用域
+举个例子，比如说我们有个homeservice 有一个dowork函数，这个behavior就是加到这个函数上的。
+public class HomeService
+{
+  [OperationBehavior]
+  public void DoWork(string username,int age)
+  {
+
+  }
+}
+问题1： 类比，联想 举例子  其实就是attribute
+看到这里，大家可能会想到mvc中的route特性 这个route也可以加到action上去，
+比如说我们可以定义这个
+mvc: Route("home/index/{id:int}"). 说明id只能是int类型，
+或者
+ 之前讲到的webhttpbinding中的 webget webinvoke 特性
+ 
+ 这个是我们讲到的作用域 问题
+
+ 问题1：多一些这种程度的理解， 流程了解下
+ 既然说是作用到这个函数上，也就是说明  它是某种aop编程， 也就是说，执行函数之前，先执行operationbehavior，对不对，
+ 所以说operationbehavior他在这个dowork函数之前，而且的话又在它之后，又可以执行这个operationbehavior
+ 这时候，我们就可以做些什么操作呢，
+ 比如说，参数的检查器
+ 举个例子，  public void DoWork(string username），我们可以对这个username做一些什么操作呢？
+ 比如说可空检查，正则检查 
+ 如果你又多了一个age，那么这个age我们还可以做什么操作呢？范围检查
+ 这样我们就保证了 我们的dowork的参数尽量的正确，对吧
+ ok，这就是本节课给大家讲到的理论的东西，
+ 接下来，我们来看，如何实现
+
+ 新建个类库
+ 添加MyOperationBehavior类，实现IOperationBehavior接口，引用system.servicemodel
+  public class MyOperationBehavior : Attribute, IOperationBehavior
+    {
+        private int maxLength = 0;
+
+        public MyOperationBehavior(int maxLength)
+        {
+            this.maxLength = maxLength;
+        }
+
+        public void AddBindingParameters(OperationDescription operationDescription, BindingParameterCollection bindingParameters)
+        {
+
+        }
+
+        /// <summary>
+        /// 客户端的behavior
+        /// </summary>
+        /// <param name="operationDescription"></param>
+        /// <param name="clientOperation"></param>
+        public void ApplyClientBehavior(OperationDescription operationDescription, ClientOperation clientOperation)
+        {
+
+        }
+
+        /// <summary>
+        /// 服务器端的behavior
+        /// </summary>
+        /// <param name="operationDescription"></param>
+        /// <param name="dispatchOperation"></param>
+        public void ApplyDispatchBehavior(OperationDescription operationDescription, DispatchOperation dispatchOperation)
+        {
+            dispatchOperation.ParameterInspectors.Add(new MyParameterInspector(maxLength));
+        }
+
+        public void Validate(OperationDescription operationDescription)
+        {
+
+        }
+    }
+
+
+ApplyDispatchBehavior是服务端的behavior，
+ApplyClientBehavior是客户端的behavior
+当然此处我们是实现服务端的behavior   客户端也可以实现
+
+问题2：调度器是啥
+dispatchOperation.ParameterInspectors.Add(new MyParameterInspector(maxLength));
+调度器下有个ParameterInspectors  我们可以做一个add操作，添加自定义的ParameterInspector
+
+添加一个类MyParameterInspector实现IParameterInspector
+ public class MyParameterInspector : IParameterInspector
+    {
+        private int maxLength = 0;
+
+        public MyParameterInspector(int maxLength)
+        {
+            this.maxLength = maxLength;
+        }
+        public void AfterCall(string operationName, object[] outputs, object returnValue, object correlationState)
+        {
+
+        }
+
+        public object BeforeCall(string operationName, object[] inputs)
+        {
+            //operationName：方法名
+            if (operationName == "DoWork")
+            {
+                //inputs: 就是方法中的参数
+                var username = Convert.ToString(inputs[0]);
+
+                if (string.IsNullOrEmpty(username))
+                {
+                    throw new Exception("当前的username不可为空。。。。");
+                }
+
+                if (username.Length > maxLength)
+                {
+                    throw new Exception(string.Format("当前的username不可大于{0}。。。。", maxLength));
+                }
+            }
+
+            return null;
+        }
+    }
+我们在函数中，写逻辑代码，
+当前的operationName为DoWork的话，我们做什么操作， 这个是方法名，  然后inputs是我们的参数， ，
+这个参数我们可以做各种操作，
+比如说此时只有一个参数 username
+如果为空，抛出个异常，
+问题3：逻辑过程了解清楚 那这个值从哪里来呢，从构造函数注入，
+如果username的长度小于某个值，那这个值从哪里来呢，从构造函数注入，
+ private int maxLength = 0;
+
+        public MyParameterInspector(int maxLength)
+        {
+            this.maxLength = maxLength;
+        }
+如果大于maxlength，我们又要抛出个异常
+此时的参数检查就完成了
+
+但是MyParameterInspector构造函数的值从哪里来呢，当然是从MyOperationBehavior的构造函数来， 
+public void ApplyDispatchBehavior(OperationDescription operationDescription, DispatchOperation dispatchOperation)
+        {
+            dispatchOperation.ParameterInspectors.Add(new MyParameterInspector(maxLength));
+        }
+
+MyParameterInspector(maxLength)中maxlength的来源
+private int maxLength = 0;
+
+        public MyOperationBehavior(int maxLength)
+        {
+            this.maxLength = maxLength;
+        }
+
+问题5:错误呀，惯性行为，认为endpointbehavior是在main函数中，去添加的额，而认为 MyOperationBehavior也是这样的额， MyOperationBehavior只是一个自定义的attribute， 情况不同呀，又一次犯重大错误=》逻辑情况没弄清楚
+MyOperationBehavior的构造函数何时执行呢？
+  static void Main(string[] args)
+        {
+            ServiceHost host = new ServiceHost(typeof(HomeService));
+
+            //获取到 contract下的所有 operation。。。。
+            var operations = host.Description.Endpoints[0].Contract.Operations;
+
+            foreach (var item in operations)
+            {
+                item.OperationBehaviors.Add(new MyOperationBehavior(5));
+            }
+
+            host.Open();
+
+            Console.WriteLine("wcf启动成功！");
+            Console.Read();
+        }
+
+
+问题2： 这个Attribute 应该可以想到  主方向  没有
+然后我们让MyOperationBehavior继承Attribute，那这样MyOperationBehavior就可以作为一个属性了
+public class MyOperationBehavior : Attribute, IOperationBehavior  
+{}
+
+然后就可以使用定义好的OperationBehavior，加到具体实现的函数上，肯定要加要执行的地方哦
+
+       [MyOperationBehavior(5)]
+        public void DoWork(string username)
+        {
+            Console.WriteLine(username);
+        }
+
+启动service端
+client添加服务引用g
+添加client调用代码s
+class Program
+    {
+        static void Main(string[] args)
+        {
+            HomeServiceClient client = new HomeServiceClient();
+
+            client.DoWork("asdfasdfasdfasdfabc");
+
+            Console.Read();
+        }
+    }
+fiddler 需要指定个ip地址，不能是localhost
+打开fiddler监控下，
+发生错误，
+可以在fiddler中查看错误信息，
+但是具体的错误，在service端没有返回给client具体的错误信息，只显示500 程序内部错误
+   <serviceDebug includeExceptionDetailInFaults="true"/>   为true
+   可以返回client错误信息
+
+如果输入的参数长度小于5，此时返回200 ，说明调用成功了， 满足我指定的条件
+
+
+ok接下来我们在说一个东西，
+问题3：察觉大于5这种检查，有问题，也就是它提醒的不通用，，要学会总结，归纳，
+问题3.1并一步一步思考，不能不动脑筋，拿来就用，  不经过逻辑思考，一步一步去落实，是掌握不了的，同样也做不出正确判断。
+也就是说我们实现了一个在serivice的检查，很简单，接下来说，如果我们有一些通用的检查怎么办呢？
+
+问题4：基础验证是通用的额，那基础组件的，基础设施呢？
+我们可以看到我们自定义的MyOperationBehavior 它是加到某个指定的函数中去了，
+但是homeserive如果有10个work函数，但是有一些基础验证，如都不能为空，怎么办？
+这时候，我们就不能通过一个一个去加，来实现了， 通过这个behavior形式去追加  就是attribute
+那这个基础验证我们改怎么去做？
+这时候，我们通过硬编码来实现
+此时，注释自定义的attribute
+         //[MyOperationBehavior(5)]
+        public void DoWork(string username)
+        {
+            Console.WriteLine(username);
+        }
+
+这时候，我们怎么处理。
+  static void Main(string[] args)
+        {
+            ServiceHost host = new ServiceHost(typeof(HomeService));
+
+            //获取到 contract下的所有 operation。。。。
+            var operations = host.Description.Endpoints[0].Contract.Operations;
+
+            foreach (var item in operations)
+            {
+                item.OperationBehaviors.Add(new MyOperationBehavior(5));
+            }
+
+            host.Open();
+
+            Console.WriteLine("wcf启动成功！");
+            Console.Read();
+        }
+		问题2： 这个Attribute 应该可以想到  主方向  没有
+问题4：基础验证是通用的额，那基础组件的，基础设施呢？
+问题3：察觉大于5这种检查，有问题，也就是它提醒的不通用，，要学会总结，归纳，
+问题3.1并一步一步思考，不能不动脑筋，拿来就用，  不经过逻辑思考，一步一步去落实，是掌握不了的，同样也做不出正确判断。
+问题6.要思考如何实现，要尝试独立去解决，不能老是依靠别人， 我就是追求这个呀，如果能独自得到下面的思考，就是极好，
+问题6.1.host.Description.Endpoints[0]  说明一个啥问题，[MyOperationBehavior(5)]也是同样的问题，
+问题6.2 主方向 给方法加attribute，一个是在方法体上，一个是代码， 不能只看到方法体就意味了一切， 缺少主方向
+问题6.3在方法体上添加的attribute，最后都添加到了operations[0].OperationBehhaviors 中去，那我也可以直接通过代码添加到这个集合里面去，
+问题6.4 快速监视，即时窗口，说明了什么问题？
+host下，有个Description，然后有个endpoint，也就是说你是哪个服务，服务下的契约，契约下 有operation，所有的方法我们都拿到了
+接下来 ，我们就可以做一个for循环
+对每个operation添加operationbehaviors
+item.OperationBehaviors.Add(new MyOperationBehavior(5));
+这个就相当于全局性添加，
+当然如果说你这个服务，有几个endpoint的话，我们也可以对endpoint进行一个循环
+
+然后client调用下， 参数为abc，adddddd 分别正确，错误，
+
+
+
+
 
 一：操作行为（OperationBehavior） 【AOP编程】
 

@@ -292,7 +292,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "14.Behavior行为：分布�
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "15.Behavior行为：案例之自定义IEndpointBehav和IDispatchMessageInspect实现对入站消息的实时统计", "15.Behavior行为：案例之自定义IEndpointBehav和IDispatchMessageInspect实现对入站消息的实时统计", "{7B719626-A27C-4178-BDE3-7372EBEDEF2A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "16", "16", "{BE39046F-6445-4116-900F-20E22B912980}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "16.Behavior行为：自定义OperationBehavi通过IParameterInspecto实现对方法参数进行注入检查和代码实战", "16.Behavior行为：自定义OperationBehavi通过IParameterInspecto实现对方法参数进行注入检查和代码实战", "{BE39046F-6445-4116-900F-20E22B912980}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "17", "17", "{2A6787CB-E1D6-43FC-8C2C-1647F8A28D1E}"
 EndProject
@@ -489,6 +489,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfService", "07WCF系列\15\WcfService\WcfService.csproj", "{63D3CCE6-EAA9-4835-A466-97A52D1F0A81}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib", "07WCF系列\15\Lib\Lib.csproj", "{026A4064-DEDF-4A85-8C15-6F80D4C5BD27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfService", "07WCF系列\16\WcfService\WcfService.csproj", "{0F5726CC-DBC5-451B-B261-969286C86A48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib", "07WCF系列\16\Lib\Lib.csproj", "{1643EB50-AF67-4FA6-832C-E160CDE5794F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1890,6 +1894,22 @@ Global
 		{026A4064-DEDF-4A85-8C15-6F80D4C5BD27}.Release|Any CPU.Build.0 = Release|Any CPU
 		{026A4064-DEDF-4A85-8C15-6F80D4C5BD27}.Release|x64.ActiveCfg = Release|Any CPU
 		{026A4064-DEDF-4A85-8C15-6F80D4C5BD27}.Release|x64.Build.0 = Release|Any CPU
+		{0F5726CC-DBC5-451B-B261-969286C86A48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F5726CC-DBC5-451B-B261-969286C86A48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F5726CC-DBC5-451B-B261-969286C86A48}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0F5726CC-DBC5-451B-B261-969286C86A48}.Debug|x64.Build.0 = Debug|Any CPU
+		{0F5726CC-DBC5-451B-B261-969286C86A48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F5726CC-DBC5-451B-B261-969286C86A48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F5726CC-DBC5-451B-B261-969286C86A48}.Release|x64.ActiveCfg = Release|Any CPU
+		{0F5726CC-DBC5-451B-B261-969286C86A48}.Release|x64.Build.0 = Release|Any CPU
+		{1643EB50-AF67-4FA6-832C-E160CDE5794F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1643EB50-AF67-4FA6-832C-E160CDE5794F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1643EB50-AF67-4FA6-832C-E160CDE5794F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1643EB50-AF67-4FA6-832C-E160CDE5794F}.Debug|x64.Build.0 = Debug|Any CPU
+		{1643EB50-AF67-4FA6-832C-E160CDE5794F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1643EB50-AF67-4FA6-832C-E160CDE5794F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1643EB50-AF67-4FA6-832C-E160CDE5794F}.Release|x64.ActiveCfg = Release|Any CPU
+		{1643EB50-AF67-4FA6-832C-E160CDE5794F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2095,6 +2115,8 @@ Global
 		{1E0DD5AF-2170-49CE-AF65-413C1D325DBA} = {AF2384CB-D1CF-4E1C-B860-03ED39A15015}
 		{63D3CCE6-EAA9-4835-A466-97A52D1F0A81} = {7B719626-A27C-4178-BDE3-7372EBEDEF2A}
 		{026A4064-DEDF-4A85-8C15-6F80D4C5BD27} = {7B719626-A27C-4178-BDE3-7372EBEDEF2A}
+		{0F5726CC-DBC5-451B-B261-969286C86A48} = {BE39046F-6445-4116-900F-20E22B912980}
+		{1643EB50-AF67-4FA6-832C-E160CDE5794F} = {BE39046F-6445-4116-900F-20E22B912980}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
