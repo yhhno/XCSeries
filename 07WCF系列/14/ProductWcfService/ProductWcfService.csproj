@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AAC2C5CD-04EF-4BD4-A53C-5F299FA1E1FD}</ProjectGuid>
+    <ProjectGuid>{1E0DD5AF-2170-49CE-AF65-413C1D325DBA}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_14.Behavior行为_分布式事务CAP_2PC理论讲解及如何使用WCF进行跨机器分布式事务处理</RootNamespace>
-    <AssemblyName>14.Behavior行为：分布式事务CAP,2PC理论讲解及如何使用WCF进行跨机器分布式事务处理</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ProductWcfService</RootNamespace>
+    <AssemblyName>ProductWcfService</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
@@ -34,6 +35,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,20 +45,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IProductService.cs" />
+    <Compile Include="ProductService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="0114wcf分布式事务之2pc的client断点未提交.png" />
-    <Content Include="0214wcf分布式事务之2pc的client断点未提交的数据库状态.png" />
-    <Content Include="0314wcf分布式事务之2pc的client断点未提交的数据库状态,长时间变成超时.png" />
-    <Content Include="14Point.txt" />
-    <Content Include="3.jpg" />
-    <Content Include="OrderDB.sql" />
-    <Content Include="ProductDB.sql" />
+    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
+      <Project>{ed5680fc-06ce-4a4f-a729-30d0a3e17c2a}</Project>
+      <Name>BusinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{832609fc-e4e2-4566-9515-7726b57e6dba}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
 </Project>

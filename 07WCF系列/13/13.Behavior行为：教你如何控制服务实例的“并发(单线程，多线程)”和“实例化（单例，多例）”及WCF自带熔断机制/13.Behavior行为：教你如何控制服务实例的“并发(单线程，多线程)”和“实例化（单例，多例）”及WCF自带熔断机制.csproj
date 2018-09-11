@@ -64,6 +64,9 @@
   <ItemGroup>
     <Content Include="1.jpg" />
     <Content Include="13Point.txt" />
+    <Content Include="13服务行为之实例行为和并发行为既precall+single.png" />
+    <Content Include="13服务行为之实例行为和并发行为既single+multiple.png" />
+    <Content Include="13服务行为之实例行为和并发行为既single+single.png" />
     <None Include="Connected Services\ServiceReference1\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
