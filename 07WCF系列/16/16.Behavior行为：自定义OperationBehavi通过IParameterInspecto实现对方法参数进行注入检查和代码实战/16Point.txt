@@ -328,6 +328,7 @@ item.OperationBehaviors.Add(new MyOperationBehavior(5));
 
 
 
+、
 
 
 一：操作行为（OperationBehavior） 【AOP编程】
