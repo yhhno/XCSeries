@@ -1,16 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3D87A060-17FE-4645-9975-D9097FAB0C42}</ProjectGuid>
+    <ProjectGuid>{39327C1B-FC1C-41C3-81FA-64567622A9A8}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_17.Security安全_巧用IEndpointBehavior在Client和Server对message进行零注入拦截修改实现身份验证</RootNamespace>
-    <AssemblyName>17.Security安全：巧用IEndpointBehavior在Client和Server对message进行零注入拦截修改实现身份验证</AssemblyName>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WcfService</RootNamespace>
+    <AssemblyName>WcfService</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,6 +37,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,25 +48,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HomeService.cs" />
+    <Compile Include="IHomeService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="中心主题.xmind" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="17IEndpointBehavior在Client和Server对message零注入拦截01service端输出message.png" />
-    <Content Include="17IEndpointBehavior在Client和Server对message零注入拦截02client端输出message.png" />
-    <Content Include="17IEndpointBehavior在Client和Server对message零注入拦截03service和client输出message信息.png" />
-    <Content Include="17IEndpointBehavior在Client和Server对message零注入拦截添加验证01.png" />
-    <Content Include="17IEndpointBehavior在Client和Server对message零注入拦截添加验证02.1.png" />
-    <Content Include="17IEndpointBehavior在Client和Server对message零注入拦截添加验证02.2.png" />
-    <Content Include="17IEndpointBehavior在Client和Server对message零注入拦截添加验证02.3.png" />
-    <Content Include="17IEndpointBehavior在Client和Server对message零注入拦截添加验证02.4.png" />
-    <Content Include="17IEndpointBehavior在Client和Server对message零注入拦截添加验证02.0.png" />
-    <Content Include="17IEndpointBehavior在Client和Server对message零注入拦截添加验证03.png" />
-    <Content Include="17Point.txt" />
+    <ProjectReference Include="..\Lib\Lib.csproj">
+      <Project>{f831f9d5-2602-42b2-906e-cdc1ef93dafb}</Project>
+      <Name>Lib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
 </Project>

@@ -308,10 +308,7 @@ ok接下来我们在说一个东西，
             Console.WriteLine("wcf启动成功！");
             Console.Read();
         }
-		问题2： 这个Attribute 应该可以想到  主方向  没有
-问题4：基础验证是通用的额，那基础组件的，基础设施呢？
-问题3：察觉大于5这种检查，有问题，也就是它提醒的不通用，，要学会总结，归纳，
-问题3.1并一步一步思考，不能不动脑筋，拿来就用，  不经过逻辑思考，一步一步去落实，是掌握不了的，同样也做不出正确判断。
+
 问题6.要思考如何实现，要尝试独立去解决，不能老是依靠别人， 我就是追求这个呀，如果能独自得到下面的思考，就是极好，
 问题6.1.host.Description.Endpoints[0]  说明一个啥问题，[MyOperationBehavior(5)]也是同样的问题，
 问题6.2 主方向 给方法加attribute，一个是在方法体上，一个是代码， 不能只看到方法体就意味了一切， 缺少主方向
@@ -328,7 +325,7 @@ item.OperationBehaviors.Add(new MyOperationBehavior(5));
 
 
 
-、
+
 
 
 一：操作行为（OperationBehavior） 【AOP编程】

@@ -1,4 +1,413 @@
-一：WCF安全验证
+wcf,rabbitmq,asp.net core 分布式视频，鬼谷子，麻宁这么好的东西，我怎么能忍受它放在那里睡大觉呢？ 不赶快吸收吸收，就算装装逼也好呀，是不是？
+
+情绪上怎么样? 小事情，搞的定，一步一步来，不要有过多的任务压在心头，与完事开头难的矛盾， 退缩是不存在额，没有在怕的。=》  主动的话，这些问题就可能不存在，反而有其他更好地东西出现
+我是来学学习能力的，学习方法论的，不仅仅是知识？ 不是学完就万事大吉了，=》本质
+这个点没有评价好坏，未来的预期也没有评价好坏？
+每个东西，都要深挖，不能只是了解它的作用，
+每个新东西，旧东西， 其实都不难，调整好状态，跨出第一步，步步踏实，有啥难的，一多半都是自己吓自己。
+既然心理作用这么大，我们可以怎么做呢？  之前用代入感，现在用成功者，也就是未来者（儿子清华，女儿北大）， =》积极主动
+来句革命性的，这些东西真的有那么重要的吗？遇到它我不想学，产生退缩，我的一切都完了吗？ 当然不是的，我当然不是整天要面对不是这些事情，这些都是实现方式之一，人需要有哲学的角度，出一套指导思想，把一切都简略的画出来，然后去填空，而目前呢，只是在做填空的那一步，就像一个没有思想的人，那就是一个不知道为什么这么做的人在做事情，此时积极的发挥不出来，消极的全部放大，导致进展不下去。 
+我们是思考抽象的高层次东西，怎么可以困在低层次的范围内呢？ 对不对？
+
+必须要有整体上的认识，才可以去理解其中的概念，名词，底层的流程，抽象的流程，抽象的概念 大局观
+各个点的知识知道了，但流程是什么呢？ 如何联系在一起呢？逻辑呢？  如何才算是理解透彻？概念的透彻，流程的透彻
+什么是理解透彻呢？ 就是画一张图来概括，一定要学会这种方式， 知识点都串起来了，形象生动。记忆深刻  
+##note###重大问题，基础知识不系统，不全面，有缺失，而且还不清晰牢固
+
+之前总结，反思了很多东西，为什么效果平平呢？ 很大可能是激情没有涉及，（我一定杀20个人呢，）=>起势的东西没有。=》有了起势的结果是什么？=》遇到新东西一定搞明白，事情一定要完成，还有呢？
+我就是要知道，既然是学习知识，首先先学到知识，然后在学到学习方法，如何实现呢？
+感觉越学越简单，越容易，他妈的就是很简单嘛。
+我相信只要我持续的思考，学习，我一定能掌握一套东西，然后学任何的东西都得心应手，都透彻，然后都应用的很好《=《精神层面最重要，不然就没有行动上的启动了，更别说方法的改进了和知识点的累积了》=>有一个方针，或者标准 如成才四标准和人际关系三种关系
+
+ 解决IT企业的信息孤岛问题。=》根本就没理解这句话的含义，，不够聪明。不够，缺点啥呢 另外，我们往往仅仅着眼于运用，更进一步是实现，但是都不是从0开始，演变也不清楚，当然更别谈什么导致了演变，环境的变化，（这是基本情况的梳理） 更别谈了，种种的归类，总结，对比（这是提炼出理论，抽象的东西）
+
+ 他学习得到东西和我学习得到的东西，为啥不一样？ 是由什么造成的呢？ 我也来对比下，（当然分自学和别人教授两种情况了）
+问题的出现，都是能力的欠缺或者是不足造成的额， 此时的重点是补全能力，而不是关注表面的东西，======》》》》总结能力，必须总结，这是最终的关键地方
+如果我没有了学习视频，自我学习一个技术，一个领域咋办呢？
+
+问题7：谁有什么？ 一定要搞清楚，不能乱套用，都不清晰，当然稀里糊涂的，一定要界定清楚，说明学习时方式有问题，或者总结时有问题=》引申个大问题，你遇到的各种问题是因为你不具备某种能力，如果你具备了能力，这就不是问题，而是做事的步骤而已，它就不会拦着你，此时就不知道怎么办？心态也变得不好，（为什么有了问题就心态不好呢，长久的不能解决问题造成的），出现的次数多了，当你再遇到问题时，就是一个扭曲的心态了， 扩散到一个的方方面面，那这个人就出了问题， 就在你出了问题后，你也不知道该怎么做？ 去纠正也不知道怎么做？只能头疼医头，脚疼医脚，一个问题接着一个问题，貌似解决了问题，但是心态一点都没有改变，更有可能因为问题的不断出现，导致心态越来越差
+问题2：交互，只想到在powshell中去操作，而且还有可能困在这个操作中，觉得好难哦，根本就没想到交互，用C#代码交互， 这说明知识面不够，仅仅满足于当前，没有更进一步的思考。
+问题8：都是承载wcf，iis中有什么不同呢？=》环境变了，其他的东西变了吗？=》要察觉到环境变了，=》然后看到底细节有哪些不同，=》webconfig有什么不同？ 我们们发现
+问题9: 对哦，既然这个项目不是部署到iis上的，所有当你调试的时候，能够启动成功，说明就是运行在iis环境上，=》察觉
+问题10：很多情况就是我们对整个流程不清楚的情况下，去看概念，去应用，这样是不正确的
+问题5:在听到这段话的时，蒙蒙的，不知道是啥意思？不理解，  其实很简单了，你要了解这个逻辑过程，再来理解这些操作就很好理解了，就是client在message上加东西，然后service端获取。再验证client加的东西，，很多时候别人都只会说加用户名密码，不会说背后的逻辑过程，这样的话，我们不知道这个逻辑过程，就不能理解说的是什么？为什么要这么做？=>同样的道理，直接看到回绝这个请求，我们根本不理解它是怎么做的？
+
+
+能力的总结
+1.轻松的的心态，把所有的经历都专注在你要做的事情上，其他的任何东西都不要，本身要搞清楚，搞透彻，(关键是找准主方向)，然后延伸，发散，优化，总结等（满足于当前，没有更进一步的思考。）=》发散与集中，战略上发散，战术上集中
+2.一个大的工具如wcf，一个小的方面，如wcf中behavior，都需要了解知识点，概念，运作机制，然后再一步一步的走下去，这样才算是理解透彻，甚至还包括修改参数带来的影响。=》这是学习知识的问题
+3.找准主方向，一切都会迎刃而解的，关键如何找到主方向呢？ =》主方向是脉络清晰的升级，更进一步。
+4.要开心快乐。
+5.逻辑过程+运行机制+主方向
+
+
+开始本节课前，应该思考这些东西 0.积极的心态 1,这节课讲的是什么，大概概况，解决的问题，2。新知识还是旧知识 3.旧的话自己的本身的认识是什么？用到饿了那些什么样的基础知识 4.新知识的话，该怎么办？5.根据用途猜想下它的实现 6.
+结束本节课后，应该思考这些东西 1.学到的知识是什么？心中是否清晰？2.自己独立思考下 3.和自己预想的有什么不一样？ 4.有什么方法或者思维或者见识可以借鉴 5.总结下
+
+
+
+
+问题1：之前根本都没涉及到安全，也就是心中没有个安全的概念，大框架里没有，没有在考虑的范围内， 就是思考的时候，他不在思考范围
+问题2： 新名字  消息级  线路级  消息级就是在消息层面做处理，那xx级是什么意思呢？
+问题3：标准 之后，选择
+问题4：我为什么没有想到呢？ 逻辑过程 不存在=》也是理解不深刻的原因，不能活学活用，举一反三的原因，
+问题4:之前就没有考虑对外，对内， 一律是写了调用，或者demo级别，net程序互动
+问题5:在听到这段话的时，蒙蒙的，不知道是啥意思？不理解，  其实很简单了，你要了解这个逻辑过程，再来理解这些操作就很好理解了，就是client在message上加东西，然后service端获取。再验证client加的东西，，很多时候别人都只会说加用户名密码，不会说背后的逻辑过程，这样的话，我们不知道这个逻辑过程，就不能理解说的是什么？为什么要这么做？=>同样的道理，直接看到回绝这个请求，我们根本不理解它是怎么做的？
+问题7：（为什么不行呢？为啥没考虑呢？） =》逻辑过程没执行呀
+问题6：同样的问题， 问题5的问题
+问题7:对比
+问题8：拦截器，监控都是指同一个事情
+问题7： 看到这个代码，不要惊慌，一步一步思考下，不能说只看到了在方法体上加attribute，看到这个就慌了。
+问题9：我们可能会执着于ApplyClientBehavior和ApplyDispatchBehavior怎么执行，而陷入困境，比如他两个写在一起，是不是要一起执行呢？ 前面画图的时候，怎么没有想象endpointbehavior 是怎么用的呢？ 说明逻辑过程细节还是不够？结合后面：两个地方肯定不是用一个了，但是就新建一个，这说明什么？ 一个endpointbehavior两个地方使用
+问题9：老问题，经常用管理员模式启动，忘记了还有其他方法=》主方向缺失
+问题10： 就需要这样的一个逻辑过程，先可以看别人，然后总结，再必须自己总结，  =》不止一次哦，
+问题8：这个问题，应该要考虑到，因为啥呢？情况变了，所有的东西都需要再捋一遍，=》这是个错误的潜意识，一次成了，不会再一次的走一遍逻辑过程。
+
+
+
+
+大家好，这节课就和大家说下wcf的安全
+问题1：之前根本都没涉及到安全，也就是心中没有个安全的概念，大框架里没有，没有在考虑的范围内， 就是思考的时候，他不在思考范围
+那么说到安全的话呢， ，大家应该可以想得到 什么叫安全
+那么我们的wcf在之前所有的课程中，给大家讲到的，都是 任何人都可以调用，对不对 因为我们毕竟没有任何安全方面的事情，
+其实wcf做安全是可以做的，
+问题2： 新名字  消息级  线路级  消息级就是在消息层面做处理，那xx级是什么意思呢？
+它分为消息级和线路级
+那么当然的话呢，wcf通常来说的话，它使用ssl证书  这个大家可以在一些网站上可以看的到， 比如说淘宝 地址栏左边有个证书标志  这个用于传输上的加密
+ok，wcf的话， 他通常来说，也是需要证书的， 但是的话呢， 证书是要花钱买的额，大概一个主域名4000多块一年，
+问题3：标准 之后，选择
+所以说的话我们实际用wcf开发的话，也不需要什么证书  当然我们在ios下开发的话，一定要有证书的  2017 1月开始 这是苹果官方必须的，所以说的话呢， 如果说你写了一些对ios的一些webapi接口的话，那肯定的话，你是需要使用证书的，
+正常开发中，我们不希望使用证书，因为毕竟太贵了，
+所以说我们不使用证书有哪些手段呢？其实的话还有更多有意思的手段
+我们在讲endpoint的时候，不知道大家还有没有人记得，当时的话我们做了service端的一个监控，其实的话呢， service端 一个方法调用了一个方法大表，对吧，，当时用到了一个自定义的IEndpointbehavior，那这个behavior的话，其实它不光可以在service端进行插入，它在client端，同样也是可以的，
+问题4：我为什么没有想到呢？ 逻辑过程 不存在=》也是理解不深刻的原因，不能活学活用，举一反三的原因，
+这就说明了什么呢？说明了，client端先到 client端的enpointbehavior，然后到service端的endpointbehavior，然后到service端，
+那返回也是一样的额，
+从service端，先到service端的endpointbehavior，再到client端的endpointbehavior，再到client端，
+那这时候呢，我们怎么做呢？
+我们既然不使用证书的话呢，我们可以在client和service的两个endpointbehavior中做一些手脚，
+下面我也写到了，
+1. 如果对方是C#程序，可以在client和service端在header中增加参数再使用消息拦截，这样两边都不需要额外代码。
+
+2. 如果对方是非C#程序，可以使用一个登陆接口，获取token参数之后，client在以后的每个调用中都需要传递token参数。
+问题4:之前就没有考虑对外，对内， 一律是写了调用，或者demo级别，net程序互动
+如果你的wcf是对外的话，那么增加验证是必须的额， 我们不希望每个人都能调用我们的wcf服务
+那么，如果对方是C#程序的话，就是说你net程序互动，那可以在这个 header参数中，增加消息拦截， 那这个header参数中，我们加什么呢？ 加用户名和密码，
+问题5:在听到这段话的时，蒙蒙的，不知道是啥意思？不理解，  其实很简单了，你要了解这个逻辑过程，再来理解这些操作就很好理解了，就是client在message上加东西，然后service端获取。再验证client加的东西，，很多时候别人都只会说加用户名密码，不会说背后的逻辑过程，这样的话，我们不知道这个逻辑过程，就不能理解说的是什么？为什么要这么做？=>同样的道理，直接看到回绝这个请求，我们根本不理解它是怎么做的？
+简单的道理就是说，我们在client端的endpointbehavior中注入用户名密码，进去， 就是set进去，我们在service端的endpointbehavior中进行get，验证，如果说你get的用户名密码不通过验证， 那么我们这个请求我们直接回绝掉，不知道大家有没有懂这个意思？
+
+问题7：（为什么不行呢？为啥没考虑呢？） =》逻辑过程没执行呀
+如果说你是非C#的程序，比如说java，header方法就不行饿了，要么给证书， 给证书，很多人基本上实现不了的，要么是在每个函数上面加上一个token， 那就是什么意思呢？那就是说我们先登录，登录完后之后，给一个token过来，client拿到token后，在每次调用的时候，把这个token带过去
+问题6：同样的问题， 问题5的问题
+ service有一个login函数，那我客户端呢，首先是调用login函数，进行登录，返回token，接下来我们client端做的各种操作，都带上token，那么我们可以在哪个地方验证呢？我们可以在service端的endpointbehavior中，对这个token参数进行验证，
+ 这就是一个C#类的验证和一个非C#类的一个验证， 非C#类的就相对复杂点，因为你的client端的所有函数调用都需要带上这个token，
+ 这个非C#类的 我们先不管， 这个大概是给大家说下思路，
+ 我们先演示下C#类的额，因为我们绝大多数程序，还是net程序互通，对不对，
+ ok，接下来，我们来演示下，
+新建个类库，新建个类MyEndpointbehavior，实现IEndpointbehavior接口，并引用system.servicemodel
+ public class MyEndpointBehavior : IEndpointBehavior
+    {
+
+        public string UserName { get; set; }
+
+
+        public string Password { get; set; }
+
+        public MyEndpointBehavior()
+        {
+
+        }
+
+
+        public MyEndpointBehavior(string username, string password)
+        {
+            this.UserName = username;
+            this.Password = password;
+        }
+
+        public void AddBindingParameters(ServiceEndpoint endpoint, BindingParameterCollection bindingParameters)
+        {
+        }
+
+        /// <summary>
+        /// 这个是在 client 端实现的
+        /// </summary>
+        /// <param name="endpoint"></param>
+        /// <param name="clientRuntime"></param>
+        public void ApplyClientBehavior(ServiceEndpoint endpoint, ClientRuntime clientRuntime)
+        {
+            clientRuntime.ClientMessageInspectors.Add(new MyClientMessageInspector(this.UserName, this.Password));
+        }
+
+        /// <summary>
+        /// 这个是 service 端实现的
+        /// </summary>
+        /// <param name="endpoint"></param>
+        /// <param name="endpointDispatcher"></param>
+        public void ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
+        {
+            endpointDispatcher.DispatchRuntime.MessageInspectors.Add(new MyDispatchMessageInspector());
+        }
+
+        public void Validate(ServiceEndpoint endpoint)
+        {
+
+        }
+    }
+
+	ApplyClientBehavior 应用到client端的behavior，所以要在这里添加client的behavior，等下新建个，
+	ApplyDispatchBehavior 应用到service端的behavior
+
+ApplyDispatchBehavior添加代码。实现service端
+enpoint调度，这个调度有一个运行时，运行时的话有一个MessageInspectors 消息拦截器，或者叫监控，我们自定义一个DispatchMessageInspector接口
+endpointDispatcher.DispatchRuntime.MessageInspectors.Add(new MyDispatchMessageInspector());
+
+新建MyDispatchMessageInspector类，实现IDispatchMessageInspector接口，并添加验证逻辑代码。
+  public class MyDispatchMessageInspector : IDispatchMessageInspector
+    {
+        public object AfterReceiveRequest(ref Message request, IClientChannel channel, InstanceContext instanceContext)
+        {
+            //request.Headers.Add(MessageHeader.CreateHeader("username", "", username));
+            //request.Headers.Add(MessageHeader.CreateHeader("password", "", 12345));
+
+            var username = request.Headers.GetHeader<string>("username", "");
+            var password = request.Headers.GetHeader<string>("password", "");
+
+            if (username == "ctrip" && password == "12345")
+            {
+                return request;
+            }
+            else
+            {
+                throw new Exception("用户名或者密码错误");
+            }
+        }
+
+        public void BeforeSendReply(ref Message reply, object correlationState)
+        {
+
+        }
+    }
+
+
+
+service端做好了，client端我们怎么实现呢？
+client运行时，下有个clientmessage拦截器，或者监控
+clientRuntime.ClientMessageInspectors.Add(new MyClientMessageInspector(this.UserName, this.Password));
+我们新建MyClientMessageInspector，实现IClientMessageInspector接口，添加system.serivcemodel.
+
+ public class MyClientMessageInspector : IClientMessageInspector
+    {
+        public string UserName { get; set; }
+
+
+        public string Password { get; set; }
+
+        public MyClientMessageInspector(string username,string password)
+        {
+            this.UserName = username;
+            this.Password = password;
+        }
+
+        public void AfterReceiveReply(ref Message reply, object correlationState)
+        {
+
+        }
+
+        /// <summary>
+        /// 发送之前
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="channel"></param>
+        /// <returns></returns>
+        public object BeforeSendRequest(ref Message request, IClientChannel channel)
+        {
+            //1. 进行用户名，密码的塞入操作
+            var username = this.UserName;
+            var password = this.Password;
+
+            request.Headers.Add(MessageHeader.CreateHeader("username", "", username));
+            request.Headers.Add(MessageHeader.CreateHeader("password", "", password));
+
+            Console.WriteLine(request.ToString());
+            return request;
+        }
+    }
+问题7:对比
+这个接口，我们发现和service端的方法也是差不多的，
+BeforeSendRequest 是在发送之前，所以说我需要在这个地方写代码，写什么代码呢，添加用户名密码的代码呀，那怎么添加到message上呢？
+还是一样的，我要看下client端它传过来的是什么参数？就是message的形式
+
+问题8：拦截器，监控都是指同一个事情
+此时我们的client段和service的endpointbehavior都已经写好饿了，也就是做了个监控，
+接下来我们就要把程序运行起来了，  
+service端的webconfig，改成本机的端口，因为要调试service端，我们用管理员启动
+启动service端
+client添加服务引用
+client端，添加调用代码
+ static void Main(string[] args)
+        {
+            HomeServiceClient client = new HomeServiceClient();
+            client.DoWork("hello world!");
+   
+            Console.Read();
+        }
+接下来我们就要去安插 就是应用写好的MyEndpointbehavior
+问题7： 看到这个代码，不要惊慌，一步一步思考下，不能说只看到了在方法体上加attribute，看到这个就慌了。
+serivice端，当然这是个基础验证，
+ static void Main(string[] args)
+        {
+            ServiceHost host = new ServiceHost(typeof(HomeService));
+
+            host.Description.Endpoints[0].EndpointBehaviors.Add(new MyEndpointBehavior());
+
+            host.Open();
+
+
+            Console.WriteLine("wcf启动成功！");
+            Console.Read();
+        }
+
+问题9：我们可能会执着于ApplyClientBehavior和ApplyDispatchBehavior怎么执行，而陷入困境，比如他两个写在一起，是不是要一起执行呢？ 前面画图的时候，怎么没有想象endpointbehavior 是怎么用的呢？ 说明逻辑过程细节还是不够？结合后面：两个地方肯定不是用一个了，但是就新建一个，这说明什么？ 一个endpointbehavior两个地方使用
+那同样的道理。我们client怎么去安插或者应用myendpointbehavior呢？
+ static void Main(string[] args)
+        {
+            HomeServiceClient client = new HomeServiceClient();
+
+            client.Endpoint.EndpointBehaviors.Add(new MyEndpointBehavior("hxc","asdfd"));
+
+                client.DoWork("hello world!");
+
+            Console.Read();
+        }
+注意此时我们，还没有添加用户名和密码，只是看看client发过来的消息是什么样的，然后决定如何添加用户名密码。
+MyEndpointBehavior既可以在servive端进行追加，也可以在client端进行追加，
+打开fiddler，
+重要的节点，打上断点，
+
+启动service端，启动client端
+问题9：老问题，经常用管理员模式启动，忘记了还有其他方法=》主方向缺失
+或者我们不用管理员模式，使用console.writeline（）函数把message输出就可以了
+输出不同的信息
+
+然后我们要在client端的endpointbehavior，进行塞入的操作，怎么塞入呢？
+
+
+问题10： 就需要这样的一个逻辑过程，先可以看别人，然后总结，再必须自己总结，  =》不止一次哦，
+比如说
+首先我们要有一个用户名和密码
+接下来我们要做一个操作了。这个地方我们可以拿到一个header，我们就是要把用户名和密码塞入到header中去，怎么就忘了呢？
+所以拿到header之后，做一个add操作
+  public object BeforeSendRequest(ref Message request, IClientChannel channel)
+        {
+            //1. 进行用户名，密码的塞入操作
+            var username = this.UserName;
+            var password = this.Password;
+
+            request.Headers.Add(MessageHeader.CreateHeader("username", "", username));
+            request.Headers.Add(MessageHeader.CreateHeader("password", "", password));
+
+            Console.WriteLine(request.ToString());
+            return request;
+        }
+我们完成了在client端的塞入
+然后我们在service端，把它给取出来，并验证，这个类要添加序列化引用，就是system.runtime.serialization   为什么要添加呢？因为我们看到了message在传输的时候是字符串，也就是已经序列化之后的东西，此时我们是类，所以要反序列化成类，所以就需要序列化引用
+ public object AfterReceiveRequest(ref Message request, IClientChannel channel, InstanceContext instanceContext)
+        {
+            //request.Headers.Add(MessageHeader.CreateHeader("username", "", username));
+            //request.Headers.Add(MessageHeader.CreateHeader("password", "", 12345));
+
+            var username = request.Headers.GetHeader<string>("username", "");
+            var password = request.Headers.GetHeader<string>("password", "");
+
+            if (username == "ctrip" && password == "12345")
+            {
+                return request;
+            }
+            else
+            {
+                throw new Exception("用户名或者密码错误");
+            }
+        }
+
+
+然后启动，调试下，但是有个问题，用户名和密码是硬编码，
+
+下几个断点 serivice端又断点，client端也有断点
+我们可以看到首先是client端发出来的，对不对
+先进入MyClientMessageInspector  
+塞进去用户名密码
+然后进入service端
+再进入MyDispatchMessageInspector
+获取用户名密码并验证
+验证通过，
+
+如果是错误用户名密码，怎么处理错误信息呢
+service端 配置
+       <serviceDebug includeExceptionDetailInFaults="true"/>
+client端，输出错误信息
+ class Program
+    {
+        static void Main(string[] args)
+        {
+            HomeServiceClient client = new HomeServiceClient();
+
+            client.Endpoint.EndpointBehaviors.Add(new MyEndpointBehavior("hxc","asdfd"));
+
+            try
+            {
+                client.DoWork("hello world!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.Read();
+        }
+    }
+整个过程，发送，返回，都可以通过fiddler进行查看，
+
+这就是给大家介绍的通过 endpointbehavior 来实现的用户名密码登录的一个安全，  
+当然有些人觉得我的整个用户密码硬编码 写死的，当然你可以通过构造函数，把它拉出来
+        public string UserName { get; set; }
+        public string Password { get; set; }
+
+        public MyClientMessageInspector(string username,string password)
+        {
+            this.UserName = username;
+            this.Password = password;
+        }
+但是MyClientMessageInspector类实例化的时候的username 和password从哪里来呢，通过MyEndpointBehavior构造函数，把它拉出来
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public MyEndpointBehavior(string username, string password)
+        {
+            this.UserName = username;
+            this.Password = password;
+        }
+
+这样我们就把用户名密码，给它注入进去了，对不对
+问题8：这个问题，应该要考虑到，因为啥呢？情况变了，所有的东西都需要再捋一遍，=》这是个错误的潜意识，一次成了，不会再一次的走一遍逻辑过程。
+但是有个问题呢？ MyEndpointBehavior是两个地方使用，一个是需要用户密码，一个是不需要的，怎么办？
+两个构造函数就可以了
+public string UserName { get; set; }
+        public string Password { get; set; }
+		public MyEndpointBehavior()//service端使用
+        {
+
+        }
+        public MyEndpointBehavior(string username, string password)//client端使用
+        {
+            this.UserName = username;
+            this.Password = password;
+        }
+
+
+
+
+问题：单独面对安全验证 怎么办呢？
+一：WCF安全验证  
 
 
 安全：任何人都可以调用。。。
