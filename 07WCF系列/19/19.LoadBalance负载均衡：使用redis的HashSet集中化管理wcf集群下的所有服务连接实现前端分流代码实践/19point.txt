@@ -1,0 +1,51 @@
+一：nginx缺陷
+
+1.使用wcf大多还是同语言内通信，所以更多采用效率更高的tcp通信。
+
+  nginx开源版之适合http通讯。。。
+
+2. redis 【url】
+
+  client 从redis中获取地址。。。
+
+二：使用redis作为urls池
+
+ <1> 强依赖redis，那么redis可以做一个master - slave...
+
+ <2> redis访问次数。【client端缓存几秒钟】
+
+ <3> 还需要一个监控【urls】
+
+三：搭建
+
+1. https://redis.io/ redis下载  http://download.redis.io/releases/redis-4.0.2.tar.gz
+
+
+$ wget http://download.redis.io/releases/redis-4.0.2.tar.gz
+$ tar xzf redis-4.0.2.tar.gz
+$ cd redis-4.0.2
+$ make
+
+
+protected-mode no
+#bind 127.0.0.1
+
+
+防火墙的问题，如果是开的，请关掉。。。
+
+[root@localhost ~]# firewall-cmd --state
+not running
+
+
+C#驱动： StackExchange.Redis
+
+https://github.com/StackExchange/StackExchange.Redis/
+
+https://stackexchange.github.io/StackExchange.Redis/Basics
+
+
+四：zookeeper优化 
+
+https://item.taobao.com/item.htm?id=559102500362
+
+https://item.taobao.com/item.htm?spm=a1z10.3-c.w4002-14255538821.17.28d7554bRaX53w&id=547672364111

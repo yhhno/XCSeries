@@ -296,7 +296,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "16.Behavior行为：自定�
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "17.Security安全：巧用IEndpointBehavior在Client和Server对message进行零注入拦截修改实现身份验证", "17.Security安全：巧用IEndpointBehavior在Client和Server对message进行零注入拦截修改实现身份验证", "{2A6787CB-E1D6-43FC-8C2C-1647F8A28D1E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "18", "18", "{CBEC689E-5922-4FD5-ADC6-3E6C38BD5AB3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "18.LoadBalance负载均衡：使用反向代理nginx实现基于basicHttpBinding下的wcf负载均衡和xmind图分析", "18.LoadBalance负载均衡：使用反向代理nginx实现基于basicHttpBinding下的wcf负载均衡和xmind图分析", "{CBEC689E-5922-4FD5-ADC6-3E6C38BD5AB3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "19", "19", "{CF3C7BC5-F9EE-44B3-A339-1487F1B3690A}"
 EndProject
@@ -497,6 +497,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib", "07WCF系列\17\Lib\Lib.csproj", "{F831F9D5-2602-42B2-906E-CDC1EF93DAFB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfService", "07WCF系列\17\WcfService\WcfService.csproj", "{39327C1B-FC1C-41C3-81FA-64567622A9A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfService", "07WCF系列\18\WcfService\WcfService.csproj", "{D71317A8-F8C6-42B6-855F-E6E803D9AB3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1930,6 +1932,14 @@ Global
 		{39327C1B-FC1C-41C3-81FA-64567622A9A8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{39327C1B-FC1C-41C3-81FA-64567622A9A8}.Release|x64.ActiveCfg = Release|Any CPU
 		{39327C1B-FC1C-41C3-81FA-64567622A9A8}.Release|x64.Build.0 = Release|Any CPU
+		{D71317A8-F8C6-42B6-855F-E6E803D9AB3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D71317A8-F8C6-42B6-855F-E6E803D9AB3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D71317A8-F8C6-42B6-855F-E6E803D9AB3D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D71317A8-F8C6-42B6-855F-E6E803D9AB3D}.Debug|x64.Build.0 = Debug|Any CPU
+		{D71317A8-F8C6-42B6-855F-E6E803D9AB3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D71317A8-F8C6-42B6-855F-E6E803D9AB3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D71317A8-F8C6-42B6-855F-E6E803D9AB3D}.Release|x64.ActiveCfg = Release|Any CPU
+		{D71317A8-F8C6-42B6-855F-E6E803D9AB3D}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2139,6 +2149,7 @@ Global
 		{1643EB50-AF67-4FA6-832C-E160CDE5794F} = {BE39046F-6445-4116-900F-20E22B912980}
 		{F831F9D5-2602-42B2-906E-CDC1EF93DAFB} = {2A6787CB-E1D6-43FC-8C2C-1647F8A28D1E}
 		{39327C1B-FC1C-41C3-81FA-64567622A9A8} = {2A6787CB-E1D6-43FC-8C2C-1647F8A28D1E}
+		{D71317A8-F8C6-42B6-855F-E6E803D9AB3D} = {CBEC689E-5922-4FD5-ADC6-3E6C38BD5AB3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C685CC52-2105-4DA8-B34F-BD5C25B32492}
