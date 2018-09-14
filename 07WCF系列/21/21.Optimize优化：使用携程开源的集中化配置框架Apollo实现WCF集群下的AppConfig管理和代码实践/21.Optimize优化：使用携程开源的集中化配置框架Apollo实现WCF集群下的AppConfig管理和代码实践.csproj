@@ -50,6 +50,28 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="截图\21apollo集中化配置搭建01.png" />
+    <Content Include="截图\21apollo集中化配置搭建02.png" />
+    <Content Include="截图\21apollo集中化配置搭建03.png" />
+    <Content Include="截图\21apollo集中化配置搭建04.png" />
+    <Content Include="截图\21apollo集中化配置搭建05.png" />
+    <Content Include="截图\21apollo集中化配置搭建06.png" />
+    <Content Include="截图\21apollo集中化配置搭建07.png" />
+    <Content Include="截图\21apollo集中化配置搭建08.png" />
+    <Content Include="截图\21apollo集中化配置搭建09.png" />
+    <Content Include="截图\21apollo集中化配置搭建10.png" />
+    <Content Include="截图\21apollo集中化配置搭建11.png" />
+    <Content Include="截图\21apollo集中化配置搭建12.png" />
+    <Content Include="截图\21apollo集中化配置搭建13.png" />
+    <Content Include="截图\21apollo集中化配置搭建14.png" />
+    <Content Include="截图\21apollo集中化配置搭建15.png" />
+    <Content Include="截图\21apollo集中化配置搭建16.png" />
+    <Content Include="截图\21apollo集中化配置搭建17.png" />
+    <Content Include="截图\21apollo集中化配置搭建18.png" />
+    <Content Include="截图\21apollo集中化配置搭建19.png" />
+    <Content Include="截图\21apollo集中化配置搭建20.png" />
+    <Content Include="截图\21apollo集中化配置搭建21.png" />
+    <Content Include="截图\21apollo集中化配置搭建22.png" />
     <Content Include="21Point.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
