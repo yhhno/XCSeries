@@ -1,16 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3749D904-4266-4BF0-9293-9AAFD1AE9301}</ProjectGuid>
+    <ProjectGuid>{52636BFA-0216-442B-A80E-70FA44220DE9}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_22.WCF新功能_介绍基于webSocket协议的NetHttpBinding和基于UDP的UdpBinding代码实践</RootNamespace>
-    <AssemblyName>22.WCF新功能：介绍基于webSocket协议的NetHttpBinding和基于UDP的UdpBinding代码实践</AssemblyName>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WcfService</RootNamespace>
+    <AssemblyName>WcfService</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,6 +37,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,23 +48,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LoginService.cs" />
+    <Compile Include="ILoginService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="新建 Microsoft PowerPoint 2007 幻灯片.pptx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="22Point.txt" />
-    <Content Include="截图\22wcf新功能之udp01.png" />
-    <Content Include="截图\22wcf新功能之udp02.png" />
-    <Content Include="截图\22wcf新功能之udp03.png" />
-    <Content Include="截图\22wcf新功能之websocket01.png" />
-    <Content Include="截图\22wcf新功能之websocket02.png" />
-    <Content Include="截图\22wcf新功能之websocket03.png" />
-    <Content Include="截图\22wcf新功能之websocket04.png" />
-    <Content Include="截图\22wcf新功能之websocket05.png" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
 </Project>
