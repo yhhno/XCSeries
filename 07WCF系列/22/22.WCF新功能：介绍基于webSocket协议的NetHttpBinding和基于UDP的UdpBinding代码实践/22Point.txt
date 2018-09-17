@@ -220,6 +220,9 @@ udp的话，在最开始之前，wcf是不支持的， 后来是加上了
 udp的话，大家都知道它是一个数据暴走的一个协议，对吧，比如说我们以前看cctv5足球，它采用就是udp的一个协议， 我们经常会看到一个卡机，或者丢失部分数据，
 
 问题3：为什么tcp和udp不能使用基地址呢？ 而websocket可以使用呢
+不知道udp地址怎么写？ 百度呀，或者官方文档搜索呀
+https://msdn.microsoft.com/zh-cn/library/hh556229(v=vs.110).aspx
+
 配置文件
     <services>
       <service name="WcfService.HomeService">
