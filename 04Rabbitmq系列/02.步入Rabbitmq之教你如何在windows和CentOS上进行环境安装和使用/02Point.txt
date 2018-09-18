@@ -1,3 +1,81 @@
+终极问题：怎么样的状况，我自己去学东西时能有这效果呢？=》是对一个事情真正认识的例子，作为对比。=》也类似于，我到底要掌握什么样的能力，=》才能像优秀的人一样，才能做好每一件事呢。=》我们根本就没有逻辑过程这个意识。=》心中事先没有个预想的过程。
+终极要求： 我不是靠着经验去做事的，去活的。 
+
+我怎么忘了之前是多么的优秀呢？
+既然他没有很多新的概念，所以我就可以很快速的去完成，
+
+
+问题6：这就是http协议vs 之前接触http协议是什么样子呢？http和request，根本就没关联起来，这说明了什么?=>当时的学习方式有问题，非常片面，不系统，导致只是简单了解下，对底层知识这种程度的了解 怎么能去学习更高层次的知识呢？
+
+
+
+问题1：有激情，迫切  就有动力
+问题2：缺少逻辑过程
+问题2.1 对比下嘛，也许看到有趣的，自己去扩展下呢
+问题3：可视化观察很重要，观察=监视   环境变量
+ 问题3：心中事先没有个预想的过程。
+ 问题2：之前没有想过，为啥要安装这些东西，只是无意识的照做。
+ 问题4：浏览概况，各种扩展插件，啥意思呢？=》增加功能=》那能不能自己加个呢。
+问题5：程序的启动有哪几种方式？Windows服务，console
+
+
+大家好，那么上节课给大家介绍了rabbitmq整体的一个框架图，
+这节课就给大家去讲下，如何去下载
+问题1：有激情，迫切  就有动力
+因为我们已经非常急迫的想见到rabbitmq，
+首先的话，我们去看windows下怎么去下载，
+问题2：缺少逻辑过程
+首先我们想下，rabbitmq是用erlang编写，所以理所当然，我们要下载erlang  去官网了
+下载了erlang之后呢， 我们就可以下载这个rabbitmq 这个erlang应用程序了，  去官网了
+问题2.1 对比下嘛，也许看到有趣的，自己去扩展下呢
+其实安装程序在windows上是非常智能的，
+分别安装erlang和rabbitmq。
+问题3：可视化观察很重要，观察=监视   环境变量
+然后在来安装一个web监控插件，其实也是可视化的观察我们的rabbimq
+当然我们也可以设置成环境变量，这样我们可以少写很多代码  我们把它放到path里面去，
+ http://127.0.0.1:15672/#/  所有的东西都一目了然。
+
+ ok windows上的安装是不是非常简单，而且 web可视化工具，我们还可以做queue的添加，  是不是很简单
+   rabbitmq的启动  在windows平台上是一个 service服务。
+
+ 问题3：心中事先没有个预想的过程。
+centos安装，同样我们要先安装erlang。然后再装rabbitmq
+可以在window上下载好，然后拖到centos中，
+解压
+问题2：之前没有想过，为啥要安装这些东西，只是无意识的照做。
+然后安装各种驱动=》啥意思？ 也就是erlang的依赖库
+ yum -y install make gcc gcc-c++ kernel-devel m4 ncurses-devel openssl-devel unixODBC-devel
+ 驱动安装完了额，我们就可以做环境变量的配置，
+ ./configure --prefix=/usr/erlang --without-javac 
+ 然后编译，  也就是make，需要点时间  是通过源代码编译
+ 然后 make install
+ erlang装好了
+
+ 问题4：浏览概况，各种扩展插件，啥意思呢？=》增加功能=》那能不能自己加个呢。
+ 我们看下rabbitmq目录下有什么东西
+ plugins目录下是各种插件，也就说我们可以扩展我们的rabbitmq， 比如说可视化wen监控，
+
+ 启动rabbimq 可以要设置环境变量，相当于windows环境下的环境变量
+ #set erlang environment
+export PATH=$PATH:/usr/erlang/bin
+
+#set rabbitmq environment
+export PATH=$PATH:/usr/rabbitmq/sbin
+
+然后重启，配置生效
+问题5：程序的启动有哪几种方式？Windows服务，console
+启动rabbitmq-server  此时有一个类似于redis的启动界面，而目前windows上木有发现呀， 也就是说可以用控制台的形式，也可以不用控制台，而是window服务形式
+启动完之后，我们还要做什么呢？
+启动插件
+
+rabbitmq的启动  在centos平台上是一个控制台形式，当然也可以做成一个开机自启动的
+
+
+ok,这就是rabbitmq在windows和centos上的安装
+
+
+
+
 一： windows 环境下的下载
 
 1. rabbitmq是用erlang语言编写的，对吧，所以里让当然要下载erlang。。。   OTP 19.1 Windows 64-bit Binary File 

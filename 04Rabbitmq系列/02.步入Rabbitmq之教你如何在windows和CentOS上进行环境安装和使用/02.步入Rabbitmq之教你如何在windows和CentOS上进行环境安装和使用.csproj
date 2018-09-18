@@ -50,6 +50,34 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="02Point.txt" />
+    <Content Include="截图\02rabbitmq之windows安装01.png" />
+    <Content Include="截图\02rabbitmq之windows安装02.png" />
+    <Content Include="截图\02rabbitmq之windows安装03.png" />
+    <Content Include="截图\02rabbitmq之windows安装04.png" />
+    <Content Include="截图\02rabbitmq之windows安装05.png" />
+    <Content Include="截图\02rabbitmq之windows安装06.png" />
+    <Content Include="截图\02rabbitmq之windows安装07.png" />
+    <Content Include="截图\02rabbitmq之windows安装08.png" />
+    <Content Include="截图\02rabbitmq之windows安装09.png" />
+    <Content Include="截图\2rabbitmq之centos安装01.png" />
+    <Content Include="截图\2rabbitmq之centos安装02.png" />
+    <Content Include="截图\2rabbitmq之centos安装03.png" />
+    <Content Include="截图\2rabbitmq之centos安装04.png" />
+    <Content Include="截图\2rabbitmq之centos安装05.png" />
+    <Content Include="截图\2rabbitmq之centos安装06.png" />
+    <Content Include="截图\2rabbitmq之centos安装07.png" />
+    <Content Include="截图\2rabbitmq之centos安装08.png" />
+    <Content Include="截图\2rabbitmq之centos安装09.png" />
+    <Content Include="截图\2rabbitmq之centos安装10.png" />
+    <Content Include="截图\2rabbitmq之centos安装11.png" />
+    <Content Include="截图\2rabbitmq之centos安装12.png" />
+    <Content Include="截图\2rabbitmq之centos安装13.png" />
+    <Content Include="截图\2rabbitmq之centos安装14.png" />
+    <Content Include="截图\2rabbitmq之centos安装15.png" />
+    <Content Include="截图\2rabbitmq之centos安装16.png" />
+    <Content Include="截图\2rabbitmq之centos安装17.png" />
+    <Content Include="截图\2rabbitmq之centos安装18.png" />
+    <Content Include="截图\2rabbitmq之centos安装19.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
