@@ -49,6 +49,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="01http协议.png" />
     <Content Include="QQ截图20161120125341.png" />
     <Content Include="01Point.txt" />
   </ItemGroup>

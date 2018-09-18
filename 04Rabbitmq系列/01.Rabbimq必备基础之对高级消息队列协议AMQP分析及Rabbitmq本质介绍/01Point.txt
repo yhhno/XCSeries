@@ -1,56 +1,253 @@
-MQ��һ����Ʒ������ ����Ϣ���С�
+﻿终极问题：怎么样的状况，我自己去学东西时能有这效果呢？=》是对一个事情真正认识的例子，作为对比。=》也类似于，我到底要掌握什么样的能力，=》才能像优秀的人一样，才能做好每一件事呢。
+终极要求： 我不是靠着经验去做事的，去活的。 
 
-1. MSMQ   windows�Դ���һ�����񡣡��� ��petshop����message������ļ�ϵͳ�С�
+我怎么忘了之前是多么的优秀呢？
+既然他没有很多新的概念，所以我就可以很快速的去完成，
 
-          ��ԭʼ����Ϣ���С�����
+
+问题6：这就是http协议vs 之前接触http协议是什么样子呢？http和request，根本就没关联起来，这说明了什么?=>当时的学习方式有问题，非常片面，不系统，导致只是简单了解下，对底层知识这种程度的了解 怎么能去学习更高层次的知识呢？
+
+
+问题0：怎么样的状况，我自己去学东西时能有这效果呢？=》是对一个事情真正认识的例子，作为对比。=》也类似于，我到底要掌握什么样的能力，=》才能像优秀的人一样，才能做好每一件事呢。
+问题1：来龙去脉，娓娓道来 ？ 不足然后引出专业的现代化的mq 多播
+问题2：局限性 导致新的队列出现 出现新的特性 如集群，消息确认，内存化，高可用，镜像等
+问题3：文本式，文件系统，文本=性能低，走磁盘
+问题4：我们了解一个东西，会怎么去了解呢？=》本质是什么？
+问题5：主方向 一句话就搞定了，=》之前完全没有这种操作，看的迷迷糊糊的，也许看到了erlang，看到了amkp协议，但是不会串起来看
+问题6：这就是http协议vs 之前接触http协议是什么样子呢？http和request，根本就没关联起来，这说明了什么?=>当时的学习方式有问题，非常片面，不系统，导致只是简单了解下，对底层知识这种程度的了解 怎么能去学习更高层次的知识呢？
+问题7：以前看到协议 就怕，为啥，其实很简单，当时的心态+学习的很简单的，看到复杂的东西就有点怕，导致理解不了，理解不了有没有坚持下去看，就放弃了，=》不理解协议的话，就导致后面以协议为基础的东西，不理解，就学不好了
+问题7.1 自己之前根本就没想过去看协议，更想过实现一个协议的产品=》啥原因造成的，所以说系统的学习，完整的底层知识，不可少，还有一个高水平的环境，能接触到高级的东西，
+问题7：遵循amkq协议，到底是指什么？
+问题9： 语言的选择，在于特性，同理数据结构的选择也在于特性， 用肯定是选择用的舒服的， 比如底层支持集群，我就不用自己去实现集群了
+问题8：为什么这么喜欢用图呢？此时是刚了解完元素，然后呢画个图，是了解下运行机制吗？
+问题8.1 充足的动力+积极的心态+正确的方式+正确的道理=》真正的掌握
+问题8.2  这样的学习和我之前的学习 有什么不同呢？到底不同点在在于哪里？本质的区别是什么呢？
+
+
+
+
+大家好，欢迎学习本系列课程rabbitmq 
+那首先的话，大家要知道rabbitmq是个什么东西？
+可能大家来学习的话，应该有一个最基本的认识，
+那就说rabbitmq是一个mq的一个产品， 对吧，全名叫做消息队列
+问题1：来龙去脉，娓娓道来 ？ 不足然后引出专业的现代化的mq 多播
+那么最为net程序员呢，
+我们接触到的第一个消息队列，会是什么呢？	 
+可能很多人接触到的是msmq， 对不对，
+msmq是微软的 也就是windows自带的一个服务  也就是说内嵌在windows上面的
+那具体在哪里呢？ 我们可以来看下
+我的电脑 管理  服务和应用程序  消息队列
+我们创建的消息队列在哪里呢,在专用队列里面
+我们可以看下怎么创建，新建 专用队列  输入mytest 而且我们可以标识它是事务的还是事务的，还可以看到是否是多播？
+这个是我们接触最早的 ，其实 当然也是我接触最早的一个项目petshop，也是讲经典三层的额， 这个里面它就用到了msmq
+当然msmq是最原始的消息队列，
+问题2：局限性 导致新的队列出现 出现新的特性 如集群，消息确认，内存化，高可用，镜像等
+为什么说他原始呢？
+因为它没有现代化消息队列概念？ 
+比如说集群，消息确认，内存化，高可用，镜像 等这些是我们专业mq所具备的基本特征，但在我们的msmq中是没有的， 
+什么意思呢？也就是说  msmq它是一种文本式的 就是说放到文件系统里面的的，所以说它不具有这些特性， 
+它是存放在文件系统里呢， 那到底在哪里呢？ 消息队列 右键  存储  看到目录 C:\Windows\System32\msmq\storage  我们去看下，
+问题3：文本式，文件系统，文本=性能低，走磁盘
+都是些文件，所以可想而知它的性能是多么的低，因为是文件系统嘛，讲到低它是走磁盘的，对不对，
+毕竟它没有这些特性很正常的，因为毕竟mq是80 90 年代的产品， 对不对，跟不上时代了。
+ok，我们来看下现代化的消息队列
+现代化的消息队列呢， 就已经有很多饿了，
+有java上专用的activeMQ  zeromq，还包括我们讲到的rabbitmq，activemq在java中用的还是非常非常多的， zeromq它是一个内存化的
+本系列课程着重去讲rabbitmq，
+问题4：我们了解一个东西，会怎么去了解呢？=》本质是什么？
+我们要知道rabbitmq 本质是一个什么东西
+讲到本质上是什么东西？ 我们首先要知道rabbitmq是用什么语言写的， 这个我们查下资料就会知道的 是erlang语言，
+问题5：主方向 一句话就搞定了，=》之前完全没有这种操作，看的迷迷糊糊的，也许看到了erlang，看到了amkp协议，但是不会串起来看
+rabbitmq其实是遵循amkp协议的一个erlang实现，那这句话是什么意思呢？ 也就是说我们rabbitmq只是一个产品的名字对吧，用erlang实现的， 也就是用erlang实现的 遵循amkp协议的产品，那这个产品就叫做rabbitmq，
+讲到这类大家可能对这个协议就非常感兴趣饿了，
+什么叫amkp协议，他叫做高级消息队列协议
+提到协议的话，大家应该还知道很多协议额， 
+问题6：这就是http协议vs 之前接触http协议是什么样子呢？http和request，根本就没关联起来，这说明了什么?=>当时的学习方式有问题，非常片面，不系统，导致只是简单了解下，对底层知识这种程度的了解 怎么能去学习更高层次的知识呢？
+比方说我们常见的http协议，对吧
+这个http协议，我们知道他有request，有response 而且的话呢  我们看下官网  f12 看到详细的请求内容，有request url， request method 等等 这些都是http协议规范中 要求的额， 也就说你必须要有， 你不有都不行 对不对  http协议是用浏览器实现的，
+那当然除了http协议，还有哪些协议呢？
+比方说telnet协议 叫做远程登录协议，对不对， 我们经常用它来看下，端口是否是通的， 既然是是远程登录协议，他必然也要实现一些规范，对不对， 
+问题7：以前看到协议 就怕，为啥，其实很简单，当时的心态+学习的很简单的，看到复杂的东西就有点怕，导致理解不了，理解不了有没有坚持下去看，就放弃了，=》不理解协议的话，就导致后面以协议为基础的东西，不理解，就学不好了
+既然是协议，那就是大家商量好的，拿有哪些是商量好的呢？ 细说 就不细说了
+我们来看下amkp协议它呢，是什么样的规范，那这个协议中规范了哪些东西呢？就是大家商量好的哪些东西呢？ 这些是需要我们知道的
+问题7.1 自己之前根本就没想过去看协议，更想过实现一个协议的产品=》啥原因造成的，所以说系统的学习，完整的底层知识，不可少，还有一个高水平的环境，能接触到高级的东西，
+AMQP 0-9-1 Complete Reference Guide  也就是rabbitmq实现的ampq协议的版本号。。。 就像我们http1.0 2.0一样
+它有哪些要素呢？
+   《1》 connection     => open,use,close   [open-ok,close,une-ok]
+
+   《2》 channel        => open,flow,close  [构建在connection之上，在amqp中常作为长连接。。。]
+
+   《3》 exchange       => 
+
+   《4》 queue
+
+   《5》 basic          =》发布 和 获取 message中的一些设置
+
+   《6》 tx             =》 事务处理
+
+   《7》 confirm        =》发布确认机制
+ 第一个要素要有connetion，conneciton有哪些呢、
+ 我们可以看到 它是工作在socket connection，要有open，use close
+ 这个open里面又有这个协议头， 有这个start 然后呢start ok  tune tuneok  open ok  然后sercure 然后是channel 然后close  、
+     connection          = open-connection *use-connection close-connection
+      open-connection     = C:protocol-header
+                            S:START C:START-OK
+                            *challenge
+                            S:TUNE C:TUNE-OK
+                            C:OPEN S:OPEN-OK
+      challenge           = S:SECURE C:SECURE-OK
+      use-connection      = *channel
+      close-connection    = C:CLOSE S:CLOSE-OK
+                          / S:CLOSE C:CLOSE-OK
+问题7：遵循amkq协议，到底是指什么？
+ 那这些的话呢，也就说你要实现amkq协议， 那么你必须要实现connection下面的这些方法 ，对不对，毕竟是协议，也就是文书嘛 你必须要完整的实现它，才能被称为完整的amkq协议，
+ 我们可以具体看下，要实现哪些方法，
+ start(
+octet version-major, octet version-minor, peer-properties server-properties, longstr mechanisms, longstr locales) ➔ start-ok
+比如说start方法，我们看下有哪些参数，对不对，
+start-ok(
+peer-properties client-properties, shortstr mechanism, longstr response, shortstr locale)
+
+我们发现了有很多的ok对不对，  ok也就是确认嘛
+blocked 阻塞，也就说你这个connection被阻塞了，阻塞了，会有这个阻塞方法被回调
+这就是第一个元素 connection ，connection你要实现这些方法， 
+我们看到他把这个写方法的参数都已经写好了，你只要实现它就ok了
+
+然后我们在看第二个，叫做channel
+那channel，我们可以看到
+  channel             = open-channel *use-channel close-channel
+      open-channel        = C:OPEN S:OPEN-OK
+      use-channel         = C:FLOW S:FLOW-OK
+                          / S:FLOW C:FLOW-OK
+                          / functional-class
+      close-channel       = C:CLOSE S:CLOSE-OK
+                          / S:CLOSE C:CLOSE-OK
+也就说，你要实现这些方法，方法的定义他已经给你定义好了，
+channel也就是什么意思呢、也就是说构建在connection之上，在amkp中常做为长连接， 因为大家也看到了，connection在socke之上的额，所以说每台机器建立tcp连接，它是有限制的，所以说我们常把它作为一个长连接，然后connection建立在这个长连接之上，所以说性能高效，这个channel其实就是amqp的一个术语 
+
+然后第三个元素 exchange，exchange它是交换机， 也是必须要实现下面的东西
+    exchange            = C:DECLARE  S:DECLARE-OK
+                          / C:DELETE   S:DELETE-OK
+                          / C:BIND     S:BIND-OK
+                          / C:UNBIND   S:UNBIND-OK
+所谓的amqp中它有很多的概念，exchange queue，
+第四个是queue
+  queue               = C:DECLARE  S:DECLARE-OK
+                          / C:BIND     S:BIND-OK
+                          / C:UNBIND   S:UNBIND-OK
+                          / C:PURGE    S:PURGE-OK
+                          / C:DELETE   S:DELETE-OK
+第五个是basic  用户发布和获取message中的一些设置
+  basic               = C:QOS S:QOS-OK
+                          / C:CONSUME S:CONSUME-OK
+                          / C:CANCEL S:CANCEL-OK
+                          / C:PUBLISH content
+                          / S:RETURN content
+                          / S:DELIVER content
+                          / C:GET ( S:GET-OK content / S:GET-EMPTY )
+                          / C:ACK
+                          / S:ACK
+                          / C:REJECT
+                          / C:NACK
+                          / S:NACK
+                          / C:RECOVER-ASYNC
+                          / C:RECOVER S:RECOVER-OK
+ 第六个是tx  用于事务处理
+       tx                  = C:SELECT S:SELECT-OK
+                          / C:COMMIT S:COMMIT-OK
+                          / C:ROLLBACK S:ROLLBACK-OK
+ 第七个是confirm  也就是发布确认机制
+     confirm            = C:SELECT S:SELECT-OK
+
+ok大概也是这七个概念， 那七个概念的话， 我们总体上的认识是什么样的认识？
+amqp协议就好像一个详细设计书一样，他规定了所有方法一些参数的含义呀，怎么去实现， 他都已经写好了，
+ok，既然说有这么一份文档的话呢，
+我们就要选择语言了，到底选择什么语言来实现， 当然的话，你可以用CC#实现，一个amqp协议的产品，比如叫做C#rabbitmq了
+你也可以用java实现，
+当然这个地方是用erlang语言实现的， 就是rabbitmq
+有人要问了，为什么要用erlang语言来实现呢？为不用C# java呢《
+问题9： 语言的选择，在于特性，同理数据结构的选择也在于特性， 用肯定是选择用的舒服的， 比如底层支持集群，我就不用自己去实现集群了
+当然人家选择了erlang， 它有它的道理对吧， 因为这个东西，毕竟是高并发的额， 天生带集群特性的语言，
+ok，知道了rabbitmq的本质的话呢，
+问题8：为什么这么喜欢用图呢？此时是刚了解完元素，然后呢画个图，是了解下运行机制吗？
+接下来我们就用图画一下，画一张设计图来了解rabbitmq的元素
+讲到这里，大家应该对rabbitmq的本质有一些了解了， 对吧
+问题8.1 充足的动力+积极的心态+正确的方式+正确的道理=》真正的掌握
+问题8.2  这样的学习和我之前的学习 有什么不同呢？到底不同点在在于哪里？本质的区别是什么呢？
+ok，接下来，我们打开freehand，来画一张图把，
+我们来看下rabbitmq的大致的流程思路。
+首先的话，我们要知道，我们整体上是一个rabbitmq，
+那这个rabbitmq里面有哪些东西呢？
+里面的话，它有一个叫做 vhost，vhost是什么意思呢？ 也就是说， 我们玩那个虚拟主机，我们都知道他是一个隔离性  也就是我这个虚拟机和你那个虚拟机是不相关的，大家是隔离开的， 那么在这个rabbitmq中 也是这么个意思， 方便于什么呢？方便就是不同的工作组， 比如说你这是架构部，你这是框架部，你这是业务部，对吧，我们可以连接不同的vhost，那这样的话，大家互不干扰，避免了命名冲突，对吧，里面的各种元素互不相干， 
+然后我们再来看一个概念，exchange，exchange的话，它有哪些东西呢，也就是交换机，那么这个交换机分很多种，有常见的这个direct，direct他被认为是直联的，然后是headers，然后是topic，，还有fanout 这是交换机的四种类型， 四种类型，他都有不同的概念， 比如说直联， 它是怎么去直联， 直联后面的一个queue，比如说有queue1，有queue2，有queue3， 那交换机的含义， 每种类型的交换机，都是不同的规格， 将消息发送到我们的queue中，比如说直联，它是直接通过routingkey（也就是路由建的概念），直接连接到我们的这个queue上去， 比方说direct，direct它的routingkey就是某个队列名字，如果说是我们的headers呢，它是根据headers的key来路由到某个queue上去，  topic呢， 就是一个主题，也就是有这个正则匹配，当然每种exchange都有它的具体的功效，fanout呢相当于多播，
+ok，有了这个rabbitmq，我们前边就是发布了，publish，publish的话，他会把这个消息打给这个erlong进程，对吧，打给这个rabbitmq， 然后呢，根据会这个exchange，到底是如何分发到我们的队列中，然后有consumer，那么它呢，是具体的 可能就说 根据什么样的规则，
+ok，有了这个rabbitmq，我们前边就是发布了，publish，publish的话，他会把这个消息打给这个erlong进程，对吧，打给这个rabbitmq， 然后呢，根据会这个exchange，到底是如何分发到我们的队列中，然后有consumer，那么它呢，是具体的 可能就说 根据什么样的规则，我们可能呢，都可以绑定到这个队列上去， 比如说我们都可以绑定到queue1 这样的时候它就形成了轮流分发，就好像我们的ngnix，或者其他的一些负载均衡的一些产品，，当然这个地方，我们只是简要的了解下，它的架构模式，
+当然的话，我们的erlang自带了一个数据库，也就是说这些信息呢，都是在我们的measia数据库里面去，
+ok这些就是我给大家介绍的架构图， 那所有的消息，他其实都在measia这个db中，erlang自带的数据库，
+ok，这就是本节课给大家讲到的所有知识， 主要的话，要知道 rabbitmq的本质，实现了amqp协议，然后他的架构图是怎么样的样子， ，知道了这些，希望大家对rabbitmq有一个清楚的认识
+
+
+下节课给大家说下怎么去安装 windows和centos上
+
+
+
+
+
+
+
+MQ的一个产品。。。 【消息队列】
+
+1. MSMQ   windows自带的一个服务。。。 【petshop】，message存放在文件系统中。
+
+          最原始的消息队列。。。
           
-  ����Ⱥ����Ϣȷ�ϣ��ڴ滯���߿��ã�����
+  【集群，消息确认，内存化，高可用，镜像】
 
-2. ActiveMQ��ZeroMQ��RabbitMQ
-
-
-3. Rabbitmq������һ��ʲô������������
-
-   ��1�� rabbitmq����ʲô����д��  => erlang
-
-   ��2�� rabbitmq��ʵ����ѭ amqpЭ�� ��һ��erlang����ʵ�֡�����
+2. ActiveMQ，ZeroMQ，RabbitMQ
 
 
-4. amqpЭ��:  �߼���Ϣ����Э�顣����
+3. Rabbitmq本质是一个什么东西？？？？
 
-   httpЭ�飬  ��request��response��
-   telnetЭ�飺 ���������鿴ĳһ̨ip��ָ���˿��Ƿ���pingͨ�ġ�����Զ�̵�½Э�顿
+   《1》 rabbitmq是用什么语言写的  => erlang
+
+   《2》 rabbitmq其实是遵循 amqp协议 的一个erlang代码实现。。。
+
+
+4. amqp协议:  高级消息队列协议。。。
+
+   http协议，  【request，response】
+   telnet协议： 经常用来查看某一台ip上指定端口是否是ping通的。。【远程登陆协议】
    
    
-5�� AMQP 0-9-1 Complete Reference Guide  rabbitmqʵ�ֵ�ampqЭ��İ汾�š�����
+5： AMQP 0-9-1 Complete Reference Guide  rabbitmq实现的ampq协议的版本号。。。
 
-   ��1�� connection     => open,use,close   [open-ok,close,une-ok]
+   《1》 connection     => open,use,close   [open-ok,close,une-ok]
 
-   ��2�� channel        => open,flow,close  [������connection֮�ϣ���amqp�г���Ϊ�����ӡ�����]
+   《2》 channel        => open,flow,close  [构建在connection之上，在amqp中常作为长连接。。。]
 
-   ��3�� exchange       => 
+   《3》 exchange       => 
 
-   ��4�� queue
+   《4》 queue
 
-   ��5�� basic          =������ �� ��ȡ message�е�һЩ����
+   《5》 basic          =》发布 和 获取 message中的一些设置
 
-   ��6�� tx             =�� ������
+   《6》 tx             =》 事务处理
 
-   ��7�� confirm        =������ȷ�ϻ���
+   《7》 confirm        =》发布确认机制
 
-   ��ϸ�����һ��������
+   详细设计书一样。。。
 
-   C#ʵ��һ��amqpЭ���Ʒ������C#rabbitmq������
+   C#实现一个amqp协议产品。。。C#rabbitmq。。。
 
-   Javaʵ��
+   Java实现
 
-   Erlangʵ����һ��amqp��Ʒ  => Rabbitmq������
-
-
-6. ��һ�����ͼ�˽�rabbitmq��Ԫ�ء�����
+   Erlang实现了一个amqp产品  => Rabbitmq。。。
 
 
-vhost�� �����˴�ҵ�������ͻ��
+6. 画一张设计图了解rabbitmq的元素。。。
+
+
+vhost： 避免了大家的命名冲突。
 
 
 
