@@ -50,6 +50,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="04Point.txt" />
+    <Content Include="截图\4配置文件01.png" />
+    <Content Include="截图\4配置文件02.png" />
+    <Content Include="截图\4配置文件03.png" />
+    <Content Include="截图\4配置文件04.png" />
+    <Content Include="截图\4配置文件05.png" />
+    <Content Include="截图\4配置文件06.png" />
+    <Content Include="截图\4配置文件07.png" />
+    <Content Include="截图\4配置文件08.png" />
+    <Content Include="截图\4配置文件09.png" />
+    <Content Include="截图\4配置文件10.png" />
+    <Content Include="截图\4配置文件11.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
