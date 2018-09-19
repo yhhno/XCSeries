@@ -50,6 +50,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="03Point.txt" />
+    <Content Include="截图\3rabbitmq之control01.png" />
+    <Content Include="截图\3rabbitmq之control02.png" />
+    <Content Include="截图\3rabbitmq之control03.png" />
+    <Content Include="截图\3rabbitmq之control04.png" />
+    <Content Include="截图\3rabbitmq之control05.png" />
+    <Content Include="截图\3rabbitmq之control06.png" />
+    <Content Include="截图\3rabbitmq之control07.png" />
+    <Content Include="截图\3rabbitmq之control08.png" />
+    <Content Include="截图\3rabbitmq之control09.png" />
+    <Content Include="截图\3rabbitmq之control10.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
