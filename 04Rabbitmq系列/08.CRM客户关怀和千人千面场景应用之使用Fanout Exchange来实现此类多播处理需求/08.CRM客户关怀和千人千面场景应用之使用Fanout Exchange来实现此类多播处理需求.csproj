@@ -49,6 +49,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="8rabbitmq交换机之fanout01.png" />
+    <Content Include="8rabbitmq交换机之fanout03.png" />
     <Content Include="QQ截图20161123212424.png" />
     <Content Include="08Point.txt" />
   </ItemGroup>

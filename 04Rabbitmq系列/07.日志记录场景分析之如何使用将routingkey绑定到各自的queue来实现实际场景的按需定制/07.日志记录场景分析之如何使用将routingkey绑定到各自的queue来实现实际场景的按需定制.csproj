@@ -49,7 +49,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="6rabbitmq之交换机direct.png" />
+    <Content Include="7rabbitmq之交换机direct2.png" />
     <Content Include="7rabbitmq交换机之direct.png" />
     <Content Include="QQ截图20161123100553.png" />
     <Content Include="QQ截图20161123100634.png" />
