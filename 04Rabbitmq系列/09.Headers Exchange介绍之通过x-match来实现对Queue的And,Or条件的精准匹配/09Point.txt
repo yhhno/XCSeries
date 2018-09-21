@@ -1,3 +1,270 @@
+缺少用脑子？=》如何纠正=》然后才是如何用脑子？
+缺少逻辑过程，老是经验主义
+一看到就怕？怕就不会进行下去了
+如何用脑子呢？无比自信的，情绪高昂的 时刻分析情况，看到本质，预想方案
+
+终极问题：怎么样的状况，我自己去学东西时能有这效果呢？=》是不是缺少个对一个事情真正认识的例子，作为对比。或者说是一个渐变的过程，不是有一个招式就可以了=》也类似于，我到底要掌握什么样的能力，=》才能像优秀的人一样，才能做好每一件事呢。=》我们根本就没有逻辑过程这个意识。=》心中事先没有个预想的过程。=》=》消除一开始的慌，预想下，然后参考某个例子，去进行，也就是说要有某个模式，不可能我些什么都是从零开始的把=》我跟这个课程学习，就是按照作者的标准来行事，也就是学习一个高标准=》为什么跟他学好简单，自己学好难哦=》是不是模式有问题，=》这些根本就不够，预想了内容，但是我们能自我去实现这些内容吗？=》也就是不知道该怎么进行，有了逻辑过程的念头，那逻辑过程怎么推进，傻了眼=》一个小小的问题，就可能引起了卡壳。 太脆弱了
+终极要求： 我不是靠着经验去做事的，去活的。  =》要用脑子去学，去做，去观察。=>如何用脑子呢？无比自信的，情绪高昂的 时刻分析情况，看到本质，预想方案
+疑问： 为什么跟他学好简单，自己学好难哦=》是不是模式有问题，
+问题：即便是跟着学习过一遍，还是独自没有仔细的走一遍逻辑过程 =》巨大的问题，当我课后自己去实践代码时，竟然毫无头绪不知道干什么？如何下手？=》什么原因造成的、
+
+我怎么忘了之前是多么的优秀呢？
+既然他没有很多新的概念，所以我就可以很快速的去完成，
+
+
+问题6：这就是http协议vs 之前接触http协议是什么样子呢？http和request，根本就没关联起来，这说明了什么?=>当时的学习方式有问题，非常片面，不系统，导致只是简单了解下，对底层知识这种程度的了解 怎么能去学习更高层次的知识呢？
+问题4：确实主方向，一次过程是这样的，一次publish是发布一个message，message是不是到了一个exchange，是，那一个exchange是不是把消息是不是发送给一个queue，不一定，那一个queue是不是只有一个consumer，不一定，其中，只有publish丢个消息，和设置好条件，其他的都是自动完成，=》就是用形成这样的认识，才透彻，当然是要在一个主方向的前提下了。=》当然实际过程是，多次publish=》
+问题4.1要扩展思维，不仅仅是在一个程序里处理所有东西。
+问题3:业务的分析，我怎么能分析出两条路呢。以及每条路是怎么走的呢？  这是个大学问？
+问题1：新东西，应该是新机制，好奇他到底是什么呢？ 当时是和direct是不同的，不然怎么新的呢？=》先缺少脑子，再缺少逻辑过程=》逻辑过程必须有个模式，必须要总结出来=>这个是学习的逻辑过程
+问题4.1不太理解， =》那就试着去理解，想想既然是解决了轮询，那轮询是干嘛的，是像服务器询问有消息不，而这是有消息有自动发送给你，就是queue发消息给你consumer=》虽然不太理解，但还是要尝试去理解的。=》找个方向点去理解
+问题6：命令行实时在心中，逻辑过程不可少，也说明了对reset理解不够，仅仅是格式化，格式化后是什么效果，实际是不清楚的，=这个是学习的逻辑过程有问题
+问题0：当时看到这里时，心里就充满了怕怕的，蒙的，不知道我自己要做什么了。
+问题1：一开始看到这段英文肯定是心里怕怕的，要做的就是战胜这种怕怕，去找个主方向，走一下逻辑过程，把它给了解透透的
+问题1.1 只有英文介绍，那英文阅读是不是很重要
+
+问题0：如果是我学些的话：看一篇文章，有实例的那种，也许会demo下，也许就收藏了，而且毫无感觉VS用脑子的，有感觉得进行：先概况和本质，再安装，再管理，再详解配置文件，连接rabbitmq，交换机机制direct之workqueue，交换机机制direct之routing，交换机机制fanout之发布订阅，交换机机制headers=》他怎么就可以一步一步推进呢？
+
+
+
+问题0：当时看到这里时，心里就充满了怕怕的，蒙的，不知道我自己要做什么了。
+问题1：一开始看到这段英文肯定是心里怕怕的，要做的就是战胜这种怕怕，去找个主方向，走一下逻辑过程，把它给了解透透的
+问题1.1 只有英文介绍，那英文阅读是不是很重要
+问题2：学习routingkey的时候，为啥没觉得它太单一了呢？
+问题2.1当然routingkey的值，可以是任何值，不能简单的认为是error
+问题1：新东西，新的逻辑过程，不能说经验主义，
+问题3:做个对比，
+问题3：新特性，新特性可以类比下之前的知识，这样好理解 ，可以和什么样的业务需求结合起来呢、 
+问题6：routingkey和mulipe attribute 保存在哪里呢?=>保存在message实体上，说明有个message对象，包装了这些东西和msg
+问题7：但是我原本想是这样的，先在一个地方写多个值，然后在一个地方设置x-match=》错了，没有认真去看文档=》这个完全可以加个逻辑判断就可以了，先判断x-match的值，然后决定接下来的逻辑处理，=》文档看的不仔细呀，想想当时看到了，可以理解不，=》这个需要文档+哪个绑定时的参数类型共同去看才可以的。=》有可能看了，也不知道如何先手，不能气馁，更不能停止
+问题7.1经验主义哦=>也说明经验很少
+
+大家好，上节课给大家讲到了rabbitmq交换机的fanout操作对吧a
+这节课我们来讲下第三个headers
+说来也奇怪，headers在很多资料上都是没有的额，包括官网上
+都是一个简单的描述
+比如说我们看下官网  也就说快速入门中，根本就没有headers的例子 
+很少对这个headers exchange进行介绍
+问题0：当时看到这里时，心里就充满了怕怕的，蒙的，不知道我自己要做什么了。
+后来我们找到了一段描述
+问题1：一开始看到这段英文肯定是心里怕怕的，要做的就是战胜这种怕怕，去找个主方向，走一下逻辑过程，把它给了解透透的
+问题1.1 只有英文介绍，那英文阅读是不是很重要
+Headers Exchange
+A headers exchange is designed for routing on multiple attributes that are more easily expressed as message headers than a routing key. Headers exchanges ignore the routing key attribute. Instead, the attributes used for routing are taken from the headers attribute. A message is considered matching if the value of the header equals the value specified upon binding.
+
+It is possible to bind a queue to a headers exchange using more than one header for matching. In this case, the broker needs one more piece of information from the application developer, namely, should it consider messages with any of the headers matching, or all of them? This is what the "x-match" binding argument is for. When the "x-match" argument is set to "any", just one matching header value is sufficient. Alternatively, setting "x-match" to "all" mandates that all the values must match.
+
+Headers exchanges can be looked upon as "direct exchanges on steroids". Because they route based on header values, they can be used as direct exchanges where the routing key does not have to be a string; it could be an integer or a hash (dictionary) for example.
+
+
+问题2：学习routingkey的时候，为啥没觉得它太单一了呢？
+问题2.1当然routingkey的值，可以是任何值，不能简单的认为是error
+我们看了这段英文了解到headers是采用muliple attribute代替routingkey ,也就是routingkey只能是string，太单一了，而且只能是一个值 headers扩展了下，
+而且它里面有个x-match的东西
+x-match  [all/any] all： 所有的header头信息必须匹配。。。
+
+                   any： 只要有一个匹配就ok了。。。。
+也就是它有个自己的逻辑判断，不仅仅是判断等于，=》但说到底还是exchange和queue之间的binding，只有匹配了才会转发
+老规矩画个图：新东西，有什么不同呢/
+问题1：新东西，新的逻辑过程，不能说经验主义，
+问题3:做个对比，
+direct exchange: 只需要匹配一个routingkey就可以了。。。。
+问题3：新特性，新特性可以类比下之前的知识，这样好理解 ，可以和什么样的业务需求结合起来呢、 
+而现在的headers匹配，必须是满足一个或者全部的条件。。。 有点像 【and /or】的关系。。。
+伪代码看下
+if(name=="jack" || age==20){
+ queue1.add(msg);
+}
+
+if(name=="jack" && age==20){
+  queue2.add(msg);
+}
+
+还有一种方式是去ui中，添加headers，是怎么样的？ 毕竟可视化，
+
+问题6：routingkey和mulipe attribute 保存在哪里呢?=>保存在message实体上，说明有个message对象，包装了这些东西和msg
+到此时理解了嘛，其实和direct一样的，在定义queue时，定义匹配设置， publish推消息的时候，传入值， 然后exchange做匹配，通过了转发message=》主方向+逻辑过程
+
+
+问题7：但是我原本想是这样的，先在一个地方写多个值，然后在一个地方设置x-match=》错了，没有认真去看文档=》这个完全可以加个逻辑判断就可以了，先判断x-match的值，然后决定接下来的逻辑处理，=》文档看的不仔细呀，想想当时看到了，可以理解不，=》这个需要文档+哪个绑定时的参数类型共同去看才可以的。
+问题7.1经验主义哦=>也说明经验很少=》有可能看了，也不知道如何先手，不能气馁，更不能停止
+代码实现下
+consumer
+ ConnectionFactory connectionFactory = new ConnectionFactory
+            {
+                HostName = "127.0.0.1",
+                UserName = "qqqqqq",
+                Password = "qqqqqq",
+                //其他的设置，用默认的，此处不设置，
+            };
+
+            //第一步：创建connection
+            var connection = connectionFactory.CreateConnection();
+
+            //第二步：创建一个channel
+            var channel = connection.CreateModel();
+
+            //第三步：申明交换机【因为rabbitmq已经有了自定义的ampq default exchange】  我们当然也可以自定义交换机  也就是显式的指定自定义的交换机，非隐式指定默认的交换机   consumer是直接读队列的，所以交换机可以不声明
+            channel.ExchangeDeclare("myHeadersexchange", ExchangeType.Headers, true, false, null);//也就是说有个交换机对象，像direct只是个类型而已=>用脑子去想
+
+
+
+            //以上的四步算是连接rabbitmq，后面的步骤是具体操作=》有这个认识是，心中有个架构图
+            //第四步：声明一个队列(queue) 此处的队列如果不声明的话，可能会有个坑，=》consumer是直接读队列的，如果先运行consumer的话，如果没有指定的队列存在会出错的
+            channel.QueueDeclare("myHeaderqueue1", true, false, false, null);
+            channel.QueueDeclare("myHeaderqueue2", true, false, false, null);
+
+
+            //如果是自定义exchange的话，需要把queue绑定到自定义的exchange上，容易出错，但如果是隐式的话，这些工作由rabbitmq默认完成了。
+            //也就是说在erlang的measia数据库中个，有一个路由表，有三个列 exchangename queuename routingkey ，bind就是向这张表插入一条数据，，供以后使用，
+            //此需求，必须实现自定义exchange， 默认的无法实现
+            //也说明了，自定义exchange，更灵活，可以实现更强大的功能
+            //此处有个问题：队列 exchange的声明，相互间的binding，应该是在管理端去完成，在publish端完成这个逻辑的绑定是不是不符合常理，也可以定义在消费端=》说明了无论publish consumer不仅仅是做publish和消费的工作，还是管理rabbitmq。=》主方向
+            //当然这些东西，能不在代码中实现，就不要在代码中实现
+            //潜在的一个问题：不要例子这样写，就认为全部都是这样=》找准主方向
+            //channel.QueueBind("log_else", "myexchange", "debug", null);//routingkey默认是队列名，那也可以自己定义=》可以自定义的这个特性，可以实现是什么功能呢
+            //channel.QueueBind("log_else", "myexchange", "info", null);
+            //channel.QueueBind("log_else", "myexchange", "warning", null);
+            //channel.QueueBind("log_error", "myexchange", "error", null);//一个consumer只消费一个queue，所以不关error=》当时我还想着如何在一个地方处理不同的情况呢？=》分析不清楚，=》逻辑过程没走，经验主义=>之前想的是一个consumer只处理一个queue，但此时只是定义，不是处理queue呀，所以说可以全部定义的，当然也可以在两个处理queue中分别去定义，绑定
+
+            //////优化版本
+            ////var attr = new string[]{ "debug", "info","warning" };
+            ////for (int i = 0; i < attr.Length; i++)
+            ////{
+            ////    channel.QueueBind("log_error", "myexchange",attr[i], null);/routingkey默认是队列名，那也可以自己定义=》可以自定义的这个特性，可以实现是什么功能呢
+
+            ////}
+            ////channel.QueueBind("log_error", "myexchange", "error", null);//一个consumer只消费一个queue，所以不关error=》理解有问题
+
+            //理解为什么定义两个队列，但consumer的话，就单独定义，比较好，消费那个，就定义那个，如此处consumer1消费myfanoutqueue1，就只定义myfanoutqueue1.
+            channel.QueueBind("myHeaderqueue1", "myHeadersexchange", string.Empty, new Dictionary<string, object>
+            {
+                { "x-match","any"},
+                { "username","jack"},
+                { "password","123456"}
+            });//要理解为什么没有routingkey,但是我原本想是这样的，先在一个地方写多个值，然后在一个地方设置x-match=》错了，没有认真去看文档=》这个完全可以加个逻辑判断就可以了，先判断x-match的值，然后决定接下来的逻辑处理，=》文档看的不仔细呀，想想当时看到了，可以理解不，=》这个需要文档+哪个绑定时的参数类型共同去看才可以的。=》有可能看了，也不知道如何先手，不能气馁，更不能停止
+            channel.QueueBind("myHeaderqueue2", "myHeadersexchange", string.Empty, new Dictionary<string, object>
+            {
+                { "x-match","all"},
+                { "username","jack"},
+                { "password","123456"}
+            });//要理解为什么没有routingkey,但是我原本想是这样的，先在一个地方写多个值，然后在一个地方设置x-match=》错了，没有认真去看文档=》这个完全可以加个逻辑判断就可以了，先判断x-match的值，然后决定接下来的逻辑处理，=》文档看的不仔细呀，想想当时看到了，可以理解不，=》这个需要文档+哪个绑定时的参数类型共同去看才可以的。=》有可能看了，也不知道如何先手，不能气馁，更不能停止
+
+
+            //主动获取
+            //var result = channel.BasicGet("mytest", true);
+            //var msg = Encoding.UTF8.GetString(result.Body);//result中有好多东西，相当于message的存储，
+
+            EventingBasicConsumer consumer = new EventingBasicConsumer(channel);
+            //consumer.Received += Consumer_Received;
+            consumer.Received += (sender, e) =>//匿名函数   e相当于restult，但是少了没有指定从哪个队列去获取数据
+            {
+                //获取msg
+                var msg = Encoding.UTF8.GetString(e.Body);
+
+                //只是我们此处的消费是把message输出，当然可以做其他操作。=》用脑子去想
+                Console.WriteLine(string.Format("我对message：{0},进行了消费，消费方式其实输出到控制台，当然有其他的方式", msg));
+            };
+
+            //定义了两个队列，单个consumer消费其中的一个队列，此时就不可以点击两次exe，充当两个consumer了。=>拒绝不加思考的就点击两次exe
+            channel.BasicConsume("myHeaderqueue1", false, consumer);
+
+
+            Console.WriteLine("consumer端启动完成！！！");
+            Console.Read();//把进程拦住。
+
+
+publish
+
+
+ ConnectionFactory connectionFactory = new ConnectionFactory
+            {
+                HostName = "127.0.0.1",
+                UserName = "qqqqqq",
+                Password = "qqqqqq",
+                //其他的设置，用默认的，此处不设置，
+            };
+            //第一步：创建connection
+            var connection = connectionFactory.CreateConnection();
+            //第二步：创建一个channel
+            var channel = connection.CreateModel();
+            //第三步：申明交换机【因为rabbitmq已经有了自定义的ampq default exchange】 我们当然也可以自定义交换机  也就是显式的指定自定义的交换机，非隐式指定默认的交换机  publish是直接把消息推给交换机的，但交换机有默认的，所以交换机可以不声明
+            channel.ExchangeDeclare("myHeadersexchange", ExchangeType.Headers, true, false, null);//也就是说有个交换机对象，像direct只是个类型而已=>用脑子去想
+
+            //第四步：创建一个队列(queue)
+            channel.QueueDeclare("myHeaderqueue1", true, false, false, null);
+            channel.QueueDeclare("myHeaderqueue2", true, false, false, null);
+
+            //如果是自定义exchange的话，需要把queue绑定到自定义的exchange上，容易出错，但如果是隐式的话，这些工作由rabbitmq默认完成了。
+            //也就是说在erlang的measia数据库中个，有一个路由表，有三个列 exchangename queuename routingkey ，bind就是向这张表插入一条数据，，供以后使用，
+            //此需求，必须实现自定义exchange， 默认的无法实现
+            //也说明了，自定义exchange，更灵活，可以实现更强大的功能
+            //此处有个问题：队列 exchange的声明，相互间的binding，应该是在管理端去完成，在publish端完成这个逻辑的绑定是不是不符合常理，也可以定义在消费端=》说明了无论publish consumer不仅仅是做publish和消费的工作，还是管理rabbitmq。=》主方向
+            //当然这些东西，能不在代码中实现，就不要在代码中实现
+            //潜在的一个问题：不要例子这样写，就认为全部都是这样=》找准主方向
+            //channel.QueueBind("log_else", "myexchange", "debug", null);//routingkey默认是队列名，那也可以自己定义=》可以自定义的这个特性，可以实现是什么功能呢
+            //channel.QueueBind("log_else", "myexchange", "info", null);
+            //channel.QueueBind("log_else", "myexchange", "warning", null);
+            //channel.QueueBind("log_error", "myexchange", "error", null);//consumer定义的话可以忽略这个，但publish呢 =》理解有问题
+
+            //////优化版本
+            ////var attr = new string[]{ "debug", "info","warning" };
+            ////for (int i = 0; i < attr.Length; i++)
+            ////{
+            ////    channel.QueueBind("log_error", "myexchange",attr[i], null);/routingkey默认是队列名，那也可以自己定义=》可以自定义的这个特性，可以实现是什么功能呢
+
+            ////}
+            ////channel.QueueBind("log_error", "myexchange", "error", null);//consumer定义的话可以忽略这个，但publish呢 =》理解有问题
+
+
+            //理解为什么定义两个队列，但consumer的话，就单独定义，比较好，消费那个，就定义那个
+            channel.QueueBind("myHeaderqueue1", "myHeadersexchange", string.Empty, new Dictionary<string, object>
+            {
+                { "x-match","any"},
+                { "username","jack"},
+                { "password","123456"}
+            });//要理解为什么没有routingkey,但是我原本想是这样的，先在一个地方写多个值，然后在一个地方设置x-match=》错了，没有认真去看文档=》这个完全可以加个逻辑判断就可以了，先判断x-match的值，然后决定接下来的逻辑处理，=》文档看的不仔细呀，想想当时看到了，可以理解不，=》这个需要文档+哪个绑定时的参数类型共同去看才可以的。=》有可能看了，也不知道如何先手，不能气馁，更不能停止
+            channel.QueueBind("myHeaderqueue2", "myHeadersexchange", string.Empty, new Dictionary<string, object>
+            {
+                { "x-match","all"},
+                { "username","jack"},
+                { "password","123456"}
+            });//要理解为什么没有routingkey,但是我原本想是这样的，先在一个地方写多个值，然后在一个地方设置x-match=》错了，没有认真去看文档=》这个完全可以加个逻辑判断就可以了，先判断x-match的值，然后决定接下来的逻辑处理，=》文档看的不仔细呀，想想当时看到了，可以理解不，=》这个需要文档+哪个绑定时的参数类型共同去看才可以的。=》有可能看了，也不知道如何先手，不能气馁，更不能停止
+
+
+            //add heades
+            var properties3 = channel.CreateBasicProperties();
+            var properties1=channel.CreateBasicProperties();
+            properties1.Headers = new Dictionary<string, object> { };
+            properties1.Headers.Add("username","jack");
+            var properties2 = channel.CreateBasicProperties();
+            properties2.Headers = new Dictionary<string, object> { };
+            properties2.Headers.Add("username", "jack");
+            properties2.Headers.Add("password", "123456");
+
+
+            for (int i = 0; i < 100; i++)
+            {
+
+                var msg = Encoding.UTF8.GetBytes(string.Format("{0}+{1}", i, "你好")); //因为我们要生成byte数组
+
+                properties3 = i % 2== 0 ? properties1 : properties2;
+
+                //以上的四步算是连接rabbitmq，后面的步骤是具体操作  =》有这个认识是，心中有个架构图
+                //第五步：发布消息   发布消息都用basic前缀=》先推个交换机，后续工作，交换机完成，如把消息推到指定的队列中
+                //channel.BasicPublish(string.Empty, "mytest", null, msg);
+                channel.BasicPublish("myfanoutexchange", routingKey: string.Empty, basicProperties: properties3, body: msg);
+            }
+
+
+            Console.Read();//拦住这个进程。
+            //为啥不释放，释放了ui中就看不到了
+            //using。。。。
+            //channel.Dispose();
+            //connection.Dispose();
+
+
+
 一：headers exchange
 
     很少对headers 这个exchange进行介绍。。。
