@@ -1,3 +1,221 @@
+最重要的就是情绪，心态。它在开始，它贯穿了始终。它影响其他
+缺少用脑子？=》如何纠正=》然后才是如何用脑子？
+缺少逻辑过程，老是经验主义
+一看到就怕？怕就不会进行下去了
+如何用脑子呢？无比自信的，情绪高昂的 时刻分析情况，看到本质，预想方案
+
+终极问题：怎么样的状况，我自己去学东西时能有这效果呢？=》是不是缺少个对一个事情真正认识的例子，作为对比。或者说是一个渐变的过程，不是有一个招式就可以了=》也类似于，我到底要掌握什么样的能力，=》才能像优秀的人一样，才能做好每一件事呢。=》我们根本就没有逻辑过程这个意识。=》心中事先没有个预想的过程。=》=》消除一开始的慌，预想下，然后参考某个例子，去进行，也就是说要有某个模式，不可能我些什么都是从零开始的把=》我跟这个课程学习，就是按照作者的标准来行事，也就是学习一个高标准=》为什么跟他学好简单，自己学好难哦=》是不是模式有问题，=》这些根本就不够，预想了内容，但是我们能自我去实现这些内容吗？=》也就是不知道该怎么进行，有了逻辑过程的念头，那逻辑过程怎么推进，傻了眼=》一个小小的问题，就可能引起了卡壳。 太脆弱了
+终极要求： 我不是靠着经验去做事的，去活的。  =》要用脑子去学，去做，去观察。=>如何用脑子呢？无比自信的，情绪高昂的 时刻分析情况，看到本质，预想方案
+疑问： 为什么跟他学好简单，自己学好难哦=》是不是模式有问题，
+问题：即便是跟着学习过一遍，还是独自没有仔细的走一遍逻辑过程 =》巨大的问题，当我课后自己去实践代码时，竟然毫无头绪不知道干什么？如何下手？=》什么原因造成的、
+
+我怎么忘了之前是多么的优秀呢？
+既然他没有很多新的概念，所以我就可以很快速的去完成，
+
+
+问题6：这就是http协议vs 之前接触http协议是什么样子呢？http和request，根本就没关联起来，这说明了什么?=>当时的学习方式有问题，非常片面，不系统，导致只是简单了解下，对底层知识这种程度的了解 怎么能去学习更高层次的知识呢？
+问题4：确实主方向，一次过程是这样的，一次publish是发布一个message，message是不是到了一个exchange，是，那一个exchange是不是把消息是不是发送给一个queue，不一定，那一个queue是不是只有一个consumer，不一定，其中，只有publish丢个消息，和设置好条件，其他的都是自动完成，=》就是用形成这样的认识，才透彻，当然是要在一个主方向的前提下了。=》当然实际过程是，多次publish=》
+问题4.1要扩展思维，不仅仅是在一个程序里处理所有东西。
+问题3:业务的分析，我怎么能分析出两条路呢。以及每条路是怎么走的呢？  这是个大学问？
+问题1：新东西，应该是新机制，好奇他到底是什么呢？ 当时是和direct是不同的，不然怎么新的呢？=》先缺少脑子，再缺少逻辑过程=》逻辑过程必须有个模式，必须要总结出来=>这个是学习的逻辑过程
+问题4.1不太理解， =》那就试着去理解，想想既然是解决了轮询，那轮询是干嘛的，是像服务器询问有消息不，而这是有消息有自动发送给你，就是queue发消息给你consumer=》虽然不太理解，但还是要尝试去理解的。=》找个方向点去理解
+问题6：命令行实时在心中，逻辑过程不可少，也说明了对reset理解不够，仅仅是格式化，格式化后是什么效果，实际是不清楚的，=这个是学习的逻辑过程有问题
+问题0：当时看到这里时，心里就充满了怕怕的，蒙的，不知道我自己要做什么了。
+问题1：一开始看到这段英文肯定是心里怕怕的，要做的就是战胜这种怕怕，去找个主方向，走一下逻辑过程，把它给了解透透的
+问题1.1 只有英文介绍，那英文阅读是不是很重要
+
+问题0：如果是我学些的话：看一篇文章，有实例的那种，也许会demo下，也许就收藏了，而且毫无感觉VS用脑子的，有感觉得进行：先概况和本质，再安装，再管理，再详解配置文件，连接rabbitmq，交换机机制direct之workqueue，交换机机制direct之routing，交换机机制fanout之发布订阅，交换机机制headers,交换机机制topic=》他怎么就可以一步一步推进呢？
+
+
+问题2：总结，学习后就应该有这样的总结，这样的认识，当然这只是经验， 群发性，预知性 归类性 归类与正则
+问题0： 评价，
+ 问题4：画图也是很重要的技巧
+ 问题5：主方向要正确，不能发demo当成了一切而缺失了主方向。，也缺少逻辑过程从来没有想过msg从哪里来
+ 问题6：打破砂锅问到底
+
+
+大家好，上节课给大家讲到了headers，
+本节课给大家讲最后一个exchange 叫做topic
+也就是四大交换机类型的最后一个
+问题0： 评价，
+其实我们发现交换机的手段特别多，对不对=
+比方说
+问题2：总结，学习后就应该有这样的总结，这样的认识，当然这只是经验， 群发性，预知性 归类性 归类与正则
+之前讲到的direct 我们发现direct有什么好处？叫做提前预知性的binding，比如说日志我知道有info，error，debug我们把他们 绑定到我们的交换机上去，对不对
+然后呢，还有一个fanout，它呢就是一种群发性的binding，对不对，这个应用场景还是非常光的，之前的课程也给大家讲了，
+然后一个headers，它呢有点像and或者or性的binding，也就说我们根据x-match 要么全满足，要么只满足一个。 对不对
+ 这节课我们给大家讲到的topic，有什么好玩的地方嗯，他应该叫做归类性的binding，比如说我们看到网站上的一些分类，比如说 有首页，有酒店，有旅游，有火车，有机票，每一个类目我们都可以把它作为一个分类，有分类的话，我们就可以用正则去匹配，天生带有正则，又比如说我们看到的这个网址， 有com结尾的，有cn结尾的，当然还有net结尾的， 这三种结尾的东西，我们都可以认为是一种类别，ok，比如说这三种类别，我们都可以给它绑定到交换机上，如果说我们consumer的时候可以订阅这三种匹配模式，然后到对应的exchange中去， 然后的话呢，我们publish 我们塞数据的话，比如说 www.ctrip.com 这个网址，它自然会到那个上去呢？ 它自然会被交换机转到binding以com结尾的queue上去，，那这个自然就想到了一个爬虫，如果我们遇到一个com结尾的网址，我们会认为它是一个大的网址，它爬起来很慢，所以说丢给一个consumer，如果是cn的话，那再丢给一个consumer，net的话，再丢给一个consumer，去查询对不对， 也不能叫做提前预支，叫做模糊预知把， 我不知道你publish丢过来的url是什么样额， 我们知道是以com结尾，或者cn结尾，或者net结尾，
+ ok，我们就以这个为例子，给大家写下coding把
+ topic的场景，大家可以根据自己的业务需求，来想下， 有没有类似的这样的业务， 进行归类，当然他也是一个非常有层级性的归类级别，当然的话呢，我不光用*.com,还可以用*.*.com,这个大家一定要清楚，*代表0到多个字符，
+ 首先的话我们来看下consumer，怎么去定义
+
+ 我们建议的话呢，connection是长连接，然后channel的话呢，根据线程创建这些channel，
+ 我们的direct和fanout和topic都是居于routingkey的，
+ 问题4：画图也是很重要的技巧
+ 为了方便我们也是画个图把，图上是看到最清楚的，对不对，
+ 当然大家可以把硬字符放到常量里面去，也就是宏里面去
+ 我们的publish应该只关心塞数据，其他的队列，交换机等，都不需要管，据此我们发现我们的publish其实是很简单的，不管你交换机是什么类型，只管塞数据到交换机上就可以了就可以了
+ 问题5：主方向要正确，不能发demo当成了一切而缺失了主方向。，也缺少逻辑过程从来没有想过msg从哪里来
+ 其实正确是我们要把msg拆分，拆分出来一个routingkey，，此时我们只是演示，自己定义了一个routingkey，正确的是routingkey拆分于msg。然后routingkey可以msg组成一个message实体。
+
+ 问题6：打破砂锅问到底
+ erlang内置的数据库在哪里呢？ paths路径 也就是变量配置中可以看到，这个数据库专门给erlang使用， 有没有查询ui呢?
+
+ 定义两个consumer，启动两个consumer
+ 定义一个publish 启动，
+ 查看ui
+
+
+ publish代码
+   ConnectionFactory connectionFactory = new ConnectionFactory
+            {
+                HostName = "127.0.0.1",
+                UserName = "qqqqqq",
+                Password = "qqqqqq",
+                //其他的设置，用默认的，此处不设置，
+            };
+            //第一步：创建connection
+            var connection = connectionFactory.CreateConnection();
+            //第二步：创建一个channel
+            var channel = connection.CreateModel();
+            //第三步：申明交换机【因为rabbitmq已经有了自定义的ampq default exchange】 我们当然也可以自定义交换机  也就是显式的指定自定义的交换机，非隐式指定默认的交换机  publish是直接把消息推给交换机的，但交换机有默认的，所以交换机可以不声明
+            channel.ExchangeDeclare("mytopicexchange", ExchangeType.Topic, true, false, null);//也就是说有个交换机对象，像direct只是个类型而已=>用脑子去想
+
+            //第四步：创建一个队列(queue)
+            channel.QueueDeclare("mytopicqueue1", true, false, false, null);
+            channel.QueueDeclare("mytopicqueue2", true, false, false, null);
+
+            //如果是自定义exchange的话，需要把queue绑定到自定义的exchange上，容易出错，但如果是隐式的话，这些工作由rabbitmq默认完成了。
+            //也就是说在erlang的measia数据库中个，有一个路由表，有三个列 exchangename queuename routingkey ，bind就是向这张表插入一条数据，，供以后使用，
+            //此需求，必须实现自定义exchange， 默认的无法实现
+            //也说明了，自定义exchange，更灵活，可以实现更强大的功能
+            //此处有个问题：队列 exchange的声明，相互间的binding，应该是在管理端去完成，在publish端完成这个逻辑的绑定是不是不符合常理，也可以定义在消费端=》说明了无论publish consumer不仅仅是做publish和消费的工作，还是管理rabbitmq。=》主方向
+            //当然这些东西，能不在代码中实现，就不要在代码中实现
+            //潜在的一个问题：不要例子这样写，就认为全部都是这样=》找准主方向
+            //channel.QueueBind("log_else", "myexchange", "debug", null);//routingkey默认是队列名，那也可以自己定义=》可以自定义的这个特性，可以实现是什么功能呢
+            //channel.QueueBind("log_else", "myexchange", "info", null);
+            //channel.QueueBind("log_else", "myexchange", "warning", null);
+            //channel.QueueBind("log_error", "myexchange", "error", null);//consumer定义的话可以忽略这个，但publish呢 =》理解有问题
+
+            //////优化版本
+            ////var attr = new string[]{ "debug", "info","warning" };
+            ////for (int i = 0; i < attr.Length; i++)
+            ////{
+            ////    channel.QueueBind("log_error", "myexchange",attr[i], null);/routingkey默认是队列名，那也可以自己定义=》可以自定义的这个特性，可以实现是什么功能呢
+
+            ////}
+            ////channel.QueueBind("log_error", "myexchange", "error", null);//consumer定义的话可以忽略这个，但publish呢 =》理解有问题
+
+
+            //理解为什么定义两个队列，但consumer的话，就单独定义，比较好，消费那个，就定义那个
+            channel.QueueBind("mytopicqueue1", "mytopicexchange", "*.com", null);
+            channel.QueueBind("mytopicqueue2", "mytopicexchange", "*.cn", null);
+
+            var str3 = "";
+            var str1 = "ctrp.com";
+            var str2 = "china.cn";
+
+
+            for (int i = 0; i < 100; i++)
+            {
+
+                var msg = Encoding.UTF8.GetBytes(string.Format("{0}+{1}", i, "你好")); //因为我们要生成byte数组
+
+                str3 = i % 2 == 0 ? str1  : str2 ;
+
+                //以上的四步算是连接rabbitmq，后面的步骤是具体操作  =》有这个认识是，心中有个架构图
+                //第五步：发布消息   发布消息都用basic前缀=》先推个交换机，后续工作，交换机完成，如把消息推到指定的队列中
+                //channel.BasicPublish(string.Empty, "mytest", null, msg);
+                channel.BasicPublish("mytopicexchange", routingKey: str3, basicProperties: null, body: msg);
+            }
+
+
+            Console.Read();//拦住这个进程。
+            //为啥不释放，释放了ui中就看不到了
+            //using。。。。
+            //channel.Dispose();
+            //connection.Dispose();
+
+
+
+consumer代码
+
+  ConnectionFactory connectionFactory = new ConnectionFactory
+            {
+                HostName = "127.0.0.1",
+                UserName = "qqqqqq",
+                Password = "qqqqqq",
+                //其他的设置，用默认的，此处不设置，
+            };
+
+            //第一步：创建connection
+            var connection = connectionFactory.CreateConnection();
+
+            //第二步：创建一个channel
+            var channel = connection.CreateModel();
+
+            //第三步：申明交换机【因为rabbitmq已经有了自定义的ampq default exchange】  我们当然也可以自定义交换机  也就是显式的指定自定义的交换机，非隐式指定默认的交换机   consumer是直接读队列的，所以交换机可以不声明
+            channel.ExchangeDeclare("mytopicexchange", ExchangeType.Topic, true, false, null);//也就是说有个交换机对象，像direct只是个类型而已=>用脑子去想
+
+
+
+            //以上的四步算是连接rabbitmq，后面的步骤是具体操作=》有这个认识是，心中有个架构图
+            //第四步：声明一个队列(queue) 此处的队列如果不声明的话，可能会有个坑，=》consumer是直接读队列的，如果先运行consumer的话，如果没有指定的队列存在会出错的
+            channel.QueueDeclare("mytopicqueue1", true, false, false, null);
+            channel.QueueDeclare("mytopicqueue2", true, false, false, null);
+
+
+            //如果是自定义exchange的话，需要把queue绑定到自定义的exchange上，容易出错，但如果是隐式的话，这些工作由rabbitmq默认完成了。
+            //也就是说在erlang的measia数据库中个，有一个路由表，有三个列 exchangename queuename routingkey ，bind就是向这张表插入一条数据，，供以后使用，
+            //此需求，必须实现自定义exchange， 默认的无法实现
+            //也说明了，自定义exchange，更灵活，可以实现更强大的功能
+            //此处有个问题：队列 exchange的声明，相互间的binding，应该是在管理端去完成，在publish端完成这个逻辑的绑定是不是不符合常理，也可以定义在消费端=》说明了无论publish consumer不仅仅是做publish和消费的工作，还是管理rabbitmq。=》主方向
+            //当然这些东西，能不在代码中实现，就不要在代码中实现
+            //潜在的一个问题：不要例子这样写，就认为全部都是这样=》找准主方向
+            //channel.QueueBind("log_else", "myexchange", "debug", null);//routingkey默认是队列名，那也可以自己定义=》可以自定义的这个特性，可以实现是什么功能呢
+            //channel.QueueBind("log_else", "myexchange", "info", null);
+            //channel.QueueBind("log_else", "myexchange", "warning", null);
+            //channel.QueueBind("log_error", "myexchange", "error", null);//一个consumer只消费一个queue，所以不关error=》当时我还想着如何在一个地方处理不同的情况呢？=》分析不清楚，=》逻辑过程没走，经验主义=>之前想的是一个consumer只处理一个queue，但此时只是定义，不是处理queue呀，所以说可以全部定义的，当然也可以在两个处理queue中分别去定义，绑定
+
+            //////优化版本
+            ////var attr = new string[]{ "debug", "info","warning" };
+            ////for (int i = 0; i < attr.Length; i++)
+            ////{
+            ////    channel.QueueBind("log_error", "myexchange",attr[i], null);/routingkey默认是队列名，那也可以自己定义=》可以自定义的这个特性，可以实现是什么功能呢
+
+            ////}
+            ////channel.QueueBind("log_error", "myexchange", "error", null);//一个consumer只消费一个queue，所以不关error=》理解有问题
+
+            //理解为什么定义两个队列，但consumer的话，就单独定义，比较好，消费那个，就定义那个，如此处consumer1消费myfanoutqueue1，就只定义myfanoutqueue1.
+            channel.QueueBind("mytopicqueue1", "mytopicexchange", "*.com", null);
+            channel.QueueBind("mytopicqueue2", "mytopicexchange", "*.cn", null);
+           
+
+
+            //主动获取
+            //var result = channel.BasicGet("mytest", true);
+            //var msg = Encoding.UTF8.GetString(result.Body);//result中有好多东西，相当于message的存储，
+
+            EventingBasicConsumer consumer = new EventingBasicConsumer(channel);
+            //consumer.Received += Consumer_Received;
+            consumer.Received += (sender, e) =>//匿名函数   e相当于restult，但是少了没有指定从哪个队列去获取数据
+            {
+                //获取msg
+                var msg = Encoding.UTF8.GetString(e.Body);
+
+                //只是我们此处的消费是把message输出，当然可以做其他操作。=》用脑子去想
+                Console.WriteLine(string.Format("我对message：{0},进行了消费，消费方式其实输出到控制台，当然有其他的方式", msg));
+            };
+
+            //定义了两个队列，单个consumer消费其中的一个队列，此时就不可以点击两次exe，充当两个consumer了。=>拒绝不加思考的就点击两次exe
+            channel.BasicConsume("mytopicqueue1", false, consumer);
+
+
+            Console.WriteLine("consumer端启动完成！！！");
+            Console.Read();//把进程拦住
+
+
+
 一：topic exchange
 
 1.direct：   提前预知性的binding....  info,eror,debug => exchange
