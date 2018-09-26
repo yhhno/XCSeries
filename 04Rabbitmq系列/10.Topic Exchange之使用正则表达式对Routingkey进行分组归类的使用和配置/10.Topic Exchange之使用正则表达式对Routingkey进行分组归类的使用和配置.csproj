@@ -49,6 +49,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="10rabbitmq交换机之topic.png" />
     <Content Include="QQ截图20161124094318.png" />
     <Content Include="10Point.txt" />
   </ItemGroup>

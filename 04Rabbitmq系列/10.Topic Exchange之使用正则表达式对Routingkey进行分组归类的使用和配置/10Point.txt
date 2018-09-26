@@ -65,6 +65,8 @@
  定义一个publish 启动，
  查看ui
 
+ 本节课的内容就讲完了，是不是很简单呢，
+ 至此四个交换机类型就讲完了
 
  publish代码
    ConnectionFactory connectionFactory = new ConnectionFactory
