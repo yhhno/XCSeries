@@ -50,6 +50,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="13Point.txt" />
+    <Content Include="截图\13rabbitmq之queuedeclare函数值arguments参数.png" />
+    <Content Include="截图\13rabbitmq之queuedeclare函数值arguments参数之message级别的messagettl01.png" />
+    <Content Include="截图\13rabbitmq之queuedeclare函数值arguments参数之message级别的messagettl02.png" />
+    <Content Include="截图\13rabbitmq之queuedeclare函数值arguments参数之queuettl01.png" />
+    <Content Include="截图\13rabbitmq之queuedeclare函数值arguments参数之queuettl02.png" />
+    <Content Include="截图\13rabbitmq之queuedeclare函数值arguments参数之queue级别的messagettl01.png" />
+    <Content Include="截图\13rabbitmq之queuedeclare函数值arguments参数之queue级别的messagettl02.png" />
+    <Content Include="截图\13rabbitmq之queuedeclare函数值arguments参数之最大容量01.png" />
+    <Content Include="截图\13rabbitmq之queuedeclare函数值arguments参数之最大容量02.png" />
+    <Content Include="截图\13rabbitmq之queuedeclare函数值arguments参数之最大容量03.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
