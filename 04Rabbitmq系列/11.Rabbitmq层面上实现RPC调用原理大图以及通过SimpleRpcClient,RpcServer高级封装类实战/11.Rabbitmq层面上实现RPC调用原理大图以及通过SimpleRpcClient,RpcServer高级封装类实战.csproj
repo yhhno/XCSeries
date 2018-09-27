@@ -49,6 +49,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="11client.png" />
+    <Content Include="11server.png" />
     <Content Include="QQ截图20161126125445.png" />
     <Content Include="11Point.txt" />
   </ItemGroup>

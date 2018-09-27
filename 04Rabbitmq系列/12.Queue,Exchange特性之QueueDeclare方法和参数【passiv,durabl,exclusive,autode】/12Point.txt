@@ -1,3 +1,127 @@
+最重要的就是情绪，心态。它在开始，它贯穿了始终。它影响其他
+缺少用脑子？=》如何纠正=》然后才是如何用脑子？
+缺少逻辑过程，老是经验主义
+一看到就怕？怕就不会进行下去了
+如何用脑子呢？无比自信的，情绪高昂的 时刻分析情况，看到本质，预想方案
+
+终极问题：怎么样的状况，我自己去学东西时能有这效果呢？=》是不是缺少个对一个事情真正认识的例子，作为对比。或者说是一个渐变的过程，不是有一个招式就可以了=》也类似于，我到底要掌握什么样的能力，=》才能像优秀的人一样，才能做好每一件事呢。=》我们根本就没有逻辑过程这个意识。=》心中事先没有个预想的过程。=》=》消除一开始的慌，预想下，然后参考某个例子，去进行，也就是说要有某个模式，不可能我些什么都是从零开始的把=》我跟这个课程学习，就是按照作者的标准来行事，也就是学习一个高标准=》为什么跟他学好简单，自己学好难哦=》是不是模式有问题，=》这些根本就不够，预想了内容，但是我们能自我去实现这些内容吗？=》也就是不知道该怎么进行，有了逻辑过程的念头，那逻辑过程怎么推进，傻了眼=》一个小小的问题，就可能引起了卡壳。 太脆弱了
+终极要求： 我不是靠着经验去做事的，去活的。  =》要用脑子去学，去做，去观察。=>如何用脑子呢？无比自信的，情绪高昂的 时刻分析情况，看到本质，预想方案
+疑问： 为什么跟他学好简单，自己学好难哦=》是不是模式有问题，
+问题：即便是跟着学习过一遍，还是独自没有仔细的走一遍逻辑过程 =》巨大的问题，当我课后自己去实践代码时，竟然毫无头绪不知道干什么？如何下手？=》什么原因造成的、
+
+我怎么忘了之前是多么的优秀呢？
+既然他没有很多新的概念，所以我就可以很快速的去完成，
+
+
+问题6：这就是http协议vs 之前接触http协议是什么样子呢？http和request，根本就没关联起来，这说明了什么?=>当时的学习方式有问题，非常片面，不系统，导致只是简单了解下，对底层知识这种程度的了解 怎么能去学习更高层次的知识呢？
+问题4：确实主方向，一次过程是这样的，一次publish是发布一个message，message是不是到了一个exchange，是，那一个exchange是不是把消息是不是发送给一个queue，不一定，那一个queue是不是只有一个consumer，不一定，其中，只有publish丢个消息，和设置好条件，其他的都是自动完成，=》就是用形成这样的认识，才透彻，当然是要在一个主方向的前提下了。=》当然实际过程是，多次publish=》
+问题4.1要扩展思维，不仅仅是在一个程序里处理所有东西。
+问题3:业务的分析，我怎么能分析出两条路呢。以及每条路是怎么走的呢？  这是个大学问？
+问题1：新东西，应该是新机制，好奇他到底是什么呢？ 当时是和direct是不同的，不然怎么新的呢？=》先缺少脑子，再缺少逻辑过程=》逻辑过程必须有个模式，必须要总结出来=>这个是学习的逻辑过程
+问题4.1不太理解， =》那就试着去理解，想想既然是解决了轮询，那轮询是干嘛的，是像服务器询问有消息不，而这是有消息有自动发送给你，就是queue发消息给你consumer=》虽然不太理解，但还是要尝试去理解的。=》找个方向点去理解
+问题6：命令行实时在心中，逻辑过程不可少，也说明了对reset理解不够，仅仅是格式化，格式化后是什么效果，实际是不清楚的，=这个是学习的逻辑过程有问题
+问题0：当时看到这里时，心里就充满了怕怕的，蒙的，不知道我自己要做什么了。
+问题1：一开始看到这段英文肯定是心里怕怕的，要做的就是战胜这种怕怕，去找个主方向，走一下逻辑过程，把它给了解透透的
+问题1.1 只有英文介绍，那英文阅读是不是很重要
+问题1：到现在，我们才讲到消息队列的本质，不是应该在第一节课就讲到吗？也就是在此之前，就一直不知道为何而奔跑。
+问题7： C#驱动有rpc的简单实现，=》我能不能从高层概念了解到最底层的逻辑过程？ 或者是能不能从很多信息中，总结出一个主方向，一个逻辑过程呢
+问题8：如何封装也是一个技巧，=》当我知道最底层的过程，能不能写出来，=》写出来能不能封装下，
+
+
+
+总结技巧=》或者是学习方法，就是要总结个模式，然后在去学习新东西时，如虎添翼。不然真的是讲到那个程度就学到那个程度。=>最终要形成各个思维导图，了然于胸，这样对特性了解清楚，才能结合业务，去实现业务呀
+0.心态情绪信念热情                                                            =》最重要
+0.切记经验主义，要不厌其烦的主方向+逻辑过程
+1.学习一个技术的目的也就是本质，如消息队列的本质是将同步系统异步化               =》主方向
+2.一个技术的脉络或者架构图 和实现的细节 如wcf的soa思想和binding的分类，和rabbitmq的架构图   =》逻辑过程
+3.这只是学习能力，最多是理解，往后的应用能力呢，更别说设计能力了啦，=》非常欠缺=》那欠缺的是什么呢？
+
+问题0：如果是我学些的话：看一篇文章，有实例的那种，也许会demo下，也许就收藏了，而且毫无感觉VS用脑子的，有感觉得进行：先概况和本质，再安装，再管理，再详解配置文件，连接rabbitmq，交换机机制direct之workqueue，交换机机制direct之routing，交换机机制fanout之发布订阅，交换机机制headers,交换机机制topic,rabbitmq层面实现rpc,queuedeclare函数详解=》他怎么就可以一步一步推进呢？
+
+
+
+
+
+问题0：amkp协议，把每个函数的定义都规定，忘了这件事，=>既然协议规定了每个函数，erlang去实现这个文档，而C#驱动是和ctl交互的，也就是说C#驱动也能操作rabbimq的方方面面，那C#驱动的文档是不是也应该有呢？
+问题1：应该把官网的文档给看透，看一遍，=》缺少这个过程。
+问题2：也就是解释了channel为什么存在？
+问题3：此处我们是去看注释，但是我们还可以去看文档呀，有时由于封装的存在，导致看的不是很清晰
+ 问题4：持久化，怎么去持久化，true和false有什么影响呢，如何实现呢？ 一个放到磁盘，一个放到内存中
+ 问题4.1其他的 如排外，自动删除，消极都是什么意思？
+ 问题4.2 这些东西的具体实现是如何实现的？
+问题6：由于封装的存在，在C#中的这个参数是不存在的，也就是封装的艺术
+
+
+
+问题0：amkp协议，把每个函数的定义都规定，忘了这件事，=>既然协议规定了每个函数，erlang去实现这个文档，而C#驱动是和ctl交互的，也就是说C#驱动也能操作rabbimq的方方面面，那C#驱动的文档是不是也应该有呢？
+问题1：应该把官网的文档给看透，看一遍，=》缺少这个过程。
+之前就讲到了amkp协议，把每个函数的定义都规定了，所以，如果我们要去查看函数的定义，可以找这个文档
+http://www.rabbitmq.com/releases/rabbitmq-dotnet-client/v3.6.6/rabbitmq-dotnet-client-3.6.6-client-htmldoc/html/type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.BasicConsume(System.String,System.Collections.IDictionary,RabbitMQ.Client.IBasicConsumer)
+其他地方找到的
+Name
+Durable (the queue will survive a broker restart)
+Exclusive (used by only one connection and the queue will be deleted when that connection closes)
+Auto-delete (queue is deleted when last consumer unsubscribes)
+Arguments (some brokers use it to implement additional features like message TTL)
+问题2：也就是解释了channel为什么存在？
+rabbitmq使用长连接的connection 【高成本，因为tcp的链接】：=> 在connection之上可以创建无数多的channel。。。。 【低成本】 一个线程来了就是创建一个channel，而不是connection 
+
+大家好 上节课给大家讲了如何利用rabbitmq来实现一个rpc的操作 对不对
+这节课呢， 我们来开始着重讲解一个queue特性
+我们之前讲到了通过QueueDeclare这个方法可以声明一个队列  对不对
+课程讲到现在我们都没有对QueueDeclare中的参数进行进一步的阐述 对不对
+问题3：此处我们是去看注释，但是我们还可以去看文档呀，有时由于封装的存在，导致看的不是很清晰
+首先，我们F12去看下，
+ public static QueueDeclareOk QueueDeclare(this IModel model, string queue = "", bool durable = false, bool exclusive = true, bool autoDelete = true, IDictionary<string, object> arguments = null);
+ 可以看到它是一个扩展方法
+ 然后我们来介绍下具体的参数
+ 问题4：持久化，怎么去持久化，true和false有什么影响呢，如何实现呢？ 一个放到磁盘，一个放到内存中
+ 问题4.1其他的 如排外，自动删除，消极都是什么意思？
+ 问题4.2 这些东西的具体实现是如何实现的？
+durable：持久化   
+
+       之前讲到了有  mnesia：数据库=》思考下=》 【有专门的表去保存我们的队列申明】 =》如果被保存，就被持久化了。。。=》此时机器重启了也没有问题，对吧，不然咋叫持久化
+	   我们实践下，演示下，首先我们不持久化，然后重启下服务器，看看有啥结果？=》看到已经声明的queue没有，
+	   这就是第一个参数的演示
+         
+
+exclusive ：排外  （队列有excl标识） 1. 当前定义的队列是connection中的channel是共享的，其他的connection是访问不到的。。。
+                   2. 当connection.close 的时候，queue被删除。。。
+				   如何实践？定义一个排外的queue，其他的connection去消费这个queue
+当其他connection访问这个队列时的错误信息
+其他信息: The AMQP operation was interrupted: AMQP close-reason, initiated by Peer, code=405, text="RESOURCE_LOCKED - cannot obtain exclusive access to locked queue 'mytest' in vhost '/'", classId=60, methodId=70, cause=
+                 
+
+autoDelete：自动删除: （有ad标识）[当前最后一个consumer断开之后，autodelete被触发。。。]
+
+问题6：由于封装的存在，在C#中的这个参数是不存在的，也就是封装的艺术
+passive：消极  由于封装的存在，在C#中的这个参数是不存在的，也就是封装的艺术
+
+arguments： 参数【功能非常强大】 基本上是ampq中没有的，，rabbitmq的一个扩展=》如何强大呢？ 强大意味着什么？
+
+2. QueueDeclareNoWait 队列申明无需等待 【async】 就是所谓的异步流程
+
+
+3. QueueDeclarePassive  消极的队列申明
+
+
+问题6：由于封装的存在，在C#中的这个参数是不存在的，也就是封装的艺术
+底层调用 基类的方法this.QueueDeclare(queue, true, false, false, false, null);
+
+
+=》 only check if it exists.   唯一的功效，检查队列是否存在。 
+此方法调用时
+如果队列不存在，抛出异常，   当然更好地操作是不让他跑异常
+如果队列存在，不做任何操作。。。
+
+关于队列的声明就三种
+
+然后我们再来看下exchange的声明方法
+有了上面的queue介绍，我们来看这个exchange是不是很简单
+
+
+
+
 一：queue
 
 http://www.rabbitmq.com/releases/rabbitmq-dotnet-client/v3.6.6/rabbitmq-dotnet-client-3.6.6-client-htmldoc/html/type-RabbitMQ.Client.IModel.html#method-M:RabbitMQ.Client.IModel.BasicConsume(System.String,System.Collections.IDictionary,RabbitMQ.Client.IBasicConsumer)
