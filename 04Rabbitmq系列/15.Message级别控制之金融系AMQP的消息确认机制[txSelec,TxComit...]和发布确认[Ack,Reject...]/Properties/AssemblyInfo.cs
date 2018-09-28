@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("15.Message级别控制之金融系AMQP的消息确认机制[txSelec,TxComit...]和发布确认[Ack,Reject...]")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("19da281b-0bed-45ed-a6f6-ad26fc2bb956")]
+[assembly: Guid("c6d4da62-e8de-4d9d-8f5a-cd5ecf85a5d4")]
 
 // 程序集的版本信息由下列四个值组成: 
 //

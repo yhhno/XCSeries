@@ -51,6 +51,14 @@
   <ItemGroup>
     <Content Include="QQ截图20161126222735.png" />
     <Content Include="14Point.txt" />
+    <Content Include="截图\14rabbitmq之arguments之y优先级.png" />
+    <Content Include="截图\14rabbitmq之arguments之y优先级01.png" />
+    <Content Include="截图\14rabbitmq之arguments之y优先级01ui.png" />
+    <Content Include="截图\14rabbitmq之arguments之y优先级ui.png" />
+    <Content Include="截图\14rabbitmq之arguments之死信consumer.png" />
+    <Content Include="截图\14rabbitmq之arguments之死信publish.png" />
+    <Content Include="截图\14rabbitmq之arguments之死信启动UI.png" />
+    <Content Include="截图\14rabbitmq之arguments之死信启动结果.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
