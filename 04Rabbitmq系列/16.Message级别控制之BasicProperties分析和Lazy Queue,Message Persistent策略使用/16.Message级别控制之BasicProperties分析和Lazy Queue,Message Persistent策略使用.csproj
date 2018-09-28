@@ -50,6 +50,22 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="16Point.txt" />
+    <Content Include="截图\16rabbitmq之default queue+disk01.png" />
+    <Content Include="截图\16rabbitmq之default queue+disk02.png" />
+    <Content Include="截图\16rabbitmq之default queue+inmemory01.png" />
+    <Content Include="截图\16rabbitmq之default queue+inmemory02.png" />
+    <Content Include="截图\16rabbitmq之default queue+inmemory03.png" />
+    <Content Include="截图\16rabbitmq之default queue+inmemory04.png" />
+    <Content Include="截图\16rabbitmq之lazy queue+disk01.png" />
+    <Content Include="截图\16rabbitmq之lazy queue+disk02.png" />
+    <Content Include="截图\16rabbitmq之lazy queue+inmemory01.png" />
+    <Content Include="截图\16rabbitmq之lazy queue+inmemory02.png" />
+    <Content Include="截图\16rabbitmq之lazy queue+inmemory03.png" />
+    <Content Include="截图\16rabbitmq之lazy queue+inmemory04.png" />
+    <Content Include="截图\16rabbitmq之lazy queue.png" />
+    <Content Include="截图\16rabbitmq之lazy queue之connnectionblocked事件.png" />
+    <Content Include="截图\16rabbitmq之message持久化.png" />
+    <Content Include="截图\16rabbitmq之message持久化ui.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
