@@ -456,7 +456,7 @@ namespace Publish
 
             //发布确认  confirm机制
             channel.ConfirmSelect();
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 1000000; i++)
             {
 
                 var msg = Encoding.UTF8.GetBytes(string.Format("{0}+{1}", i, "你好")); //因为我们要生成byte数组
@@ -465,38 +465,38 @@ namespace Publish
 
                 //以上的四步算是连接rabbitmq，后面的步骤是具体操作  =》有这个认识是，心中有个架构图
                 //第五步：发布消息   发布消息都用basic前缀=》先推个交换机，后续工作，交换机完成，如把消息推到指定的队列中
-                //channel.BasicPublish(string.Empty, "mytest", null, msg);
-                channel.BasicPublish(string.Empty, routingKey: string.Empty, basicProperties: null, body: msg);
+                channel.BasicPublish(string.Empty, "mytest15", null, msg);
+                //channel.BasicPublish(string.Empty, routingKey: string.Empty, basicProperties: null, body: msg);
             }
             var isallpublished = channel.WaitForConfirms();
 
 
 
-            try
-            {
-                //发布确认。tx机制
-                channel.TxSelect();
-                for (int i = 0; i < 100; i++)
-                {
+            //try
+            //{
+            //    //发布确认。tx机制
+            //    channel.TxSelect();
+            //    for (int i = 0; i < 100; i++)
+            //    {
 
-                    var msg = Encoding.UTF8.GetBytes(string.Format("{0}+{1}", i, "你好")); //因为我们要生成byte数组
+            //        var msg = Encoding.UTF8.GetBytes(string.Format("{0}+{1}", i, "你好")); //因为我们要生成byte数组
 
-                    //str3 = i % 2 == 0 ? str1 : str2;
+            //        //str3 = i % 2 == 0 ? str1 : str2;
 
-                    //以上的四步算是连接rabbitmq，后面的步骤是具体操作  =》有这个认识是，心中有个架构图
-                    //第五步：发布消息   发布消息都用basic前缀=》先推个交换机，后续工作，交换机完成，如把消息推到指定的队列中
-                    //channel.BasicPublish(string.Empty, "mytest", null, msg);
-                    channel.BasicPublish(string.Empty, routingKey: string.Empty, basicProperties: null, body: msg);
-                }
+            //        //以上的四步算是连接rabbitmq，后面的步骤是具体操作  =》有这个认识是，心中有个架构图
+            //        //第五步：发布消息   发布消息都用basic前缀=》先推个交换机，后续工作，交换机完成，如把消息推到指定的队列中
+            //        //channel.BasicPublish(string.Empty, "mytest", null, msg);
+            //        channel.BasicPublish(string.Empty, routingKey: string.Empty, basicProperties: null, body: msg);
+            //    }
 
-              channel.TxCommit();//如果不提交，操作没有执行
-            }
-            catch (Exception)
-            {
+            //  channel.TxCommit();//如果不提交，操作没有执行
+            //}
+            //catch (Exception)
+            //{
 
-                channel.TxRollback();//失败了了回滚
-            }
-            
+            //    channel.TxRollback();//失败了了回滚
+            //}
+
 
             Console.Read();//拦住这个进程。
                            //为啥不释放，释放了ui中就看不到了

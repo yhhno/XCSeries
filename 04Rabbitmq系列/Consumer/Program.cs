@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Consumer
@@ -490,23 +491,29 @@ namespace Consumer
             //channel.BasicConsume("mytest15", false, consumer);
 
 
-            //自动确认
-            //var result = channel.BasicGet("mytest15", true);//true  表示自动确认  false的话，虽然也会拿到message，但是queue的message不会被删除，确保消息一定是万无一失的，
-
-            //手工确认
-            var result = channel.BasicGet("mytest15", false);//true  表示自动确认  false的话，虽然也会拿到message，但是queue的message不会被删除，确保消息一定是万无一失的，
-            //其他的逻辑 也就是对message进行消费
-            //channel.BasicAck(result.DeliveryTag, false);//手工确认
-
-            channel.BasicReject(result.DeliveryTag, false);//单个手工拒绝，requeue为false为直接丢掉，，requeue为true时，把message给queue，queue重新发消息给consumer
-            channel.BasicNack(result.DeliveryTag, true, false);//批量手工拒绝，requeue为false为直接丢掉，，requeue为true时，把message给queue，queue重新发消息给consumer
-
-            //重新投递，重新投递后，要重新获取
-            channel.BasicRecover(false);//requeue为false时，重新投递给本consumer，true时，由queue重新发送给consumer，不一定是本consumer
-            result = channel.BasicGet("mytest15", false);//true  表示自动确认  false的话，虽然也会拿到message，但是queue的message不会被删除，确保消息一定是万无一失的，
 
 
-            var msg1 = Encoding.UTF8.GetString(result.Body);//result中有好多东西，相当于message的存储，
+
+
+
+            ////自动确认
+            ////var result = channel.BasicGet("mytest15", true);//true  表示自动确认  false的话，虽然也会拿到message，但是queue的message不会被删除，确保消息一定是万无一失的，
+
+            ////手工确认
+            //var result = channel.BasicGet("mytest15", false);//true  表示自动确认  false的话，虽然也会拿到message，但是queue的message不会被删除，确保消息一定是万无一失的，
+            ////其他的逻辑 也就是对message进行消费
+            ////channel.BasicAck(result.DeliveryTag, false);//手工确认
+
+            //channel.BasicReject(result.DeliveryTag, false);//单个手工拒绝，requeue为false为直接丢掉，，requeue为true时，把message给queue，queue重新发消息给consumer
+            //channel.BasicNack(result.DeliveryTag, true, false);//批量手工拒绝，requeue为false为直接丢掉，，requeue为true时，把message给queue，queue重新发消息给consumer
+
+            ////重新投递，重新投递后，要重新获取
+            //channel.BasicRecover(false);//requeue为false时，重新投递给本consumer，true时，由queue重新发送给consumer，不一定是本consumer
+            //result = channel.BasicGet("mytest15", false);//true  表示自动确认  false的话，虽然也会拿到message，但是queue的message不会被删除，确保消息一定是万无一失的，
+            //var msg1 = Encoding.UTF8.GetString(result.Body);//result中有好多东西，相当于message的存储，
+
+
+
 
             EventingBasicConsumer consumer = new EventingBasicConsumer(channel);
             //consumer.Received += Consumer_Received;
@@ -516,21 +523,22 @@ namespace Consumer
                 var msg = Encoding.UTF8.GetString(e.Body);
 
                 //只是我们此处的消费是把message输出，当然可以做其他操作。=》用脑子去想
-                Console.WriteLine(string.Format("我对message：{0},进行了消费，消费方式其实输出到控制台，当然有其他的方式", msg));
+                //Console.WriteLine(string.Format("我对message：{0},进行了消费，消费方式其实输出到控制台，当然有其他的方式", msg));
+             
 
-                //或者其他的逻辑 也就是对message进行消费
+                ////或者其他的逻辑 也就是对message进行消费
 
-                channel.BasicReject(e.DeliveryTag, false);//单个手工拒绝，requeue为false为直接丢掉，，requeue为true时，把message给queue，queue重新发消息给consumer
-                channel.BasicNack(e.DeliveryTag, true, false);//批量手工拒绝，requeue为false为直接丢掉，，requeue为true时，把message给queue，queue重新发消息给consumer
+                //channel.BasicReject(e.DeliveryTag, false);//单个手工拒绝，requeue为false为直接丢掉，，requeue为true时，把message给queue，queue重新发消息给consumer
+                //channel.BasicNack(e.DeliveryTag, true, false);//批量手工拒绝，requeue为false为直接丢掉，，requeue为true时，把message给queue，queue重新发消息给consumer
 
-                //重新投递，重新投递后，要重新获取
-                channel.BasicRecover(false);//requeue为false时，重新投递给本consumer，true时，由queue重新发送给consumer，不一定是本consumer
-                result1 = channel.BasicGet("mytest15", false);//true  表示自动确认  false的话，虽然也会拿到message，但是queue的message不会被删除，确保消息
+                ////重新投递，重新投递后，要重新获取
+                //channel.BasicRecover(false);//requeue为false时，重新投递给本consumer，true时，由queue重新发送给consumer，不一定是本consumer
+                //result= channel.BasicGet("mytest15", false);//true  表示自动确认  false的话，虽然也会拿到message，但是queue的message不会被删除，确保消息
 
             };
 
             //定义了两个队列，单个consumer消费其中的一个队列，此时就不可以点击两次exe，充当两个consumer了。=>拒绝不加思考的就点击两次exe
-            channel.BasicConsume("mytest15", false, consumer);
+            channel.BasicConsume("mytest15", true, consumer);
 
 
             Console.WriteLine("consumer端启动完成！！！");
