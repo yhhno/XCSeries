@@ -50,6 +50,28 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="18Point.txt" />
+    <Content Include="截图\18rabbitmq运维之搭建集群01.png" />
+    <Content Include="截图\18rabbitmq运维之搭建集群02.png" />
+    <Content Include="截图\18rabbitmq运维之搭建集群03.png" />
+    <Content Include="截图\18rabbitmq运维之搭建集群04.png" />
+    <Content Include="截图\18rabbitmq运维之搭建集群05.png" />
+    <Content Include="截图\18rabbitmq运维之搭建集群06.png" />
+    <Content Include="截图\18rabbitmq运维之搭建集群07.png" />
+    <Content Include="截图\18rabbitmq运维之搭建集群08.png" />
+    <Content Include="截图\18rabbitmq运维之搭建集群09.png" />
+    <Content Include="截图\18rabbitmq运维之搭建集群10.png" />
+    <Content Include="截图\18rabbitmq运维之搭建集群11.png" />
+    <Content Include="截图\18rabbitmq运维之搭建集群12.png" />
+    <Content Include="截图\18rabbitmq运维之搭建集群13.png" />
+    <Content Include="截图\18rabbitmq运维之搭建集群14.png" />
+    <Content Include="截图\18rabbitmq运维之搭建集群15.png" />
+    <Content Include="截图\18rabbitmq运维之搭建集群16.png" />
+    <Content Include="截图\18rabbitmq运维之搭建集群17.png" />
+    <Content Include="截图\18rabbitmq运维之搭建集群18.png" />
+    <Content Include="截图\18rabbitmq运维之搭建集群19.png" />
+    <Content Include="截图\18rabbitmq运维之搭建集群20.png" />
+    <Content Include="截图\18rabbitmq运维之搭建集群21.png" />
+    <Content Include="截图\18rabbitmq运维之搭建集群22.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
