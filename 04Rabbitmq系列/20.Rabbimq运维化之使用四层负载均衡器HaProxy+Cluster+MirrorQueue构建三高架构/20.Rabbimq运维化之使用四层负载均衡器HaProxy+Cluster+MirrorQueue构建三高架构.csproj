@@ -52,6 +52,26 @@
   <ItemGroup>
     <Content Include="QQ截图20161128211918.png" />
     <Content Include="20Point.txt" />
+    <Content Include="截图\20rabbitmq运维化之负载均衡器haproxy01.png" />
+    <Content Include="截图\20rabbitmq运维化之负载均衡器haproxy02.png" />
+    <Content Include="截图\20rabbitmq运维化之负载均衡器haproxy03.png" />
+    <Content Include="截图\20rabbitmq运维化之负载均衡器haproxy04.png" />
+    <Content Include="截图\20rabbitmq运维化之负载均衡器haproxy05.png" />
+    <Content Include="截图\20rabbitmq运维化之负载均衡器haproxy06.png" />
+    <Content Include="截图\20rabbitmq运维化之负载均衡器haproxy07.png" />
+    <Content Include="截图\20rabbitmq运维化之负载均衡器haproxy08.png" />
+    <Content Include="截图\20rabbitmq运维化之负载均衡器haproxy09.png" />
+    <Content Include="截图\20rabbitmq运维化之负载均衡器haproxy10.png" />
+    <Content Include="截图\20rabbitmq运维化之负载均衡器haproxy11.png" />
+    <Content Include="截图\20rabbitmq运维化之负载均衡器haproxy12.png" />
+    <Content Include="截图\20rabbitmq运维化之负载均衡器haproxy13.png" />
+    <Content Include="截图\20rabbitmq运维化之负载均衡器haproxy14.png" />
+    <Content Include="截图\20rabbitmq运维化之负载均衡器haproxy15.png" />
+    <Content Include="截图\20rabbitmq运维化之负载均衡器haproxy16.png" />
+    <Content Include="截图\20rabbitmq运维化之负载均衡器haproxy17.png" />
+    <Content Include="截图\20rabbitmq运维化之负载均衡器haproxy18.png" />
+    <Content Include="截图\20rabbitmq运维化之负载均衡器haproxy19.png" />
+    <Content Include="截图\20rabbitmq运维化之负载均衡器haproxy20.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
